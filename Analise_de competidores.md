@@ -4,207 +4,141 @@
 
 ### Descrição do funcionamento
 
-A Mangue Tech trabalha com gestão de ESG e sustentabilidade voltada para empresas, tendo uma solução específica para o setor de varejo.
+A Mangue Tech trabalha com soluções de sustentabilidade e ESG para empresas. No caso do varejo, a plataforma ajuda a organizar informações sobre fornecedores, produtos, logística, resíduos e emissões.
 
-A plataforma centraliza dados da operação, calcula indicadores de emissões e permite acompanhar informações relacionadas a fornecedores, logística, embalagens, resíduos e produtos. A empresa também oferece consultoria junto com a plataforma.
-
-No varejo, a Mangue dá bastante atenção ao Escopo 3, que envolve boa parte da cadeia de fornecedores e logística. A plataforma também permite calcular a pegada de carbono de produtos e acompanhar informações por SKU. :contentReference[oaicite:0]{index=0}
+A empresa também trabalha com cálculo de carbono e permite acompanhar os dados da operação por meio de indicadores e dashboards. A plataforma pode ser integrada a outros sistemas usados pela empresa.
 
 ### Pontos fortes
 
-- Possui uma solução específica para o varejo.
-- Trabalha com cadeia de fornecedores e logística.
-- Permite acompanhar emissões de diferentes etapas da operação.
-- Possui cálculo de pegada de carbono por produto ou categoria.
-- Centraliza dados que normalmente ficariam espalhados em planilhas.
-- Possui dashboards e indicadores.
-- Integra com sistemas como ERP e APIs.
-- Une plataforma e consultoria.
-- Trabalha com diversos padrões e frameworks de sustentabilidade. :contentReference[oaicite:1]{index=1}
+- Tem uma solução voltada para o varejo.
+- Trabalha com fornecedores e cadeia de produção.
+- Dá atenção para logística e emissões.
+- Permite acompanhar a pegada de carbono dos produtos.
+- Possui dashboards para acompanhar os dados.
+- Pode ser integrada a outros sistemas.
 
 ### Pontos fracos
 
-- A solução é bastante voltada para empresas que já possuem uma estrutura de gestão ESG.
-- A quantidade de indicadores, normas e informações pode dificultar o entendimento para pequenos e-commerces.
-- O foco é muito forte em dados, emissões, auditoria e conformidade.
-- Pode faltar uma abordagem mais simples para explicar ao dono de um pequeno e-commerce como começar a aplicar ESG no dia a dia.
-
-### Oportunidade para o nosso projeto
-
-A Mangue mostra que existe uma preocupação forte com os impactos da cadeia de varejo. Porém, existe espaço para criar uma experiência mais simples e educativa para pequenos e-commerces que ainda não possuem uma equipe especializada em ESG.
-
+- Pode ser complicada para empresas pequenas que estão começando no ESG.
+- Tem bastante foco em dados e indicadores.
+- Alguns conceitos utilizados exigem conhecimento sobre sustentabilidade.
+- Não é tão voltada para ensinar ESG para quem ainda não conhece o assunto.
 
 ---
 
-# 2. Carbonova
+## 2. Carbonova
 
 ### Descrição do funcionamento
 
-A Carbonova possui o CarbonOS, uma plataforma de gestão de carbono voltada para o varejo.
+A Carbonova possui uma plataforma chamada CarbonOS, que é voltada para a gestão de carbono no varejo.
 
-A ferramenta acompanha dados de lojas, centros de distribuição, frotas e logística. Também permite analisar as emissões por loja, canal e até por SKU.
+A ferramenta reúne informações sobre lojas, centros de distribuição, transporte e logística. Também permite analisar as emissões de acordo com produtos e SKUs.
 
-O sistema utiliza inteligência artificial e integra informações da operação para ajudar a empresa a identificar emissões e oportunidades de redução. A plataforma também trabalha com inventários de emissões, eficiência energética, rastreabilidade de produtos e logística sustentável. :contentReference[oaicite:2]{index=2}
+A empresa utiliza os dados coletados para ajudar a identificar onde estão os maiores impactos e onde é possível diminuir as emissões.
 
 ### Pontos fortes
 
-- Possui foco direto no varejo.
-- Trabalha com emissões de carbono.
-- Permite acompanhar informações por produto/SKU.
-- Considera logística e entrega.
-- Analisa consumo de energia.
+- Foco no setor de varejo.
+- Trabalha diretamente com emissão de carbono.
+- Permite analisar produtos individualmente.
+- Considera transporte e logística.
 - Utiliza inteligência artificial.
-- Pode ser integrada a sistemas já utilizados pela empresa.
-- Ajuda a transformar dados de carbono em decisões operacionais. :contentReference[oaicite:3]{index=3}
+- Ajuda a empresa a identificar pontos que podem ser melhorados.
 
 ### Pontos fracos
 
-- O foco é principalmente ambiental, especialmente carbono.
-- ESG envolve também questões sociais e de governança, que não são o principal foco da solução.
-- Pode ser uma ferramenta avançada demais para pequenos e-commerces.
-- A linguagem utilizada pode exigir conhecimento prévio sobre emissões e sustentabilidade.
-- A solução parece mais adequada para operações maiores e estruturadas.
-
-### Oportunidade para o nosso projeto
-
-A Carbonova mostra como os dados ambientais podem ser utilizados para melhorar a operação do varejo. O projeto de vocês pode aproveitar essa ideia, mas trazer uma abordagem mais simples e abrangente, mostrando também os lados **social e de governança** do ESG.
-
+- O foco é principalmente ambiental.
+- Não trabalha ESG de forma tão ampla, principalmente nos aspectos sociais e de governança.
+- Pode ser uma solução mais adequada para empresas maiores.
+- Pode ser difícil para um pequeno e-commerce entender e utilizar todos os recursos.
 
 ---
 
-# 3. Sebrae — Crescimento Sustentável
+## 3. Sebrae — Crescimento Sustentável
 
 ### Descrição do funcionamento
 
-O Sebrae possui a plataforma Crescimento Sustentável, criada para apoiar micro e pequenas empresas.
+O Sebrae possui uma plataforma de Crescimento Sustentável voltada para pequenos negócios.
 
-A plataforma combina ferramentas de gestão, inteligência artificial, marketing e sustentabilidade. O empreendedor pode cadastrar sua empresa, responder perguntas sobre o negócio e receber recomendações.
+O empreendedor cadastra a empresa e responde algumas perguntas sobre o negócio. A partir das respostas, a plataforma apresenta informações e recomendações sobre sustentabilidade.
 
-Na parte de sustentabilidade, a plataforma trabalha com um diagnóstico e um caminho para conquistar o Selo de Sustentabilidade Sebrae. Entre os exemplos de práticas avaliadas estão economia de energia, cuidado com funcionários, separação de resíduos e utilização de fornecedores locais. :contentReference[oaicite:4]{index=4}
+Também existe um diagnóstico e um caminho para conseguir o Selo de Sustentabilidade Sebrae.
 
 ### Pontos fortes
 
-- Foco em micro e pequenas empresas.
-- Linguagem mais próxima do pequeno empreendedor.
-- Processo de cadastro simples.
+- É voltado para pequenos negócios.
+- Tem uma linguagem mais simples.
+- Possui diagnóstico.
 - Utiliza inteligência artificial.
-- Possui diagnóstico personalizado.
-- Oferece um Selo de Sustentabilidade.
-- Relaciona sustentabilidade com crescimento do negócio.
-- Possui suporte e conteúdos do próprio Sebrae.
-- Mostra práticas simples que podem ser aplicadas no dia a dia. :contentReference[oaicite:5]{index=5}
+- Apresenta recomendações para a empresa.
+- Possui o Selo de Sustentabilidade.
+- Relaciona sustentabilidade com o crescimento do negócio.
 
 ### Pontos fracos
 
-- Não é uma solução criada especificamente para e-commerce.
-- O foco é mais geral, atendendo diferentes tipos de pequenos negócios.
-- Não possui o mesmo nível de detalhamento de ferramentas voltadas para carbono, logística ou cadeia de fornecedores.
-- Pode faltar uma análise específica dos impactos de uma operação de comércio eletrônico.
-
-### Oportunidade para o nosso projeto
-
-O Sebrae é uma boa referência na questão de **simplificar ESG para pequenos negócios**.
-
-A oportunidade seria pegar essa facilidade e adaptar para a realidade do e-commerce, mostrando situações específicas como:
-
-- Embalagens;
-- Entregas;
-- Logística reversa;
-- Consumo de energia;
-- Fornecedores;
-- Desperdício;
-- Experiência do consumidor;
-- Inclusão e acessibilidade.
-
+- Não é específico para e-commerce.
+- As recomendações são mais gerais.
+- Não entra muito em problemas específicos de lojas virtuais.
+- Não possui um foco tão grande em logística, embalagens e entregas.
 
 ---
 
-# 4. Paresi
+## 4. Paresi
 
 ### Descrição do funcionamento
 
-A Paresi é uma plataforma digital de gestão ESG voltada principalmente para pequenas e médias empresas.
+A Paresi é uma plataforma de gestão ESG voltada principalmente para pequenas e médias empresas.
 
-O funcionamento começa pela coleta das informações da empresa. Depois, os dados são organizados em indicadores e relacionados a referências como GRI e ODS.
+A empresa cadastra suas informações e acompanha os resultados por meio de indicadores e dashboards. A plataforma trabalha com referências como GRI e ODS e também possui recursos de inteligência artificial.
 
-A plataforma possui dashboards, metas, alertas e recursos de inteligência artificial para analisar os dados e apresentar recomendações. Também permite guardar evidências e acompanhar a evolução dos indicadores. :contentReference[oaicite:6]{index=6}
+É possível acompanhar metas, guardar evidências e visualizar a evolução dos indicadores.
 
 ### Pontos fortes
 
 - Foco em pequenas e médias empresas.
-- Possui plano gratuito para começar.
-- Utiliza dashboards.
-- Trabalha com indicadores GRI e ODS.
-- Possui inteligência artificial.
+- Possui dashboards.
+- Utiliza inteligência artificial.
+- Trabalha com GRI e ODS.
 - Permite acompanhar metas.
+- Organiza as informações ESG em um só lugar.
 - Possui indicadores ambientais e sociais.
-- Permite guardar evidências.
-- Possui benchmark com dados de fontes oficiais brasileiras.
-- Possui gestão de resíduos e inventário de emissões. :contentReference[oaicite:7]{index=7}
-
-### Pontos fracos
-
-- Não é focada especificamente em e-commerce.
-- A plataforma é muito voltada para indicadores e gestão de dados.
-- Para alguém que ainda não entende ESG, a quantidade de indicadores pode parecer complicada.
-- O sistema ajuda a medir e organizar, mas não necessariamente mostra de forma simples como aplicar ESG dentro de uma operação de e-commerce.
-- A própria plataforma informa que seu foco é a gestão e visualização dos dados, não a execução direta dos projetos. :contentReference[oaicite:8]{index=8}
-
-### Oportunidade para o nosso projeto
-
-A Paresi é uma boa referência de como transformar ESG em dados e indicadores.
-
-O diferencial do projeto pode ser transformar esses indicadores em **ações práticas específicas para o e-commerce**, explicando para o usuário o que ele pode fazer e qual impacto aquela ação gera.
-
-
----
-
-# 5. Jornada da Sustentabilidade
-
-### Descrição do funcionamento
-
-A Jornada da Sustentabilidade é uma plataforma voltada para PMEs que querem começar ou desenvolver sua jornada ESG.
-
-O processo começa com um diagnóstico. A empresa responde a um questionário e recebe um resultado sobre sua situação atual. A plataforma também oferece um score ESG, plano de ação, dashboard e conteúdos educativos.
-
-Além disso, possui recursos de benchmarking, marketplace, networking e certificação. :contentReference[oaicite:9]{index=9}
-
-### Pontos fortes
-
-- Criada pensando em PMEs.
-- Possui diagnóstico inicial.
-- Apresenta um score ESG.
-- Cria plano de ação.
-- Possui dashboard.
-- Oferece conteúdos educativos.
-- Possui benchmarking.
-- Possui certificação.
-- Reúne várias etapas da jornada ESG em uma plataforma. :contentReference[oaicite:10]{index=10}
 
 ### Pontos fracos
 
 - Não é específica para e-commerce.
-- Possui muitas funcionalidades diferentes.
-- A quantidade de metodologias e referências pode confundir quem está começando.
-- O usuário ainda precisa entender alguns conceitos de ESG para aproveitar melhor a plataforma.
-- Não possui um foco tão específico em problemas do comércio eletrônico, como embalagem, entrega e logística reversa.
+- A quantidade de indicadores pode confundir quem está começando.
+- É bastante focada em dados.
+- Pode ser necessário ter algum conhecimento de ESG para aproveitar melhor a plataforma.
+- Não mostra de forma tão específica como aplicar ESG em uma loja virtual.
 
-### Oportunidade para o nosso projeto
+---
 
-A principal oportunidade está em criar uma jornada mais direcionada.
+## 5. Jornada da Sustentabilidade
 
-Em vez de apresentar ESG de forma geral, o projeto pode mostrar para o empreendedor:
+### Descrição do funcionamento
 
-> "Você possui um e-commerce. Quais práticas ESG fazem sentido para o seu negócio?"
+A Jornada da Sustentabilidade é uma plataforma criada para ajudar pequenas e médias empresas a trabalhar com ESG.
 
-A partir disso, a plataforma poderia recomendar ações específicas de acordo com o tamanho, tipo de produto e operação da empresa.
+Primeiro, a empresa passa por um diagnóstico. Depois, recebe um resultado sobre sua situação e pode montar um plano de ação.
 
+A plataforma também possui dashboard, conteúdos sobre ESG, benchmarking e certificação.
 
+### Pontos fortes
 
-Dessa forma, o ESG deixa de ser apresentado apenas como uma obrigação e passa a ser mostrado como uma forma de **melhorar o próprio negócio**.
+- Foco em PMEs.
+- Possui diagnóstico.
+- Apresenta um score ESG.
+- Possui plano de ação.
+- Tem conteúdos educativos.
+- Possui benchmarking.
+- Oferece certificação.
 
-## Principal oportunidade encontrada
+### Pontos fracos
 
-> **Simplificar o ESG para o pequeno e-commerce, transformando conceitos e indicadores em ações práticas que o empreendedor consiga entender, aplicar e acompanhar.**
+- Não é focada especificamente em e-commerce.
+- Possui muitas funcionalidades.
+- Pode parecer complicada para quem está começando.
+- Trabalha com vários conceitos e metodologias de ESG.
+- Não aborda tanto situações específicas de um e-commerce, como embalagens, entregas e logística reversa.
 
-Esse pode ser um dos principais diferenciais do projeto de vocês em relação às soluções analisadas.
+---
