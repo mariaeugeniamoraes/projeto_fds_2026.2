@@ -142,7 +142,8 @@ A plataforma também possui dashboard, conteúdos sobre ESG, benchmarking e cert
 - Não aborda tanto situações específicas de um e-commerce, como embalagens, entregas e logística reversa.
 
 ---
-![Benchmarking ESG para E-commerce](benchmarking_esg_ecommerce_full_hd.png)
+### Benchmark
+![Benchmark do projeto por meio da ánalise dos competidores]((https://ibb.co/1YCg63rv))
 
 ---
 # Requisitos do Novo Produto
