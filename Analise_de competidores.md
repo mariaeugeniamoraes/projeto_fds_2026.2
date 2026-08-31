@@ -143,7 +143,8 @@ A plataforma também possui dashboard, conteúdos sobre ESG, benchmarking e cert
 
 ---
 ### Benchmark
-![Benchmark do projeto por meio da ánalise dos competidores]((https://ibb.co/1YCg63rv))
+
+![Benchmark do projeto por meio da análise dos competidores](https://i.ibb.co/Ng0vSX9V/benchmarking-esg-ecommerce-full-hd.png)
 
 ---
 # Requisitos do Novo Produto
