@@ -143,3 +143,22 @@ A plataforma também possui dashboard, conteúdos sobre ESG, benchmarking e cert
 
 ---
 ![Benchmarking ESG para E-commerce](benchmarking_esg_ecommerce_full_hd.png)
+
+---
+# Requisitos do Novo Produto
+
+## 1. Diagnóstico ESG específico para e-commerce
+
+O sistema deve realizar um diagnóstico considerando as características de cada e-commerce, como tipo de produto, quantidade de pedidos, embalagens, fornecedores, entregas e logística.
+
+## 2. Recomendações personalizadas
+
+Após o diagnóstico, o sistema deve apresentar recomendações de ações ESG de acordo com a realidade de cada empresa, indicando quais ações devem ser priorizadas.
+
+## 3. Acompanhamento de indicadores ESG
+
+O sistema deve permitir acompanhar indicadores ambientais, sociais e de governança, mostrando de forma simples a evolução da empresa ao longo do tempo.
+
+## 4. Criação e acompanhamento de metas
+
+O usuário deve poder criar metas ESG, definir prazos e acompanhar o progresso das ações realizadas pela empresa.
