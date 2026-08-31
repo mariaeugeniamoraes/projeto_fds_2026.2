@@ -200,42 +200,6 @@ Em vez de apresentar ESG de forma geral, o projeto pode mostrar para o empreende
 A partir disso, a plataforma poderia recomendar ações específicas de acordo com o tamanho, tipo de produto e operação da empresa.
 
 
----
-
-# Comparação dos concorrentes
-
-| Concorrente | Principal foco | Relação com e-commerce | Pontos fortes | Pontos fracos |
-|---|---|---|---|---|
-| **Mangue Tech** | Gestão ESG e carbono | Alta | Supply chain, logística, emissões e pegada de produto | Mais complexa para pequenos negócios |
-| **Carbonova** | Gestão de carbono no varejo | Alta | Carbono por loja, canal e SKU, logística e IA | Foco maior no ambiental |
-| **Sebrae** | Sustentabilidade para pequenos negócios | Média | Simplicidade, IA, diagnóstico e selo | Não é específico para e-commerce |
-| **Paresi** | Gestão de indicadores ESG | Média | Dashboards, IA, GRI, ODS e indicadores | Pode ser complexa para iniciantes |
-| **Jornada da Sustentabilidade** | Jornada ESG para PMEs | Média | Diagnóstico, score, plano de ação e conteúdos | Pouco específica para e-commerce |
-
----
-
-# Conclusão do Benchmarking
-
-A análise mostra que existem diferentes soluções relacionadas à sustentabilidade e ESG, mas cada uma possui um foco diferente.
-
-A **Mangue Tech** e a **Carbonova** são as que possuem maior relação com o varejo, principalmente em questões como carbono, logística, fornecedores e produtos. Já a **Paresi**, a **Jornada da Sustentabilidade** e o **Sebrae** possuem uma abordagem mais voltada para ajudar PMEs a entender e organizar suas práticas de sustentabilidade. :contentReference[oaicite:11]{index=11}
-
-Para um projeto focado em **e-commerces**, existe uma oportunidade interessante de juntar essas duas abordagens.
-
-O projeto pode ter uma linguagem mais simples, mostrando que ESG não precisa começar com relatórios complicados ou dezenas de indicadores.
-
-A ideia pode ser transformar situações comuns de um e-commerce em oportunidades de ESG, como:
-
-- Escolha de embalagens;
-- Redução de desperdícios;
-- Logística e entregas;
-- Logística reversa;
-- Escolha de fornecedores;
-- Consumo de energia;
-- Uso de materiais recicláveis;
-- Acessibilidade da loja virtual;
-- Relação com funcionários;
-- Transparência com o consumidor.
 
 Dessa forma, o ESG deixa de ser apresentado apenas como uma obrigação e passa a ser mostrado como uma forma de **melhorar o próprio negócio**.
 
