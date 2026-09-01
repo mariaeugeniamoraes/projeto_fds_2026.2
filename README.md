@@ -49,6 +49,7 @@ pontos fracos, além de um benchmark comparativo.
 ### Screenshots
 
 
+
 ---
 
 # Equipe
