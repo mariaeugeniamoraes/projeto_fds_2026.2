@@ -69,11 +69,11 @@ pontos fracos, além de um benchmark comparativo.
 
 # Equipe
 
-| Nome | E-mail School |
+| Nome | E-mail School |<br>
 Ana Júlia de Melo Costa  ajmcs2@cesar.school<br>
-Arthur Marenga Paranhos  amp4@cesar.school
-Daniel Santana Bezerra   dsb3@cesar.school
-José Victor Telles de Araujo Pereira Tavares   Jvtapt@cesar.school
+Arthur Marenga Paranhos  amp4@cesar.school<br>
+Daniel Santana Bezerra   dsb3@cesar.school<br>
+José Victor Telles de Araujo Pereira Tavares   Jvtapt@cesar.school<br>
 Maria Eugênia Mateus Moraes  memm@cesar.school
 
 ---
