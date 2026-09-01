@@ -49,6 +49,21 @@ pontos fracos, além de um benchmark comparativo.
 ### Screenshots
 
 
+<p align="center">
+  <img src="Captura%20de%20tela%202026-08-31%20234721.png" width="220">
+  <img src="Captura%20de%20tela%202026-08-31%20234734.png" width="220">
+  <img src="Captura%20de%20tela%202026-08-31%20234746.png" width="220">
+</p>
+
+<p align="center">
+  <img src="Captura%20de%20tela%202026-08-31%20234757.png" width="220">
+  <img src="Captura%20de%20tela%202026-08-31%20234810.png" width="220">
+  <img src="Captura%20de%20tela%202026-08-31%20234824.png" width="220">
+</p>
+
+<p align="center">
+  <img src="Captura%20de%20tela%202026-08-31%20234834.png" width="220">
+</p>
 
 ---
 
