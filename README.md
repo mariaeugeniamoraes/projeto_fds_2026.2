@@ -74,7 +74,8 @@ Ana Júlia de Melo Costa  ajmcs2@cesar.school<br>
 Arthur Marenga Paranhos  amp4@cesar.school<br>
 Daniel Santana Bezerra   dsb3@cesar.school<br>
 José Victor Telles de Araujo Pereira Tavares   Jvtapt@cesar.school<br>
-Maria Eugênia Mateus Moraes  memm@cesar.school
+Maria Eugênia Mateus Moraes  memm@cesar.school<br>
+Marcos Luiz Galdino Berto Alves mlgba@cesar.school
 
 ---
 
