@@ -78,4 +78,13 @@ Maria Eugênia Mateus Moraes  memm@cesar.school<br>
 Marcos Luiz Galdino Berto Alves mlgba@cesar.school
 
 ---
+## Issue/Bug Tracker
+
+O projeto utiliza o Issue Tracker do GitHub para registrar,
+acompanhar e organizar tarefas e possíveis bugs encontrados
+durante o desenvolvimento.
+
+### Issue de acompanhamento
+
+<img src="issue-tracker.png" width="600">
 
