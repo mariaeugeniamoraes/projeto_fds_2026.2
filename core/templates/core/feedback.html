@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback | Ecomply</title>
+</head>
+
+<body>
+
+    <h1>Deixe seu feedback</h1>
+
+    <p>
+        Sua opinião nos ajuda a melhorar o Ecomply.
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Enviar feedback
+        </button>
+
+    </form>
+
+    <p>
+        <a href="{% url 'home' %}">
+            Voltar para o início
+        </a>
+    </p>
+
+</body>
+
+</html>

@@ -15,6 +15,21 @@
         de e-commerce de moda.
     </p>
 
+    {% if user.is_authenticated %}
+
+        <p>Olá, {{ user.username }}!</p>
+        <a href="{% url 'feedback' %}">Dar feedback</a>
+
+        <a href="{% url 'logout' %}">Sair</a>
+
+    {% else %}
+
+       <a href="{% url 'login' %}">Entrar</a>
+
+       <a href="{% url 'cadastro' %}">Criar conta</a>
+
+{% endif %}
+
 </body>
 
 </html>
