@@ -6,7 +6,7 @@ urlpatterns = [
     path('cadastro/', views.cadastro, name='cadastro'),
     path('login/', views.entrar, name='login'),
     path('logout/', views.sair, name='logout'),
-    path('feedback/', views.feedback, name='feedback'),
+    path('fale-conosco/', views.feedback, name='feedback'),
     
 
     

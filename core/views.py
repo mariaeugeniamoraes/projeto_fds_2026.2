@@ -53,10 +53,14 @@ def sair(request):
     logout(request)
     return redirect('home')
 
-@login_required
+
 def feedback(request):
 
     if request.method == 'POST':
+
+        if not request.user.is_authenticated:
+            return redirect('login')
+
         form = FeedbackForm(request.POST)
 
         if form.is_valid():

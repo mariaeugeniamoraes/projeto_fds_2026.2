@@ -3,28 +3,100 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Feedback | Ecomply</title>
+    <title>Fale Conosco | Ecomply</title>
 </head>
 
 <body>
 
-    <h1>Deixe seu feedback</h1>
+    <h1>Fale Conosco</h1>
 
     <p>
-        Sua opinião nos ajuda a melhorar o Ecomply.
+        Tem alguma dúvida, sugestão ou feedback?
+        Entre em contato com a equipe Ecomply.
     </p>
 
-    <form method="POST">
 
-        {% csrf_token %}
+    <h2>Nossa equipe</h2>
 
-        {{ form.as_p }}
+    <div>
 
-        <button type="submit">
-            Enviar feedback
-        </button>
+        <h3>Maria Eugênia Moraes</h3>
+        <p>
+            <a href="mailto:memm@cesar.school">
+                memm@cesar.school
+            </a>
+        </p>
 
-    </form>
+        <h3>Ana Júlia de Melo Costa</h3>
+        <p>
+            <a href="mailto:ajmcs2@cesar.school">
+                ajmcs2@cesar.school
+            </a>
+        </p>
+
+        <h3>Arthur Marenga Paranhos</h3>
+        <p>
+            <a href="mailto:amp4@cesar.school">
+                amp4@cesar.school
+            </a>
+        </p>
+
+        <h3>José Victor Telles de Araujo Pereira Tavares</h3>
+        <p>
+            <a href="mailto:Jvtapt@cesar.school">
+                Jvtapt@cesar.school
+            </a>
+        </p>
+
+        <h3>Marcos Luiz Galdino Berto Alves</h3>
+        <p>
+            <a href="mailto:mlgba@cesar.school">
+                mlgba@cesar.school
+            </a>
+        </p>
+
+    </div>
+
+
+    <hr>
+
+
+    <h2>Deixe seu feedback</h2>
+
+    <p>
+        Sua opinião é importante para continuarmos melhorando o Ecomply.
+    </p>
+
+    {% if user.is_authenticated %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">
+                Enviar feedback
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <p>
+            Para enviar um feedback, você precisa estar conectado à sua conta.
+        </p>
+
+        <a href="{% url 'login' %}">
+            Entrar
+        </a>
+
+        <a href="{% url 'cadastro' %}">
+            Criar conta
+        </a>
+
+    {% endif %}
+
 
     <p>
         <a href="{% url 'home' %}">
