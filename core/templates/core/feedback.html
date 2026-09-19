@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Fale Conosco | Ecomply</title>
-</head>
+{% block title %}
+Fale Conosco | Ecomply
+{% endblock %}
 
-<body>
+
+{% block content %}
 
     <h1>Fale Conosco</h1>
 
@@ -97,13 +96,4 @@
 
     {% endif %}
 
-
-    <p>
-        <a href="{% url 'home' %}">
-            Voltar para o início
-        </a>
-    </p>
-
-</body>
-
-</html>
+{% endblock %}

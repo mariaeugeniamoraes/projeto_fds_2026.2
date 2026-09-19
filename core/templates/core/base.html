@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}Ecomply{% endblock %}
+    </title>
+</head>
+
+<body>
+
+    <header>
+
+        <nav>
+
+            <a href="{% url 'home' %}">
+                <strong>Ecomply</strong>
+            </a>
+
+            <a href="{% url 'home' %}">
+                Início
+            </a>
+
+            <a href="{% url 'feedback' %}">
+                Fale Conosco
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <span>
+                    Olá, {{ user.username }}
+                </span>
+
+                <a href="{% url 'logout' %}">
+                    Sair
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'login' %}">
+                    Entrar
+                </a>
+
+                <a href="{% url 'cadastro' %}">
+                    Criar conta
+                </a>
+
+            {% endif %}
+
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            © 2026 Ecomply — ESG de forma simples e acessível.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

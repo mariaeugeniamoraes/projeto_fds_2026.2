@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Ecomply</title>
-</head>
+{% block title %}
+Início | Ecomply
+{% endblock %}
 
-<body>
+
+{% block content %}
 
     <h1>Bem-vindo ao Ecomply</h1>
 
@@ -17,19 +16,27 @@
 
     {% if user.is_authenticated %}
 
-        <p>Olá, {{ user.username }}!</p>
-        <a href="{% url 'feedback' %}">Dar feedback</a>
+        <h2>Olá, {{ user.username }}!</h2>
 
-        <a href="{% url 'logout' %}">Sair</a>
+        <p>
+            Explore o Ecomply e descubra como tornar sua empresa
+            mais sustentável.
+        </p>
 
     {% else %}
 
-       <a href="{% url 'login' %}">Entrar</a>
+        <p>
+            Crie sua conta para começar a utilizar o Ecomply.
+        </p>
 
-       <a href="{% url 'cadastro' %}">Criar conta</a>
+        <a href="{% url 'cadastro' %}">
+            Criar conta
+        </a>
 
-{% endif %}
+        <a href="{% url 'login' %}">
+            Entrar
+        </a>
 
-</body>
+    {% endif %}
 
-</html>
+{% endblock %}

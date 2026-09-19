@@ -1,14 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro | Ecomply</title>
-</head>
+{% block title %}
+Criar conta | Ecomply
+{% endblock %}
 
-<body>
 
-    <h1>Criar conta</h1>
+{% block content %}
+
+    <h1>Crie sua conta</h1>
+
+    <p>
+        Cadastre-se no Ecomply e comece a explorar nossas ferramentas.
+    </p>
 
     <form method="POST">
 
@@ -16,10 +19,17 @@
 
         {{ form.as_p }}
 
-        <button type="submit">Cadastrar</button>
+        <button type="submit">
+            Criar conta
+        </button>
 
     </form>
 
-</body>
+    <p>
+        Já possui uma conta?
+        <a href="{% url 'login' %}">
+            Entrar
+        </a>
+    </p>
 
-</html>
+{% endblock %}

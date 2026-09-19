@@ -1,14 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Login | Ecomply</title>
-</head>
+{% block title %}
+Entrar | Ecomply
+{% endblock %}
 
-<body>
 
-    <h1>Entrar no Ecomply</h1>
+{% block content %}
+
+    <h1>Entrar</h1>
+
+    <p>
+        Acesse sua conta para continuar no Ecomply.
+    </p>
 
     {% if erro %}
         <p>{{ erro }}</p>
@@ -18,20 +21,37 @@
 
         {% csrf_token %}
 
-        <p>
-            <label>Usuário:</label>
-            <input type="text" name="username" required>
-        </p>
+        <div>
+            <label for="username">Usuário:</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                required
+            >
+        </div>
 
-        <p>
-            <label>Senha:</label>
-            <input type="password" name="password" required>
-        </p>
+        <div>
+            <label for="password">Senha:</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                required
+            >
+        </div>
 
-        <button type="submit">Entrar</button>
+        <button type="submit">
+            Entrar
+        </button>
 
     </form>
 
-</body>
+    <p>
+        Ainda não possui uma conta?
+        <a href="{% url 'cadastro' %}">
+            Criar conta
+        </a>
+    </p>
 
-</html>
+{% endblock %}
