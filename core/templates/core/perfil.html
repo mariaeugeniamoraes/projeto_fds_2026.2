@@ -5,66 +5,64 @@ Meu Perfil | Ecomply
 {% endblock %}
 
 {% block content %}
-
 <section class="perfil-container">
-
     <div class="perfil-card">
-
+        
         <div class="perfil-header">
-            <h1>Meu Perfil</h1>
-            <p>Visualize e gerencie os dados da sua conta.</p>
+            <div class="perfil-avatar">
+                {{ user.username|slice:":2"|upper }}
+            </div>
+            <span class="badge">Sua Conta</span>
+            <h1 class="perfil-title">Meu Perfil</h1>
+            <p class="perfil-subtitle">Visualize e gerencie os dados da sua conta.</p>
         </div>
 
         <div class="perfil-dados">
-
             <div class="perfil-campo">
-                <strong>Nome</strong>
-                <p>
+                <span class="campo-label">Nome</span>
+                <p class="campo-valor">
                     {% if user.first_name %}
                         {{ user.first_name }}
                     {% else %}
-                        Não informado
+                        <span class="nao-informado">Não informado</span>
                     {% endif %}
                 </p>
             </div>
 
             <div class="perfil-campo">
-                <strong>Sobrenome</strong>
-                <p>
+                <span class="campo-label">Sobrenome</span>
+                <p class="campo-valor">
                     {% if user.last_name %}
                         {{ user.last_name }}
                     {% else %}
-                        Não informado
+                        <span class="nao-informado">Não informado</span>
                     {% endif %}
                 </p>
             </div>
 
             <div class="perfil-campo">
-                <strong>Nome de usuário</strong>
-                <p>{{ user.username }}</p>
+                <span class="campo-label">Nome de usuário</span>
+                <p class="campo-valor">{{ user.username }}</p>
             </div>
 
             <div class="perfil-campo">
-                <strong>E-mail</strong>
-                <p>
+                <span class="campo-label">E-mail</span>
+                <p class="campo-valor">
                     {% if user.email %}
                         {{ user.email }}
                     {% else %}
-                        Não informado
+                        <span class="nao-informado">Não informado</span>
                     {% endif %}
                 </p>
             </div>
-
         </div>
 
         <div class="perfil-acoes">
-            <a href="{% url 'editar_perfil' %}">
+            <a href="{% url 'editar_perfil' %}" class="btn btn-primary btn-block text-center">
                 Editar dados
             </a>
         </div>
 
     </div>
-
 </section>
-
 {% endblock %}

@@ -5,35 +5,30 @@ Editar Perfil | Ecomply
 {% endblock %}
 
 {% block content %}
-
 <section class="perfil-container">
-
-    <div class="perfil-card">
-
-        <h1>Editar dados</h1>
-
-        <p>
+    <div class="perfil-card text-center">
+        <span class="badge">Configurações</span>
+        <h1 class="perfil-title">Editar dados</h1>
+        <p class="perfil-subtitle">
             Atualize as informações da sua conta.
         </p>
 
-        <form method="POST">
-
+        <form method="POST" class="auth-form">
             {% csrf_token %}
 
-            {{ form.as_p }}
+            <div class="django-form-fields">
+                {{ form.as_p }}
+            </div>
 
-            <button type="submit">
-                Salvar alterações
-            </button>
-
+            <div class="form-actions-stack">
+                <button type="submit" class="btn btn-primary btn-block">
+                    Salvar alterações
+                </button>
+                <a href="{% url 'perfil' %}" class="btn btn-secondary btn-block text-center">
+                    Cancelar
+                </a>
+            </div>
         </form>
-
-        <a href="{% url 'perfil' %}">
-            Cancelar
-        </a>
-
     </div>
-
 </section>
-
 {% endblock %}
