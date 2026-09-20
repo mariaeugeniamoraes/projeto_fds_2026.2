@@ -5,9 +5,78 @@ O Projeto & Deloitte | Ecomply
 {% endblock %}
 
 {% block content %}
+<style>
+    /* Estilos para o indicador de status dentro do card do projeto */
+    .card-status-footer {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color, #e5e3d9);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .status-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-muted, #637069);
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+
+    /* Status 1: Em Desenvolvimento */
+    .status-dev {
+        background-color: #fef3c7;
+        color: #92400e;
+    }
+    .status-dev .status-dot {
+        background-color: #d97706;
+        animation: status-pulse 1.8s infinite;
+    }
+
+    /* Status 2: Concluído */
+    .status-completed {
+        background-color: var(--accent-green-light, #e6f0ec);
+        color: var(--primary-green, #1b4d3e);
+    }
+    .status-completed .status-dot {
+        background-color: var(--primary-green, #1b4d3e);
+    }
+
+    /* Status 3: Em Manutenção */
+    .status-maintenance {
+        background-color: #e0e7ff;
+        color: #3730a3;
+    }
+    .status-maintenance .status-dot {
+        background-color: #4f46e5;
+        animation: status-pulse 1.8s infinite;
+    }
+
+    @keyframes status-pulse {
+        0% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(1.2); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+</style>
+
 <section class="project-container">
     
-    <!-- Cabeçalho-->
+    <!-- Cabeçalho -->
     <div class="project-header">
         <span class="badge">Benchmarking & Visão</span>
         <h1 class="page-title">O Projeto & Referência</h1>
@@ -16,7 +85,7 @@ O Projeto & Deloitte | Ecomply
         </p>
     </div>
 
-    <!-- Grid de Conteúdo-->
+    <!-- Grid de Conteúdo -->
     <div class="project-grid">
         
         <!-- Card Deloitte -->
@@ -33,7 +102,7 @@ O Projeto & Deloitte | Ecomply
             </p>
         </div>
 
-        <!-- Card Sobre o Projeto-->
+        <!-- Card Sobre o Projeto (Status adicionado no rodapé deste card) -->
         <div class="project-card">
             <div class="card-badge">Solução</div>
             <h2 class="card-section-title">O Projeto Ecomply</h2>
@@ -45,18 +114,32 @@ O Projeto & Deloitte | Ecomply
                 A plataforma auxilia gestores a diagnosticarem suas práticas, 
                 identificarem pontos de melhoria e acompanharem metas de sustentabilidade de forma intuitiva.
             </p>
+
+            <!-- STATUS DO PROJETO -->
+            <div class="card-status-footer">
+                <span class="status-label">Status do Projeto:</span>
+                
+                <!-- Para mudar o status, troque as classes e o texto:
+                     • Em Desenvolvimento -> class="status-badge status-dev"
+                     • Concluído         -> class="status-badge status-completed"
+                     • Em Manutenção     -> class="status-badge status-maintenance"
+                -->
+                <div class="status-badge status-dev">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Em Desenvolvimento</span>
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <!-- Google Sites-->
+    <!-- Google Sites -->
     <div class="external-link-card">
         <h3 class="external-title">Quer se aprofundar na documentação?</h3>
         <p class="external-desc">
             Acesse nosso portal no Google Sites para conferir relatórios detalhados, pesquisas e toda a documentação do projeto.
         </p>
         
-        <!-- Link do Google Sites-->
         <a href="https://sites.google.com/cesar.school/projetos2-equipe16/home" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-external">
             Acessar Google Sites 🔗
         </a>
