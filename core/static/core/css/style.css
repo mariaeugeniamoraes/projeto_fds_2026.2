@@ -590,3 +590,160 @@ a {
     color: var(--text-muted);
     margin-bottom: 2rem;
 }
+
+/* ==========================================
+   13. PÁGINA QUEM SOMOS
+   ========================================== */
+.about-container {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.about-header {
+    text-align: center;
+}
+
+.about-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-subtle);
+}
+
+.card-section-title {
+    font-size: 1.4rem;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.about-text {
+    font-size: 1rem;
+    color: var(--text-main);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.about-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Grid de Pilares na Quem Somos */
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+}
+
+.pillar-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 1.8rem 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-subtle);
+}
+
+.pillar-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.pillar-title {
+    font-size: 1.1rem;
+    color: var(--primary-green);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.pillar-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* ==========================================
+   14. PÁGINA O PROJETO & DELOITTE
+   ========================================== */
+.project-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.project-header {
+    text-align: center;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.project-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2.2rem;
+    box-shadow: var(--shadow-subtle);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--primary-green);
+    margin-bottom: 0.8rem;
+}
+
+.project-text {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.project-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Card Chamada para o Google Sites */
+.external-link-card {
+    background-color: var(--accent-green-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    text-align: center;
+}
+
+.external-title {
+    font-size: 1.3rem;
+    color: var(--primary-green);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.external-desc {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    max-width: 550px;
+    margin: 0 auto 1.5rem auto;
+}
+
+.btn-external {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}

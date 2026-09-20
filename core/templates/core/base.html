@@ -23,6 +23,8 @@
 
             <div class="nav-links">
                 <a href="{% url 'home' %}" class="nav-item">Início</a>
+                <a href="{% url 'quem_somos' %}" class="nav-item">Quem Somos</a>
+                <a href="{% url 'projeto' %}" class="nav-item">O Projeto</a>
                 <a href="{% url 'feedback' %}" class="nav-item">Fale Conosco</a>
 
                 {% if user.is_authenticated %}

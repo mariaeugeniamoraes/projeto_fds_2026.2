@@ -83,3 +83,9 @@ def feedback(request):
         'core/feedback.html',
         {'form': form}
     )
+
+def quem_somos(request):
+    return render(request, 'core/quem_somos.html')
+
+def projeto(request):
+    return render(request, 'core/projeto.html')
