@@ -5,8 +5,87 @@ Fale Conosco | Ecomply
 {% endblock %}
 
 {% block content %}
-<!-- ESTILO EXCLUSIVO DO FAQ (Direto no HTML para evitar problemas de cache) -->
+<!-- ESTILO EXCLUSIVO (FAQ, TOAST MESSAGES E LINKEDIN DA EQUIPE) -->
 <style>
+    /* Estilo da mensagem de alerta (Toast) */
+    .messages-container {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    .alert-toast {
+        background-color: #e6f0ec;
+        border: 1px solid var(--primary-green, #1b4d3e);
+        color: var(--primary-green, #1b4d3e);
+        padding: 1rem 1.2rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 600;
+        font-size: 0.95rem;
+        box-shadow: 0 4px 12px rgba(27, 77, 62, 0.1);
+        animation: slideDown 0.4s ease-out;
+    }
+
+    .alert-toast.success {
+        border-left: 6px solid var(--primary-green, #1b4d3e);
+    }
+
+    .close-toast-btn {
+        background: none;
+        border: none;
+        color: var(--primary-green, #1b4d3e);
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0 0.4rem;
+        line-height: 1;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+
+    .close-toast-btn:hover {
+        opacity: 1;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-12px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Links do LinkedIn nos nomes da equipe */
+    .member-name-link {
+        display: block;
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--text-main, #242c28);
+        text-decoration: none;
+        margin-top: 0.5rem;
+        margin-bottom: 0.2rem;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+    }
+
+    .member-name-link:hover {
+        color: #1b4d3e !important;
+        text-decoration: underline;
+    }
+
+    body.dark-theme .member-name-link {
+        color: #ffffff !important;
+    }
+
+    body.dark-theme .member-name-link:hover {
+        color: #72d9a9 !important;
+    }
+
+    /* Estilo do FAQ */
     .faq-section {
         margin-top: 1rem;
         width: 100%;
@@ -108,7 +187,6 @@ Fale Conosco | Ecomply
         margin: 0;
     }
 
-    /* Estilização discreta para os termos explicativos */
     abbr[title] {
         text-decoration: underline dotted var(--primary-green, #1b4d3e);
         cursor: help;
@@ -117,6 +195,18 @@ Fale Conosco | Ecomply
 
 <section class="feedback-container">
     
+    <!-- MENSAGEM DE SUCESSO DO DJANGO (TOAST) -->
+    {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+                <div class="alert-toast {{ message.tags }}">
+                    <span>✓ {{ message }}</span>
+                    <button type="button" class="close-toast-btn" onclick="this.parentElement.remove()">✕</button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <!-- Cabeçalho-->
     <div class="feedback-header">
         <span class="badge">Atendimento & Contato</span>
@@ -133,31 +223,41 @@ Fale Conosco | Ecomply
         <div class="team-grid">
             <div class="team-card">
                 <div class="member-avatar">AJ</div>
-                <h3 class="member-name">Ana Júlia de Melo Costa</h3>
+                <a href="https://www.linkedin.com/in/anajuliamelocs" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                    Ana Júlia de Melo Costa
+                </a>
                 <a href="mailto:ajmcs2@cesar.school" class="member-email">ajmcs2@cesar.school</a>
             </div>
 
             <div class="team-card">
                 <div class="member-avatar">AP</div>
-                <h3 class="member-name">Arthur Marenga Paranhos</h3>
+                <a href="https://www.linkedin.com/in/arthurmarenga" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                    Arthur Marenga Paranhos
+                </a>
                 <a href="mailto:amp4@cesar.school" class="member-email">amp4@cesar.school</a>
             </div>
 
             <div class="team-card">
                 <div class="member-avatar">JT</div>
-                <h3 class="member-name">José Victor Telles de Araujo Pereira Tavares</h3>
+                <a href="https://www.linkedin.com/in/victor-telles-9150143b8/" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                    José Victor Telles de Araujo Pereira Tavares
+                </a>
                 <a href="mailto:Jvtapt@cesar.school" class="member-email">Jvtapt@cesar.school</a>
             </div>
 
             <div class="team-card">
                 <div class="member-avatar">MA</div>
-                <h3 class="member-name">Marcos Luiz Galdino Berto Alves</h3>
+                <a href="https://www.linkedin.com/in/marcos-luiz-galdino-88b997426/" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                    Marcos Luiz Galdino Berto Alves
+                </a>
                 <a href="mailto:mlgba@cesar.school" class="member-email">mlgba@cesar.school</a>
             </div>
 
             <div class="team-card">
                 <div class="member-avatar">MM</div>
-                <h3 class="member-name">Maria Eugênia Moraes</h3>
+                <a href="https://www.linkedin.com/in/maria-eugenia-moraes" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                    Maria Eugênia Moraes
+                </a>
                 <a href="mailto:memm@cesar.school" class="member-email">memm@cesar.school</a>
             </div>
         </div>
