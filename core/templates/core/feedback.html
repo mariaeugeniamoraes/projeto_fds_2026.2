@@ -5,6 +5,110 @@ Fale Conosco | Ecomply
 {% endblock %}
 
 {% block content %}
+<!-- ESTILO EXCLUSIVO DO FAQ (Direto no HTML para evitar problemas de cache) -->
+<style>
+    .faq-section {
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .faq-subtitle {
+        font-size: 0.95rem;
+        color: var(--text-muted, #637069);
+        margin-bottom: 1.5rem;
+    }
+
+    .faq-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .faq-item {
+        background-color: var(--card-bg, #ffffff);
+        border: 1px solid var(--border-color, #e5e3d9);
+        border-radius: var(--radius-sm, 8px);
+        padding: 0;
+        box-shadow: var(--shadow-subtle, 0 10px 30px rgba(27, 77, 62, 0.05));
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+
+    .faq-item:hover {
+        border-color: var(--primary-green, #1b4d3e);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(27, 77, 62, 0.08);
+    }
+
+    .faq-item[open] {
+        border-color: var(--border-color, #e5e3d9);
+        border-left-color: var(--primary-green, #1b4d3e);
+        background-color: #ffffff;
+    }
+
+    .faq-question {
+        padding: 1.2rem 1.4rem;
+        font-weight: 600;
+        font-size: 0.98rem;
+        color: var(--text-main, #242c28);
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        user-select: none;
+    }
+
+    .faq-question:hover {
+        color: var(--primary-green, #1b4d3e);
+        background-color: rgba(230, 240, 236, 0.35);
+    }
+
+    .faq-question::-webkit-details-marker,
+    .faq-question::marker {
+        display: none;
+    }
+
+    .faq-question::after {
+        content: "↓";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background-color: var(--accent-green-light, #e6f0ec);
+        color: var(--primary-green, #1b4d3e);
+        font-size: 0.85rem;
+        font-weight: 700;
+        flex-shrink: 0;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .faq-item[open] .faq-question {
+        color: var(--primary-green, #1b4d3e);
+    }
+
+    .faq-item[open] .faq-question::after {
+        transform: rotate(180deg);
+        background-color: var(--primary-green, #1b4d3e);
+        color: #ffffff;
+    }
+
+    .faq-answer {
+        padding: 0 1.4rem 1.2rem 1.4rem;
+        color: var(--text-muted, #637069);
+        font-size: 0.93rem;
+        line-height: 1.65;
+    }
+
+    .faq-answer p {
+        margin: 0;
+    }
+</style>
+
 <section class="feedback-container">
     
     <!-- Cabeçalho-->
@@ -50,6 +154,42 @@ Fale Conosco | Ecomply
                 <h3 class="member-name">Maria Eugênia Moraes</h3>
                 <a href="mailto:memm@cesar.school" class="member-email">memm@cesar.school</a>
             </div>
+        </div>
+    </section>
+
+    <!-- Seção de Perguntas Frequentes (FAQ) -->
+    <section class="faq-section">
+        <h2 class="section-title">Perguntas Frequentes (FAQ)</h2>
+        <p class="faq-subtitle">Tire suas dúvidas rápidas sobre a plataforma e o projeto Ecomply.</p>
+        
+        <div class="faq-grid">
+            <details class="faq-item">
+                <summary class="faq-question">O que é o diagnóstico ESG do Ecomply?</summary>
+                <div class="faq-answer">
+                    <p>O Ecomply é uma plataforma que auxilia PMEs da indústria da moda a diagnosticarem suas práticas ambientais, sociais e de governança de forma intuitiva e acessível.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary class="faq-question">Como a metodologia Deloitte é utilizada no projeto?</summary>
+                <div class="faq-answer">
+                    <p>Utilizamos relatórios, diretrizes e indicadores de boas práticas ESG da Deloitte como benchmarking estratégico para estruturar nossas métricas de avaliação.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary class="faq-question">A plataforma é gratuita para pequenas empresas?</summary>
+                <div class="faq-answer">
+                    <p>Sim, o Ecomply foi desenvolvido como uma solução acadêmica e aberta voltada para apoiar o desenvolvimento sustentável de confecções e marcas de moda.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary class="faq-question">Como posso enviar uma sugestão ou feedback para a equipe?</summary>
+                <div class="faq-answer">
+                    <p>Você pode utilizar o formulário abaixo nesta própria página ou entrar em contato com os membros da equipe através dos e-mails listados acima.</p>
+                </div>
+            </details>
         </div>
     </section>
 
