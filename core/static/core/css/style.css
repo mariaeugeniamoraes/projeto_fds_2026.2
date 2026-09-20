@@ -3,15 +3,16 @@
    ========================================== */
 :root {
     /* Cores principais */
-    --bg-color: #f8f7f2;         /* Off-white com toque bege suave */
-    --card-bg: #ffffff;          /* Branco puro para destaques/cards */
-    --primary-green: #1b4d3e;    /* Verde ESG profundo/sofisticado */
+    --bg-color: #f8f7f2;            /* Off-white com toque bege suave */
+    --card-bg: #ffffff;             /* Branco puro para destaques/cards */
+    --primary-green: #1b4d3e;       /* Verde ESG profundo/sofisticado */
     --primary-green-hover: #13382d;
-    --accent-green-light: #e6f0ec; /* Verde bem claro para fundos/hover */
+    --accent-green-light: #e6f0ec;  /* Verde bem claro para fundos/hover */
+    --dot-color: rgba(27, 77, 62, 0.15); /* Pontinhos neutros do fundo */
     
     /* Tipografia e Textos */
-    --text-main: #242c28;        /* Grafite escuro elegante */
-    --text-muted: #637069;       /* Cinza esverdeado suave */
+    --text-main: #242c28;           /* Grafite escuro elegante */
+    --text-muted: #637069;          /* Cinza esverdeado suave */
     --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     
     /* Bordas e Sombras */
@@ -22,7 +23,7 @@
 }
 
 /* ==========================================
-   2. RESET & ESTILOS GERAIS
+   2. RESET & FUNDO PONTILHADO (BULLET JOURNAL)
    ========================================== */
 * {
     margin: 0;
@@ -32,6 +33,9 @@
 
 body {
     background-color: var(--bg-color);
+    /* Cria o padrão de folha pontilhada sem usar imagens */
+    background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
     color: var(--text-main);
     font-family: var(--font-family);
     line-height: 1.6;
@@ -47,10 +51,11 @@ a {
 }
 
 /* ==========================================
-   3. CABAÇALHO (HEADER & NAVBAR)
+   3. CABEÇALHO (HEADER & NAVBAR RESPONSIVO)
    ========================================== */
 .header {
-    background-color: var(--bg-color);
+    background-color: rgba(248, 247, 242, 0.9); /* Leve transparência */
+    backdrop-filter: blur(8px);                 /* Efeito de vidro desfocado */
     border-bottom: 1px solid var(--border-color);
     padding: 1.2rem 2rem;
     position: sticky;
@@ -59,7 +64,8 @@ a {
 }
 
 .navbar {
-    max-width: 1100px;
+    max-width: 1200px; /* Mantém o menu alinhado com o conteúdo em telas grandes */
+    width: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -96,7 +102,7 @@ a {
 }
 
 /* ==========================================
-   4. CONTEÚDO PRINCIPAL (MAIN CONTAINER)
+   4. CONTEÚDO PRINCIPAL (CONTAINER FLUIDO)
    ========================================== */
 .main-content {
     flex: 1;
@@ -111,7 +117,7 @@ a {
    ========================================== */
 .hero-section {
     width: 100%;
-    max-width: 700px;
+    max-width: 760px; /* Largura perfeita para leitura em telas de 26"+ */
 }
 
 .hero-card {
@@ -137,7 +143,7 @@ a {
 }
 
 .hero-title {
-    font-size: 2.2rem;
+    font-size: clamp(1.8rem, 4vw, 2.4rem); /* Responsivo: encolhe/cresce suavemente */
     color: var(--primary-green);
     font-weight: 700;
     letter-spacing: -0.5px;
@@ -148,7 +154,7 @@ a {
     font-size: 1.1rem;
     color: var(--text-muted);
     margin-bottom: 2rem;
-    max-width: 520px;
+    max-width: 540px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -228,5 +234,29 @@ a {
     text-align: center;
     font-size: 0.85rem;
     color: var(--text-muted);
-    background-color: var(--bg-color);
+    background-color: rgba(248, 247, 242, 0.9);
+}
+
+/* ==========================================
+   8. MEDIA QUERIES (RESPONSIVIDADE & ZOOM ALTO)
+   ========================================== */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero-card {
+        padding: 2rem 1.2rem;
+    }
 }
