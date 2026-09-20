@@ -4,39 +4,40 @@
 Início | Ecomply
 {% endblock %}
 
-
 {% block content %}
+<section class="hero-section">
+    <div class="hero-card">
+        <span class="badge">Sustentabilidade & Moda</span>
+        
+        <h1 class="hero-title">Bem-vindo ao Ecomply</h1>
 
-    <h1>Bem-vindo ao Ecomply</h1>
-
-    <p>
-        ESG de forma simples e acessível para pequenas e médias empresas
-        de e-commerce de moda.
-    </p>
-
-    {% if user.is_authenticated %}
-
-        <h2>Olá, {{ user.username }}!</h2>
-
-        <p>
-            Explore o Ecomply e descubra como tornar sua empresa
-            mais sustentável.
+        <p class="hero-subtitle">
+            ESG de forma simples e acessível para pequenas e médias empresas
+            de e-commerce de moda.
         </p>
 
-    {% else %}
+        {% if user.is_authenticated %}
+            <div class="user-welcome-card">
+                <h2>Olá, <strong>{{ user.username }}</strong>! 👋</h2>
+                <p>
+                    Explore o Ecomply e descubra como tornar sua empresa mais sustentável.
+                </p>
+            </div>
+        {% else %}
+            <p class="cta-text">
+                Crie sua conta para começar a utilizar o Ecomply.
+            </p>
 
-        <p>
-            Crie sua conta para começar a utilizar o Ecomply.
-        </p>
+            <div class="cta-buttons">
+                <a href="{% url 'cadastro' %}" class="btn btn-primary">
+                    Criar conta
+                </a>
 
-        <a href="{% url 'cadastro' %}">
-            Criar conta
-        </a>
-
-        <a href="{% url 'login' %}">
-            Entrar
-        </a>
-
-    {% endif %}
-
+                <a href="{% url 'login' %}" class="btn btn-secondary">
+                    Entrar
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}
