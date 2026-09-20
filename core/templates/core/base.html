@@ -1,25 +1,33 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         {% block title %}Ecomply{% endblock %}
     </title>
-    
+
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 
     <!-- OVERRIDE UNIVERSAL DO MODO ESCURO -->
+
     <style>
+
         /* 1. FUNDO DA PÁGINA */
+
         body.dark-theme {
             background-color: #121816 !important;
             color: #e8ecea !important;
         }
 
+
         /* 2. FORÇA QUALQUER BLOCO/CARTÃO/CAIXA/PÍLULA A FICAR ESCURO */
+
         body.dark-theme header,
         body.dark-theme footer,
         body.dark-theme nav,
@@ -31,14 +39,18 @@
             border-color: #2a3832 !important;
         }
 
+
         /* Mantém áreas de layout transparentes para não cobrir o fundo geral */
+
         body.dark-theme main,
         body.dark-theme .main-content,
         body.dark-theme section {
             background-color: transparent !important;
         }
 
+
         /* 3. FORÇA TODOS OS TEXTOS E TÍTULOS A FICAREM LEGÍVEIS */
+
         body.dark-theme h1,
         body.dark-theme h2,
         body.dark-theme h3,
@@ -52,6 +64,7 @@
             color: #ffffff !important;
         }
 
+
         body.dark-theme p,
         body.dark-theme span,
         body.dark-theme li,
@@ -61,7 +74,9 @@
             color: #c2d4c9 !important;
         }
 
+
         /* 4. AJUSTE DAS PÍLULAS/TAGS SOBRE OS TÍTULOS */
+
         body.dark-theme span[class*="badge"],
         body.dark-theme div[class*="badge"],
         body.dark-theme span[class*="tag"],
@@ -70,7 +85,9 @@
             color: #72d9a9 !important;
         }
 
+
         /* 5. BOTÃO DISCRETO NO CANTO DO MENU */
+
         .theme-toggle-btn {
             background: transparent !important;
             border: 1px solid #d0d5d2 !important;
@@ -85,87 +102,181 @@
             display: inline-block !important;
         }
 
+
         .theme-toggle-btn:hover {
             color: #1b4d3e !important;
             border-color: #1b4d3e !important;
             background-color: rgba(27, 77, 62, 0.05) !important;
         }
 
+
         body.dark-theme .theme-toggle-btn {
             color: #e8ecea !important;
             border-color: #2a3832 !important;
         }
 
+
         body.dark-theme .theme-toggle-btn:hover {
             border-color: #ffffff !important;
             background-color: rgba(255, 255, 255, 0.1) !important;
         }
+
+
+        /* Mantém o link do perfil com aparência semelhante ao texto anterior */
+
+        .user-welcome {
+            text-decoration: none;
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
     <header class="header">
+
         <nav class="navbar">
+
             <a href="{% url 'home' %}" class="logo">
                 <strong>Ecomply</strong>
             </a>
 
+
             <div class="nav-links">
-                <a href="{% url 'home' %}" class="nav-item">Início</a>
-                <a href="{% url 'quem_somos' %}" class="nav-item">Quem Somos</a>
-                <a href="{% url 'projeto' %}" class="nav-item">O Projeto</a>
-                <a href="{% url 'feedback' %}" class="nav-item">Fale Conosco</a>
+
+                <a href="{% url 'home' %}" class="nav-item">
+                    Início
+                </a>
+
+                <a href="{% url 'quem_somos' %}" class="nav-item">
+                    Quem Somos
+                </a>
+
+                <a href="{% url 'projeto' %}" class="nav-item">
+                    O Projeto
+                </a>
+
+                <a href="{% url 'feedback' %}" class="nav-item">
+                    Fale Conosco
+                </a>
+
 
                 {% if user.is_authenticated %}
-                    <span class="user-welcome">Olá, {{ user.username }}</span>
-                    <a href="{% url 'logout' %}" class="btn-logout">Sair</a>
+
+                    <!-- Nome do usuário leva para Meu Perfil -->
+
+                    <a href="{% url 'perfil' %}" class="user-welcome">
+                        Meu Perfil
+                    </a>
+
+                    <a href="{% url 'logout' %}" class="btn-logout">
+                        Sair
+                    </a>
+
                 {% else %}
-                    <a href="{% url 'login' %}" class="btn-login">Entrar</a>
-                    <a href="{% url 'cadastro' %}" class="btn-register">Criar conta</a>
+
+                    <a href="{% url 'login' %}" class="btn-login">
+                        Entrar
+                    </a>
+
+                    <a href="{% url 'cadastro' %}" class="btn-register">
+                        Criar conta
+                    </a>
+
                 {% endif %}
 
+
                 <!-- BOTÃO DISCRETO NO CANTO DIREITO -->
-                <button id="theme-toggle" class="theme-toggle-btn" type="button">
-                    <span id="theme-text">Modo Escuro</span>
+
+                <button
+                    id="theme-toggle"
+                    class="theme-toggle-btn"
+                    type="button"
+                >
+                    <span id="theme-text">
+                        Modo Escuro
+                    </span>
                 </button>
+
             </div>
+
         </nav>
+
     </header>
 
+
     <main class="main-content">
+
         {% block content %}
+
         {% endblock %}
+
     </main>
 
+
     <footer class="footer">
-        <p>© 2026 Ecomply — ESG de forma simples e acessível.</p>
+
+        <p>
+            © 2026 Ecomply — ESG de forma simples e acessível.
+        </p>
+
     </footer>
 
+
     <!-- SCRIPT DE ALTERNÂNCIA -->
+
     <script>
+
         const toggleBtn = document.getElementById('theme-toggle');
+
         const themeText = document.getElementById('theme-text');
 
+
         // Carrega o tema salvo
+
         if (localStorage.getItem('ecomply-theme') === 'dark') {
+
             document.body.classList.add('dark-theme');
+
             themeText.textContent = 'Modo Claro';
+
         }
 
+
         toggleBtn.addEventListener('click', function() {
+
             document.body.classList.toggle('dark-theme');
-            const isDark = document.body.classList.contains('dark-theme');
+
+            const isDark =
+                document.body.classList.contains('dark-theme');
+
 
             if (isDark) {
-                localStorage.setItem('ecomply-theme', 'dark');
+
+                localStorage.setItem(
+                    'ecomply-theme',
+                    'dark'
+                );
+
                 themeText.textContent = 'Modo Claro';
+
             } else {
-                localStorage.setItem('ecomply-theme', 'light');
+
+                localStorage.setItem(
+                    'ecomply-theme',
+                    'light'
+                );
+
                 themeText.textContent = 'Modo Escuro';
+
             }
+
         });
+
     </script>
+
 </body>
 
 </html>

@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Editar Perfil | Ecomply
+{% endblock %}
+
+{% block content %}
+
+<section class="perfil-container">
+
+    <div class="perfil-card">
+
+        <h1>Editar dados</h1>
+
+        <p>
+            Atualize as informações da sua conta.
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">
+                Salvar alterações
+            </button>
+
+        </form>
+
+        <a href="{% url 'perfil' %}">
+            Cancelar
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

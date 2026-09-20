@@ -1,0 +1,70 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Meu Perfil | Ecomply
+{% endblock %}
+
+{% block content %}
+
+<section class="perfil-container">
+
+    <div class="perfil-card">
+
+        <div class="perfil-header">
+            <h1>Meu Perfil</h1>
+            <p>Visualize e gerencie os dados da sua conta.</p>
+        </div>
+
+        <div class="perfil-dados">
+
+            <div class="perfil-campo">
+                <strong>Nome</strong>
+                <p>
+                    {% if user.first_name %}
+                        {{ user.first_name }}
+                    {% else %}
+                        Não informado
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="perfil-campo">
+                <strong>Sobrenome</strong>
+                <p>
+                    {% if user.last_name %}
+                        {{ user.last_name }}
+                    {% else %}
+                        Não informado
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="perfil-campo">
+                <strong>Nome de usuário</strong>
+                <p>{{ user.username }}</p>
+            </div>
+
+            <div class="perfil-campo">
+                <strong>E-mail</strong>
+                <p>
+                    {% if user.email %}
+                        {{ user.email }}
+                    {% else %}
+                        Não informado
+                    {% endif %}
+                </p>
+            </div>
+
+        </div>
+
+        <div class="perfil-acoes">
+            <a href="{% url 'editar_perfil' %}">
+                Editar dados
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
