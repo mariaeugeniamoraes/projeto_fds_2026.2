@@ -10,6 +10,97 @@
     </title>
     
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
+    <!-- OVERRIDE UNIVERSAL DO MODO ESCURO -->
+    <style>
+        /* 1. FUNDO DA PÁGINA */
+        body.dark-theme {
+            background-color: #121816 !important;
+            color: #e8ecea !important;
+        }
+
+        /* 2. FORÇA QUALQUER BLOCO/CARTÃO/CAIXA/PÍLULA A FICAR ESCURO */
+        body.dark-theme header,
+        body.dark-theme footer,
+        body.dark-theme nav,
+        body.dark-theme form,
+        body.dark-theme details,
+        body.dark-theme article,
+        body.dark-theme div:not(.main-content):not(.navbar):not(.nav-links) {
+            background-color: #1c2521 !important;
+            border-color: #2a3832 !important;
+        }
+
+        /* Mantém áreas de layout transparentes para não cobrir o fundo geral */
+        body.dark-theme main,
+        body.dark-theme .main-content,
+        body.dark-theme section {
+            background-color: transparent !important;
+        }
+
+        /* 3. FORÇA TODOS OS TEXTOS E TÍTULOS A FICAREM LEGÍVEIS */
+        body.dark-theme h1,
+        body.dark-theme h2,
+        body.dark-theme h3,
+        body.dark-theme h4,
+        body.dark-theme h5,
+        body.dark-theme h6,
+        body.dark-theme strong,
+        body.dark-theme b,
+        body.dark-theme .logo,
+        body.dark-theme .nav-item {
+            color: #ffffff !important;
+        }
+
+        body.dark-theme p,
+        body.dark-theme span,
+        body.dark-theme li,
+        body.dark-theme label,
+        body.dark-theme small,
+        body.dark-theme a:not(.btn):not(.btn-primary):not(.btn-login):not(.btn-register):not(.btn-logout) {
+            color: #c2d4c9 !important;
+        }
+
+        /* 4. AJUSTE DAS PÍLULAS/TAGS SOBRE OS TÍTULOS */
+        body.dark-theme span[class*="badge"],
+        body.dark-theme div[class*="badge"],
+        body.dark-theme span[class*="tag"],
+        body.dark-theme div[class*="pill"] {
+            background-color: #263830 !important;
+            color: #72d9a9 !important;
+        }
+
+        /* 5. BOTÃO DISCRETO NO CANTO DO MENU */
+        .theme-toggle-btn {
+            background: transparent !important;
+            border: 1px solid #d0d5d2 !important;
+            border-radius: 6px !important;
+            padding: 0.35rem 0.65rem !important;
+            cursor: pointer !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: #637069 !important;
+            transition: all 0.2s ease !important;
+            margin-left: 1rem !important;
+            display: inline-block !important;
+        }
+
+        .theme-toggle-btn:hover {
+            color: #1b4d3e !important;
+            border-color: #1b4d3e !important;
+            background-color: rgba(27, 77, 62, 0.05) !important;
+        }
+
+        body.dark-theme .theme-toggle-btn {
+            color: #e8ecea !important;
+            border-color: #2a3832 !important;
+        }
+
+        body.dark-theme .theme-toggle-btn:hover {
+            border-color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,6 +124,11 @@
                     <a href="{% url 'login' %}" class="btn-login">Entrar</a>
                     <a href="{% url 'cadastro' %}" class="btn-register">Criar conta</a>
                 {% endif %}
+
+                <!-- BOTÃO DISCRETO NO CANTO DIREITO -->
+                <button id="theme-toggle" class="theme-toggle-btn" type="button">
+                    <span id="theme-text">Modo Escuro</span>
+                </button>
             </div>
         </nav>
     </header>
@@ -46,6 +142,30 @@
         <p>© 2026 Ecomply — ESG de forma simples e acessível.</p>
     </footer>
 
+    <!-- SCRIPT DE ALTERNÂNCIA -->
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const themeText = document.getElementById('theme-text');
+
+        // Carrega o tema salvo
+        if (localStorage.getItem('ecomply-theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeText.textContent = 'Modo Claro';
+        }
+
+        toggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+
+            if (isDark) {
+                localStorage.setItem('ecomply-theme', 'dark');
+                themeText.textContent = 'Modo Claro';
+            } else {
+                localStorage.setItem('ecomply-theme', 'light');
+                themeText.textContent = 'Modo Escuro';
+            }
+        });
+    </script>
 </body>
 
 </html>
