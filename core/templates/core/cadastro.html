@@ -4,32 +4,35 @@
 Criar conta | Ecomply
 {% endblock %}
 
-
 {% block content %}
+<section class="auth-container">
+    <div class="auth-card">
+        <span class="badge">Novo Usuário</span>
+        <h1 class="auth-title">Crie sua conta</h1>
+        <p class="auth-subtitle">
+            Cadastre-se no Ecomply e comece a explorar nossas ferramentas.
+        </p>
 
-    <h1>Crie sua conta</h1>
+        <form method="POST" class="auth-form">
+            {% csrf_token %}
 
-    <p>
-        Cadastre-se no Ecomply e comece a explorar nossas ferramentas.
-    </p>
+            <div class="django-form-fields">
+                {{ form.as_p }}
+            </div>
 
-    <form method="POST">
+            <button type="submit" class="btn btn-primary btn-block">
+                Criar conta
+            </button>
+        </form>
 
-        {% csrf_token %}
-
-        {{ form.as_p }}
-
-        <button type="submit">
-            Criar conta
-        </button>
-
-    </form>
-
-    <p>
-        Já possui uma conta?
-        <a href="{% url 'login' %}">
-            Entrar
-        </a>
-    </p>
-
+        <div class="auth-footer">
+            <p>
+                Já possui uma conta?
+                <a href="{% url 'login' %}" class="link-highlight">
+                    Entrar
+                </a>
+            </p>
+        </div>
+    </div>
+</section>
 {% endblock %}

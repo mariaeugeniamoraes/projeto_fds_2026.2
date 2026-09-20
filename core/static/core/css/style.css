@@ -525,3 +525,23 @@ a {
 .link-highlight:hover {
     text-decoration: underline;
 }
+
+/* ==========================================
+   11. TEXTOS DE AJUDA E ERROS DO FORMULÁRIO DJANGO
+   ========================================== */
+.django-form-fields .helptext {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 0.25rem;
+    line-height: 1.3;
+}
+
+.django-form-fields .errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0.4rem 0 0 0;
+    color: #9b1c1c;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
