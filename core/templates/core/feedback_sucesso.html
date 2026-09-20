@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Feedback enviado | Ecomply</title>
-</head>
+{% block title %}
+Feedback enviado | Ecomply
+{% endblock %}
 
-<body>
+{% block content %}
+<section class="feedback-success-container">
+    <div class="feedback-success-card">
+        <div class="success-icon">✓</div>
+        
+        <h1 class="success-title">Feedback enviado!</h1>
+        
+        <p class="success-message">
+            Obrigado por compartilhar sua opinião com a equipe do Ecomply.
+        </p>
 
-    <h1>Feedback enviado!</h1>
-
-    <p>
-        Obrigado por compartilhar sua opinião com o Ecomply.
-    </p>
-
-    <a href="{% url 'home' %}">
-        Voltar para o início
-    </a>
-
-</body>
-
-</html>
+        <a href="{% url 'home' %}" class="btn btn-primary">
+            Voltar para o início
+        </a>
+    </div>
+</section>
+{% endblock %}

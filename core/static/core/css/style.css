@@ -545,3 +545,48 @@ a {
     font-size: 0.85rem;
     font-weight: 500;
 }
+
+/* ==========================================
+   12. PÁGINA DE SUCESSO DO FEEDBACK
+   ========================================== */
+.feedback-success-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.feedback-success-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-subtle);
+}
+
+.success-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--accent-green-light);
+    color: var(--primary-green);
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+}
+
+.success-title {
+    font-size: 1.8rem;
+    color: var(--primary-green);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.success-message {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
