@@ -4,54 +4,60 @@
 Entrar | Ecomply
 {% endblock %}
 
-
 {% block content %}
+<section class="auth-container">
+    <div class="auth-card">
+        <span class="badge">Acesso à Conta</span>
+        <h1 class="auth-title">Entrar</h1>
+        <p class="auth-subtitle">
+            Acesse sua conta para continuar no Ecomply.
+        </p>
 
-    <h1>Entrar</h1>
+        <!-- Exibição de Mensagem de Erro, caso haja-->
+        {% if erro %}
+            <div class="alert alert-error">
+                <p>{{ erro }}</p>
+            </div>
+        {% endif %}
 
-    <p>
-        Acesse sua conta para continuar no Ecomply.
-    </p>
+        <form method="POST" class="auth-form">
+            {% csrf_token %}
 
-    {% if erro %}
-        <p>{{ erro }}</p>
-    {% endif %}
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Seu nome de usuário"
+                    required
+                >
+            </div>
 
-    <form method="POST">
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Sua senha"
+                    required
+                >
+            </div>
 
-        {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-block">
+                Entrar
+            </button>
+        </form>
 
-        <div>
-            <label for="username">Usuário:</label>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                required
-            >
+        <div class="auth-footer">
+            <p>
+                Ainda não possui uma conta?
+                <a href="{% url 'cadastro' %}" class="link-highlight">
+                    Criar conta
+                </a>
+            </p>
         </div>
-
-        <div>
-            <label for="password">Senha:</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                required
-            >
-        </div>
-
-        <button type="submit">
-            Entrar
-        </button>
-
-    </form>
-
-    <p>
-        Ainda não possui uma conta?
-        <a href="{% url 'cadastro' %}">
-            Criar conta
-        </a>
-    </p>
-
+    </div>
+</section>
 {% endblock %}
