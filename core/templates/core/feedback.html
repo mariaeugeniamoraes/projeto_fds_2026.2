@@ -107,6 +107,12 @@ Fale Conosco | Ecomply
     .faq-answer p {
         margin: 0;
     }
+
+    /* Estilização discreta para os termos explicativos */
+    abbr[title] {
+        text-decoration: underline dotted var(--primary-green, #1b4d3e);
+        cursor: help;
+    }
 </style>
 
 <section class="feedback-container">
@@ -164,28 +170,36 @@ Fale Conosco | Ecomply
         
         <div class="faq-grid">
             <details class="faq-item">
-                <summary class="faq-question">O que é o diagnóstico ESG do Ecomply?</summary>
+                <summary class="faq-question">
+                    <span>O que é o diagnóstico <abbr title="Environmental, Social & Governance (Ambiental, Social e Governança)">ESG</abbr> do Ecomply?</span>
+                </summary>
                 <div class="faq-answer">
-                    <p>O Ecomply é uma plataforma que auxilia PMEs da indústria da moda a diagnosticarem suas práticas ambientais, sociais e de governança de forma intuitiva e acessível.</p>
+                    <p>O Ecomply é uma plataforma que auxilia <abbr title="Pequenas e Médias Empresas">PMEs</abbr> da indústria da moda a diagnosticarem suas práticas ambientais, sociais e de governança de forma intuitiva e acessível.</p>
                 </div>
             </details>
 
             <details class="faq-item">
-                <summary class="faq-question">Como a metodologia Deloitte é utilizada no projeto?</summary>
+                <summary class="faq-question">
+                    <span>Como a metodologia Deloitte é utilizada no projeto?</span>
+                </summary>
                 <div class="faq-answer">
                     <p>Utilizamos relatórios, diretrizes e indicadores de boas práticas ESG da Deloitte como benchmarking estratégico para estruturar nossas métricas de avaliação.</p>
                 </div>
             </details>
 
             <details class="faq-item">
-                <summary class="faq-question">A plataforma é gratuita para pequenas empresas?</summary>
+                <summary class="faq-question">
+                    <span>A plataforma é gratuita para pequenas empresas?</span>
+                </summary>
                 <div class="faq-answer">
                     <p>Sim, o Ecomply foi desenvolvido como uma solução acadêmica e aberta voltada para apoiar o desenvolvimento sustentável de confecções e marcas de moda.</p>
                 </div>
             </details>
 
             <details class="faq-item">
-                <summary class="faq-question">Como posso enviar uma sugestão ou feedback para a equipe?</summary>
+                <summary class="faq-question">
+                    <span>Como posso enviar uma sugestão ou feedback para a equipe?</span>
+                </summary>
                 <div class="faq-answer">
                     <p>Você pode utilizar o formulário abaixo nesta própria página ou entrar em contato com os membros da equipe através dos e-mails listados acima.</p>
                 </div>
