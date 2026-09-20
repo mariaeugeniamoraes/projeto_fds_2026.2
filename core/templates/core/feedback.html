@@ -4,96 +4,84 @@
 Fale Conosco | Ecomply
 {% endblock %}
 
-
 {% block content %}
-
-    <h1>Fale Conosco</h1>
-
-    <p>
-        Tem alguma dúvida, sugestão ou feedback?
-        Entre em contato com a equipe Ecomply.
-    </p>
-
-
-    <h2>Nossa equipe</h2>
-
-    <div>
-
-        <h3>Maria Eugênia Moraes</h3>
-        <p>
-            <a href="mailto:memm@cesar.school">
-                memm@cesar.school
-            </a>
+<section class="feedback-container">
+    
+    <!-- Cabeçalho-->
+    <div class="feedback-header">
+        <span class="badge">Atendimento & Contato</span>
+        <h1 class="page-title">Fale Conosco</h1>
+        <p class="page-subtitle">
+            Tem alguma dúvida, sugestão ou feedback? Entre em contato com a equipe Ecomply.
         </p>
-
-        <h3>Ana Júlia de Melo Costa</h3>
-        <p>
-            <a href="mailto:ajmcs2@cesar.school">
-                ajmcs2@cesar.school
-            </a>
-        </p>
-
-        <h3>Arthur Marenga Paranhos</h3>
-        <p>
-            <a href="mailto:amp4@cesar.school">
-                amp4@cesar.school
-            </a>
-        </p>
-
-        <h3>José Victor Telles de Araujo Pereira Tavares</h3>
-        <p>
-            <a href="mailto:Jvtapt@cesar.school">
-                Jvtapt@cesar.school
-            </a>
-        </p>
-
-        <h3>Marcos Luiz Galdino Berto Alves</h3>
-        <p>
-            <a href="mailto:mlgba@cesar.school">
-                mlgba@cesar.school
-            </a>
-        </p>
-
     </div>
 
+    <!-- Seção da Equipe -->
+    <section class="team-section">
+        <h2 class="section-title">Nossa equipe</h2>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="member-avatar">AJ</div>
+                <h3 class="member-name">Ana Júlia de Melo Costa</h3>
+                <a href="mailto:ajmcs2@cesar.school" class="member-email">ajmcs2@cesar.school</a>
+            </div>
 
-    <hr>
+            <div class="team-card">
+                <div class="member-avatar">AP</div>
+                <h3 class="member-name">Arthur Marenga Paranhos</h3>
+                <a href="mailto:amp4@cesar.school" class="member-email">amp4@cesar.school</a>
+            </div>
 
+            <div class="team-card">
+                <div class="member-avatar">JT</div>
+                <h3 class="member-name">José Victor Telles de Araujo Pereira Tavares</h3>
+                <a href="mailto:Jvtapt@cesar.school" class="member-email">Jvtapt@cesar.school</a>
+            </div>
 
-    <h2>Deixe seu feedback</h2>
+            <div class="team-card">
+                <div class="member-avatar">MA</div>
+                <h3 class="member-name">Marcos Luiz Galdino Berto Alves</h3>
+                <a href="mailto:mlgba@cesar.school" class="member-email">mlgba@cesar.school</a>
+            </div>
 
-    <p>
-        Sua opinião é importante para continuarmos melhorando o Ecomply.
-    </p>
+            <div class="team-card">
+                <div class="member-avatar">MM</div>
+                <h3 class="member-name">Maria Eugênia Moraes</h3>
+                <a href="mailto:memm@cesar.school" class="member-email">memm@cesar.school</a>
+            </div>
+        </div>
+    </section>
 
-    {% if user.is_authenticated %}
-
-        <form method="POST">
-
-            {% csrf_token %}
-
-            {{ form.as_p }}
-
-            <button type="submit">
-                Enviar feedback
-            </button>
-
-        </form>
-
-    {% else %}
-
-        <p>
-            Para enviar um feedback, você precisa estar conectado à sua conta.
+    <!-- Seção do Formulário e Autenticação-->
+    <section class="feedback-form-card">
+        <h2 class="section-title">Deixe seu feedback</h2>
+        <p class="form-description">
+            Sua opinião é importante para continuarmos melhorando o Ecomply.
         </p>
 
-        <a href="{% url 'login' %}">
-            Entrar
-        </a>
+        {% if user.is_authenticated %}
+            <form method="POST" class="feedback-form">
+                {% csrf_token %}
+                
+                <div class="django-form-fields">
+                    {{ form.as_p }}
+                </div>
 
-        <a href="{% url 'cadastro' %}">
-            Criar conta
-        </a>
+                <button type="submit" class="btn btn-primary btn-block">
+                    Enviar feedback
+                </button>
+            </form>
+        {% else %}
+            <div class="auth-notice">
+                <p>Para enviar um feedback, você precisa estar conectado à sua conta.</p>
+                <div class="cta-buttons">
+                    <a href="{% url 'login' %}" class="btn btn-primary">Entrar</a>
+                    <a href="{% url 'cadastro' %}" class="btn btn-secondary">Criar conta</a>
+                </div>
+            </div>
+        {% endif %}
+    </section>
 
-    {% endif %}
-
+</section>
 {% endblock %}
