@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+
 {% load static %}
 
 {% block title %}
@@ -6,6 +7,7 @@ Quem Somos | Ecomply
 {% endblock %}
 
 {% block content %}
+
 <style>
     .team-section {
         margin-bottom: 2.5rem;
@@ -47,101 +49,170 @@ Quem Somos | Ecomply
 </style>
 
 <section class="about-container">
-    
-    <!-- Cabeçalho-->
+
+    <!-- Cabeçalho -->
     <div class="about-header">
         <span class="badge">Nossa História</span>
+
         <h1 class="page-title">Quem Somos</h1>
+
         <p class="page-subtitle">
             Conheça a trajetória por trás do Ecomply e o propósito do nosso projeto.
         </p>
     </div>
 
+    <!-- Equipe -->
     <section class="team-section">
         <h2 class="section-title">Nossa equipe</h2>
-        
+
         <div class="team-grid">
+
             <div class="team-card">
-                <img src="{% static 'images/equipe/aj.jpeg' %}" alt="Ana Júlia de Melo Costa" class="member-avatar">
-                <a href="https://www.linkedin.com/in/anajuliamelocs" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                <img src="{% static 'images/equipe/aj.jpeg' %}"
+                     alt="Ana Júlia de Melo Costa"
+                     class="member-avatar">
+
+                <a href="https://www.linkedin.com/in/anajuliamelocs"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="member-name-link">
                     Ana Júlia
                 </a>
-                <a href="mailto:ajmcs2@cesar.school" class="member-email">ajmcs2@cesar.school</a>
+
+                <a href="mailto:ajmcs2@cesar.school" class="member-email">
+                    ajmcs2@cesar.school
+                </a>
             </div>
 
             <div class="team-card">
-                <img src="{% static 'images/equipe/arthur.png' %}" alt="Arthur Marenga Paranhos" class="member-avatar">
-                <a href="https://www.linkedin.com/in/arthurmarenga" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                <img src="{% static 'images/equipe/arthur.png' %}"
+                     alt="Arthur Marenga Paranhos"
+                     class="member-avatar">
+
+                <a href="https://www.linkedin.com/in/arthurmarenga"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="member-name-link">
                     Arthur Marenga
                 </a>
-                <a href="mailto:amp4@cesar.school" class="member-email">amp4@cesar.school</a>
+
+                <a href="mailto:amp4@cesar.school" class="member-email">
+                    amp4@cesar.school
+                </a>
             </div>
 
             <div class="team-card">
-                <img src="{% static 'images/equipe/vt.jpeg' %}" alt="José Victor Telles de Araujo Pereira Tavares" class="member-avatar">
-                <a href="https://www.linkedin.com/in/victor-telles-9150143b8/" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                <img src="{% static 'images/equipe/vt.jpeg' %}"
+                     alt="José Victor Telles de Araujo Pereira Tavares"
+                     class="member-avatar">
+
+                <a href="https://www.linkedin.com/in/victor-telles-9150143b8/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="member-name-link">
                     Victor Telles
                 </a>
-                <a href="mailto:Jvtapt@cesar.school" class="member-email">Jvtapt@cesar.school</a>
+
+                <a href="mailto:Jvtapt@cesar.school" class="member-email">
+                    Jvtapt@cesar.school
+                </a>
             </div>
 
             <div class="team-card">
-                <img src="{% static 'images/equipe/marcos.jpeg' %}" alt="Marcos Luiz Galdino Berto Alves" class="member-avatar">
-                <a href="https://www.linkedin.com/in/marcos-luiz-galdino-88b997426/" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                <img src="{% static 'images/equipe/marcos.jpeg' %}"
+                     alt="Marcos Luiz Galdino Berto Alves"
+                     class="member-avatar">
+
+                <a href="https://www.linkedin.com/in/marcos-luiz-galdino-88b997426/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="member-name-link">
                     Marcos Galdino
                 </a>
-                <a href="mailto:mlgba@cesar.school" class="member-email">mlgba@cesar.school</a>
+
+                <a href="mailto:mlgba@cesar.school" class="member-email">
+                    mlgba@cesar.school
+                </a>
             </div>
 
             <div class="team-card">
-                <img src="{% static 'images/equipe/eu.jpeg' %}" alt="Maria Eugênia Moraes" class="member-avatar">
-                <a href="https://www.linkedin.com/in/maria-eugenia-moraes" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                <img src="{% static 'images/equipe/eu.jpeg' %}"
+                     alt="Maria Eugênia Moraes"
+                     class="member-avatar">
+
+                <a href="https://www.linkedin.com/in/maria-eugenia-moraes"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="member-name-link">
                     Maria Eugênia
                 </a>
-                <a href="mailto:memm@cesar.school" class="member-email">memm@cesar.school</a>
+
+                <a href="mailto:memm@cesar.school" class="member-email">
+                    memm@cesar.school
+                </a>
             </div>
+
         </div>
     </section>
 
     <!-- Card Principal: Origem e Faculdade -->
     <div class="about-card">
+
         <h2 class="card-section-title">Nossa Origem & CESAR School</h2>
+
         <p class="about-text">
-            O <strong>Ecomply</strong> nasceu do desejo de transformar a gestão de sustentabilidade (ESG) em algo prático, 
-            transparente e acessível para pequenas e médias empresas do setor de e-commerce de moda.
+            O <strong>Ecomply</strong> nasceu do desejo de transformar a gestão de
+            sustentabilidade (ESG) em algo prático, transparente e acessível para
+            pequenas e médias empresas do setor de e-commerce.
         </p>
+
         <p class="about-text">
-            Desenvolvido por estudantes da <strong>CESAR School</strong>, o projeto combina inovação tecnológica, 
-            design centrado no usuário e metodologias de desenvolvimento de software para resolver desafios reais de governança e impacto ambiental.
+            Desenvolvido por estudantes da <strong>CESAR School</strong>, o projeto
+            combina inovação tecnológica, design centrado no usuário e metodologias
+            de desenvolvimento de software para apoiar empresas na adoção de práticas
+            mais responsáveis nos aspectos ambientais, sociais e de governança.
         </p>
+
     </div>
 
-    <!-- Cards dos Pilares-->
+    <!-- Cards dos Pilares -->
     <div class="pillars-grid">
+
         <div class="pillar-card">
             <div class="pillar-icon">🌱</div>
+
             <h3 class="pillar-title">Sustentabilidade</h3>
+
             <p class="pillar-desc">
-                Incentivar práticas responsáveis com foco no impacto socioambiental do mercado de moda.
+                Incentivar práticas responsáveis com foco nos impactos ambientais,
+                sociais e de governança das empresas do comércio eletrônico.
             </p>
         </div>
 
         <div class="pillar-icon-card pillar-card">
             <div class="pillar-icon">💡</div>
+
             <h3 class="pillar-title">Simplicidade</h3>
+
             <p class="pillar-desc">
-                Desmistificar critérios ESG complexos em etapas claras e fáceis de aplicar no dia a dia.
+                Desmistificar critérios ESG complexos em etapas claras e fáceis
+                de aplicar no dia a dia.
             </p>
         </div>
 
         <div class="pillar-card">
             <div class="pillar-icon">🎓</div>
+
             <h3 class="pillar-title">Inovação Acadêmica</h3>
+
             <p class="pillar-desc">
-                Aplicações práticas conectadas com os padrões de mercado e a excelência da CESAR School.
+                Aplicações práticas conectadas com os padrões de mercado e a
+                excelência da CESAR School.
             </p>
         </div>
+
     </div>
 
 </section>
+
 {% endblock %}
