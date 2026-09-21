@@ -5,7 +5,7 @@ Fale Conosco | Ecomply
 {% endblock %}
 
 {% block content %}
-<!-- ESTILO EXCLUSIVO (FAQ, TOAST MESSAGES E LINKEDIN DA EQUIPE) -->
+<!-- ESTILO EXCLUSIVO (FAQ E TOAST MESSAGES) -->
 <style>
     /* Estilo da mensagem de alerta (Toast) */
     .messages-container {
@@ -58,31 +58,6 @@ Fale Conosco | Ecomply
             opacity: 1;
             transform: translateY(0);
         }
-    }
-
-    /* Links do LinkedIn nos nomes da equipe */
-    .member-name-link {
-        display: block;
-        font-weight: 700;
-        font-size: 1rem;
-        color: var(--text-main, #242c28);
-        text-decoration: none;
-        margin-top: 0.5rem;
-        margin-bottom: 0.2rem;
-        transition: color 0.2s ease, text-decoration 0.2s ease;
-    }
-
-    .member-name-link:hover {
-        color: #1b4d3e !important;
-        text-decoration: underline;
-    }
-
-    body.dark-theme .member-name-link {
-        color: #ffffff !important;
-    }
-
-    body.dark-theme .member-name-link:hover {
-        color: #72d9a9 !important;
     }
 
     /* Estilo do FAQ */
@@ -216,53 +191,6 @@ Fale Conosco | Ecomply
         </p>
     </div>
 
-    <!-- Seção da Equipe -->
-    <section class="team-section">
-        <h2 class="section-title">Nossa equipe</h2>
-        
-        <div class="team-grid">
-            <div class="team-card">
-                <div class="member-avatar">AJ</div>
-                <a href="https://www.linkedin.com/in/anajuliamelocs" target="_blank" rel="noopener noreferrer" class="member-name-link">
-                    Ana Júlia de Melo Costa
-                </a>
-                <a href="mailto:ajmcs2@cesar.school" class="member-email">ajmcs2@cesar.school</a>
-            </div>
-
-            <div class="team-card">
-                <div class="member-avatar">AP</div>
-                <a href="https://www.linkedin.com/in/arthurmarenga" target="_blank" rel="noopener noreferrer" class="member-name-link">
-                    Arthur Marenga Paranhos
-                </a>
-                <a href="mailto:amp4@cesar.school" class="member-email">amp4@cesar.school</a>
-            </div>
-
-            <div class="team-card">
-                <div class="member-avatar">JT</div>
-                <a href="https://www.linkedin.com/in/victor-telles-9150143b8/" target="_blank" rel="noopener noreferrer" class="member-name-link">
-                    José Victor Telles de Araujo Pereira Tavares
-                </a>
-                <a href="mailto:Jvtapt@cesar.school" class="member-email">Jvtapt@cesar.school</a>
-            </div>
-
-            <div class="team-card">
-                <div class="member-avatar">MA</div>
-                <a href="https://www.linkedin.com/in/marcos-luiz-galdino-88b997426/" target="_blank" rel="noopener noreferrer" class="member-name-link">
-                    Marcos Luiz Galdino Berto Alves
-                </a>
-                <a href="mailto:mlgba@cesar.school" class="member-email">mlgba@cesar.school</a>
-            </div>
-
-            <div class="team-card">
-                <div class="member-avatar">MM</div>
-                <a href="https://www.linkedin.com/in/maria-eugenia-moraes" target="_blank" rel="noopener noreferrer" class="member-name-link">
-                    Maria Eugênia Moraes
-                </a>
-                <a href="mailto:memm@cesar.school" class="member-email">memm@cesar.school</a>
-            </div>
-        </div>
-    </section>
-
     <!-- Seção de Perguntas Frequentes (FAQ) -->
     <section class="faq-section">
         <h2 class="section-title">Perguntas Frequentes (FAQ)</h2>
@@ -301,7 +229,7 @@ Fale Conosco | Ecomply
                     <span>Como posso enviar uma sugestão ou feedback para a equipe?</span>
                 </summary>
                 <div class="faq-answer">
-                    <p>Você pode utilizar o formulário abaixo nesta própria página ou entrar em contato com os membros da equipe através dos e-mails listados acima.</p>
+                    <p>Você pode utilizar o formulário abaixo nesta própria página ou entrar em contato com os membros da equipe através da página Quem Somos.</p>
                 </div>
             </details>
         </div>

@@ -1,10 +1,51 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}
 Quem Somos | Ecomply
 {% endblock %}
 
 {% block content %}
+<style>
+    .team-section {
+        margin-bottom: 2.5rem;
+        width: 100%;
+    }
+
+    .member-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto 0.5rem auto;
+    }
+
+    .member-name-link {
+        display: block;
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--text-main, #242c28);
+        text-decoration: none;
+        margin-top: 0.5rem;
+        margin-bottom: 0.2rem;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+    }
+
+    .member-name-link:hover {
+        color: #1b4d3e !important;
+        text-decoration: underline;
+    }
+
+    body.dark-theme .member-name-link {
+        color: #ffffff !important;
+    }
+
+    body.dark-theme .member-name-link:hover {
+        color: #72d9a9 !important;
+    }
+</style>
+
 <section class="about-container">
     
     <!-- Cabeçalho-->
@@ -15,6 +56,52 @@ Quem Somos | Ecomply
             Conheça a trajetória por trás do Ecomply e o propósito do nosso projeto.
         </p>
     </div>
+
+    <section class="team-section">
+        <h2 class="section-title">Nossa equipe</h2>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="{% static 'images/equipe/ana-julia.jpg' %}" alt="Ana Júlia de Melo Costa" class="member-avatar">
+                <a href="https://www.linkedin.com/in/anajuliamelocs" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                    Ana Júlia de Melo Costa
+                </a>
+                <a href="mailto:ajmcs2@cesar.school" class="member-email">ajmcs2@cesar.school</a>
+            </div>
+
+            <div class="team-card">
+                <img src="{% static 'images/equipe/arthur.jpg' %}" alt="Arthur Marenga Paranhos" class="member-avatar">
+                <a href="https://www.linkedin.com/in/arthurmarenga" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                    Arthur Marenga Paranhos
+                </a>
+                <a href="mailto:amp4@cesar.school" class="member-email">amp4@cesar.school</a>
+            </div>
+
+            <div class="team-card">
+                <img src="{% static 'images/equipe/jose-victor.jpg' %}" alt="José Victor Telles de Araujo Pereira Tavares" class="member-avatar">
+                <a href="https://www.linkedin.com/in/victor-telles-9150143b8/" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                    José Victor Telles de Araujo Pereira Tavares
+                </a>
+                <a href="mailto:Jvtapt@cesar.school" class="member-email">Jvtapt@cesar.school</a>
+            </div>
+
+            <div class="team-card">
+                <img src="{% static 'images/equipe/marcos.jpg' %}" alt="Marcos Luiz Galdino Berto Alves" class="member-avatar">
+                <a href="https://www.linkedin.com/in/marcos-luiz-galdino-88b997426/" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                    Marcos Luiz Galdino Berto Alves
+                </a>
+                <a href="mailto:mlgba@cesar.school" class="member-email">mlgba@cesar.school</a>
+            </div>
+
+            <div class="team-card">
+                <img src="{% static 'images/equipe/maria-eugenia.jpg' %}" alt="Maria Eugênia Moraes" class="member-avatar">
+                <a href="https://www.linkedin.com/in/maria-eugenia-moraes" target="_blank" rel="noopener noreferrer" class="member-name-link">
+                    Maria Eugênia Moraes
+                </a>
+                <a href="mailto:memm@cesar.school" class="member-email">memm@cesar.school</a>
+            </div>
+        </div>
+    </section>
 
     <!-- Card Principal: Origem e Faculdade -->
     <div class="about-card">
