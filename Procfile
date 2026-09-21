@@ -1,1 +1,1 @@
-web: gunicorn seu_projeto.wsgi:application
+web: gunicorn ecomply.wsgi:application
