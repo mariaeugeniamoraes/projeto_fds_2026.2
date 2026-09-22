@@ -99,4 +99,4 @@ https://youtu.be/cuc5XAlUUAI?is=H_MAsDdn_2Gf-QeC
 
 https://youtu.be/PsEGuZzJZvU?is=CSefCLgD33U2sdVN
 
-## Finalização do projeto 22/09/2026 00:01
+## Finalização do projeto (22/09/2026 00:01)
