@@ -89,3 +89,6 @@ durante o desenvolvimento.
 <img src="issue-tracker.png" width="600">
 
 https://victor0609.atlassian.net/jira/software/projects/KAN/boards/1/backlog?selectedIssue=KAN-16&atlOrigin=eyJpIjoiYThiYTMzYjdlZDE4NDdmZDhkNWNlNmQ0MjZiMGEwNmEiLCJwIjoiaiJ9
+
+
+https://youtu.be/cuc5XAlUUAI?is=H_MAsDdn_2Gf-QeC
