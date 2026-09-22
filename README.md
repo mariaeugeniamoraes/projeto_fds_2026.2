@@ -96,3 +96,5 @@ https://victor0609.atlassian.net/jira/software/projects/KAN/boards/1/backlog?sel
 ## Link da apresentação do site
 
 https://youtu.be/cuc5XAlUUAI?is=H_MAsDdn_2Gf-QeC
+
+https://youtu.be/PsEGuZzJZvU?is=CSefCLgD33U2sdVN
