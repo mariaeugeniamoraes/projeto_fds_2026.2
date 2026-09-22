@@ -98,3 +98,5 @@ https://victor0609.atlassian.net/jira/software/projects/KAN/boards/1/backlog?sel
 https://youtu.be/cuc5XAlUUAI?is=H_MAsDdn_2Gf-QeC
 
 https://youtu.be/PsEGuZzJZvU?is=CSefCLgD33U2sdVN
+
+## Finalização do projeto 22/09/2026 00:01
