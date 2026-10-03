@@ -14,19 +14,36 @@
 
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 
-    <!-- OVERRIDE UNIVERSAL DO MODO ESCURO -->
-
+    <!-- MODO ESCURO -->
     <style>
 
-        /* 1. FUNDO DA PÁGINA */
+        /* ==========================================
+           NOVA PALETA - MODO ESCURO
+           Azul:       #0D1959
+           Terracota:  #8C3E14
+           Verde/cinza:#4C6565
+           Cinza:      #AEB6C2
+           Creme:      #FFF3CD
+           ========================================== */
+
+
+        /* FUNDO DA PÁGINA */
 
         body.dark-theme {
-            background-color: #121816 !important;
-            color: #e8ecea !important;
+            background-color: #080f2f !important;
+            color: #FFF3CD !important;
+
+            background-image:
+                radial-gradient(
+                    rgba(174, 182, 194, 0.18) 1.5px,
+                    transparent 1.5px
+                ) !important;
         }
 
 
-        /* 2. FORÇA QUALQUER BLOCO/CARTÃO/CAIXA/PÍLULA A FICAR ESCURO */
+        /* ==========================================
+           CARDS E BLOCOS
+           ========================================== */
 
         body.dark-theme header,
         body.dark-theme footer,
@@ -35,12 +52,12 @@
         body.dark-theme details,
         body.dark-theme article,
         body.dark-theme div:not(.main-content):not(.navbar):not(.nav-links) {
-            background-color: #1c2521 !important;
-            border-color: #2a3832 !important;
+            background-color: #0D1959 !important;
+            border-color: #4C6565 !important;
         }
 
 
-        /* Mantém áreas de layout transparentes para não cobrir o fundo geral */
+        /* Áreas de layout continuam transparentes */
 
         body.dark-theme main,
         body.dark-theme .main-content,
@@ -49,7 +66,9 @@
         }
 
 
-        /* 3. FORÇA TODOS OS TEXTOS E TÍTULOS A FICAREM LEGÍVEIS */
+        /* ==========================================
+           TÍTULOS
+           ========================================== */
 
         body.dark-theme h1,
         body.dark-theme h2,
@@ -59,70 +78,188 @@
         body.dark-theme h6,
         body.dark-theme strong,
         body.dark-theme b,
-        body.dark-theme .logo,
-        body.dark-theme .nav-item {
-            color: #ffffff !important;
+        body.dark-theme .logo {
+            color: #FFF3CD !important;
         }
 
+
+        /* ==========================================
+           TEXTOS
+           ========================================== */
 
         body.dark-theme p,
-        body.dark-theme span,
         body.dark-theme li,
         body.dark-theme label,
-        body.dark-theme small,
-        body.dark-theme a:not(.btn):not(.btn-primary):not(.btn-login):not(.btn-register):not(.btn-logout) {
-            color: #c2d4c9 !important;
+        body.dark-theme small {
+            color: #AEB6C2 !important;
         }
 
 
-        /* 4. AJUSTE DAS PÍLULAS/TAGS SOBRE OS TÍTULOS */
+        /* ==========================================
+           LINKS DA NAVBAR
+           ========================================== */
+
+        body.dark-theme .nav-item,
+        body.dark-theme .user-welcome,
+        body.dark-theme .btn-login,
+        body.dark-theme .btn-register,
+        body.dark-theme .btn-logout {
+            color: #FFF3CD !important;
+        }
+
+
+        body.dark-theme .nav-item:hover,
+        body.dark-theme .user-welcome:hover,
+        body.dark-theme .btn-login:hover,
+        body.dark-theme .btn-register:hover,
+        body.dark-theme .btn-logout:hover {
+            color: #AEB6C2 !important;
+        }
+
+
+        /* Links comuns */
+
+        body.dark-theme
+        a:not(.btn):not(.btn-primary):not(.btn-login):not(.btn-register):not(.btn-logout) {
+            color: #FFF3CD;
+        }
+
+
+        /* ==========================================
+           BADGES / PÍLULAS
+           ========================================== */
 
         body.dark-theme span[class*="badge"],
         body.dark-theme div[class*="badge"],
         body.dark-theme span[class*="tag"],
         body.dark-theme div[class*="pill"] {
-            background-color: #263830 !important;
-            color: #72d9a9 !important;
+            background-color: #FFF3CD !important;
+            color: #0D1959 !important;
         }
 
 
-        /* 5. BOTÃO DISCRETO NO CANTO DO MENU */
+        /* ==========================================
+           BOTÃO PRINCIPAL
+           ========================================== */
+
+        body.dark-theme .btn-primary {
+            background-color: #8C3E14 !important;
+            color: #ffffff !important;
+            border-color: #8C3E14 !important;
+        }
+
+
+        body.dark-theme .btn-primary:hover {
+            background-color: #a54c1d !important;
+            border-color: #a54c1d !important;
+        }
+
+
+        /* ==========================================
+           BOTÃO SECUNDÁRIO
+           ========================================== */
+
+        body.dark-theme .btn-secondary {
+            background-color: transparent !important;
+            color: #FFF3CD !important;
+            border-color: #AEB6C2 !important;
+        }
+
+
+        body.dark-theme .btn-secondary:hover {
+            background-color: #FFF3CD !important;
+            color: #0D1959 !important;
+            border-color: #FFF3CD !important;
+        }
+
+
+        /* ==========================================
+           CAMPOS DE FORMULÁRIO
+           ========================================== */
+
+        body.dark-theme input,
+        body.dark-theme textarea,
+        body.dark-theme select {
+            background-color: #080f2f !important;
+            color: #FFF3CD !important;
+            border-color: #4C6565 !important;
+        }
+
+
+        body.dark-theme input:focus,
+        body.dark-theme textarea:focus,
+        body.dark-theme select:focus {
+            border-color: #FFF3CD !important;
+            box-shadow: 0 0 0 3px rgba(255, 243, 205, 0.15) !important;
+        }
+
+
+        body.dark-theme input::placeholder,
+        body.dark-theme textarea::placeholder {
+            color: #AEB6C2 !important;
+        }
+
+
+        /* ==========================================
+           CARDS DA EQUIPE
+           ========================================== */
+
+        body.dark-theme .team-card:hover {
+            border-color: #8C3E14 !important;
+        }
+
+
+        body.dark-theme .member-email {
+            color: #AEB6C2 !important;
+        }
+
+
+        body.dark-theme .member-email:hover {
+            color: #FFF3CD !important;
+        }
+
+
+        /* ==========================================
+           BOTÃO DE MODO CLARO / ESCURO
+           ========================================== */
 
         .theme-toggle-btn {
             background: transparent !important;
-            border: 1px solid #d0d5d2 !important;
+            border: 1px solid #AEB6C2 !important;
             border-radius: 6px !important;
             padding: 0.35rem 0.65rem !important;
             cursor: pointer !important;
             font-size: 0.82rem !important;
             font-weight: 500 !important;
-            color: #637069 !important;
+            color: #4C6565 !important;
             transition: all 0.2s ease !important;
             margin-left: 1rem !important;
             display: inline-block !important;
+            white-space: nowrap;
         }
 
 
         .theme-toggle-btn:hover {
-            color: #1b4d3e !important;
-            border-color: #1b4d3e !important;
-            background-color: rgba(27, 77, 62, 0.05) !important;
+            color: #8C3E14 !important;
+            border-color: #8C3E14 !important;
+            background-color: rgba(140, 62, 20, 0.06) !important;
         }
 
 
         body.dark-theme .theme-toggle-btn {
-            color: #e8ecea !important;
-            border-color: #2a3832 !important;
+            color: #FFF3CD !important;
+            border-color: #AEB6C2 !important;
         }
 
 
         body.dark-theme .theme-toggle-btn:hover {
-            border-color: #ffffff !important;
-            background-color: rgba(255, 255, 255, 0.1) !important;
+            color: #0D1959 !important;
+            border-color: #FFF3CD !important;
+            background-color: #FFF3CD !important;
         }
 
 
-        /* Mantém o link do perfil com aparência semelhante ao texto anterior */
+        /* Perfil */
 
         .user-welcome {
             text-decoration: none;
@@ -165,8 +302,6 @@
 
                 {% if user.is_authenticated %}
 
-                    <!-- Nome do usuário leva para Meu Perfil -->
-
                     <a href="{% url 'perfil' %}" class="user-welcome">
                         Meu Perfil
                     </a>
@@ -187,8 +322,6 @@
 
                 {% endif %}
 
-
-                <!-- BOTÃO DISCRETO NO CANTO DIREITO -->
 
                 <button
                     id="theme-toggle"
@@ -225,18 +358,22 @@
     </footer>
 
 
-    <!-- SCRIPT DE ALTERNÂNCIA -->
+    <!-- SCRIPT DE ALTERNÂNCIA DO TEMA -->
 
     <script>
 
-        const toggleBtn = document.getElementById('theme-toggle');
+        const toggleBtn =
+            document.getElementById('theme-toggle');
 
-        const themeText = document.getElementById('theme-text');
+        const themeText =
+            document.getElementById('theme-text');
 
 
-        // Carrega o tema salvo
+        // Carrega o tema salvo anteriormente
 
-        if (localStorage.getItem('ecomply-theme') === 'dark') {
+        if (
+            localStorage.getItem('ecomply-theme') === 'dark'
+        ) {
 
             document.body.classList.add('dark-theme');
 
@@ -244,6 +381,8 @@
 
         }
 
+
+        // Alterna entre modo claro e escuro
 
         toggleBtn.addEventListener('click', function() {
 

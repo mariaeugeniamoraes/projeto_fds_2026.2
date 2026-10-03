@@ -1,30 +1,47 @@
 /* ==========================================
-   1. VARIÁVEIS DE DESIGN & PALETA DE CORES
+   1. VARIÁVEIS DE DESIGN & PALETA DE CORES
    ========================================== */
+
 :root {
-    /* Cores principais */
-    --bg-color: #f8f7f2;            /* Off-white com toque bege suave */
-    --card-bg: #ffffff;             /* Branco puro para destaques/cards */
-    --primary-green: #1b4d3e;       /* Verde ESG profundo/sofisticado */
-    --primary-green-hover: #13382d;
-    --accent-green-light: #e6f0ec;  /* Verde bem claro para fundos/hover */
-    --dot-color: rgba(27, 77, 62, 0.15); /* Pontinhos neutros do fundo */
-    
-    /* Tipografia e Textos */
-    --text-main: #242c28;           /* Grafite escuro elegante */
-    --text-muted: #637069;          /* Cinza esverdeado suave */
-    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    
-    /* Bordas e Sombras */
-    --border-color: #e5e3d9;
+    /* Nova paleta Ecomply */
+    --bg-color: #f8f7f2;
+    --card-bg: #ffffff;
+
+    /* Azul-marinho */
+    --primary-green: #0D1959;
+    --primary-green-hover: #09113d;
+
+    /* Creme */
+    --accent-green-light: #FFF3CD;
+
+    /* Pontinhos do fundo */
+    --dot-color: rgba(76, 101, 101, 0.20);
+
+    /* Tipografia e textos */
+    --text-main: #0D1959;
+    --text-muted: #4C6565;
+
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* Bordas e sombras */
+    --border-color: #AEB6C2;
     --radius-sm: 8px;
     --radius-lg: 16px;
-    --shadow-subtle: 0 10px 30px rgba(27, 77, 62, 0.05);
+    --shadow-subtle: 0 10px 30px rgba(13, 25, 89, 0.08);
+
+    /* Cores complementares */
+    --accent-brown: #8C3E14;
+    --secondary: #4C6565;
+    --soft-gray: #AEB6C2;
+    --cream: #FFF3CD;
 }
+
 
 /* ==========================================
    2. RESET & FUNDO PONTILHADO (BULLET JOURNAL)
    ========================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -33,8 +50,10 @@
 
 body {
     background-color: var(--bg-color);
-    /* Cria o padrão de folha pontilhada sem usar imagens */
-    background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+    background-image: radial-gradient(
+        var(--dot-color) 1.5px,
+        transparent 1.5px
+    );
     background-size: 24px 24px;
     color: var(--text-main);
     font-family: var(--font-family);
@@ -50,12 +69,14 @@ a {
     transition: all 0.2s ease;
 }
 
+
 /* ==========================================
-   3. CABEÇALHO (HEADER & NAVBAR RESPONSIVO)
+   3. CABEÇALHO (HEADER & NAVBAR RESPONSIVO)
    ========================================== */
+
 .header {
-    background-color: rgba(248, 247, 242, 0.9); /* Leve transparência */
-    backdrop-filter: blur(8px);                 /* Efeito de vidro desfocado */
+    background-color: rgba(248, 247, 242, 0.9);
+    backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border-color);
     padding: 1.2rem 2rem;
     position: sticky;
@@ -64,7 +85,7 @@ a {
 }
 
 .navbar {
-    max-width: 1200px; /* Mantém o menu alinhado com o conteúdo em telas grandes */
+    max-width: 1200px;
     width: 100%;
     margin: 0 auto;
     display: flex;
@@ -92,7 +113,7 @@ a {
 }
 
 .nav-item:hover {
-    color: var(--primary-green);
+    color: var(--accent-brown);
 }
 
 .user-welcome {
@@ -101,9 +122,11 @@ a {
     font-size: 0.95rem;
 }
 
+
 /* ==========================================
-   4. CONTEÚDO PRINCIPAL (CONTAINER FLUIDO)
+   4. CONTEÚDO PRINCIPAL
    ========================================== */
+
 .main-content {
     flex: 1;
     display: flex;
@@ -112,12 +135,14 @@ a {
     padding: 3rem 1.5rem;
 }
 
+
 /* ==========================================
-   5. SEÇÃO HERO (HOME)
+   5. SEÇÃO HERO (HOME)
    ========================================== */
+
 .hero-section {
     width: 100%;
-    max-width: 760px; /* Largura perfeita para leitura em telas de 26"+ */
+    max-width: 760px;
 }
 
 .hero-card {
@@ -131,7 +156,7 @@ a {
 
 .badge {
     display: inline-block;
-    background-color: var(--accent-green-light);
+    background-color: var(--cream);
     color: var(--primary-green);
     font-size: 0.8rem;
     font-weight: 600;
@@ -143,7 +168,7 @@ a {
 }
 
 .hero-title {
-    font-size: clamp(1.8rem, 4vw, 2.4rem); /* Responsivo: encolhe/cresce suavemente */
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
     color: var(--primary-green);
     font-weight: 700;
     letter-spacing: -0.5px;
@@ -165,9 +190,11 @@ a {
     margin-bottom: 1.5rem;
 }
 
+
 /* ==========================================
-   6. BOTÕES
+   6. BOTÕES
    ========================================== */
+
 .cta-buttons {
     display: flex;
     justify-content: center;
@@ -191,7 +218,7 @@ a {
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-green-hover);
+    background-color: var(--accent-brown);
     transform: translateY(-1px);
 }
 
@@ -202,13 +229,16 @@ a {
 }
 
 .btn-secondary:hover {
-    background-color: var(--accent-green-light);
-    border-color: var(--primary-green);
+    background-color: var(--cream);
+    border-color: var(--accent-brown);
+    color: var(--accent-brown);
 }
 
-/* Caixa de Boas-vindas para Usuário Logado */
+
+/* Caixa de boas-vindas para usuário logado */
+
 .user-welcome-card {
-    background-color: var(--accent-green-light);
+    background-color: var(--cream);
     border-radius: var(--radius-sm);
     padding: 1.5rem;
     margin-top: 1rem;
@@ -225,9 +255,11 @@ a {
     color: var(--text-main);
 }
 
+
 /* ==========================================
-   7. RODAPÉ (FOOTER)
+   7. RODAPÉ
    ========================================== */
+
 .footer {
     border-top: 1px solid var(--border-color);
     padding: 1.5rem;
@@ -237,23 +269,71 @@ a {
     background-color: rgba(248, 247, 242, 0.9);
 }
 
+
 /* ==========================================
-   8. MEDIA QUERIES (RESPONSIVIDADE & ZOOM ALTO)
+   8. MEDIA QUERIES (RESPONSIVIDADE)
    ========================================== */
+
+/* Telas médias / notebooks menores */
+@media (max-width: 1100px) {
+
+    .header {
+        padding: 1rem 1.2rem;
+    }
+
+    .navbar {
+        max-width: 100%;
+    }
+
+    .nav-links {
+        gap: 0.9rem;
+    }
+
+    .nav-item,
+    .btn-login,
+    .btn-register,
+    .btn-logout,
+    .user-welcome {
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .theme-toggle-btn {
+        margin-left: 0.3rem !important;
+        white-space: nowrap;
+    }
+}
+
+
+/* Tablet e celular */
 @media (max-width: 768px) {
+
     .header {
         padding: 1rem;
     }
 
     .navbar {
         flex-direction: column;
-        gap: 0.8rem;
+        gap: 1rem;
     }
 
     .nav-links {
-        gap: 1rem;
+        width: 100%;
+        gap: 0.8rem 1rem;
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .nav-item,
+    .btn-login,
+    .btn-register,
+    .btn-logout,
+    .user-welcome {
+        white-space: nowrap;
+    }
+
+    .theme-toggle-btn {
+        margin-left: 0 !important;
     }
 
     .hero-card {
@@ -261,9 +341,25 @@ a {
     }
 }
 
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-card {
+        padding: 1.8rem 1rem;
+    }
+}
+
+
 /* ==========================================
    9. PÁGINA DE FEEDBACK / FALE CONOSCO
    ========================================== */
+
 .feedback-container {
     width: 100%;
     max-width: 900px;
@@ -296,7 +392,9 @@ a {
     font-weight: 600;
 }
 
+
 /* Grid da Equipe */
+
 .team-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -318,14 +416,14 @@ a {
 
 .team-card:hover {
     transform: translateY(-2px);
-    border-color: var(--primary-green);
+    border-color: var(--accent-brown);
 }
 
 .member-avatar {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background-color: var(--accent-green-light);
+    background-color: var(--cream);
     color: var(--primary-green);
     font-weight: 700;
     font-size: 0.95rem;
@@ -350,11 +448,13 @@ a {
 }
 
 .member-email:hover {
-    color: var(--primary-green);
+    color: var(--accent-brown);
     text-decoration: underline;
 }
 
+
 /* Card do Formulário de Feedback */
+
 .feedback-form-card {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -369,7 +469,9 @@ a {
     margin-bottom: 1.5rem;
 }
 
-/* Estilização dos Campos do Form Django (form.as_p) */
+
+/* Campos Django */
+
 .django-form-fields p {
     margin-bottom: 1.2rem;
     display: flex;
@@ -407,7 +509,7 @@ a {
 .django-form-fields textarea:focus,
 .django-form-fields select:focus {
     border-color: var(--primary-green);
-    box-shadow: 0 0 0 3px var(--accent-green-light);
+    box-shadow: 0 0 0 3px var(--cream);
 }
 
 .btn-block {
@@ -425,9 +527,11 @@ a {
     margin-bottom: 1.2rem;
 }
 
+
 /* ==========================================
-   10. PÁGINAS DE AUTENTICAÇÃO (LOGIN & CADASTRO)
+   10. LOGIN & CADASTRO
    ========================================== */
+
 .auth-container {
     width: 100%;
     max-width: 440px;
@@ -456,7 +560,9 @@ a {
     margin-bottom: 1.8rem;
 }
 
-/* Alertas e Mensagens de Erro */
+
+/* Alertas */
+
 .alert {
     padding: 0.75rem 1rem;
     border-radius: var(--radius-sm);
@@ -471,7 +577,9 @@ a {
     color: #9b1c1c;
 }
 
-/* Formulários de Autenticação */
+
+/* Formulários de autenticação */
+
 .auth-form {
     text-align: left;
     display: flex;
@@ -506,7 +614,7 @@ a {
 
 .form-group input:focus {
     border-color: var(--primary-green);
-    box-shadow: 0 0 0 3px var(--accent-green-light);
+    box-shadow: 0 0 0 3px var(--cream);
 }
 
 .auth-footer {
@@ -523,12 +631,15 @@ a {
 }
 
 .link-highlight:hover {
+    color: var(--accent-brown);
     text-decoration: underline;
 }
 
+
 /* ==========================================
-   11. TEXTOS DE AJUDA E ERROS DO FORMULÁRIO DJANGO
+   11. TEXTOS DE AJUDA E ERROS
    ========================================== */
+
 .django-form-fields .helptext {
     font-size: 0.8rem;
     color: var(--text-muted);
@@ -546,9 +657,11 @@ a {
     font-weight: 500;
 }
 
+
 /* ==========================================
-   12. PÁGINA DE SUCESSO DO FEEDBACK
+   12. SUCESSO DO FEEDBACK
    ========================================== */
+
 .feedback-success-container {
     width: 100%;
     max-width: 500px;
@@ -568,7 +681,7 @@ a {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background-color: var(--accent-green-light);
+    background-color: var(--cream);
     color: var(--primary-green);
     font-size: 1.5rem;
     font-weight: 700;
@@ -591,9 +704,11 @@ a {
     margin-bottom: 2rem;
 }
 
+
 /* ==========================================
    13. PÁGINA QUEM SOMOS
    ========================================== */
+
 .about-container {
     width: 100%;
     max-width: 850px;
@@ -633,7 +748,9 @@ a {
     margin-bottom: 0;
 }
 
-/* Grid de Pilares na Quem Somos */
+
+/* Grid de Pilares */
+
 .pillars-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -647,6 +764,10 @@ a {
     padding: 1.8rem 1.5rem;
     text-align: center;
     box-shadow: var(--shadow-subtle);
+}
+
+.pillar-card:hover {
+    border-color: var(--accent-brown);
 }
 
 .pillar-icon {
@@ -667,9 +788,11 @@ a {
     line-height: 1.5;
 }
 
+
 /* ==========================================
-   14. PÁGINA O PROJETO & DELOITTE
+   14. PÁGINA O PROJETO
    ========================================== */
+
 .project-container {
     width: 100%;
     max-width: 900px;
@@ -704,7 +827,7 @@ a {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.8px;
-    color: var(--primary-green);
+    color: var(--accent-brown);
     margin-bottom: 0.8rem;
 }
 
@@ -719,9 +842,11 @@ a {
     margin-bottom: 0;
 }
 
-/* Card Chamada para o Google Sites */
+
+/* Card externo */
+
 .external-link-card {
-    background-color: var(--accent-green-light);
+    background-color: var(--cream);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 2.5rem;
@@ -748,9 +873,11 @@ a {
     gap: 0.5rem;
 }
 
+
 /* ==========================================
-   15. PÁGINAS DE PERFIL & EDITAR PERFIL
+   15. PERFIL & EDITAR PERFIL
    ========================================== */
+
 .perfil-container {
     width: 100%;
     max-width: 520px;
@@ -774,7 +901,7 @@ a {
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background-color: var(--accent-green-light);
+    background-color: var(--cream);
     color: var(--primary-green);
     font-weight: 700;
     font-size: 1.3rem;
@@ -796,7 +923,9 @@ a {
     color: var(--text-muted);
 }
 
-/* Grid de dados do perfil */
+
+/* Grid de dados */
+
 .perfil-dados {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
