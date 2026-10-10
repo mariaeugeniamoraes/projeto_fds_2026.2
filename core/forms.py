@@ -60,6 +60,16 @@ class CadastroUsuarioForm(UserCreationForm):
             'password2',
         ]
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        if User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError(
+                'Este e-mail já está cadastrado. Utilize outro e-mail.'
+            )
+
+        return email
+
 class EditarUsuarioForm(forms.ModelForm):
     first_name = forms.CharField(
         label='Nome',
