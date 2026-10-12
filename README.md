@@ -113,7 +113,7 @@ https://ecomply-5taq.onrender.com/
 
 ## Entrega 03 
 
-## Issue/Bug Tracker
+## Issue/Bug Tracker atualizado
 
 
 ### Gerenciamento e acompanhamento do projeto
@@ -147,26 +147,28 @@ As tarefas concluídas são identificadas por caixas de seleção marcadas, enqu
 #### Figura 1 — Visão geral da Issue de desenvolvimento
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-10-11%20201553.png" width="750" alt="Visão geral da Issue de desenvolvimento do Ecomply">
+  <img src="Captura%20de%20tela%202026-10-11%20205153.png" width="750" alt="Visão geral da Issue de desenvolvimento">
 </p>
+
 
 #### Figura 2 — Autenticação e funcionalidades da plataforma
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-10-11%20205221.png" width="750" alt="Acompanhamento das funcionalidades do Ecomply">
+  <img src="Captura%20de%20tela%202026-10-11%20205221.png" width="750" alt="Autenticação e funcionalidades">
 </p>
 
 #### Figura 3 — Testes, qualidade e documentação
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-10-11%20205340.png" width="750" alt="Checklist de testes e documentação">
+  <img src="Captura%20de%20tela%202026-10-11%20205340.png" width="750" alt="Testes e documentação">
 </p>
 
 #### Figura 4 — Histórico de acompanhamento
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-10-11%20205443.png" width="750" alt="Histórico da Issue de desenvolvimento">
+  <img src="Captura%20de%20tela%202026-10-11%20205443.png" width="750" alt="Histórico da Issue">
 </p>
+
 
 **Link:** [Acessar Issue #1](https://github.com/mariaeugeniamoraes/projeto_fds_2026.2/issues/1)
 
@@ -241,19 +243,19 @@ Além disso, foram verificadas as principais páginas da aplicação publicada n
 #### Figura 5 — Issue de registro e acompanhamento de bugs
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-10-11%20205736.png" width="750" alt="Issue de registro de bugs do Ecomply">
+  <img src="Captura%20de%20tela%202026-10-11%20205736.png" width="750" alt="Registro de bugs">
 </p>
 
 #### Figura 6 — Checklist das verificações realizadas
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-10-11%20205758.png" width="750" alt="Checklist de verificações concluídas">
+  <img src="Captura%20de%20tela%202026-10-11%20205758.png" width="750" alt="Checklist de testes">
 </p>
 
 #### Figura 7 — Histórico e encerramento da Issue
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-10-11%20205824.png" width="750" alt="Histórico e encerramento dos testes">
+  <img src="Captura%20de%20tela%202026-10-11%20205824.png" width="750" alt="Encerramento dos testes">
 </p>
 
 **Link:** [Acessar Issue #2](https://github.com/mariaeugeniamoraes/projeto_fds_2026.2/issues/2)
