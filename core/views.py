@@ -203,7 +203,7 @@ def iniciar_diagnostico(request, empresa_id):
     perguntas = PerguntaESG.objects.filter(
         ativa=True
     ).order_by("dimensao", "ordem")
-
+    print("PERGUNTAS ESG NO RENDER:", perguntas.count())
     if request.method == "POST":
         diagnostico = DiagnosticoESG.objects.create(
             empresa=empresa
