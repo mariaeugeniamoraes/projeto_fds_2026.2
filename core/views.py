@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Empresa
+from django.views.decorators.http import require_POST
 
 from .forms import (
     FeedbackForm,
     CadastroUsuarioForm,
     EditarUsuarioForm,
     EmpresaForm,
+    CalculadoraEmbalagemForm,
 )
 from .models import (
     Empresa,
@@ -15,6 +16,36 @@ from .models import (
     DiagnosticoESG,
     RespostaDiagnostico,
 )
+
+# Catálogo de alternativas sustentáveis de embalagem
+ALTERNATIVAS_SUSTENTAVEIS = {
+    'plastico_bolha': {
+        'nome': 'Papel Colmeia Flexível / Bio-Pack de Milho',
+        'fator_custo': 1.12,
+        'plastico_evitado_unitario_kg': 0.05,
+        'impacto_descricao': 'Substitui o plástico por material 100% compostável ou reciclável.'
+    },
+    'fita_plastica': {
+        'nome': 'Fita Gomada Kraft (Cola Vegetal)',
+        'fator_custo': 1.05,
+        'plastico_evitado_unitario_kg': 0.02,
+        'impacto_descricao': 'Permite reciclar a caixa de papelão sem necessidade de separar a fita.'
+    },
+    'envelopes_plasticos': {
+        'nome': 'Envelope de Papel Kraft Hidro-repelente / Plástico Compostável',
+        'fator_custo': 1.18,
+        'plastico_evitado_unitario_kg': 0.08,
+        'impacto_descricao': 'Decomposição em poucos meses em compostagem doméstica/industrial.'
+    },
+    'caixa_virgem': {
+        'nome': 'Caixa de Papelão 100% Reciclado (Selo FSC)',
+        'fator_custo': 0.95,
+        'plastico_evitado_unitario_kg': 0.00,
+        'impacto_descricao': 'Evita o desmatamento e reduz o consumo de água na fabricação.'
+    }
+}
+
+
 def home(request):
     return render(request, 'core/home.html')
 
@@ -102,12 +133,14 @@ def quem_somos(request):
 def projeto(request):
     return render(request, 'core/projeto.html')
 
+
 @login_required
 def perfil(request):
     return render(
         request,
         'core/perfil.html'
     )
+
 
 @login_required
 def editar_perfil(request):
@@ -133,6 +166,7 @@ def editar_perfil(request):
         {'form': form}
     )
 
+
 @login_required
 def minhas_empresas(request):
     empresas = Empresa.objects.filter(usuario=request.user)
@@ -156,6 +190,8 @@ def minhas_empresas(request):
             "form": form,
         },
     )
+
+
 @login_required
 def iniciar_diagnostico(request, empresa_id):
     empresa = get_object_or_404(
@@ -260,6 +296,7 @@ def iniciar_diagnostico(request, empresa_id):
         },
     )
 
+
 @login_required
 def resultado_diagnostico(request, diagnostico_id):
     diagnostico = get_object_or_404(
@@ -328,6 +365,7 @@ def historico_diagnosticos(request):
         {"diagnosticos": diagnosticos}
     )
 
+
 def portal_transparencia(request, empresa_id):
     empresa = get_object_or_404(
         Empresa,
@@ -344,7 +382,6 @@ def portal_transparencia(request, empresa_id):
         "diagnostico": diagnostico
     })
 
-from django.views.decorators.http import require_POST
 
 @login_required
 @require_POST
@@ -360,5 +397,51 @@ def alterar_publicacao_esg(request, empresa_id):
 
     return redirect("minhas_empresas")
 
+
 def politica_privacidade(request):
     return render(request, "core/politica_privacidade.html")
+
+
+@login_required
+def ferramentas(request):
+    return render(request, 'core/ferramentas.html')
+
+
+@login_required
+def calculadora_embalagens(request):
+    resultado = None
+    if request.method == 'POST':
+        form = CalculadoraEmbalagemForm(request.POST)
+        if form.is_valid():
+            material_key = form.cleaned_data['material_atual']
+            qtd = form.cleaned_data['quantidade_mensal']
+            custo_unit_atual = float(form.cleaned_data['custo_unitario_atual'])
+
+            custo_total_atual = qtd * custo_unit_atual
+            alternativa = ALTERNATIVAS_SUSTENTAVEIS.get(material_key)
+
+            custo_unit_alternativa = custo_unit_atual * float(alternativa['fator_custo'])
+            custo_total_alternativa = float(qtd) * custo_unit_alternativa
+            diferenca_custo = custo_total_alternativa - custo_total_atual
+
+            plastico_evitado_ano = (alternativa['plastico_evitado_unitario_kg'] * qtd) * 12
+
+            resultado = {
+                'alternativa_nome': alternativa['nome'],
+                'impacto_descricao': alternativa['impacto_descricao'],
+                'custo_total_atual': f"{custo_total_atual:.2f}",
+                'custo_total_alternativa': f"{custo_total_alternativa:.2f}",
+                'diferenca_custo': f"{diferenca_custo:.2f}",
+                'plastico_evitado_ano': f"{plastico_evitado_ano:.2f}",
+            }
+    else:
+        form = CalculadoraEmbalagemForm()
+
+    return render(
+        request,
+        'core/calculadora_embalagens.html',
+        {
+            'form': form,
+            'resultado': resultado
+        }
+    )

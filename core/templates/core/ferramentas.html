@@ -1,0 +1,102 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Ferramentas - Ecomply{% endblock %}
+
+{% block content %}
+<style>
+    .ferramentas-wrapper {
+        max-width: 680px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+    }
+
+    .ferramentas-header {
+        margin-bottom: 2rem;
+    }
+
+    .ferramentas-header h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+    }
+
+    .ferramentas-header p {
+        font-size: 0.95rem;
+        opacity: 0.75;
+        margin: 0;
+    }
+
+    .ferramenta-card {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 2rem;
+        transition: border-color 0.2s ease, transform 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .ferramenta-card:hover {
+        border-color: #8C3E14;
+        transform: translateY(-2px);
+    }
+
+    .ferramenta-card h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.6rem;
+    }
+
+    .ferramenta-card p {
+        font-size: 0.92rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-minimal {
+        display: inline-block;
+        padding: 0.65rem 1.25rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #ffffff !important;
+        background-color: #0D1959;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-minimal:hover {
+        background-color: #8C3E14;
+    }
+
+    /* Modo Escuro */
+    body.dark-theme .ferramenta-card {
+        background-color: #0D1959 !important;
+        border-color: #4C6565 !important;
+    }
+
+    body.dark-theme .btn-minimal {
+        background-color: #8C3E14 !important;
+    }
+
+    body.dark-theme .btn-minimal:hover {
+        background-color: #a54c1d !important;
+    }
+</style>
+
+<div class="ferramentas-wrapper">
+    <div class="ferramentas-header">
+        <h2>Ferramentas Sustentáveis</h2>
+        <p>Soluções práticas para apoiar a gestão socioambiental da sua empresa.</p>
+    </div>
+
+    <div class="ferramenta-card">
+        <h3>🌱 Calculadora de Embalagens</h3>
+        <p>
+            Simule a substituição de materiais de embalagem convencionais por alternativas ecológicas e meça a economia financeira e o impacto ambiental.
+        </p>
+        <a href="{% url 'calculadora_embalagens' %}" class="btn-minimal">
+            Acessar Calculadora →
+        </a>
+    </div>
+</div>
+{% endblock %}

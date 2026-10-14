@@ -301,7 +301,8 @@
 
 
                 {% if user.is_authenticated %}
-                    <a href="{% url 'minhas_empresas' %}">Minhas empresas</a>
+                    <a href="{% url 'minhas_empresas' %}" class="nav-item">Minhas empresas</a>
+                    <a href="{% url 'ferramentas' %}" class="nav-item">Ferramentas</a>
                     <a href="{% url 'perfil' %}" class="user-welcome">
                         Meu Perfil
                     </a>
@@ -361,27 +362,27 @@
     </footer>
 
     <!-- AVISO DE PRIVACIDADE -->
-<div id="aviso-privacidade" class="aviso-privacidade" hidden>
-    <div class="aviso-privacidade-conteudo">
-        <div>
-            <h3>Privacidade no Ecomply</h3>
+    <div id="aviso-privacidade" class="aviso-privacidade" hidden>
+        <div class="aviso-privacidade-conteudo">
+            <div>
+                <h3>Privacidade no Ecomply</h3>
 
-            <p>
-                Utilizamos recursos essenciais para autenticação
-                e segurança da plataforma. Também armazenamos
-                sua preferência de tema no navegador.
-            </p>
+                <p>
+                    Utilizamos recursos essenciais para autenticação
+                    e segurança da plataforma. Também armazenamos
+                    sua preferência de tema no navegador.
+                </p>
 
-            <a href="{% url 'politica_privacidade' %}">
-                Política de Privacidade
-            </a>
+                <a href="{% url 'politica_privacidade' %}">
+                    Política de Privacidade
+                </a>
+            </div>
+
+            <button type="button" id="btn-entendi">
+                Entendi
+            </button>
         </div>
-
-        <button type="button" id="btn-entendi">
-            Entendi
-        </button>
     </div>
-</div>
 
 
     <!-- SCRIPT DE ALTERNÂNCIA DO TEMA -->
@@ -443,30 +444,30 @@
     </script>
 
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const aviso = document.getElementById("aviso-privacidade");
-    const botao = document.getElementById("btn-entendi");
+    document.addEventListener("DOMContentLoaded", function () {
+        const aviso = document.getElementById("aviso-privacidade");
+        const botao = document.getElementById("btn-entendi");
 
-    if (!aviso || !botao) {
-        return;
-    }
+        if (!aviso || !botao) {
+            return;
+        }
 
-    const avisoLido = localStorage.getItem("ecomply-aviso-privacidade");
+        const avisoLido = localStorage.getItem("ecomply-aviso-privacidade");
 
-    if (avisoLido !== "entendido") {
-        aviso.hidden = false;
-    }
+        if (avisoLido !== "entendido") {
+            aviso.hidden = false;
+        }
 
-    botao.addEventListener("click", function () {
-        localStorage.setItem(
-            "ecomply-aviso-privacidade",
-            "entendido"
-        );
+        botao.addEventListener("click", function () {
+            localStorage.setItem(
+                "ecomply-aviso-privacidade",
+                "entendido"
+            );
 
-        aviso.hidden = true;
+            aviso.hidden = true;
+        });
     });
-});
-</script>
+    </script>
 
 </body>
 

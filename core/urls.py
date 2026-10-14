@@ -22,14 +22,14 @@ urlpatterns = [
     path('perfil/', views.perfil, name='perfil'),
     path('perfil/editar/', views.editar_perfil, name='editar_perfil'),
     path(
-    "minhas-empresas/",
-    views.minhas_empresas,
-    name="minhas_empresas",
+        "minhas-empresas/",
+        views.minhas_empresas,
+        name="minhas_empresas",
     ),
     path(
-    "empresas/<int:empresa_id>/diagnostico/",
-    views.iniciar_diagnostico,
-    name="iniciar_diagnostico",
+        "empresas/<int:empresa_id>/diagnostico/",
+        views.iniciar_diagnostico,
+        name="iniciar_diagnostico",
     ),
     path(
         "diagnosticos/<int:diagnostico_id>/resultado/",
@@ -37,23 +37,35 @@ urlpatterns = [
         name="resultado_diagnostico",
     ),
     path(
-    "historico-diagnosticos/",
-    views.historico_diagnosticos,
-    name="historico_diagnosticos",
+        "historico-diagnosticos/",
+        views.historico_diagnosticos,
+        name="historico_diagnosticos",
     ),
     path(
-    "transparencia/<int:empresa_id>/",
-    views.portal_transparencia,
-    name="portal_transparencia"
+        "transparencia/<int:empresa_id>/",
+        views.portal_transparencia,
+        name="portal_transparencia"
     ),
     path(
-    "empresas/<int:empresa_id>/publicacao/",
-    views.alterar_publicacao_esg,
-    name="alterar_publicacao_esg"
+        "empresas/<int:empresa_id>/publicacao/",
+        views.alterar_publicacao_esg,
+        name="alterar_publicacao_esg"
     ),
     path(
-    "politica-de-privacidade/",
-    views.politica_privacidade,
-    name="politica_privacidade"
+        "politica-de-privacidade/",
+        views.politica_privacidade,
+        name="politica_privacidade"
+    ),
+
+    # Hub de Ferramentas e Calculadora
+    path(
+        "ferramentas/",
+        views.ferramentas,
+        name="ferramentas",
+    ),
+    path(
+        "calculadora-embalagens/",
+        views.calculadora_embalagens,
+        name="calculadora_embalagens",
     ),
 ]

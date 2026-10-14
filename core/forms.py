@@ -70,6 +70,7 @@ class CadastroUsuarioForm(UserCreationForm):
 
         return email
 
+
 class EditarUsuarioForm(forms.ModelForm):
     first_name = forms.CharField(
         label='Nome',
@@ -96,8 +97,6 @@ class EditarUsuarioForm(forms.ModelForm):
             'email',
         ]
 
-from .models import Empresa
-
 
 class EmpresaForm(forms.ModelForm):
     class Meta:
@@ -119,3 +118,32 @@ class EmpresaForm(forms.ModelForm):
                 "placeholder": "Ex.: Moda, cosméticos, alimentos"
             }),
         }
+
+
+MATERIAL_CHOICES = [
+    ('plastico_bolha', 'Plástico bolha convencional'),
+    ('fita_plastica', 'Fita adesiva plástica'),
+    ('envelopes_plasticos', 'Envelopes/Sacos plásticos'),
+    ('caixa_virgem', 'Caixa de papelão com fita plástica'),
+]
+
+
+class CalculadoraEmbalagemForm(forms.Form):
+    material_atual = forms.ChoiceField(
+        choices=MATERIAL_CHOICES,
+        label="Material de embalagem atual",
+        required=True
+    )
+    quantidade_mensal = forms.IntegerField(
+        label="Quantidade utilizada por mês (unidades)",
+        min_value=1,
+        required=True,
+        widget=forms.NumberInput(attrs={'placeholder': 'Ex: 1000'})
+    )
+    custo_unitario_atual = forms.DecimalField(
+        label="Custo unitário atual (R$)",
+        min_value=0.01,
+        decimal_places=2,
+        required=True,
+        widget=forms.NumberInput(attrs={'placeholder': 'Ex: 1.50'})
+    )
