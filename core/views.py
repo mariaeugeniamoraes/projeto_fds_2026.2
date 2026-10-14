@@ -359,3 +359,6 @@ def alterar_publicacao_esg(request, empresa_id):
     empresa.save(update_fields=["publicar_resultados"])
 
     return redirect("minhas_empresas")
+
+def politica_privacidade(request):
+    return render(request, "core/politica_privacidade.html")

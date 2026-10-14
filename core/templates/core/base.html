@@ -348,14 +348,40 @@
 
     </main>
 
-
     <footer class="footer">
-
         <p>
             © 2026 Ecomply — ESG de forma simples e acessível.
         </p>
 
+        <p>
+             <a href="{% url 'politica_privacidade' %}">
+                 Política de Privacidade
+             </a>
+        </p>
     </footer>
+
+    <!-- AVISO DE PRIVACIDADE -->
+<div id="aviso-privacidade" class="aviso-privacidade" hidden>
+    <div class="aviso-privacidade-conteudo">
+        <div>
+            <h3>Privacidade no Ecomply</h3>
+
+            <p>
+                Utilizamos recursos essenciais para autenticação
+                e segurança da plataforma. Também armazenamos
+                sua preferência de tema no navegador.
+            </p>
+
+            <a href="{% url 'politica_privacidade' %}">
+                Política de Privacidade
+            </a>
+        </div>
+
+        <button type="button" id="btn-entendi">
+            Entendi
+        </button>
+    </div>
+</div>
 
 
     <!-- SCRIPT DE ALTERNÂNCIA DO TEMA -->
@@ -415,6 +441,32 @@
         });
 
     </script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const aviso = document.getElementById("aviso-privacidade");
+    const botao = document.getElementById("btn-entendi");
+
+    if (!aviso || !botao) {
+        return;
+    }
+
+    const avisoLido = localStorage.getItem("ecomply-aviso-privacidade");
+
+    if (avisoLido !== "entendido") {
+        aviso.hidden = false;
+    }
+
+    botao.addEventListener("click", function () {
+        localStorage.setItem(
+            "ecomply-aviso-privacidade",
+            "entendido"
+        );
+
+        aviso.hidden = true;
+    });
+});
+</script>
 
 </body>
 

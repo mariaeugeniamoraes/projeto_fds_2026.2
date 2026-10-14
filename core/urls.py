@@ -51,4 +51,9 @@ urlpatterns = [
     views.alterar_publicacao_esg,
     name="alterar_publicacao_esg"
     ),
+    path(
+    "politica-de-privacidade/",
+    views.politica_privacidade,
+    name="politica_privacidade"
+    ),
 ]
