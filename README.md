@@ -113,6 +113,10 @@ https://ecomply-5taq.onrender.com/
 
 ## Entrega 03 
 
+## Histórias de Usuário
+
+- [Histórias de Usuário — Ecomply](historias_usuario.md)
+
 ## Issue/Bug Tracker atualizado
 
 
