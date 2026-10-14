@@ -91,6 +91,45 @@
                             Histórico de avaliações
                         </a>
                     </div>
+
+                    <div class="empresa-publicacao">
+
+                        {% if empresa.publicar_resultados %}
+
+                            <p>Seus resultados ESG estão públicos.</p>
+
+                            <a href="{% url 'portal_transparencia' empresa.id %}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn btn-primary">
+                                Visualizar portal público
+                            </a>
+
+                            <form method="post"
+                                  action="{% url 'alterar_publicacao_esg' empresa.id %}">
+                                {% csrf_token %}
+
+                                <button type="submit" class="btn">
+                                    Retirar publicação
+                                </button>
+                            </form>
+
+                        {% else %}
+
+                             <p>Seus resultados ESG estão privados.</p>
+
+                             <form method="post"
+                                   action="{% url 'alterar_publicacao_esg' empresa.id %}">
+                                {% csrf_token %}
+
+                                <button type="submit" class="btn btn-primary">
+                                    Publicar resultados
+                                </button>
+                            </form>
+
+                       {% endif %}
+
+                   </div>
                     
                 </div>
                 

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .models import Empresa
 
 from .forms import (
     FeedbackForm,
@@ -326,3 +327,35 @@ def historico_diagnosticos(request):
         "core/historico_diagnosticos.html",
         {"diagnosticos": diagnosticos}
     )
+
+def portal_transparencia(request, empresa_id):
+    empresa = get_object_or_404(
+        Empresa,
+        id=empresa_id,
+        publicar_resultados=True
+    )
+
+    diagnostico = empresa.diagnosticos.filter(
+        concluido=True
+    ).first()
+
+    return render(request, "core/portal_transparencia.html", {
+        "empresa": empresa,
+        "diagnostico": diagnostico
+    })
+
+from django.views.decorators.http import require_POST
+
+@login_required
+@require_POST
+def alterar_publicacao_esg(request, empresa_id):
+    empresa = get_object_or_404(
+        Empresa,
+        id=empresa_id,
+        usuario=request.user
+    )
+
+    empresa.publicar_resultados = not empresa.publicar_resultados
+    empresa.save(update_fields=["publicar_resultados"])
+
+    return redirect("minhas_empresas")

@@ -41,4 +41,14 @@ urlpatterns = [
     views.historico_diagnosticos,
     name="historico_diagnosticos",
     ),
+    path(
+    "transparencia/<int:empresa_id>/",
+    views.portal_transparencia,
+    name="portal_transparencia"
+    ),
+    path(
+    "empresas/<int:empresa_id>/publicacao/",
+    views.alterar_publicacao_esg,
+    name="alterar_publicacao_esg"
+    ),
 ]

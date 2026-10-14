@@ -13,6 +13,7 @@ class Empresa(models.Model):
     cnpj = models.CharField(max_length=18, blank=True)
     setor = models.CharField(max_length=100, blank=True)
     data_criacao = models.DateTimeField(auto_now_add=True)
+    publicar_resultados = models.BooleanField(default=False)
 
     def __str__(self):
         return self.nome

@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Portal da Transparência ESG | Ecomply
+{% endblock %}
+
+{% block content %}
+
+<section class="minhas-empresas-page">
+
+    <header class="empresas-header">
+        <span class="empresas-etiqueta">
+            TRANSPARÊNCIA E SUSTENTABILIDADE
+        </span>
+
+        <h1>Portal da Transparência ESG</h1>
+
+        <h2>{{ empresa.nome }}</h2>
+
+        <p>
+            Confira os resultados de sustentabilidade
+            divulgados por esta empresa.
+        </p>
+
+        {% if empresa.setor %}
+            <p>Setor: {{ empresa.setor }}</p>
+        {% endif %}
+    </header>
+
+    {% if diagnostico %}
+
+        <div class="empresa-form">
+
+            <h2>Resultado geral</h2>
+
+            <h1>{{ diagnostico.percentual_geral }}%</h1>
+
+            <p>
+                Última avaliação:
+                {{ diagnostico.data_criacao|date:"d/m/Y" }}
+            </p>
+
+        </div>
+
+        <div class="empresa-form">
+
+            <h2>Resultados por dimensão</h2>
+
+            <h3>Ambiental</h3>
+            <p>{{ diagnostico.percentual_ambiental }}%</p>
+
+            <h3>Social</h3>
+            <p>{{ diagnostico.percentual_social }}%</p>
+
+            <h3>Governança</h3>
+            <p>{{ diagnostico.percentual_governanca }}%</p>
+
+        </div>
+
+    {% else %}
+
+        <div class="empresas-vazio">
+            <h2>Nenhum diagnóstico publicado</h2>
+
+            <p>
+                Esta empresa ainda não possui
+                um diagnóstico ESG concluído.
+            </p>
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}
