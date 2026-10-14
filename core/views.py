@@ -9,12 +9,14 @@ from .forms import (
     EditarUsuarioForm,
     EmpresaForm,
     CalculadoraEmbalagemForm,
+    RegistroFinanceiroForm,
 )
 from .models import (
     Empresa,
     PerguntaESG,
     DiagnosticoESG,
     RespostaDiagnostico,
+    RegistroFinanceiro,
 )
 
 # Catálogo de alternativas sustentáveis de embalagem
@@ -444,4 +446,138 @@ def calculadora_embalagens(request):
             'form': form,
             'resultado': resultado
         }
+    )
+
+@login_required
+def listar_registros_financeiros(request, empresa_id):
+    empresa = get_object_or_404(
+        Empresa,
+        id=empresa_id,
+        usuario=request.user,
+    )
+
+    registros = empresa.registros_financeiros.all()
+
+    receitas = sum(
+        registro.valor
+        for registro in registros
+        if registro.tipo == RegistroFinanceiro.Tipo.RECEITA
+    )
+
+    custos = sum(
+        registro.valor
+        for registro in registros
+        if registro.tipo == RegistroFinanceiro.Tipo.CUSTO
+    )
+
+    saldo = receitas - custos
+
+    return render(
+        request,
+        "core/financeiro.html",
+        {
+            "empresa": empresa,
+            "registros": registros,
+            "receitas": receitas,
+            "custos": custos,
+            "saldo": saldo,
+        },
+    )
+
+
+@login_required
+def adicionar_registro_financeiro(request, empresa_id):
+    empresa = get_object_or_404(
+        Empresa,
+        id=empresa_id,
+        usuario=request.user,
+    )
+
+    if request.method == "POST":
+        form = RegistroFinanceiroForm(request.POST)
+
+        if form.is_valid():
+            registro = form.save(commit=False)
+            registro.empresa = empresa
+            registro.save()
+
+            return redirect(
+                "listar_registros_financeiros",
+                empresa_id=empresa.id,
+            )
+    else:
+        form = RegistroFinanceiroForm()
+
+    return render(
+        request,
+        "core/form_financeiro.html",
+        {
+            "empresa": empresa,
+            "form": form,
+            "titulo": "Adicionar movimentação",
+        },
+    )
+
+
+@login_required
+def editar_registro_financeiro(request, empresa_id, registro_id):
+    empresa = get_object_or_404(
+        Empresa,
+        id=empresa_id,
+        usuario=request.user,
+    )
+
+    registro = get_object_or_404(
+        RegistroFinanceiro,
+        id=registro_id,
+        empresa=empresa,
+    )
+
+    if request.method == "POST":
+        form = RegistroFinanceiroForm(
+            request.POST,
+            instance=registro,
+        )
+
+        if form.is_valid():
+            form.save()
+
+            return redirect(
+                "listar_registros_financeiros",
+                empresa_id=empresa.id,
+            )
+    else:
+        form = RegistroFinanceiroForm(instance=registro)
+
+    return render(
+        request,
+        "core/form_financeiro.html",
+        {
+            "empresa": empresa,
+            "form": form,
+            "titulo": "Editar movimentação",
+        },
+    )
+
+
+@login_required
+@require_POST
+def excluir_registro_financeiro(request, empresa_id, registro_id):
+    empresa = get_object_or_404(
+        Empresa,
+        id=empresa_id,
+        usuario=request.user,
+    )
+
+    registro = get_object_or_404(
+        RegistroFinanceiro,
+        id=registro_id,
+        empresa=empresa,
+    )
+
+    registro.delete()
+
+    return redirect(
+        "listar_registros_financeiros",
+        empresa_id=empresa.id,
     )

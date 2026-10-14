@@ -68,4 +68,27 @@ urlpatterns = [
         views.calculadora_embalagens,
         name="calculadora_embalagens",
     ),
+    
+    # Controle financeiro
+    path(
+        "empresas/<int:empresa_id>/financeiro/",
+        views.listar_registros_financeiros,
+        name="listar_registros_financeiros",
+    ),
+    path(
+        "empresas/<int:empresa_id>/financeiro/adicionar/",
+        views.adicionar_registro_financeiro,
+        name="adicionar_registro_financeiro",
+    ),
+    path(
+        "empresas/<int:empresa_id>/financeiro/<int:registro_id>/editar/",
+        views.editar_registro_financeiro,
+        name="editar_registro_financeiro",
+    ),
+    path(
+        "empresas/<int:empresa_id>/financeiro/<int:registro_id>/excluir/",
+        views.excluir_registro_financeiro,
+        name="excluir_registro_financeiro",
+    ),
+
 ]

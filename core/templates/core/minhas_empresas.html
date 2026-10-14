@@ -1,4 +1,3 @@
-
 {% extends 'core/base.html' %}
 
 {% block title %}Minhas empresas | Ecomply{% endblock %}
@@ -85,7 +84,9 @@
                         class="btn btn-primary empresa-botao-diagnostico">
                             Iniciar avaliação ESG
                         </a>
-
+                        <a href="{% url 'listar_registros_financeiros' empresa.id %}" class="btn btn-primary">
+                            Controle financeiro
+                        </a>
                         <a href="{% url 'historico_diagnosticos' %}?empresa={{ empresa.id }}"
                         class="btn empresa-botao-historico">
                             Histórico de avaliações

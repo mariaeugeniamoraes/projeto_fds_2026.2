@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Feedback, Empresa
+from .models import Feedback, Empresa, RegistroFinanceiro
 
 
 class FeedbackForm(forms.ModelForm):
@@ -147,3 +147,43 @@ class CalculadoraEmbalagemForm(forms.Form):
         required=True,
         widget=forms.NumberInput(attrs={'placeholder': 'Ex: 1.50'})
     )
+class RegistroFinanceiroForm(forms.ModelForm):
+    class Meta:
+        model = RegistroFinanceiro
+        fields = [
+            "tipo",
+            "descricao",
+            "categoria",
+            "valor",
+            "data",
+            "observacao",
+        ]
+        labels = {
+            "tipo": "Tipo de movimentação",
+            "descricao": "Descrição",
+            "categoria": "Categoria",
+            "valor": "Valor (R$)",
+            "data": "Data da movimentação",
+            "observacao": "Observações",
+        }
+        widgets = {
+            "tipo": forms.Select(),
+            "descricao": forms.TextInput(attrs={
+                "placeholder": "Ex.: Venda de produtos"
+            }),
+            "categoria": forms.TextInput(attrs={
+                "placeholder": "Ex.: Vendas, embalagens, logística"
+            }),
+            "valor": forms.NumberInput(attrs={
+                "placeholder": "0,00",
+                "step": "0.01",
+                "min": "0.01",
+            }),
+            "data": forms.DateInput(attrs={
+                "type": "date"
+            }),
+            "observacao": forms.Textarea(attrs={
+                "placeholder": "Informações adicionais (opcional)",
+                "rows": 3,
+            }),
+        }

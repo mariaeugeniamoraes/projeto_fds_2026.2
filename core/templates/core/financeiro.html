@@ -1,0 +1,95 @@
+
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="financeiro-container">
+    <h1>Controle financeiro</h1>
+    <p>Empresa: <strong>{{ empresa.nome }}</strong></p>
+
+    <div class="financeiro-resumo">
+        <div class="financeiro-card">
+            <h3>Receitas</h3>
+            <p class="receita">
+                R$ {{ receitas|floatformat:2 }}
+            </p>
+        </div>
+
+        <div class="financeiro-card">
+            <h3>Custos</h3>
+            <p class="custo">
+                R$ {{ custos|floatformat:2 }}
+            </p>
+        </div>
+
+        <div class="financeiro-card">
+            <h3>Saldo</h3>
+            <p class="{% if saldo < 0 %}custo{% else %}receita{% endif %}">
+                R$ {{ saldo|floatformat:2 }}
+            </p>
+        </div>
+    </div>
+
+    <a href="{% url 'adicionar_registro_financeiro' empresa.id %}"
+       class="btn btn-primary">
+        + Nova movimentação
+    </a>
+
+    <h2>Movimentações</h2>
+
+{% if registros %}
+    <div class="financeiro-tabela-wrapper">
+        <table class="financeiro-tabela">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in registros %}
+                <tr>
+                    <td>{{ registro.data|date:"d/m/Y" }}</td>
+                    <td>
+                        <span class="financeiro-tipo financeiro-tipo-{{ registro.tipo }}">
+                            {{ registro.get_tipo_display }}
+                        </span>
+                    </td>
+                    <td>{{ registro.descricao }}</td>
+                    <td>{{ registro.categoria }}</td>
+                    <td class="{% if registro.tipo == 'receita' %}financeiro-valor-receita{% else %}financeiro-valor-custo{% endif %}">
+                        R$ {{ registro.valor|floatformat:2 }}
+                    </td>
+                    <td>
+                        <div class="financeiro-acoes">
+                            <a href="{% url 'editar_registro_financeiro' empresa.id registro.id %}">
+                                Editar
+                            </a>
+                            <form method="post"
+                                  class="financeiro-form-excluir"
+                                  action="{% url 'excluir_registro_financeiro' empresa.id registro.id %}"
+                                  onsubmit="return confirm('Deseja excluir esta movimentação?');">
+                                {% csrf_token %}
+                                <button type="submit">Excluir</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="financeiro-vazio">
+        <p>Nenhuma movimentação financeira cadastrada ainda.</p>
+    </div>
+{% endif %}
+
+    <a href="{% url 'minhas_empresas' %}" class="btn">
+        Voltar para minhas empresas
+    </a>
+</div>
+{% endblock %}

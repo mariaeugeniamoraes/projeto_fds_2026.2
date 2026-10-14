@@ -1852,3 +1852,468 @@ a {
         align-items: flex-start;
     }
 }
+/* ================================
+   CONTROLE FINANCEIRO
+================================ */
+
+.financeiro-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 24px;
+}
+
+.financeiro-container h1 {
+    color: var(--primary-green);
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+.financeiro-subtitulo {
+    color: var(--text-muted);
+    margin-bottom: 28px;
+}
+
+/* Resumo financeiro */
+
+.financeiro-resumo {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin: 28px 0;
+}
+
+.financeiro-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-subtle);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.financeiro-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(13, 25, 89, 0.08);
+}
+
+.financeiro-card h3 {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0 0 12px;
+}
+
+.financeiro-card p {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.financeiro-card .receita {
+    color: #218653;
+}
+
+.financeiro-card .custo {
+    color: #C0392B;
+}
+
+/* Cabeçalho das movimentações */
+
+.financeiro-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 36px 0 20px;
+}
+
+.financeiro-cabecalho h2 {
+    color: var(--primary-green);
+    margin: 0;
+}
+
+/* Botões */
+
+.financeiro-container .btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.financeiro-container .btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}
+
+.financeiro-container .btn-primary {
+    background: var(--primary-green);
+    color: #fff;
+    border: 1px solid var(--primary-green);
+}
+
+/* Tabela */
+
+.financeiro-tabela-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-subtle);
+}
+
+.financeiro-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+}
+
+.financeiro-tabela th,
+.financeiro-tabela td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.financeiro-tabela th {
+    background: var(--accent-green-light);
+    color: var(--primary-green);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.financeiro-tabela td {
+    color: var(--text-muted);
+    font-size: 0.94rem;
+}
+
+.financeiro-tabela tbody tr:hover {
+    background: rgba(255, 243, 205, 0.25);
+}
+
+.financeiro-tabela tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.financeiro-valor-receita {
+    color: #218653 !important;
+    font-weight: 700;
+}
+
+.financeiro-valor-custo {
+    color: #C0392B !important;
+    font-weight: 700;
+}
+
+/* Ações de cada movimentação */
+
+.financeiro-acoes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.financeiro-acoes a {
+    color: var(--primary-green);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.financeiro-acoes a:hover {
+    text-decoration: underline;
+}
+
+.financeiro-form-excluir {
+    display: inline;
+    margin: 0;
+}
+
+.financeiro-form-excluir button {
+    background: transparent;
+    border: none;
+    color: #C0392B;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+}
+
+.financeiro-form-excluir button:hover {
+    text-decoration: underline;
+}
+
+/* Estado vazio */
+
+.financeiro-vazio {
+    background: var(--card-bg);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 36px 24px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+/* Formulários de cadastro e edição */
+
+.financeiro-form-card {
+    max-width: 760px;
+    margin: 40px auto;
+    padding: 32px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-subtle);
+}
+
+.financeiro-form-card h1 {
+    color: var(--primary-green);
+    margin-top: 0;
+}
+
+.financeiro-formulario p {
+    margin-bottom: 20px;
+}
+
+.financeiro-formulario label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--primary-green);
+    font-weight: 600;
+}
+
+.financeiro-formulario input,
+.financeiro-formulario select,
+.financeiro-formulario textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--card-bg);
+    color: inherit;
+    font: inherit;
+}
+
+.financeiro-formulario input:focus,
+.financeiro-formulario select:focus,
+.financeiro-formulario textarea:focus {
+    outline: 2px solid var(--primary-green);
+    outline-offset: 2px;
+}
+
+.financeiro-formulario .helptext {
+    display: block;
+    margin-top: 6px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.financeiro-erros {
+    color: #C0392B;
+    font-size: 0.9rem;
+}
+
+.financeiro-form-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Responsividade */
+
+@media (max-width: 760px) {
+    .financeiro-container {
+        margin: 24px auto;
+        padding: 0 16px;
+    }
+
+    .financeiro-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .financeiro-resumo {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .financeiro-card {
+        padding: 20px;
+    }
+
+    .financeiro-card p {
+        font-size: 1.55rem;
+    }
+
+    .financeiro-cabecalho {
+        align-items: stretch;
+    }
+
+    .financeiro-cabecalho .btn {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .financeiro-form-card {
+        margin: 24px 16px;
+        padding: 22px;
+    }
+}
+/* Painel principal do controle financeiro */
+.financeiro-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 32px;
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 760px) {
+    .financeiro-container {
+        margin: 20px 12px;
+        padding: 20px 16px;
+    }
+}
+/* Botão secundário do formulário financeiro */
+.financeiro-btn-voltar {
+    background: transparent;
+    color: var(--primary-green);
+    border: 1px solid var(--border-color);
+}
+
+.financeiro-btn-voltar:hover {
+    background: var(--accent-green-light);
+}
+
+/* Melhor espaçamento no formulário */
+.financeiro-formulario input,
+.financeiro-formulario select,
+.financeiro-formulario textarea {
+    margin-top: 6px;
+}
+
+.financeiro-formulario textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.financeiro-form-botoes .btn {
+    min-height: 44px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+    .financeiro-form-botoes {
+        flex-direction: column;
+    }
+
+    .financeiro-form-botoes .btn {
+        width: 100%;
+    }
+}
+/* Ajustes da tabela financeira */
+.financeiro-tabela-wrapper {
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow-x: auto;
+    background: var(--card-bg);
+}
+
+.financeiro-tabela {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.financeiro-tabela th {
+    padding: 17px 20px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.financeiro-tabela td {
+    padding: 18px 20px;
+    line-height: 1.5;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.financeiro-tabela tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.financeiro-tabela tbody tr:hover {
+    background: var(--accent-green-light);
+}
+
+/* Tipo de movimentação */
+.financeiro-tipo {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.financeiro-tipo-receita {
+    color: #187346;
+    background: #E1F5E8;
+}
+
+.financeiro-tipo-custo {
+    color: #A52B2B;
+    background: #FCE8E6;
+}
+
+/* Ações alinhadas */
+.financeiro-acoes {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    white-space: nowrap;
+}
+
+.financeiro-acoes a,
+.financeiro-form-excluir button {
+    font-size: 0.9rem;
+}
+
+.financeiro-form-excluir button {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #C0392B;
+    cursor: pointer;
+}
+
+.financeiro-form-excluir button:hover {
+    text-decoration: underline;
+}
+
+/* Evita que os textos longos quebrem de forma estranha */
+.financeiro-tabela td:nth-child(3),
+.financeiro-tabela td:nth-child(4) {
+    min-width: 130px;
+}
+
+.financeiro-tabela td:nth-child(5) {
+    white-space: nowrap;
+}
