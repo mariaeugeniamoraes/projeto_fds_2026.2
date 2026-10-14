@@ -1,0 +1,125 @@
+```html
+{% extends 'core/base.html' %}
+
+{% block title %}Resultado do diagnóstico | Ecomply{% endblock %}
+
+{% block content %}
+<section class="minhas-empresas-page resultado-esg">
+
+    <header class="empresas-header resultado-cabecalho">
+        <span class="empresas-etiqueta">RESULTADO DA AVALIAÇÃO</span>
+        <h1>Diagnóstico ESG</h1>
+        <p>
+            Empresa: <strong>{{ diagnostico.empresa.nome }}</strong>
+        </p>
+        <p>
+            <span class="resultado-data-icone">✓</span>
+            Concluído em {{ diagnostico.data_criacao|date:"d/m/Y" }}
+        </p>
+    </header>
+
+    <div class="resultado-geral">
+        <div class="resultado-geral-texto">
+            <span class="resultado-selo">VISÃO GERAL</span>
+            <h2>Sua empresa está avançando!</h2>
+            <p>
+                Confira o desempenho da empresa nos três pilares ESG
+                e identifique oportunidades de melhoria.
+            </p>
+        </div>
+
+        <div class="resultado-circulo">
+            <span class="resultado-numero">
+                {{ diagnostico.percentual_geral|floatformat:1 }}%
+            </span>
+            <span class="resultado-circulo-legenda">Pontuação geral</span>
+        </div>
+    </div>
+
+    <div class="resultado-dimensoes">
+        <div class="resultado-secao-titulo">
+            <span class="empresas-etiqueta">SEU DESEMPENHO</span>
+            <h2>Desempenho por dimensão</h2>
+            <p>Veja a pontuação alcançada em cada pilar.</p>
+        </div>
+
+        <div class="resultado-grade">
+            {% for dimensao in dimensoes %}
+                <article class="resultado-dimensao resultado-dimensao-{{ dimensao.codigo|lower }}">
+                    <div class="resultado-dimensao-topo">
+                        <div class="resultado-dimensao-identidade">
+                            <span class="resultado-dimensao-letra">
+                                {{ dimensao.codigo }}
+                            </span>
+                            <div>
+                                <h3>{{ dimensao.nome }}</h3>
+                                <p>{{ dimensao.pontuacao }} pontos obtidos</p>
+                            </div>
+                        </div>
+
+                        <strong class="resultado-percentual">
+                            {{ dimensao.percentual|floatformat:1 }}%
+                        </strong>
+                    </div>
+
+                    <div
+                        class="resultado-barra"
+                        role="progressbar"
+                        aria-label="Resultado {{ dimensao.nome }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="{{ dimensao.percentual|floatformat:0 }}"
+                    >
+                        <div
+                            class="resultado-barra-preenchimento"
+                            style="width: {{ dimensao.percentual|stringformat:'f' }}%;"
+                        ></div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="lista-empresas resultado-respostas">
+        <div class="resultado-secao-titulo">
+            <span class="empresas-etiqueta">DETALHAMENTO</span>
+            <h2>Respostas registradas</h2>
+            <p>Consulte as notas atribuídas em cada pergunta.</p>
+        </div>
+
+        {% for resposta in respostas %}
+            <article class="resposta-item">
+                <div class="resposta-cabecalho">
+                    <span class="resposta-dimensao">
+                        {{ resposta.pergunta.get_dimensao_display }}
+                    </span>
+                    <span class="resposta-nota">
+                        {{ resposta.pontuacao }} de 3 pontos
+                    </span>
+                </div>
+
+                <p class="resposta-pergunta">
+                    {{ resposta.pergunta.texto }}
+                </p>
+
+                <div class="resposta-mini-barra">
+                    <div
+                        class="resposta-mini-preenchimento"
+                        style="width: {% widthratio resposta.pontuacao 3 100 %}%;"
+                    ></div>
+                </div>
+            </article>
+        {% empty %}
+            <p>Não foram encontradas respostas para este diagnóstico.</p>
+        {% endfor %}
+    </div>
+
+    <div class="resultado-acoes">
+        <a href="{% url 'minhas_empresas' %}" class="btn btn-primary resultado-voltar">
+            ← Voltar para minhas empresas
+        </a>
+    </div>
+
+</section>
+{% endblock %}
+```

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Feedback
+from .models import Feedback, Empresa
 
 
 class FeedbackForm(forms.ModelForm):
@@ -95,3 +95,27 @@ class EditarUsuarioForm(forms.ModelForm):
             'last_name',
             'email',
         ]
+
+from .models import Empresa
+
+
+class EmpresaForm(forms.ModelForm):
+    class Meta:
+        model = Empresa
+        fields = ["nome", "cnpj", "setor"]
+        labels = {
+            "nome": "Nome da empresa",
+            "cnpj": "CNPJ (opcional)",
+            "setor": "Setor de atuação",
+        }
+        widgets = {
+            "nome": forms.TextInput(attrs={
+                "placeholder": "Ex.: Minha Loja Virtual"
+            }),
+            "cnpj": forms.TextInput(attrs={
+                "placeholder": "00.000.000/0000-00"
+            }),
+            "setor": forms.TextInput(attrs={
+                "placeholder": "Ex.: Moda, cosméticos, alimentos"
+            }),
+        }

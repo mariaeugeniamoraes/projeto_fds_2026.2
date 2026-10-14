@@ -1,0 +1,65 @@
+```html
+{% extends 'core/base.html' %}
+
+{% block title %}Histórico de diagnósticos | Ecomply{% endblock %}
+
+{% block content %}
+<section class="minhas-empresas-page historico-esg">
+
+    <header class="empresas-header">
+        <span class="empresas-etiqueta">ACOMPANHAMENTO ESG</span>
+        <h1>Histórico de diagnósticos</h1>
+        <p>
+            Consulte suas avaliações anteriores e acompanhe
+            a evolução das suas empresas.
+        </p>
+    </header>
+
+    {% for diagnostico in diagnosticos %}
+        <article class="historico-card">
+
+            <div class="historico-card-info">
+                <span class="historico-data">
+                    Avaliação de {{ diagnostico.data_criacao|date:"d/m/Y" }}
+                </span>
+
+                <h2>{{ diagnostico.empresa.nome }}</h2>
+
+                <p>
+                    Pontuação geral
+                </p>
+
+                <strong class="historico-percentual">
+                    {{ diagnostico.percentual_geral|floatformat:1 }}%
+                </strong>
+            </div>
+
+            <a
+                href="{% url 'resultado_diagnostico' diagnostico.id %}"
+                class="btn btn-primary"
+            >
+                Ver resultado
+            </a>
+
+        </article>
+    {% empty %}
+        <div class="historico-vazio">
+            <h2>Nenhum diagnóstico encontrado</h2>
+            <p>
+                Quando você concluir uma avaliação ESG,
+                ela aparecerá aqui.
+            </p>
+
+            <a href="{% url 'minhas_empresas' %}" class="btn btn-primary">
+                Ir para minhas empresas
+            </a>
+        </div>
+    {% endfor %}
+
+    <a href="{% url 'minhas_empresas' %}" class="historico-voltar">
+        ← Voltar para minhas empresas
+    </a>
+
+</section>
+{% endblock %}
+```

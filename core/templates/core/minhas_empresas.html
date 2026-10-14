@@ -1,0 +1,108 @@
+```html
+{% extends 'core/base.html' %}
+
+{% block title %}Minhas empresas | Ecomply{% endblock %}
+
+{% block content %}
+<section class="minhas-empresas-page">
+
+    <header class="empresas-header">
+        <span class="empresas-etiqueta">PAINEL DE GESTÃO</span>
+        <h1>Minhas empresas</h1>
+        <p>Cadastre e gerencie as empresas que você deseja acompanhar no Ecomply.</p>
+    </header>
+
+    <div class="empresa-form">
+        <div class="empresas-card-header">
+            <div>
+                <h2>Cadastrar empresa</h2>
+                <p>Preencha os dados para adicionar uma empresa à sua conta.</p>
+            </div>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            {% for field in form %}
+                <div class="empresa-campo">
+                    {{ field.label_tag }}
+                    {{ field }}
+
+                    {% if field.help_text %}
+                        <small>{{ field.help_text }}</small>
+                    {% endif %}
+
+                    {% for error in field.errors %}
+                        <small class="empresa-erro">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary empresa-botao">
+                + Cadastrar empresa
+            </button>
+        </form>
+    </div>
+
+    <div class="lista-empresas">
+        <div class="empresas-card-header">
+            <div>
+                <h2>Empresas cadastradas</h2>
+                <p>Confira as empresas vinculadas à sua conta.</p>
+            </div>
+
+            <span class="empresas-contador">
+                {{ empresas|length }}
+                {% if empresas|length == 1 %}
+                    empresa
+                {% else %}
+                    empresas
+                {% endif %}
+            </span>
+        </div>
+
+        {% for empresa in empresas %}
+            <article class="empresa-item">
+                <div class="empresa-icone" aria-hidden="true">
+                    <span>{{ empresa.nome|first|upper }}</span>
+                </div>
+
+                <div class="empresa-dados">
+                    <h3>{{ empresa.nome }}</h3>
+
+                    {% if empresa.setor %}
+                        <p><strong>Setor:</strong> {{ empresa.setor }}</p>
+                    {% endif %}
+
+                    {% if empresa.cnpj %}
+                        <p><strong>CNPJ:</strong> {{ empresa.cnpj }}</p>
+                    {% endif %}
+                    
+                    <div class="empresa-botoes">
+                        <a href="{% url 'iniciar_diagnostico' empresa.id %}"
+                        class="btn btn-primary empresa-botao-diagnostico">
+                            Iniciar avaliação ESG
+                        </a>
+
+                        <a href="{% url 'historico_diagnosticos' %}?empresa={{ empresa.id }}"
+                        class="btn empresa-botao-historico">
+                            Histórico de avaliações
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </article>
+        {% empty %}
+            <div class="empresas-vazio">
+                <h3>Nenhuma empresa cadastrada</h3>
+                <p>Suas empresas aparecerão aqui assim que você cadastrar a primeira.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}
+```

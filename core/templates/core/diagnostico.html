@@ -1,0 +1,103 @@
+```html
+{% extends 'core/base.html' %}
+
+{% block title %}Diagnóstico ESG | Ecomply{% endblock %}
+
+{% block content %}
+<section class="minhas-empresas-page">
+
+    <header class="empresas-header">
+        <span class="empresas-etiqueta">AVALIAÇÃO DE SUSTENTABILIDADE</span>
+        <h1>Diagnóstico ESG</h1>
+        <p>
+            Avalie as práticas ambientais, sociais e de governança
+            da empresa <strong>{{ empresa.nome }}</strong>.
+        </p>
+    </header>
+
+    {% if erro %}
+        <p class="empresa-erro">{{ erro }}</p>
+    {% endif %}
+
+    {% if not perguntas %}
+        <div class="empresas-vazio">
+            <h2>Nenhuma pergunta disponível</h2>
+            <p>Não existem perguntas ESG ativas no momento.</p>
+        </div>
+    {% else %}
+        <form method="post" class="diagnostico-form">
+            {% csrf_token %}
+
+            {% regroup perguntas by dimensao as grupos %}
+
+            {% for grupo in grupos %}
+                <div class="empresa-form diagnostico-dimensao">
+
+                    {% if grupo.grouper == "E" %}
+                        <h2>Ambiental</h2>
+                        <p>Consumo de recursos, resíduos e impacto ambiental.</p>
+                    {% elif grupo.grouper == "S" %}
+                        <h2>Social</h2>
+                        <p>Bem-estar, diversidade e responsabilidade social.</p>
+                    {% else %}
+                        <h2>Governança</h2>
+                        <p>Ética, transparência e gestão responsável.</p>
+                    {% endif %}
+
+                    {% for pergunta in grupo.list %}
+                        <fieldset class="diagnostico-pergunta">
+                            <legend>
+                                {{ forloop.counter }}. {{ pergunta.texto }}
+                            </legend>
+
+                            {% for valor, rotulo in pergunta.PONTUACOES %}
+                            {% endfor %}
+
+                            <div class="diagnostico-opcoes">
+                                <label>
+                                    <input type="radio"
+                                           name="pergunta_{{ pergunta.id }}"
+                                           value="0"
+                                           required>
+                                    <span>0 — Não implementado</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio"
+                                           name="pergunta_{{ pergunta.id }}"
+                                           value="1"
+                                           required>
+                                    <span>1 — Em início</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio"
+                                           name="pergunta_{{ pergunta.id }}"
+                                           value="2"
+                                           required>
+                                    <span>2 — Parcialmente implementado</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio"
+                                           name="pergunta_{{ pergunta.id }}"
+                                           value="3"
+                                           required>
+                                    <span>3 — Implementado e monitorado</span>
+                                </label>
+                            </div>
+                        </fieldset>
+                    {% endfor %}
+
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary empresa-botao">
+                Concluir diagnóstico
+            </button>
+        </form>
+    {% endif %}
+
+</section>
+{% endblock %}
+```
