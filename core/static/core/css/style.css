@@ -2317,3 +2317,23 @@ a {
 .financeiro-tabela td:nth-child(5) {
     white-space: nowrap;
 }
+
+/* Alinhamento dos botões da empresa */
+.empresa-botoes {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.empresa-botoes .empresa-botao-diagnostico,
+.empresa-botoes a.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 62px;
+    margin: 0;
+    text-align: center;
+}
