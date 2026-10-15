@@ -90,5 +90,10 @@ urlpatterns = [
         views.excluir_registro_financeiro,
         name="excluir_registro_financeiro",
     ),
+    path(
+        "dashboard/", 
+        views.dashboard, 
+        name="dashboard"
+    ),
 
 ]

@@ -16,6 +16,7 @@ from .models import (
     PerguntaESG,
     DiagnosticoESG,
     RespostaDiagnostico,
+    PlanoAcaoESG,
     RegistroFinanceiro,
 )
 
@@ -581,3 +582,76 @@ def excluir_registro_financeiro(request, empresa_id, registro_id):
         "listar_registros_financeiros",
         empresa_id=empresa.id,
     )
+@login_required
+def dashboard(request):
+    from decimal import Decimal
+    from django.db.models import Sum
+
+    empresas = Empresa.objects.filter(usuario=request.user)
+
+    empresa_id = request.GET.get("empresa")
+
+    if empresa_id and empresa_id.isdigit():
+        empresa = empresas.filter(id=int(empresa_id)).first()
+    else:
+        empresa = empresas.first()
+
+    contexto = {
+        "empresas": empresas,
+        "empresa_selecionada": empresa,
+        "total_diagnosticos": 0,
+        "ultimo_diagnostico": None,
+        "planos_pendentes": 0,
+        "planos_em_andamento": 0,
+        "planos_concluidos": 0,
+        "receitas": Decimal("0.00"),
+        "custos": Decimal("0.00"),
+        "saldo": Decimal("0.00"),
+    }
+
+    if empresa:
+        diagnosticos = DiagnosticoESG.objects.filter(
+            empresa=empresa,
+            concluido=True,
+        )
+
+        ultimo = diagnosticos.first()
+
+        planos = PlanoAcaoESG.objects.filter(
+            diagnostico__empresa=empresa,
+        )
+
+        registros = RegistroFinanceiro.objects.filter(
+            empresa=empresa,
+        )
+
+        receitas = (
+            registros.filter(tipo="receita")
+            .aggregate(total=Sum("valor"))["total"]
+            or Decimal("0.00")
+        )
+
+        custos = (
+            registros.filter(tipo="custo")
+            .aggregate(total=Sum("valor"))["total"]
+            or Decimal("0.00")
+        )
+
+        contexto.update({
+            "total_diagnosticos": diagnosticos.count(),
+            "ultimo_diagnostico": ultimo,
+            "planos_pendentes": planos.filter(
+                status="pendente"
+            ).count(),
+            "planos_em_andamento": planos.filter(
+                status="em_andamento"
+            ).count(),
+            "planos_concluidos": planos.filter(
+                status="concluida"
+            ).count(),
+            "receitas": receitas,
+            "custos": custos,
+            "saldo": receitas - custos,
+        })
+
+    return render(request, "core/dashboard.html", contexto)

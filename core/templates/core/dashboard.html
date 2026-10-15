@@ -1,0 +1,563 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .dashboard {
+        --dash-bg: var(--bg-color, #f8f7f2);
+        --dash-card: var(--card-bg, #ffffff);
+        --dash-primary: var(--primary-green, #0D1959);
+        --dash-accent: var(--accent-green-light, #FFF3CD);
+        --dash-text: var(--text-main, #0D1959);
+        --dash-muted: var(--text-muted, #4C6565);
+        --dash-border: var(--border-color, #AEB6C2);
+        --dash-brown: var(--accent-brown, #8C3E14);
+
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px 24px 45px;
+        color: var(--dash-text);
+    }
+
+    .dashboard * {
+        box-sizing: border-box;
+    }
+
+    .dashboard .dash-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+
+    .dashboard .dash-eyebrow {
+        color: var(--dash-brown);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin: 0 0 10px;
+    }
+
+    .dashboard h1,
+    .dashboard h2 {
+        color: var(--dash-primary);
+    }
+
+    .dashboard .dash-title {
+        font-size: clamp(27px, 4vw, 36px);
+        line-height: 1.2;
+        margin: 0 0 12px;
+    }
+
+    .dashboard .dash-description {
+        color: var(--dash-muted);
+        line-height: 1.7;
+        margin: 0;
+        max-width: 650px;
+    }
+
+    .dashboard .dash-selector {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 14px;
+        background: var(--dash-card);
+        border: 1px solid var(--dash-border);
+        border-radius: 12px;
+    }
+
+    .dashboard .dash-selector label {
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .dashboard .dash-selector select {
+        min-width: 150px;
+        max-width: 100%;
+        padding: 10px;
+        border: 1px solid var(--dash-border);
+        border-radius: 8px;
+        background: var(--dash-card);
+        color: var(--dash-text);
+    }
+
+    .dashboard .dash-button {
+        padding: 11px 16px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--dash-primary);
+        color: #ffffff;
+        font-weight: 700;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+
+    .dashboard .dash-button:hover {
+        opacity: 0.85;
+    }
+
+    .dashboard .dash-section {
+        margin-top: 34px;
+    }
+
+    .dashboard .dash-section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .dashboard .dash-section-heading h2 {
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .dashboard .dash-legend {
+        font-size: 12px;
+        color: var(--dash-muted);
+    }
+
+    .dashboard .dash-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .dashboard .dash-card {
+        min-width: 0;
+        padding: 22px;
+        background: var(--dash-card);
+        color: var(--dash-text);
+        border: 1px solid var(--dash-border);
+        border-radius: 15px;
+        box-shadow: var(--shadow-subtle, 0 5px 18px rgba(13, 25, 89, 0.06));
+    }
+
+    .dashboard .dash-card-main {
+        background: var(--dash-primary);
+        color: #ffffff;
+        border-color: var(--dash-primary);
+    }
+
+    .dashboard .dash-card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .dashboard .dash-label {
+        color: var(--dash-muted);
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .dashboard .dash-card-main .dash-label {
+        color: var(--dash-accent);
+    }
+
+    .dashboard .dash-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 35px;
+        height: 35px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: var(--dash-accent);
+        color: var(--dash-primary);
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    .dashboard .dash-card-main .dash-icon {
+        background: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+    }
+
+    .dashboard .dash-value {
+        font-size: clamp(24px, 3vw, 32px);
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-top: 18px;
+        overflow-wrap: anywhere;
+    }
+
+    .dashboard .dash-card-main .dash-value {
+        color: #ffffff;
+    }
+
+    .dashboard .dash-unit {
+        font-size: 16px;
+        letter-spacing: 0;
+    }
+
+    .dashboard .dash-bar {
+        height: 6px;
+        background: var(--dash-border);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 17px;
+    }
+
+    .dashboard .dash-card-main .dash-bar {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .dashboard .dash-bar-fill {
+        height: 100%;
+        border-radius: 10px;
+        background: var(--dash-primary);
+        transition: width 0.3s ease;
+    }
+
+    .dashboard .dash-bar-social {
+        background: var(--dash-muted);
+    }
+
+    .dashboard .dash-bar-governance {
+        background: var(--dash-brown);
+    }
+
+    .dashboard .dash-card-main .dash-bar-fill {
+        background: var(--dash-accent);
+    }
+
+    .dashboard .dash-note {
+        color: var(--dash-muted);
+        font-size: 12px;
+        line-height: 1.5;
+        margin-top: 10px;
+    }
+
+    .dashboard .dash-card-main .dash-note {
+        color: var(--dash-accent);
+    }
+
+    .dashboard .dash-finance-card .dash-value {
+        font-size: clamp(21px, 2.5vw, 28px);
+    }
+
+    .dashboard .dash-income {
+        color: #218653;
+    }
+
+    .dashboard .dash-cost {
+        color: #C0392B;
+    }
+
+    .dashboard .dash-balance {
+        color: var(--dash-primary);
+    }
+
+    .dashboard .dash-status-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .dashboard .dash-status-number {
+        font-size: 30px;
+        font-weight: 800;
+        margin-top: 16px;
+    }
+
+    .dashboard .dash-status-pending {
+        border-top: 4px solid var(--dash-brown);
+    }
+
+    .dashboard .dash-status-progress {
+        border-top: 4px solid var(--dash-muted);
+    }
+
+    .dashboard .dash-status-done {
+        border-top: 4px solid var(--dash-primary);
+    }
+
+    .dashboard .dash-notice {
+        background: var(--dash-card);
+        color: var(--dash-muted);
+        border: 1px solid var(--dash-border);
+        border-radius: 14px;
+        padding: 24px;
+        line-height: 1.7;
+    }
+
+    .dashboard .dash-notice h2 {
+        margin-top: 0;
+    }
+
+    .dashboard .dash-notice strong {
+        color: var(--dash-text);
+    }
+
+    @media (max-width: 900px) {
+        .dashboard .dash-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 600px) {
+        .dashboard {
+            padding: 24px 16px 35px;
+        }
+
+        .dashboard .dash-header {
+            gap: 18px;
+        }
+
+        .dashboard .dash-selector {
+            width: 100%;
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .dashboard .dash-selector select,
+        .dashboard .dash-selector button {
+            width: 100%;
+        }
+
+        .dashboard .dash-grid,
+        .dashboard .dash-status-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .dashboard .dash-card {
+            padding: 20px;
+        }
+    }
+</style>
+
+<div class="dashboard">
+    <section class="dash-header">
+        <div>
+            <p class="dash-eyebrow">Visão geral</p>
+            <h1 class="dash-title">Seu dashboard</h1>
+            <p class="dash-description">
+                Acompanhe o desempenho ESG, os planos de ação e a saúde financeira da sua empresa.
+            </p>
+        </div>
+
+        {% if empresas %}
+        <form method="get" class="dash-selector">
+            <label for="empresa">Empresa</label>
+
+            <select name="empresa" id="empresa">
+                {% for item in empresas %}
+                    <option value="{{ item.id }}"
+                        {% if empresa_selecionada and item.id == empresa_selecionada.id %}
+                            selected
+                        {% endif %}>
+                        {{ item }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="dash-button">Atualizar</button>
+        </form>
+        {% endif %}
+    </section>
+
+    {% if empresas %}
+
+    <section class="dash-section">
+        <div class="dash-section-heading">
+            <h2>Desempenho ESG</h2>
+            <span class="dash-legend">Último diagnóstico concluído</span>
+        </div>
+
+        <div class="dash-grid">
+            <article class="dash-card dash-card-main">
+                <div class="dash-card-top">
+                    <span class="dash-label">Pontuação ESG geral</span>
+                    <span class="dash-icon">★</span>
+                </div>
+
+                <div class="dash-value">
+                    {% if ultimo_diagnostico %}
+                        {{ ultimo_diagnostico.percentual_geral|floatformat:1 }}<span class="dash-unit">%</span>
+                    {% else %}
+                        —
+                    {% endif %}
+                </div>
+
+                <div class="dash-bar">
+                    <div class="dash-bar-fill"
+                         style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_geral }}{% else %}0{% endif %}%;">
+                    </div>
+                </div>
+
+                <div class="dash-note">
+                    {% if ultimo_diagnostico %}
+                        Diagnóstico concluído
+                    {% else %}
+                        Nenhum diagnóstico disponível
+                    {% endif %}
+                </div>
+            </article>
+
+            <article class="dash-card">
+                <div class="dash-card-top">
+                    <span class="dash-label">Ambiental</span>
+                    <span class="dash-icon">A</span>
+                </div>
+
+                <div class="dash-value">
+                    {% if ultimo_diagnostico %}
+                        {{ ultimo_diagnostico.percentual_ambiental|floatformat:1 }}%
+                    {% else %}
+                        —
+                    {% endif %}
+                </div>
+
+                <div class="dash-bar">
+                    <div class="dash-bar-fill"
+                         style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_ambiental }}{% else %}0{% endif %}%;">
+                    </div>
+                </div>
+
+                <div class="dash-note">Impacto ambiental</div>
+            </article>
+
+            <article class="dash-card">
+                <div class="dash-card-top">
+                    <span class="dash-label">Social</span>
+                    <span class="dash-icon">S</span>
+                </div>
+
+                <div class="dash-value">
+                    {% if ultimo_diagnostico %}
+                        {{ ultimo_diagnostico.percentual_social|floatformat:1 }}%
+                    {% else %}
+                        —
+                    {% endif %}
+                </div>
+
+                <div class="dash-bar">
+                    <div class="dash-bar-fill dash-bar-social"
+                         style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_social }}{% else %}0{% endif %}%;">
+                    </div>
+                </div>
+
+                <div class="dash-note">Responsabilidade social</div>
+            </article>
+
+            <article class="dash-card">
+                <div class="dash-card-top">
+                    <span class="dash-label">Governança</span>
+                    <span class="dash-icon">G</span>
+                </div>
+
+                <div class="dash-value">
+                    {% if ultimo_diagnostico %}
+                        {{ ultimo_diagnostico.percentual_governanca|floatformat:1 }}%
+                    {% else %}
+                        —
+                    {% endif %}
+                </div>
+
+                <div class="dash-bar">
+                    <div class="dash-bar-fill dash-bar-governance"
+                         style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_governanca }}{% else %}0{% endif %}%;">
+                    </div>
+                </div>
+
+                <div class="dash-note">Ética e transparência</div>
+            </article>
+        </div>
+    </section>
+
+    <section class="dash-section">
+        <div class="dash-section-heading">
+            <h2>Planos de ação</h2>
+            <span class="dash-legend">Acompanhamento das iniciativas</span>
+        </div>
+
+        <div class="dash-status-grid">
+            <article class="dash-card dash-status-pending">
+                <div class="dash-label">Pendentes</div>
+                <div class="dash-status-number">{{ planos_pendentes }}</div>
+                <div class="dash-note">Aguardando início</div>
+            </article>
+
+            <article class="dash-card dash-status-progress">
+                <div class="dash-label">Em andamento</div>
+                <div class="dash-status-number">{{ planos_em_andamento }}</div>
+                <div class="dash-note">Iniciativas em execução</div>
+            </article>
+
+            <article class="dash-card dash-status-done">
+                <div class="dash-label">Concluídos</div>
+                <div class="dash-status-number">{{ planos_concluidos }}</div>
+                <div class="dash-note">Iniciativas finalizadas</div>
+            </article>
+        </div>
+    </section>
+
+    <section class="dash-section">
+        <div class="dash-section-heading">
+            <h2>Resumo financeiro</h2>
+            <span class="dash-legend">Valores registrados</span>
+        </div>
+
+        <div class="dash-grid">
+            <article class="dash-card dash-finance-card">
+                <div class="dash-label">Receitas</div>
+                <div class="dash-value dash-income">
+                    R$ {{ receitas|floatformat:2 }}
+                </div>
+                <div class="dash-note">Entradas registradas</div>
+            </article>
+
+            <article class="dash-card dash-finance-card">
+                <div class="dash-label">Custos</div>
+                <div class="dash-value dash-cost">
+                    R$ {{ custos|floatformat:2 }}
+                </div>
+                <div class="dash-note">Saídas registradas</div>
+            </article>
+
+            <article class="dash-card dash-finance-card">
+                <div class="dash-label">Saldo</div>
+                <div class="dash-value dash-balance">
+                    R$ {{ saldo|floatformat:2 }}
+                </div>
+                <div class="dash-note">Receitas menos custos</div>
+            </article>
+        </div>
+    </section>
+
+    <section class="dash-section">
+        <div class="dash-section-heading">
+            <h2>Último diagnóstico</h2>
+        </div>
+
+        {% if ultimo_diagnostico %}
+            <div class="dash-notice">
+                <strong>Data de conclusão:</strong>
+                {{ ultimo_diagnostico.data_criacao|date:"d/m/Y" }}
+            </div>
+        {% else %}
+            <div class="dash-notice">
+                Sua empresa ainda não possui diagnósticos concluídos.
+                Realize um diagnóstico ESG para acompanhar os indicadores nesta página.
+            </div>
+        {% endif %}
+    </section>
+
+    {% else %}
+
+    <div class="dash-notice">
+        <h2>Nenhuma empresa cadastrada</h2>
+        <p>Cadastre uma empresa para visualizar os indicadores ESG e financeiros.</p>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}
