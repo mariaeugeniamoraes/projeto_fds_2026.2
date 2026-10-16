@@ -2345,6 +2345,7 @@ a {
 }
 
 
+
 /* ========================================
    BARRA LATERAL - ECOMPLY
 ======================================== */
@@ -2555,3 +2556,67 @@ body > footer.footer {
 .navbar.sidebar::-webkit-scrollbar {
     display: none;              /* Chrome, Edge e Safari */
 }
+
+/* =====================================
+   MODO DE LEITURA - DISLEXIA
+   ===================================== */
+
+/* Fonte simples e legível */
+body.modo-dislexia {
+    font-family: Verdana, Arial, sans-serif;
+}
+
+/* Ajustes apenas nos textos de leitura */
+body.modo-dislexia main p,
+body.modo-dislexia main li,
+body.modo-dislexia main label {
+    font-family: Verdana, Arial, sans-serif;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    word-spacing: 0.06em;
+    text-align: left;
+}
+
+/* Títulos com espaçamento moderado */
+body.modo-dislexia main h1,
+body.modo-dislexia main h2,
+body.modo-dislexia main h3 {
+    font-family: Verdana, Arial, sans-serif;
+    line-height: 1.4;
+    letter-spacing: normal;
+}
+
+/* Campos de formulário */
+body.modo-dislexia input,
+body.modo-dislexia textarea,
+body.modo-dislexia select {
+    font-family: Verdana, Arial, sans-serif;
+    line-height: 1.5;
+    letter-spacing: normal;
+}
+
+/* Preserva o menu e os botões */
+body.modo-dislexia .navbar,
+body.modo-dislexia .navbar a,
+body.modo-dislexia .navbar button {
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+}
+/* Mantém os links do menu na mesma linha */
+.navbar .nav-item,
+.navbar .user-welcome,
+.navbar .btn-login,
+.navbar .btn-register,
+.navbar .btn-logout {
+    white-space: nowrap;
+}
+
+/* Botão do modo dislexia */
+#dislexia-toggle {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.5rem !important;
+    margin-left: 0.3rem !important;
+    white-space: nowrap;
+}
+

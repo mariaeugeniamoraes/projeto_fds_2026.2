@@ -338,6 +338,20 @@
                         type="button">
                     <span id="theme-text">Modo Escuro</span>
                 </button>
+                
+                <button
+                    id="dislexia-toggle"
+                    class="theme-toggle-btn"
+                    type="button"
+                    aria-pressed="false"
+                >
+                    <span id="dislexia-text">
+                        Modo Dislexia
+                    </span>
+                </button>
+
+                
+
 
             </div>
         </nav>
@@ -472,6 +486,47 @@
         });
     });
     </script>
+
+    <script>
+    const dislexiaBtn = document.getElementById("dislexia-toggle");
+    const dislexiaText = document.getElementById("dislexia-text");
+
+    // Recupera a preferência salva
+    const dislexiaAtivada =
+        localStorage.getItem("ecomply-modo-dislexia") === "true";
+
+    if (dislexiaAtivada) {
+        document.body.classList.add("modo-dislexia");
+    }
+
+    function atualizarBotaoDislexia() {
+        const ativado =
+            document.body.classList.contains("modo-dislexia");
+
+        dislexiaText.textContent = ativado
+             ? "Dislexia: ON"
+             : "Dislexia: OFF";
+
+        dislexiaBtn.setAttribute("aria-pressed", String(ativado));
+    }
+
+    atualizarBotaoDislexia();
+
+    // Ativa ou desativa ao clicar
+    dislexiaBtn.addEventListener("click", function () {
+        document.body.classList.toggle("modo-dislexia");
+
+        const ativado =
+            document.body.classList.contains("modo-dislexia");
+
+        localStorage.setItem(
+            "ecomply-modo-dislexia",
+            String(ativado)
+        );
+
+        atualizarBotaoDislexia();
+    });
+</script>
 
 </body>
 
