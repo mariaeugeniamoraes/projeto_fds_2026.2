@@ -264,49 +264,62 @@
 
 <body>
 
-    <header class="header">
+    
+<body>
 
-        <nav class="navbar">
+    <header class="header">
+        <nav class="navbar sidebar">
 
             <a href="{% url 'home' %}" class="logo">
                 <strong>Ecomply</strong>
             </a>
 
-
             <div class="nav-links">
 
                 <a href="{% url 'home' %}" class="nav-item">
-                    Início
+                    <span>⌂</span> Início
                 </a>
 
                 <a href="{% url 'quem_somos' %}" class="nav-item">
-                    Quem Somos
+                    <span>ⓘ</span> Quem Somos
                 </a>
 
                 <a href="{% url 'projeto' %}" class="nav-item">
-                    O Projeto
+                    <span>▤</span> O Projeto
                 </a>
 
                 <a href="{% url 'feedback' %}" class="nav-item">
-                    Fale Conosco
+                    <span>✉</span> Fale Conosco
                 </a>
 
-
                 {% if user.is_authenticated %}
-                    <a href="{% url 'minhas_empresas' %}" class="nav-item">Minhas empresas</a>
-                    <a href="{% url 'ferramentas' %}" class="nav-item">Ferramentas</a>
-                    <a href="{% url 'dashboard' %}" class="nav-item">
-                        Dashboard
+
+                    <div class="sidebar-divider"></div>
+                    <span class="sidebar-section">ÁREA DA EMPRESA</span>
+
+                    <a href="{% url 'minhas_empresas' %}" class="nav-item">
+                        <span>▣</span> Minhas empresas
                     </a>
-                    <a href="{% url 'perfil' %}" class="user-welcome">
-                        Meu Perfil
+
+                    <a href="{% url 'ferramentas' %}" class="nav-item">
+                        <span>⚙</span> Ferramentas
+                    </a>
+
+                    <a href="{% url 'dashboard' %}" class="nav-item">
+                        <span>▦</span> Dashboard
+                    </a>
+
+                    <a href="{% url 'perfil' %}" class="nav-item">
+                        <span>♙</span> Meu perfil
                     </a>
 
                     <a href="{% url 'logout' %}" class="btn-logout">
-                        Sair
+                        Sair da conta
                     </a>
-                    
+
                 {% else %}
+
+                    <div class="sidebar-divider"></div>
 
                     <a href="{% url 'login' %}" class="btn-login">
                         Entrar
@@ -318,22 +331,18 @@
 
                 {% endif %}
 
+                <div class="sidebar-divider"></div>
 
-                <button
-                    id="theme-toggle"
-                    class="theme-toggle-btn"
-                    type="button"
-                >
-                    <span id="theme-text">
-                        Modo Escuro
-                    </span>
+                <button id="theme-toggle"
+                        class="theme-toggle-btn"
+                        type="button">
+                    <span id="theme-text">Modo Escuro</span>
                 </button>
 
             </div>
-
         </nav>
-
     </header>
+
 
 
     <main class="main-content">
