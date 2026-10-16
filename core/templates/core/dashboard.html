@@ -296,6 +296,69 @@
     .dashboard .dash-notice strong {
         color: var(--dash-text);
     }
+    
+    .dashboard .dash-chart-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .dashboard .dash-chart-card {
+        min-width: 0;
+        padding: 24px;
+        background: var(--dash-card);
+        border: 1px solid var(--dash-border);
+        border-radius: 15px;
+        box-shadow: var(--shadow-subtle, 0 5px 18px rgba(13, 25, 89, 0.06));
+    }
+
+    .dashboard .dash-chart-card h3 {
+        margin: 0 0 8px;
+        color: var(--dash-primary);
+        font-size: 17px;
+    }
+
+    .dashboard .dash-chart-description {
+        margin: 0 0 22px;
+        color: var(--dash-muted);
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .dashboard .dash-chart-container {
+        position: relative;
+        width: 100%;
+        height: 290px;
+    }
+
+    .dashboard .dash-chart-empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 180px;
+        padding: 20px;
+        color: var(--dash-muted);
+        background: var(--dash-bg);
+        border-radius: 10px;
+        text-align: center;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+        .dashboard .dash-chart-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .dashboard .dash-chart-card {
+            padding: 18px;
+        }
+
+        .dashboard .dash-chart-container {
+            height: 250px;
+        }
+    }
 
     @media (max-width: 900px) {
         .dashboard .dash-grid {
@@ -330,6 +393,20 @@
 
         .dashboard .dash-card {
             padding: 20px;
+        }
+    }
+        .dashboard .dash-finance-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .dashboard .dash-finance-chart {
+        margin-top: 18px;
+        width: 100%;
+    }
+
+    @media (max-width: 600px) {
+        .dashboard .dash-finance-grid {
+            grid-template-columns: 1fr;
         }
     }
 </style>
@@ -472,6 +549,61 @@
             </article>
         </div>
     </section>
+    
+    <section class="dash-section">
+        <div class="dash-section-heading">
+            <h2>Análise dos indicadores</h2>
+            <span class="dash-legend">Dados do diagnóstico selecionado</span>
+        </div>
+
+        <div class="dash-chart-grid">
+            <article class="dash-chart-card">
+                <h3>Comparativo por dimensão</h3>
+                <p class="dash-chart-description">
+                    Identifique quais dimensões ESG apresentam maior pontuação.
+                </p>
+
+                {% if ultimo_diagnostico %}
+                    <div class="dash-chart-container">
+                        <canvas id="esgChart"
+                                role="img"
+                                aria-label="Comparação das pontuações Ambiental, Social e Governança">
+                        </canvas>
+                    </div>
+                {% else %}
+                    <div class="dash-chart-empty">
+                        Conclua seu primeiro diagnóstico para visualizar este gráfico.
+                    </div>
+                {% endif %}
+            </article>
+
+            <article class="dash-chart-card">
+                <h3>Evolução da pontuação ESG</h3>
+                <p class="dash-chart-description">
+                    Compare a pontuação geral dos diagnósticos ao longo do tempo.
+                </p>
+
+                {% if total_diagnosticos > 0 %}
+                    {% if total_diagnosticos > 1 %}
+                        <div class="dash-chart-container">
+                            <canvas id="historyChart"
+                                    role="img"
+                                    aria-label="Evolução histórica da pontuação ESG geral">
+                            </canvas>
+                        </div>
+                    {% else %}
+                        <div class="dash-chart-empty">
+                            Você tem um diagnóstico concluído. Realize outro para começar a comparar sua evolução.
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="dash-chart-empty">
+                        Seu histórico aparecerá aqui após a conclusão dos diagnósticos.
+                    </div>
+                {% endif %}
+            </article>
+        </div>
+    </section>
 
     <section class="dash-section">
         <div class="dash-section-heading">
@@ -498,40 +630,70 @@
                 <div class="dash-note">Iniciativas finalizadas</div>
             </article>
         </div>
-    </section>
+        
+        <div class="dash-chart-card" style="margin-top: 18px;">
+            <h3>Distribuição dos planos de ação</h3>
+            <p class="dash-chart-description">
+                Visualize como as iniciativas estão distribuídas entre os status.
+            </p>
 
-    <section class="dash-section">
-        <div class="dash-section-heading">
-            <h2>Resumo financeiro</h2>
-            <span class="dash-legend">Valores registrados</span>
+            <div class="dash-chart-container">
+                <canvas id="plansChart"
+                        role="img"
+                        aria-label="Distribuição dos planos de ação por status">
+                </canvas>
+            </div>
         </div>
 
-        <div class="dash-grid">
-            <article class="dash-card dash-finance-card">
-                <div class="dash-label">Receitas</div>
-                <div class="dash-value dash-income">
-                    R$ {{ receitas|floatformat:2 }}
-                </div>
-                <div class="dash-note">Entradas registradas</div>
-            </article>
-
-            <article class="dash-card dash-finance-card">
-                <div class="dash-label">Custos</div>
-                <div class="dash-value dash-cost">
-                    R$ {{ custos|floatformat:2 }}
-                </div>
-                <div class="dash-note">Saídas registradas</div>
-            </article>
-
-            <article class="dash-card dash-finance-card">
-                <div class="dash-label">Saldo</div>
-                <div class="dash-value dash-balance">
-                    R$ {{ saldo|floatformat:2 }}
-                </div>
-                <div class="dash-note">Receitas menos custos</div>
-            </article>
-        </div>
     </section>
+
+<section class="dash-section">
+    <div class="dash-section-heading">
+        <h2>Resumo financeiro</h2>
+        <span class="dash-legend">Valores registrados</span>
+    </div>
+
+    <div class="dash-grid dash-finance-grid">
+        <article class="dash-card dash-finance-card">
+            <div class="dash-label">Receitas</div>
+            <div class="dash-value dash-income">
+                R$ {{ receitas|floatformat:2 }}
+            </div>
+            <div class="dash-note">Entradas registradas</div>
+        </article>
+
+        <article class="dash-card dash-finance-card">
+            <div class="dash-label">Custos</div>
+            <div class="dash-value dash-cost">
+                R$ {{ custos|floatformat:2 }}
+            </div>
+            <div class="dash-note">Saídas registradas</div>
+        </article>
+
+        <article class="dash-card dash-finance-card">
+            <div class="dash-label">Saldo</div>
+            <div class="dash-value dash-balance">
+                R$ {{ saldo|floatformat:2 }}
+            </div>
+            <div class="dash-note">Receitas menos custos</div>
+        </article>
+    </div>
+
+    <article class="dash-chart-card dash-finance-chart">
+        <h3>Receitas e custos ao longo do tempo</h3>
+        <p class="dash-chart-description">
+            Compare as movimentações financeiras registradas nos últimos seis meses.
+        </p>
+
+        <div class="dash-chart-container">
+            <canvas
+                id="financeChart"
+                role="img"
+                aria-label="Gráfico mensal de receitas e custos">
+            </canvas>
+        </div>
+    </article>
+</section>
 
     <section class="dash-section">
         <div class="dash-section-heading">
@@ -560,4 +722,190 @@
 
     {% endif %}
 </div>
+
+{{ dados_graficos|json_script:"dashboard-chart-data" }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const dataElement = document.getElementById("dashboard-chart-data");
+
+    if (!dataElement || typeof Chart === "undefined") {
+        return;
+    }
+
+    const dados = JSON.parse(dataElement.textContent);
+
+    const cores = {
+        navy: "#0D1959",
+        teal: "#4C6565",
+        brown: "#8C3E14",
+        cream: "#FFF3CD",
+        green: "#218653",
+        red: "#C0392B",
+        muted: "#AEB6C2"
+    };
+
+    const texto = getComputedStyle(document.querySelector(".dashboard"))
+        .getPropertyValue("--dash-text").trim() || cores.navy;
+
+    const grade = getComputedStyle(document.querySelector(".dashboard"))
+        .getPropertyValue("--dash-border").trim() || cores.muted;
+
+    Chart.defaults.color = texto;
+    Chart.defaults.font.family = "inherit";
+    Chart.defaults.responsive = true;
+    Chart.defaults.maintainAspectRatio = false;
+
+    function criarGrafico(id, configuracao) {
+        const canvas = document.getElementById(id);
+
+        if (canvas) {
+            new Chart(canvas, configuracao);
+        }
+    }
+
+    criarGrafico("esgChart", {
+        type: "bar",
+        data: {
+            labels: dados.esg.labels,
+            datasets: [{
+                label: "Pontuação (%)",
+                data: dados.esg.valores,
+                backgroundColor: [
+                    cores.navy,
+                    cores.teal,
+                    cores.brown
+                ],
+                borderRadius: 7,
+                maxBarThickness: 65
+            }]
+        },
+        options: {
+            indexAxis: "y",
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: { color: grade },
+                    title: {
+                        display: true,
+                        text: "Pontuação (%)"
+                    }
+                },
+                y: {
+                    grid: { display: false }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+
+    criarGrafico("historyChart", {
+        type: "line",
+        data: {
+            labels: dados.historico.labels,
+            datasets: [{
+                label: "Pontuação geral (%)",
+                data: dados.historico.valores,
+                borderColor: cores.navy,
+                backgroundColor: cores.cream,
+                fill: true,
+                tension: 0.3,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: { color: grade },
+                    title: {
+                        display: true,
+                        text: "Pontuação (%)"
+                    }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+
+    criarGrafico("financeChart", {
+        type: "bar",
+        data: {
+            labels: dados.financeiro.labels,
+            datasets: [
+                {
+                    label: "Receitas",
+                    data: dados.financeiro.receitas,
+                    backgroundColor: cores.green,
+                    borderRadius: 5
+                },
+                {
+                    label: "Custos",
+                    data: dados.financeiro.custos,
+                    backgroundColor: cores.red,
+                    borderRadius: 5
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: grade },
+                    ticks: {
+                        callback: function (valor) {
+                            return Number(valor).toLocaleString("pt-BR", {
+                                style: "currency",
+                                currency: "BRL",
+                                maximumFractionDigits: 0
+                            });
+                        }
+                    }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+
+    criarGrafico("plansChart", {
+        type: "doughnut",
+        data: {
+            labels: dados.planos.labels,
+            datasets: [{
+                data: dados.planos.valores,
+                backgroundColor: [
+                    cores.brown,
+                    cores.teal,
+                    cores.navy
+                ],
+                borderColor: getComputedStyle(
+                    document.querySelector(".dashboard")
+                ).getPropertyValue("--dash-card").trim() || "#ffffff",
+                borderWidth: 3,
+                hoverOffset: 6
+            }]
+        },
+        options: {
+            cutout: "62%",
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
+});
+</script>
+
 {% endblock %}

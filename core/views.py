@@ -582,10 +582,13 @@ def excluir_registro_financeiro(request, empresa_id, registro_id):
         "listar_registros_financeiros",
         empresa_id=empresa.id,
     )
+
 @login_required
 def dashboard(request):
     from decimal import Decimal
+    from datetime import date
     from django.db.models import Sum
+    from django.utils import timezone
 
     empresas = Empresa.objects.filter(usuario=request.user)
 
@@ -607,13 +610,32 @@ def dashboard(request):
         "receitas": Decimal("0.00"),
         "custos": Decimal("0.00"),
         "saldo": Decimal("0.00"),
+        "dados_graficos": {
+            "esg": {
+                "labels": ["Ambiental", "Social", "Governança"],
+                "valores": [0, 0, 0],
+            },
+            "historico": {
+                "labels": [],
+                "valores": [],
+            },
+            "financeiro": {
+                "labels": [],
+                "receitas": [],
+                "custos": [],
+            },
+            "planos": {
+                "labels": ["Pendentes", "Em andamento", "Concluídos"],
+                "valores": [0, 0, 0],
+            },
+        },
     }
 
     if empresa:
         diagnosticos = DiagnosticoESG.objects.filter(
             empresa=empresa,
             concluido=True,
-        )
+        ).order_by("-data_criacao")
 
         ultimo = diagnosticos.first()
 
@@ -637,21 +659,119 @@ def dashboard(request):
             or Decimal("0.00")
         )
 
+        pendentes = planos.filter(status="pendente").count()
+        em_andamento = planos.filter(status="em_andamento").count()
+        concluidos = planos.filter(status="concluida").count()
+
+        # Histórico dos diagnósticos, do mais antigo ao mais recente.
+        historico = diagnosticos.order_by("data_criacao")
+
+        dados_historico = {
+            "labels": [
+                d.data_criacao.strftime("%d/%m/%Y")
+                for d in historico
+            ],
+            "valores": [
+                float(d.percentual_geral or 0)
+                for d in historico
+            ],
+        }
+
+        # Desempenho das três dimensões no último diagnóstico.
+        dados_esg = {
+            "labels": ["Ambiental", "Social", "Governança"],
+            "valores": [
+                float(ultimo.percentual_ambiental or 0),
+                float(ultimo.percentual_social or 0),
+                float(ultimo.percentual_governanca or 0),
+            ] if ultimo else [0, 0, 0],
+        }
+
+        # Últimos seis meses, incluindo meses sem movimentação.
+        hoje = timezone.localdate()
+        meses = []
+
+        ano = hoje.year
+        mes = hoje.month
+
+        for _ in range(5):
+            mes -= 1
+            if mes == 0:
+                mes = 12
+                ano -= 1
+
+        for _ in range(6):
+            meses.append((ano, mes))
+            mes += 1
+            if mes == 13:
+                mes = 1
+                ano += 1
+
+        financeiro_por_mes = {
+            chave: {
+                "receitas": Decimal("0.00"),
+                "custos": Decimal("0.00"),
+            }
+            for chave in meses
+        }
+
+        movimentacoes = registros.filter(
+            data__year__gte=meses[0][0]
+        ).values_list("data", "tipo", "valor")
+
+        for data_registro, tipo, valor in movimentacoes:
+            chave = (data_registro.year, data_registro.month)
+
+            if chave not in financeiro_por_mes:
+                continue
+
+            if tipo == "receita":
+                financeiro_por_mes[chave]["receitas"] += valor
+            elif tipo == "custo":
+                financeiro_por_mes[chave]["custos"] += valor
+
+        dados_financeiros = {
+            "labels": [
+                f"{mes:02d}/{ano}"
+                for ano, mes in meses
+            ],
+            "receitas": [
+                float(financeiro_por_mes[chave]["receitas"])
+                for chave in meses
+            ],
+            "custos": [
+                float(financeiro_por_mes[chave]["custos"])
+                for chave in meses
+            ],
+        }
+
         contexto.update({
             "total_diagnosticos": diagnosticos.count(),
             "ultimo_diagnostico": ultimo,
-            "planos_pendentes": planos.filter(
-                status="pendente"
-            ).count(),
-            "planos_em_andamento": planos.filter(
-                status="em_andamento"
-            ).count(),
-            "planos_concluidos": planos.filter(
-                status="concluida"
-            ).count(),
+            "planos_pendentes": pendentes,
+            "planos_em_andamento": em_andamento,
+            "planos_concluidos": concluidos,
             "receitas": receitas,
             "custos": custos,
             "saldo": receitas - custos,
+            "dados_graficos": {
+                "esg": dados_esg,
+                "historico": dados_historico,
+                "financeiro": dados_financeiros,
+                "planos": {
+                    "labels": [
+                        "Pendentes",
+                        "Em andamento",
+                        "Concluídos",
+                    ],
+                    "valores": [
+                        pendentes,
+                        em_andamento,
+                        concluidos,
+                    ],
+                },
+            },
         })
 
     return render(request, "core/dashboard.html", contexto)
+
