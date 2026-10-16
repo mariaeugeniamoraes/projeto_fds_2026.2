@@ -460,7 +460,7 @@
                     {% if ultimo_diagnostico %}
                         {{ ultimo_diagnostico.percentual_geral|floatformat:1 }}<span class="dash-unit">%</span>
                     {% else %}
-                        —
+                        0<span class="dash-unit">%</span>
                     {% endif %}
                 </div>
 
@@ -489,7 +489,7 @@
                     {% if ultimo_diagnostico %}
                         {{ ultimo_diagnostico.percentual_ambiental|floatformat:1 }}%
                     {% else %}
-                        —
+                        0%
                     {% endif %}
                 </div>
 
@@ -512,7 +512,7 @@
                     {% if ultimo_diagnostico %}
                         {{ ultimo_diagnostico.percentual_social|floatformat:1 }}%
                     {% else %}
-                        —
+                        0%
                     {% endif %}
                 </div>
 
@@ -535,7 +535,7 @@
                     {% if ultimo_diagnostico %}
                         {{ ultimo_diagnostico.percentual_governanca|floatformat:1 }}%
                     {% else %}
-                        —
+                        0%
                     {% endif %}
                 </div>
 
