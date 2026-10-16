@@ -69,25 +69,6 @@
         font-weight: 700;
     }
 
-    .badge-status {
-        padding: 4px 10px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: 700;
-        display: inline-block;
-    }
-
-    .status-pendente { background: #FFF3CD; color: #8C3E14; }
-    .status-em_andamento { background: #E2E8F0; color: #4C6565; }
-    .status-concluida { background: #D1E7DD; color: #0F5132; }
-
-    .form-inline-select {
-        padding: 6px;
-        border-radius: 6px;
-        border: 1px solid #AEB6C2;
-        font-size: 13px;
-    }
-
     .btn-danger {
         background: #C0392B;
         color: white;
@@ -116,6 +97,13 @@
         border-radius: 8px;
         margin-top: 6px;
     }
+
+    .form-inline-select {
+        padding: 6px;
+        border-radius: 6px;
+        border: 1px solid #AEB6C2;
+        font-size: 13px;
+    }
 </style>
 
 <div class="planos-container">
@@ -143,20 +131,12 @@
                     {{ form.descricao }}
                 </div>
                 <div>
-                    <label>Pilar ESG</label>
-                    {{ form.pilar }}
-                </div>
-                <div>
                     <label>Prioridade</label>
                     {{ form.prioridade }}
                 </div>
                 <div>
                     <label>Status Inicial</label>
                     {{ form.status }}
-                </div>
-                <div>
-                    <label>Data Limite</label>
-                    {{ form.data_limite }}
                 </div>
             </div>
             <div style="margin-top: 16px; text-align: right;">
@@ -174,7 +154,6 @@
                 <thead>
                     <tr>
                         <th>Ação</th>
-                        <th>Pilar</th>
                         <th>Prioridade</th>
                         <th>Status</th>
                         <th>Ações</th>
@@ -189,7 +168,6 @@
                                 <br><small style="color: #4C6565;">{{ plano.descricao }}</small>
                             {% endif %}
                         </td>
-                        <td>{{ plano.get_pilar_display|default:plano.pilar }}</td>
                         <td>{{ plano.get_prioridade_display|default:plano.prioridade }}</td>
                         <td>
                             <form method="post" action="{% url 'alterar_status_plano' empresa.id plano.id %}" style="display: inline;">

@@ -191,14 +191,12 @@
            CORREÇÃO BADGES / STATUS (DESIGN LIMPO)
            ========================================== */
 
-        /* Remove o fundo de textos de rótulo como "Status do Projeto:" */
         body.dark-theme p,
         body.dark-theme span,
         body.dark-theme div {
             background-color: transparent;
         }
 
-        /* Estilização suave apenas para os selos e pílulas */
         body.dark-theme .badge,
         body.dark-theme .pill,
         body.dark-theme .tag,
@@ -261,10 +259,6 @@
 
 </head>
 
-
-<body>
-
-    
 <body>
 
     <header class="header">
@@ -300,6 +294,12 @@
                     <a href="{% url 'minhas_empresas' %}" class="nav-item">
                         <span>▣</span> Minhas empresas
                     </a>
+
+                    {% if empresa_selecionada %}
+                        <a href="{% url 'listar_planos_acao' empresa_selecionada.id %}" class="nav-item">
+                            <span>📋</span> Planos de ação
+                        </a>
+                    {% endif %}
 
                     <a href="{% url 'ferramentas' %}" class="nav-item">
                         <span>⚙</span> Ferramentas
@@ -350,14 +350,9 @@
                     </span>
                 </button>
 
-                
-
-
             </div>
         </nav>
     </header>
-
-
 
     <main class="main-content">
 
@@ -402,63 +397,28 @@
         </div>
     </div>
 
-
     <!-- SCRIPT DE ALTERNÂNCIA DO TEMA -->
-
     <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const themeText = document.getElementById('theme-text');
 
-        const toggleBtn =
-            document.getElementById('theme-toggle');
-
-        const themeText =
-            document.getElementById('theme-text');
-
-
-        // Carrega o tema salvo anteriormente
-
-        if (
-            localStorage.getItem('ecomply-theme') === 'dark'
-        ) {
-
+        if (localStorage.getItem('ecomply-theme') === 'dark') {
             document.body.classList.add('dark-theme');
-
             themeText.textContent = 'Modo Claro';
-
         }
 
-
-        // Alterna entre modo claro e escuro
-
         toggleBtn.addEventListener('click', function() {
-
             document.body.classList.toggle('dark-theme');
-
-            const isDark =
-                document.body.classList.contains('dark-theme');
-
+            const isDark = document.body.classList.contains('dark-theme');
 
             if (isDark) {
-
-                localStorage.setItem(
-                    'ecomply-theme',
-                    'dark'
-                );
-
+                localStorage.setItem('ecomply-theme', 'dark');
                 themeText.textContent = 'Modo Claro';
-
             } else {
-
-                localStorage.setItem(
-                    'ecomply-theme',
-                    'light'
-                );
-
+                localStorage.setItem('ecomply-theme', 'light');
                 themeText.textContent = 'Modo Escuro';
-
             }
-
         });
-
     </script>
 
     <script>
@@ -477,11 +437,7 @@
         }
 
         botao.addEventListener("click", function () {
-            localStorage.setItem(
-                "ecomply-aviso-privacidade",
-                "entendido"
-            );
-
+            localStorage.setItem("ecomply-aviso-privacidade", "entendido");
             aviso.hidden = true;
         });
     });
@@ -491,39 +447,24 @@
     const dislexiaBtn = document.getElementById("dislexia-toggle");
     const dislexiaText = document.getElementById("dislexia-text");
 
-    // Recupera a preferência salva
-    const dislexiaAtivada =
-        localStorage.getItem("ecomply-modo-dislexia") === "true";
+    const dislexiaAtivada = localStorage.getItem("ecomply-modo-dislexia") === "true";
 
     if (dislexiaAtivada) {
         document.body.classList.add("modo-dislexia");
     }
 
     function atualizarBotaoDislexia() {
-        const ativado =
-            document.body.classList.contains("modo-dislexia");
-
-        dislexiaText.textContent = ativado
-             ? "Dislexia: ON"
-             : "Dislexia: OFF";
-
+        const ativado = document.body.classList.contains("modo-dislexia");
+        dislexiaText.textContent = ativado ? "Dislexia: ON" : "Dislexia: OFF";
         dislexiaBtn.setAttribute("aria-pressed", String(ativado));
     }
 
     atualizarBotaoDislexia();
 
-    // Ativa ou desativa ao clicar
     dislexiaBtn.addEventListener("click", function () {
         document.body.classList.toggle("modo-dislexia");
-
-        const ativado =
-            document.body.classList.contains("modo-dislexia");
-
-        localStorage.setItem(
-            "ecomply-modo-dislexia",
-            String(ativado)
-        );
-
+        const ativado = document.body.classList.contains("modo-dislexia");
+        localStorage.setItem("ecomply-modo-dislexia", String(ativado));
         atualizarBotaoDislexia();
     });
 </script>

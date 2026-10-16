@@ -298,7 +298,7 @@
     .dashboard .dash-notice strong {
         color: var(--dash-text);
     }
-    
+
     .dashboard .dash-chart-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -635,8 +635,16 @@
     <!-- Planos de Ação -->
     <section class="dash-section">
         <div class="dash-section-heading">
-            <h2>Planos de ação</h2>
-            <span class="dash-legend">Acompanhamento das iniciativas</span>
+            <div>
+                <h2>Planos de ação</h2>
+                <span class="dash-legend">Acompanhamento das iniciativas</span>
+            </div>
+
+            {% if empresa_selecionada %}
+                <a href="{% url 'listar_planos_acao' empresa_selecionada.id %}" class="dash-button" style="font-size: 13px;">
+                    + Gerenciar ações
+                </a>
+            {% endif %}
         </div>
 
         <div class="dash-status-grid">
@@ -677,6 +685,11 @@
         <div class="dash-notice" style="margin-top: 18px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                 <h3 style="margin: 0; color: var(--dash-primary); font-size: 17px;">Próximas ações sugeridas</h3>
+                {% if empresa_selecionada %}
+                    <a href="{% url 'listar_planos_acao' empresa_selecionada.id %}" style="font-size: 13px; color: var(--dash-primary); font-weight: bold; text-decoration: none;">
+                        Ver todas →
+                    </a>
+                {% endif %}
             </div>
 
             {% if ultimos_planos %}
