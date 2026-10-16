@@ -449,6 +449,7 @@ def calculadora_embalagens(request):
         }
     )
 
+
 @login_required
 def listar_registros_financeiros(request, empresa_id):
     empresa = get_object_or_404(
@@ -583,6 +584,7 @@ def excluir_registro_financeiro(request, empresa_id, registro_id):
         empresa_id=empresa.id,
     )
 
+
 @login_required
 def dashboard(request):
     from decimal import Decimal
@@ -607,6 +609,7 @@ def dashboard(request):
         "planos_pendentes": 0,
         "planos_em_andamento": 0,
         "planos_concluidos": 0,
+        "ultimos_planos": [],
         "receitas": Decimal("0.00"),
         "custos": Decimal("0.00"),
         "saldo": Decimal("0.00"),
@@ -642,6 +645,9 @@ def dashboard(request):
         planos = PlanoAcaoESG.objects.filter(
             diagnostico__empresa=empresa,
         )
+
+        # Filtra os 5 planos de ação não concluídos mais recentes para exibir na lista do dashboard
+        ultimos_planos = planos.exclude(status="concluida")[:5]
 
         registros = RegistroFinanceiro.objects.filter(
             empresa=empresa,
@@ -751,6 +757,7 @@ def dashboard(request):
             "planos_pendentes": pendentes,
             "planos_em_andamento": em_andamento,
             "planos_concluidos": concluidos,
+            "ultimos_planos": ultimos_planos,
             "receitas": receitas,
             "custos": custos,
             "saldo": receitas - custos,
@@ -774,4 +781,3 @@ def dashboard(request):
         })
 
     return render(request, "core/dashboard.html", contexto)
-

@@ -93,6 +93,8 @@
         color: #ffffff;
         font-weight: 700;
         cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
         transition: opacity 0.2s;
     }
 
@@ -344,23 +346,49 @@
         line-height: 1.6;
     }
 
+    .dashboard .dash-finance-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .dashboard .dash-finance-chart {
+        margin-top: 18px;
+        width: 100%;
+    }
+
+    /* Estilos da Lista de Ações */
+    .dashboard .dash-action-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dashboard .dash-action-item {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--dash-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .dashboard .dash-action-item:last-child {
+        border-bottom: none;
+    }
+
+    .dashboard .dash-action-badge {
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 6px;
+        background: var(--dash-bg);
+        color: var(--dash-brown);
+    }
+
     @media (max-width: 900px) {
         .dashboard .dash-chart-grid {
             grid-template-columns: 1fr;
         }
-    }
 
-    @media (max-width: 600px) {
-        .dashboard .dash-chart-card {
-            padding: 18px;
-        }
-
-        .dashboard .dash-chart-container {
-            height: 250px;
-        }
-    }
-
-    @media (max-width: 900px) {
         .dashboard .dash-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -387,26 +415,23 @@
         }
 
         .dashboard .dash-grid,
-        .dashboard .dash-status-grid {
+        .dashboard .dash-status-grid,
+        .dashboard .dash-finance-grid {
             grid-template-columns: 1fr;
         }
 
-        .dashboard .dash-card {
-            padding: 20px;
+        .dashboard .dash-card,
+        .dashboard .dash-chart-card {
+            padding: 18px;
         }
-    }
-        .dashboard .dash-finance-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
 
-    .dashboard .dash-finance-chart {
-        margin-top: 18px;
-        width: 100%;
-    }
+        .dashboard .dash-chart-container {
+            height: 250px;
+        }
 
-    @media (max-width: 600px) {
-        .dashboard .dash-finance-grid {
-            grid-template-columns: 1fr;
+        .dashboard .dash-action-item {
+            flex-direction: column;
+            align-items: flex-start;
         }
     }
 </style>
@@ -443,6 +468,7 @@
 
     {% if empresas %}
 
+    <!-- Desempenho ESG -->
     <section class="dash-section">
         <div class="dash-section-heading">
             <h2>Desempenho ESG</h2>
@@ -550,6 +576,7 @@
         </div>
     </section>
     
+    <!-- Análise de Indicadores -->
     <section class="dash-section">
         <div class="dash-section-heading">
             <h2>Análise dos indicadores</h2>
@@ -605,6 +632,7 @@
         </div>
     </section>
 
+    <!-- Planos de Ação -->
     <section class="dash-section">
         <div class="dash-section-heading">
             <h2>Planos de ação</h2>
@@ -645,56 +673,85 @@
             </div>
         </div>
 
+        <!-- Bloco de Próximas Ações Sugeridas -->
+        <div class="dash-notice" style="margin-top: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="margin: 0; color: var(--dash-primary); font-size: 17px;">Próximas ações sugeridas</h3>
+            </div>
+
+            {% if ultimos_planos %}
+                <ul class="dash-action-list">
+                    {% for plano in ultimos_planos %}
+                    <li class="dash-action-item">
+                        <div>
+                            <strong style="color: var(--dash-text); display: block; font-size: 14px;">{{ plano.titulo }}</strong>
+                            <span style="font-size: 12px; color: var(--dash-muted);">
+                                {% if plano.get_pilar_display %}Pilar: {{ plano.get_pilar_display }}{% endif %}
+                            </span>
+                        </div>
+                        <span class="dash-action-badge">
+                            {% if plano.get_status_display %}{{ plano.get_status_display }}{% else %}{{ plano.status }}{% endif %}
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p style="margin: 0; font-size: 13px;">Nenhuma ação pendente no momento para esta empresa.</p>
+            {% endif %}
+        </div>
+
     </section>
 
-<section class="dash-section">
-    <div class="dash-section-heading">
-        <h2>Resumo financeiro</h2>
-        <span class="dash-legend">Valores registrados</span>
-    </div>
-
-    <div class="dash-grid dash-finance-grid">
-        <article class="dash-card dash-finance-card">
-            <div class="dash-label">Receitas</div>
-            <div class="dash-value dash-income">
-                R$ {{ receitas|floatformat:2 }}
-            </div>
-            <div class="dash-note">Entradas registradas</div>
-        </article>
-
-        <article class="dash-card dash-finance-card">
-            <div class="dash-label">Custos</div>
-            <div class="dash-value dash-cost">
-                R$ {{ custos|floatformat:2 }}
-            </div>
-            <div class="dash-note">Saídas registradas</div>
-        </article>
-
-        <article class="dash-card dash-finance-card">
-            <div class="dash-label">Saldo</div>
-            <div class="dash-value dash-balance">
-                R$ {{ saldo|floatformat:2 }}
-            </div>
-            <div class="dash-note">Receitas menos custos</div>
-        </article>
-    </div>
-
-    <article class="dash-chart-card dash-finance-chart">
-        <h3>Receitas e custos ao longo do tempo</h3>
-        <p class="dash-chart-description">
-            Compare as movimentações financeiras registradas nos últimos seis meses.
-        </p>
-
-        <div class="dash-chart-container">
-            <canvas
-                id="financeChart"
-                role="img"
-                aria-label="Gráfico mensal de receitas e custos">
-            </canvas>
+    <!-- Resumo Financeiro -->
+    <section class="dash-section">
+        <div class="dash-section-heading">
+            <h2>Resumo financeiro</h2>
+            <span class="dash-legend">Valores registrados</span>
         </div>
-    </article>
-</section>
 
+        <div class="dash-grid dash-finance-grid">
+            <article class="dash-card dash-finance-card">
+                <div class="dash-label">Receitas</div>
+                <div class="dash-value dash-income">
+                    R$ {{ receitas|floatformat:2 }}
+                </div>
+                <div class="dash-note">Entradas registradas</div>
+            </article>
+
+            <article class="dash-card dash-finance-card">
+                <div class="dash-label">Custos</div>
+                <div class="dash-value dash-cost">
+                    R$ {{ custos|floatformat:2 }}
+                </div>
+                <div class="dash-note">Saídas registradas</div>
+            </article>
+
+            <article class="dash-card dash-finance-card">
+                <div class="dash-label">Saldo</div>
+                <div class="dash-value dash-balance">
+                    R$ {{ saldo|floatformat:2 }}
+                </div>
+                <div class="dash-note">Receitas menos custos</div>
+            </article>
+        </div>
+
+        <article class="dash-chart-card dash-finance-chart">
+            <h3>Receitas e custos ao longo do tempo</h3>
+            <p class="dash-chart-description">
+                Compare as movimentações financeiras registradas nos últimos seis meses.
+            </p>
+
+            <div class="dash-chart-container">
+                <canvas
+                    id="financeChart"
+                    role="img"
+                    aria-label="Gráfico mensal de receitas e custos">
+                </canvas>
+            </div>
+        </article>
+    </section>
+
+    <!-- Último Diagnóstico -->
     <section class="dash-section">
         <div class="dash-section-heading">
             <h2>Último diagnóstico</h2>
