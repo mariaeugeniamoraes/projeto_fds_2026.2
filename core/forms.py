@@ -187,3 +187,17 @@ class RegistroFinanceiroForm(forms.ModelForm):
                 "rows": 3,
             }),
         }
+
+from django import forms
+from .models import PlanoAcaoESG
+
+class PlanoAcaoForm(forms.ModelForm):
+    class Meta:
+        model = PlanoAcaoESG
+        fields = ['titulo', 'descricao', 'prioridade', 'status']
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ex: Substituir plástico bolha'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-input', 'rows': 3, 'placeholder': 'Descreva a ação...'}),
+            'prioridade': forms.Select(attrs={'class': 'form-select'}),
+            'status': forms.Select(attrs={'class': 'form-select'}),
+        }

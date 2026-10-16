@@ -96,4 +96,8 @@ urlpatterns = [
         name="dashboard"
     ),
 
+    path('empresas/<int:empresa_id>/planos-de-acao/', views.listar_planos_acao, name='listar_planos_acao'),
+    path('empresas/<int:empresa_id>/planos-de-acao/adicionar/', views.adicionar_plano_acao, name='adicionar_plano_acao'),
+    path('empresas/<int:empresa_id>/planos-de-acao/<int:plano_id>/status/', views.alterar_status_plano, name='alterar_status_plano'),
+    path('empresas/<int:empresa_id>/planos-de-acao/<int:plano_id>/excluir/', views.excluir_plano_acao, name='excluir_plano_acao'),
 ]

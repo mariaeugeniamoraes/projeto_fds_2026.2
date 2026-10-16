@@ -1,0 +1,220 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .planos-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px 24px 45px;
+        color: var(--text-main, #0D1959);
+    }
+
+    .planos-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 28px;
+    }
+
+    .planos-title {
+        font-size: 28px;
+        margin: 0;
+        color: #0D1959;
+    }
+
+    .btn-primary {
+        background: #0D1959;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        opacity: 0.9;
+    }
+
+    .planos-card {
+        background: #ffffff;
+        border: 1px solid #AEB6C2;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        margin-bottom: 24px;
+    }
+
+    .planos-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+    }
+
+    .planos-table th, 
+    .planos-table td {
+        padding: 14px 12px;
+        text-align: left;
+        border-bottom: 1px solid #AEB6C2;
+        font-size: 14px;
+    }
+
+    .planos-table th {
+        background: #f8f7f2;
+        color: #0D1959;
+        font-weight: 700;
+    }
+
+    .badge-status {
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        display: inline-block;
+    }
+
+    .status-pendente { background: #FFF3CD; color: #8C3E14; }
+    .status-em_andamento { background: #E2E8F0; color: #4C6565; }
+    .status-concluida { background: #D1E7DD; color: #0F5132; }
+
+    .form-inline-select {
+        padding: 6px;
+        border-radius: 6px;
+        border: 1px solid #AEB6C2;
+        font-size: 13px;
+    }
+
+    .btn-danger {
+        background: #C0392B;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    .modal-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .modal-form .full-width {
+        grid-column: span 2;
+    }
+
+    .form-input, .form-select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #AEB6C2;
+        border-radius: 8px;
+        margin-top: 6px;
+    }
+</style>
+
+<div class="planos-container">
+
+    <div class="planos-header">
+        <div>
+            <h1 class="planos-title">Plano de Ação ESG</h1>
+            <p style="color: #4C6565; margin-top: 4px;">Empresa: <strong>{{ empresa.nome }}</strong></p>
+        </div>
+        <a href="{% url 'dashboard' %}?empresa={{ empresa.id }}" class="btn-primary" style="background: #4C6565;">Voltar ao Dashboard</a>
+    </div>
+
+    <!-- Formulário de Nova Ação -->
+    <div class="planos-card">
+        <h3 style="margin: 0; color: #0D1959;">Cadastrar Nova Ação</h3>
+        <form method="post" action="{% url 'adicionar_plano_acao' empresa.id %}">
+            {% csrf_token %}
+            <div class="modal-form">
+                <div class="full-width">
+                    <label>Título da Ação</label>
+                    {{ form.titulo }}
+                </div>
+                <div class="full-width">
+                    <label>Descrição</label>
+                    {{ form.descricao }}
+                </div>
+                <div>
+                    <label>Pilar ESG</label>
+                    {{ form.pilar }}
+                </div>
+                <div>
+                    <label>Prioridade</label>
+                    {{ form.prioridade }}
+                </div>
+                <div>
+                    <label>Status Inicial</label>
+                    {{ form.status }}
+                </div>
+                <div>
+                    <label>Data Limite</label>
+                    {{ form.data_limite }}
+                </div>
+            </div>
+            <div style="margin-top: 16px; text-align: right;">
+                <button type="submit" class="btn-primary">Salvar Ação</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabela de Ações -->
+    <div class="planos-card">
+        <h3 style="margin: 0 0 16px 0; color: #0D1959;">Iniciativas Cadastradas</h3>
+
+        {% if planos %}
+            <table class="planos-table">
+                <thead>
+                    <tr>
+                        <th>Ação</th>
+                        <th>Pilar</th>
+                        <th>Prioridade</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for plano in planos %}
+                    <tr>
+                        <td>
+                            <strong>{{ plano.titulo }}</strong>
+                            {% if plano.descricao %}
+                                <br><small style="color: #4C6565;">{{ plano.descricao }}</small>
+                            {% endif %}
+                        </td>
+                        <td>{{ plano.get_pilar_display|default:plano.pilar }}</td>
+                        <td>{{ plano.get_prioridade_display|default:plano.prioridade }}</td>
+                        <td>
+                            <form method="post" action="{% url 'alterar_status_plano' empresa.id plano.id %}" style="display: inline;">
+                                {% csrf_token %}
+                                <select name="status" onchange="this.form.submit()" class="form-inline-select">
+                                    <option value="pendente" {% if plano.status == 'pendente' %}selected{% endif %}>Pendente</option>
+                                    <option value="em_andamento" {% if plano.status == 'em_andamento' %}selected{% endif %}>Em andamento</option>
+                                    <option value="concluida" {% if plano.status == 'concluida' %}selected{% endif %}>Concluída</option>
+                                </select>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'excluir_plano_acao' empresa.id plano.id %}" style="display: inline;" onsubmit="return confirm('Deseja realmente remover esta ação?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-danger">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p style="color: #4C6565;">Nenhuma ação cadastrada para esta empresa ainda.</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

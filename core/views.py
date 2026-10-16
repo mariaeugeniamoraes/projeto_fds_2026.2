@@ -781,3 +781,74 @@ def dashboard(request):
         })
 
     return render(request, "core/dashboard.html", contexto)
+
+from .forms import PlanoAcaoForm  # Lembre-se de importar o PlanoAcaoForm no topo do ficheiro
+
+@login_required
+def listar_planos_acao(request, empresa_id):
+    empresa = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
+    
+    # Busca os planos vinculados aos diagnósticos da empresa
+    planos = PlanoAcaoESG.objects.filter(diagnostico__empresa=empresa).order_by('-id')
+    
+    # Filtro opcional por status via GET
+    status_filtro = request.GET.get('status')
+    if status_filtro:
+        planos = planos.filter(status=status_filtro)
+
+    form = PlanoAcaoForm()
+
+    return render(
+        request,
+        'core/planos_acao.html',
+        {
+            'empresa': empresa,
+            'planos': planos,
+            'form': form,
+            'status_filtro': status_filtro,
+        }
+    )
+
+
+@login_required
+def adicionar_plano_acao(request, empresa_id):
+    empresa = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
+    ultimo_diagnostico = empresa.diagnosticos.filter(concluido=True).first()
+
+    if not ultimo_diagnostico:
+        # Se a empresa não tiver diagnóstico, pode criar um automático ou avisar o usuário
+        ultimo_diagnostico = DiagnosticoESG.objects.create(empresa=empresa, concluido=True)
+
+    if request.method == 'POST':
+        form = PlanoAcaoForm(request.POST)
+        if form.is_valid():
+            plano = form.save(commit=False)
+            plano.diagnostico = ultimo_diagnostico
+            plano.save()
+            return redirect('listar_planos_acao', empresa_id=empresa.id)
+
+    return redirect('listar_planos_acao', empresa_id=empresa.id)
+
+
+@login_required
+@require_POST
+def alterar_status_plano(request, empresa_id, plano_id):
+    empresa = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
+    plano = get_object_or_404(PlanoAcaoESG, id=plano_id, diagnostico__empresa=empresa)
+
+    novo_status = request.POST.get('status')
+    if novo_status in ['pendente', 'em_andamento', 'concluida']:
+        plano.status = novo_status
+        plano.save(update_fields=['status'])
+
+    return redirect('listar_planos_acao', empresa_id=empresa.id)
+
+
+@login_required
+@require_POST
+def excluir_plano_acao(request, empresa_id, plano_id):
+    empresa = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
+    plano = get_object_or_404(PlanoAcaoESG, id=plano_id, diagnostico__empresa=empresa)
+    plano.delete()
+
+    return redirect('listar_planos_acao', empresa_id=empresa.id)
