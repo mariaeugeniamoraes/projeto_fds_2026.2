@@ -1,4 +1,4 @@
-# ESG dentro das E-commerces (nome a definir)
+# Ecomply
 
 ## Sobre nosso projeto
 
