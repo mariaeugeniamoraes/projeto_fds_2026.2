@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 
-    <!-- MODO ESCURO -->
+    <!-- MODO ESCURO E RESET DE BOTOES -->
     <style>
 
         /* ==========================================
@@ -216,39 +216,19 @@
 
 
         /* ==========================================
-           BOTÃO DE MODO CLARO / ESCURO
+           RESET DE BOTÕES PARA NAVBAR
            ========================================== */
 
-        .theme-toggle-btn {
+        button.nav-item {
             background: transparent !important;
-            border: 1px solid #AEB6C2 !important;
-            border-radius: 6px !important;
-            padding: 0.35rem 0.65rem !important;
-            cursor: pointer !important;
-            font-size: 0.82rem !important;
-            font-weight: 500 !important;
-            color: #4C6565 !important;
-            transition: all 0.2s ease !important;
-            margin-left: 1rem !important;
-            display: inline-block !important;
-            white-space: nowrap;
-        }
-
-        .theme-toggle-btn:hover {
-            color: #8C3E14 !important;
-            border-color: #8C3E14 !important;
-            background-color: rgba(140, 62, 20, 0.06) !important;
-        }
-
-        body.dark-theme .theme-toggle-btn {
-            color: #FFF3CD !important;
-            border-color: #AEB6C2 !important;
-        }
-
-        body.dark-theme .theme-toggle-btn:hover {
-            color: #0D1959 !important;
-            border-color: #FFF3CD !important;
-            background-color: #FFF3CD !important;
+            border: none !important;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            font-size: inherit;
+            cursor: pointer;
+            color: inherit;
+            /* Garante que o padding venha da classe .nav-item original */
         }
 
         .user-welcome {
@@ -297,7 +277,7 @@
 
                     {% if empresa_selecionada %}
                         <a href="{% url 'listar_planos_acao' empresa_selecionada.id %}" class="nav-item">
-                            <span>📋</span> Planos de ação
+                            <span>▤</span> Planos de ação
                         </a>
                     {% endif %}
 
@@ -333,21 +313,12 @@
 
                 <div class="sidebar-divider"></div>
 
-                <button id="theme-toggle"
-                        class="theme-toggle-btn"
-                        type="button">
-                    <span id="theme-text">Modo Escuro</span>
+                <button id="theme-toggle" class="nav-item" type="button">
+                    <span id="theme-icon">◐</span> <span id="theme-text">Modo Escuro</span>
                 </button>
                 
-                <button
-                    id="dislexia-toggle"
-                    class="theme-toggle-btn"
-                    type="button"
-                    aria-pressed="false"
-                >
-                    <span id="dislexia-text">
-                        Modo Dislexia
-                    </span>
+                <button id="dislexia-toggle" class="nav-item" type="button" aria-pressed="false">
+                    <span>◎</span> <span id="dislexia-text">Dislexia: OFF</span>
                 </button>
 
             </div>
@@ -401,24 +372,31 @@
     <script>
         const toggleBtn = document.getElementById('theme-toggle');
         const themeText = document.getElementById('theme-text');
+        const themeIcon = document.getElementById('theme-icon');
 
-        if (localStorage.getItem('ecomply-theme') === 'dark') {
-            document.body.classList.add('dark-theme');
-            themeText.textContent = 'Modo Claro';
+        function atualizarTemaUI(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-theme');
+                if (themeText) themeText.textContent = 'Modo Claro';
+                if (themeIcon) themeIcon.textContent = '☼';
+            } else {
+                document.body.classList.remove('dark-theme');
+                if (themeText) themeText.textContent = 'Modo Escuro';
+                if (themeIcon) themeIcon.textContent = '◐';
+            }
         }
 
-        toggleBtn.addEventListener('click', function() {
-            document.body.classList.toggle('dark-theme');
-            const isDark = document.body.classList.contains('dark-theme');
+        const isDarkMode = localStorage.getItem('ecomply-theme') === 'dark';
+        atualizarTemaUI(isDarkMode);
 
-            if (isDark) {
-                localStorage.setItem('ecomply-theme', 'dark');
-                themeText.textContent = 'Modo Claro';
-            } else {
-                localStorage.setItem('ecomply-theme', 'light');
-                themeText.textContent = 'Modo Escuro';
-            }
-        });
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function() {
+                const eEscuro = document.body.classList.contains('dark-theme');
+                const novoEstado = !eEscuro;
+                localStorage.setItem('ecomply-theme', novoEstado ? 'dark' : 'light');
+                atualizarTemaUI(novoEstado);
+            });
+        }
     </script>
 
     <script>
@@ -461,12 +439,14 @@
 
     atualizarBotaoDislexia();
 
-    dislexiaBtn.addEventListener("click", function () {
-        document.body.classList.toggle("modo-dislexia");
-        const ativado = document.body.classList.contains("modo-dislexia");
-        localStorage.setItem("ecomply-modo-dislexia", String(ativado));
-        atualizarBotaoDislexia();
-    });
+    if (dislexiaBtn) {
+        dislexiaBtn.addEventListener("click", function () {
+            document.body.classList.toggle("modo-dislexia");
+            const ativado = document.body.classList.contains("modo-dislexia");
+            localStorage.setItem("ecomply-modo-dislexia", String(ativado));
+            atualizarBotaoDislexia();
+        });
+    }
 </script>
 
 </body>
