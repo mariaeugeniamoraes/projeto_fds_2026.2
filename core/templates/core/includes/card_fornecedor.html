@@ -1,14 +1,52 @@
-<div class="kanban-card">
-    <strong>{{ fornecedor.nome }}</strong>
+<style>
+    .supplier-card {
+        background-color: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 14px;
+        margin-bottom: 12px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    body.dark-theme .supplier-card {
+        background-color: #0D1959 !important;
+        border-color: #4C6565 !important;
+    }
+
+    .badge-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        margin-top: 6px;
+        cursor: pointer;
+        border: none;
+        transition: opacity 0.2s;
+    }
+
+    .badge-btn:hover {
+        opacity: 0.85;
+    }
+
+    .badge-danger { background-color: #d9534f; color: #ffffff; }
+    .badge-success { background-color: #2e7d32; color: #ffffff; }
+    .badge-warning { background-color: #f0ad4e; color: #ffffff; }
+</style>
+
+<div class="supplier-card">
+    <strong style="font-size: 1rem;">{{ fornecedor.nome }}</strong>
     {% if fornecedor.servico %}<br><small>Serviço: {{ fornecedor.servico }}</small>{% endif %}
 
-    <div style="margin-top: 10px;">
+    <div style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
         <!-- Alternar Auditoria -->
         <form method="POST" action="{% url 'alternar_alerta_fornecedor' empresa.id fornecedor.id %}" style="display:inline;">
             {% csrf_token %}
             <input type="hidden" name="campo" value="auditoria_pendente">
-            <button type="submit" class="alert-badge {% if fornecedor.auditoria_pendente %}badge-danger{% else %}badge-success{% endif %}">
-                {% if fornecedor.auditoria_pendente %}⚠️ Auditoria Pendente{% else %}✓ Auditoria OK{% endif %}
+            <button type="submit" class="badge-btn {% if fornecedor.auditoria_pendente %}badge-danger{% else %}badge-success{% endif %}">
+                {% if fornecedor.auditoria_pendente %}✕ Auditoria Pendente{% else %}✓ Auditoria OK{% endif %}
             </button>
         </form>
 
@@ -16,8 +54,8 @@
         <form method="POST" action="{% url 'alternar_alerta_fornecedor' empresa.id fornecedor.id %}" style="display:inline;">
             {% csrf_token %}
             <input type="hidden" name="campo" value="contrato_assinado">
-            <button type="submit" class="alert-badge {% if not fornecedor.contrato_assinado %}badge-warning{% else %}badge-success{% endif %}">
-                {% if fornecedor.contrato_assinado %}✓ Contrato Assinado{% else %}📄 Sem Contrato{% endif %}
+            <button type="submit" class="badge-btn {% if not fornecedor.contrato_assinado %}badge-warning{% else %}badge-success{% endif %}">
+                {% if fornecedor.contrato_assinado %}✓ Contrato Assinado{% else %}✕ Sem Contrato{% endif %}
             </button>
         </form>
 
@@ -25,17 +63,17 @@
         <form method="POST" action="{% url 'alternar_alerta_fornecedor' empresa.id fornecedor.id %}" style="display:inline;">
             {% csrf_token %}
             <input type="hidden" name="campo" value="tecidos_certificados">
-            <button type="submit" class="alert-badge {% if not fornecedor.tecidos_certificados %}badge-warning{% else %}badge-success{% endif %}">
-                {% if fornecedor.tecidos_certificados %}🌿 Tecidos Certificados{% else %}❌ Sem Certificado{% endif %}
+            <button type="submit" class="badge-btn {% if not fornecedor.tecidos_certificados %}badge-warning{% else %}badge-success{% endif %}">
+                {% if fornecedor.tecidos_certificados %}✓ Tecidos Certificados{% else %}✕ Sem Certificado{% endif %}
             </button>
         </form>
     </div>
 
     <!-- Botão Excluir -->
-    <div style="margin-top: 10px; text-align: right;">
+    <div style="margin-top: 12px; text-align: right;">
         <form method="POST" action="{% url 'excluir_fornecedor' empresa.id fornecedor.id %}" style="display:inline;">
             {% csrf_token %}
-            <button type="submit" class="btn-secondary" style="padding: 2px 6px; font-size: 0.75rem;" onclick="return confirm('Deseja remover esta oficina?')">Remover</button>
+            <button type="submit" class="btn-secondary" style="padding: 3px 8px; font-size: 0.75rem;" onclick="return confirm('Deseja remover esta oficina?')">Remover</button>
         </form>
     </div>
 </div>
