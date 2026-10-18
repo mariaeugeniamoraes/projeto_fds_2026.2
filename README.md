@@ -1,4 +1,4 @@
-# Ecomply
+# Ecomply 🌳
 
 ## Sobre nosso projeto
 
