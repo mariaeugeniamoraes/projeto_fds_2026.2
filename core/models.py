@@ -246,3 +246,47 @@ class RegistroFinanceiro(models.Model):
 
     def __str__(self):
         return f"{self.get_tipo_display()}: {self.descricao}"
+
+from .models import Empresa  # ajuste se necessário
+
+class Fornecedor(models.Model):
+    STATUS_RISCO = [
+        ('baixo', 'Baixo Risco'),
+        ('medio', 'Médio Risco'),
+        ('alto', 'Alto Risco'),
+    ]
+
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='fornecedores')
+    nome = models.CharField(max_length=200, verbose_name="Nome da Oficina / Fornecedor")
+    servico = models.CharField(max_length=100, blank=True, verbose_name="Tipo de Serviço (ex: Costura, Estamparia)")
+    
+    # Alertas Críticos
+    auditoria_pendente = models.BooleanField(default=True, verbose_name="Auditoria Pendente")
+    contrato_assinado = models.BooleanField(default=False, verbose_name="Contrato Assinado")
+    tecidos_certificados = models.BooleanField(default=False, verbose_name="Tecidos Certificados")
+
+    status_risco = models.CharField(max_length=20, choices=STATUS_RISCO, default='medio')
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    def calcular_nivel_risco(self):
+        # Lógica para categorização automática na Matriz de Risco
+        alertas = 0
+        if self.auditoria_pendente:
+            alertas += 1
+        if not self.contrato_assinado:
+            alertas += 1
+        if not self.tecidos_certificados:
+            alertas += 1
+
+        if alertas >= 2:
+            return 'alto'
+        elif alertas == 1:
+            return 'medio'
+        return 'baixo'
+
+    def save(self, *args, **kwargs):
+        self.status_risco = self.calcular_nivel_risco()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.nome} ({self.get_status_risco_display()})"

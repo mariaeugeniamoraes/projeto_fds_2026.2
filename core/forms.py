@@ -201,3 +201,18 @@ class PlanoAcaoForm(forms.ModelForm):
             'prioridade': forms.Select(attrs={'class': 'form-select'}),
             'status': forms.Select(attrs={'class': 'form-select'}),
         }
+
+from django import forms
+from .models import Fornecedor
+
+class FornecedorForm(forms.ModelForm):
+    class Meta:
+        model = Fornecedor
+        fields = ['nome', 'servico', 'auditoria_pendente', 'contrato_assinado', 'tecidos_certificados']
+        widgets = {
+            'nome': forms.TextInput(attrs={'placeholder': 'Ex: Oficina de Costura Silva'}),
+            'servico': forms.TextInput(attrs={'placeholder': 'Ex: Costura, Estamparia, Tecelagem'}),
+            'auditoria_pendente': forms.CheckboxInput(),
+            'contrato_assinado': forms.CheckboxInput(),
+            'tecidos_certificados': forms.CheckboxInput(),
+        }

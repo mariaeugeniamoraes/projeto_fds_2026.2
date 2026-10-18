@@ -100,4 +100,10 @@ urlpatterns = [
     path('empresas/<int:empresa_id>/planos-de-acao/adicionar/', views.adicionar_plano_acao, name='adicionar_plano_acao'),
     path('empresas/<int:empresa_id>/planos-de-acao/<int:plano_id>/status/', views.alterar_status_plano, name='alterar_status_plano'),
     path('empresas/<int:empresa_id>/planos-de-acao/<int:plano_id>/excluir/', views.excluir_plano_acao, name='excluir_plano_acao'),
+
+    # Central de Monitoramento de Fornecedores
+    path('empresas/<int:empresa_id>/fornecedores/', views.listar_fornecedores, name='listar_fornecedores'),
+    path('empresas/<int:empresa_id>/fornecedores/adicionar/', views.adicionar_fornecedor, name='adicionar_fornecedor'),
+    path('empresas/<int:empresa_id>/fornecedores/<int:fornecedor_id>/alerta/', views.alternar_alerta_fornecedor, name='alternar_alerta_fornecedor'),
+    path('empresas/<int:empresa_id>/fornecedores/<int:fornecedor_id>/excluir/', views.excluir_fornecedor, name='excluir_fornecedor'),
 ]

@@ -10,6 +10,7 @@ from .forms import (
     EmpresaForm,
     CalculadoraEmbalagemForm,
     RegistroFinanceiroForm,
+    FornecedorForm,
 )
 from .models import (
     Empresa,
@@ -18,6 +19,7 @@ from .models import (
     RespostaDiagnostico,
     PlanoAcaoESG,
     RegistroFinanceiro,
+    Fornecedor,
 )
 
 # Catálogo de alternativas sustentáveis de embalagem
@@ -852,3 +854,65 @@ def excluir_plano_acao(request, empresa_id, plano_id):
     plano.delete()
 
     return redirect('listar_planos_acao', empresa_id=empresa.id)
+
+@login_required
+def listar_fornecedores(request, empresa_id):
+    empresa = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
+    fornecedores = empresa.fornecedores.all().order_by('-data_criacao')
+
+    # Agrupamento para a visualização estilo Kanban por nível de risco
+    kanban = {
+        'alto': fornecedores.filter(status_risco='alto'),
+        'medio': fornecedores.filter(status_risco='medio'),
+        'baixo': fornecedores.filter(status_risco='baixo'),
+    }
+
+    form = FornecedorForm()
+
+    return render(
+        request,
+        'core/fornecedores.html',
+        {
+            'empresa': empresa,
+            'empresa_selecionada': empresa,
+            'fornecedores': fornecedores,
+            'kanban': kanban,
+            'form': form,
+        }
+    )
+
+@login_required
+def adicionar_fornecedor(request, empresa_id):
+    empresa = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
+    if request.method == 'POST':
+        form = FornecedorForm(request.POST)
+        if form.is_valid():
+            fornecedor = form.save(commit=False)
+            fornecedor.empresa = empresa
+            fornecedor.save()
+    return redirect('listar_fornecedores', empresa_id=empresa.id)
+
+@login_required
+@require_POST
+def alternar_alerta_fornecedor(request, empresa_id, fornecedor_id):
+    empresa = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
+    fornecedor = get_object_or_404(Fornecedor, id=fornecedor_id, empresa=empresa)
+
+    campo = request.POST.get('campo')
+    if campo == 'auditoria_pendente':
+        fornecedor.auditoria_pendente = not fornecedor.auditoria_pendente
+    elif campo == 'contrato_assinado':
+        fornecedor.contrato_assinado = not fornecedor.contrato_assinado
+    elif campo == 'tecidos_certificados':
+        fornecedor.tecidos_certificados = not fornecedor.tecidos_certificados
+
+    fornecedor.save()
+    return redirect('listar_fornecedores', empresa_id=empresa.id)
+
+@login_required
+@require_POST
+def excluir_fornecedor(request, empresa_id, fornecedor_id):
+    empresa = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
+    fornecedor = get_object_or_404(Fornecedor, id=fornecedor_id, empresa=empresa)
+    fornecedor.delete()
+    return redirect('listar_fornecedores', empresa_id=empresa.id)

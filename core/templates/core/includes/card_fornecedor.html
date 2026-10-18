@@ -1,0 +1,41 @@
+<div class="kanban-card">
+    <strong>{{ fornecedor.nome }}</strong>
+    {% if fornecedor.servico %}<br><small>Serviço: {{ fornecedor.servico }}</small>{% endif %}
+
+    <div style="margin-top: 10px;">
+        <!-- Alternar Auditoria -->
+        <form method="POST" action="{% url 'alternar_alerta_fornecedor' empresa.id fornecedor.id %}" style="display:inline;">
+            {% csrf_token %}
+            <input type="hidden" name="campo" value="auditoria_pendente">
+            <button type="submit" class="alert-badge {% if fornecedor.auditoria_pendente %}badge-danger{% else %}badge-success{% endif %}">
+                {% if fornecedor.auditoria_pendente %}⚠️ Auditoria Pendente{% else %}✓ Auditoria OK{% endif %}
+            </button>
+        </form>
+
+        <!-- Alternar Contrato -->
+        <form method="POST" action="{% url 'alternar_alerta_fornecedor' empresa.id fornecedor.id %}" style="display:inline;">
+            {% csrf_token %}
+            <input type="hidden" name="campo" value="contrato_assinado">
+            <button type="submit" class="alert-badge {% if not fornecedor.contrato_assinado %}badge-warning{% else %}badge-success{% endif %}">
+                {% if fornecedor.contrato_assinado %}✓ Contrato Assinado{% else %}📄 Sem Contrato{% endif %}
+            </button>
+        </form>
+
+        <!-- Alternar Certificação de Tecidos -->
+        <form method="POST" action="{% url 'alternar_alerta_fornecedor' empresa.id fornecedor.id %}" style="display:inline;">
+            {% csrf_token %}
+            <input type="hidden" name="campo" value="tecidos_certificados">
+            <button type="submit" class="alert-badge {% if not fornecedor.tecidos_certificados %}badge-warning{% else %}badge-success{% endif %}">
+                {% if fornecedor.tecidos_certificados %}🌿 Tecidos Certificados{% else %}❌ Sem Certificado{% endif %}
+            </button>
+        </form>
+    </div>
+
+    <!-- Botão Excluir -->
+    <div style="margin-top: 10px; text-align: right;">
+        <form method="POST" action="{% url 'excluir_fornecedor' empresa.id fornecedor.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn-secondary" style="padding: 2px 6px; font-size: 0.75rem;" onclick="return confirm('Deseja remover esta oficina?')">Remover</button>
+        </form>
+    </div>
+</div>

@@ -228,7 +228,6 @@
             font-size: inherit;
             cursor: pointer;
             color: inherit;
-            /* Garante que o padding venha da classe .nav-item original */
         }
 
         .user-welcome {
@@ -278,6 +277,10 @@
                     {% if empresa_selecionada %}
                         <a href="{% url 'listar_planos_acao' empresa_selecionada.id %}" class="nav-item">
                             <span>▤</span> Planos de ação
+                        </a>
+                        
+                        <a href="{% url 'listar_fornecedores' empresa_selecionada.id %}" class="nav-item">
+                            <span>🏭</span> Monitoramento de Fornecedores
                         </a>
                     {% endif %}
 
