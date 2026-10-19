@@ -14,6 +14,31 @@
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 
     <style>
+
+      /* ==========================================
+     CORREÇÃO DE COR DAS PERGUNTAS DO DIAGNÓSTICO
+     ========================================== */
+
+         /* 1. Modo Claro (Padrão): Azul-Escuro corporativo com alto contraste */
+         legend,
+         fieldset legend,
+         .pergunta-title,
+         .pergunta-texto,
+         .question-title,
+         .form-group > label:first-child {
+         color: #0D1959 !important;
+         font-weight: 600 !important;
+    }
+
+         /* 2. Modo Escuro: Texto claro/creme para leitura no fundo escuro */
+         body.dark-theme legend,
+         body.dark-theme fieldset legend,
+         body.dark-theme .pergunta-title,
+         body.dark-theme .pergunta-texto,
+         body.dark-theme .question-title,
+         body.dark-theme .form-group > label:first-child {
+         color: #FFF3CD !important;
+    }
         /* ==========================================
            1. RESET DE ESTRUTURA DO CORPO (BODY)
            ========================================== */
@@ -297,55 +322,17 @@
         }
 
         /* ==========================================
-           5. PALETA MODO ESCURO (CORRIGIDA)
+           5. MODO ESCURO - ESTRUTURA UNIFICADA E PRECISA
            ========================================== */
 
         body.dark-theme {
             background-color: #080E26 !important;
             color: #F8FAFC !important;
             background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.5px, transparent 1.5px) !important;
+            background-size: 24px 24px !important;
         }
 
-        /* Mantém containers de layout transparentes para o fundo pontilhado aparecer */
-        body.dark-theme main,
-        body.dark-theme .main-content,
-        body.dark-theme section,
-        body.dark-theme header:not(.topbar),
-        body.dark-theme .container,
-        body.dark-theme .row,
-        body.dark-theme .grid,
-        body.dark-theme [class*="grid"],
-        body.dark-theme [class*="container"],
-        body.dark-theme [class*="wrapper"],
-        body.dark-theme [class*="section"],
-        body.dark-theme [class*="vantag"] {
-            background-color: transparent !important;
-            background: transparent !important;
-            box-shadow: none !important;
-        }
-
-        /* Cartões e blocos de conteúdo individuais */
-        body.dark-theme .card,
-        body.dark-theme [class*="card"],
-        body.dark-theme article,
-        body.dark-theme form,
-        body.dark-theme .box,
-        body.dark-theme [class*="box"],
-        body.dark-theme .membro,
-        body.dark-theme [class*="membro"],
-        body.dark-theme [class*="equipe"],
-        body.dark-theme [class*="pilar"],
-        body.dark-theme [class*="item"],
-        body.dark-theme [class*="bloco"],
-        body.dark-theme [class*="painel"] {
-            background-color: #121C3E !important;
-            color: #F8FAFC !important;
-            border: 1px solid #233261 !important;
-            border-radius: 12px;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
-        }
-
-        /* Títulos */
+        /* TIPOGRAFIA GLOBAL DO MODO ESCURO */
         body.dark-theme h1,
         body.dark-theme h2,
         body.dark-theme h3,
@@ -353,38 +340,216 @@
         body.dark-theme h5,
         body.dark-theme h6,
         body.dark-theme strong,
-        body.dark-theme b {
+        body.dark-theme b,
+        body.dark-theme dt {
             color: #FFFFFF !important;
         }
 
-        /* Parágrafos e textos comuns */
         body.dark-theme p,
         body.dark-theme li,
-        body.dark-theme label {
+        body.dark-theme label,
+        body.dark-theme dd {
             color: #CBD5E1 !important;
         }
 
-        /* E-mails e pequenos subtextos */
         body.dark-theme small,
         body.dark-theme .text-muted,
         body.dark-theme [class*="email"] {
             color: #93C5FD !important;
         }
 
-        /* Tag "NOSSA HISTÓRIA" e badges pequenos (amarelo pastel legível com texto escuro) */
-        body.dark-theme span.tag,
-        body.dark-theme span.badge,
-        body.dark-theme span.pill,
-        body.dark-theme span[class*="badge"],
-        body.dark-theme span[class*="pill"],
-        body.dark-theme .nossa-historia {
+        /* CONTAINERS DE ESTRUTURA (TRANSPARENTES PARA O REVESTIMENTO PONTILHADO APARECER) */
+        body.dark-theme main,
+        body.dark-theme .main-content,
+        body.dark-theme section,
+        body.dark-theme header:not(.topbar),
+        body.dark-theme .container,
+        body.dark-theme .content-wrapper,
+        body.dark-theme .row,
+        body.dark-theme .grid,
+        body.dark-theme [class*="grid"],
+        body.dark-theme [class*="container"],
+        body.dark-theme [class*="wrapper"],
+        body.dark-theme [class*="section"] {
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        /* UNIFORMIZAÇÃO DE TODOS OS CARTÕES, BLOCOS E CAIXAS (AZUL NOTURNO #121C3E) */
+        body.dark-theme .card,
+        body.dark-theme [class*="card"],
+        body.dark-theme form,
+        body.dark-theme article,
+        body.dark-theme .box,
+        body.dark-theme [class*="box"],
+        body.dark-theme .membro,
+        body.dark-theme [class*="membro"],
+        body.dark-theme [class*="equipe"],
+        body.dark-theme [class*="team"],
+        body.dark-theme [class*="member"],
+        body.dark-theme [class*="pilar"],
+        body.dark-theme [class*="vantag"],
+        body.dark-theme [class*="feature"],
+        body.dark-theme [class*="profile"],
+        body.dark-theme [class*="perfil"],
+        body.dark-theme [class*="dashboard"],
+        body.dark-theme [class*="empty"],
+        body.dark-theme [class*="panel"],
+        body.dark-theme [class*="content-block"],
+        body.dark-theme [style*="background"] {
+            background-color: #121C3E !important;
+            color: #F8FAFC !important;
+            border: 1px solid #233261 !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+        }
+
+        /* CAIXAS E DIVS INTERNAS FICA TRANSPARENTES (EVITA CARTOLINA E RETALHOS) */
+        body.dark-theme .card div,
+        body.dark-theme [class*="card"] div,
+        body.dark-theme form div,
+        body.dark-theme article div,
+        body.dark-theme .box div,
+        body.dark-theme [class*="box"] div,
+        body.dark-theme [class*="membro"] div,
+        body.dark-theme [class*="equipe"] div,
+        body.dark-theme [class*="pilar"] div,
+        body.dark-theme [class*="profile"] div,
+        body.dark-theme [class*="perfil"] div,
+        body.dark-theme [class*="group"],
+        body.dark-theme [class*="field"],
+        body.dark-theme [class*="info"] {
+            background-color: transparent !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        /* FORMULÁRIOS E CAMPOS DE TEXTO */
+        body.dark-theme input,
+        body.dark-theme textarea,
+        body.dark-theme select,
+        body.dark-theme .form-control {
+            background-color: #080E26 !important;
+            color: #FFFFFF !important;
+            border: 1px solid #2B3A67 !important;
+            border-radius: 6px !important;
+            padding: 10px 14px !important;
+        }
+
+        body.dark-theme input::placeholder,
+        body.dark-theme textarea::placeholder {
+            color: #64748B !important;
+        }
+
+        /* FAQ E ACCORDION (FALE CONOSCO) */
+        body.dark-theme details,
+        body.dark-theme summary,
+        body.dark-theme [class*="faq"],
+        body.dark-theme [class*="accordion"] {
+            background-color: #121C3E !important;
+            color: #FFFFFF !important;
+            border: 1px solid #233261 !important;
+            border-radius: 8px !important;
+            margin-bottom: 12px !important;
+        }
+
+        body.dark-theme summary {
+            padding: 14px 18px !important;
+            font-weight: 600 !important;
+            color: #FFFFFF !important;
+            cursor: pointer;
+            background-color: #121C3E !important;
+            border-radius: 8px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+        }
+
+        body.dark-theme summary:hover {
+            background-color: #1C2B5B !important;
+        }
+
+        /* TEXTO DA PERGUNTA NO FAQ SEM MANCHA AMARELA */
+        body.dark-theme summary *,
+        body.dark-theme details summary * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: #FFFFFF !important;
+            box-shadow: none !important;
+        }
+
+        /* SETA CIRCULAR DO FAQ */
+        body.dark-theme summary .arrow,
+        body.dark-theme details summary .arrow,
+        body.dark-theme summary [class*="arrow"],
+        body.dark-theme summary [class*="icon"],
+        body.dark-theme details summary [class*="icon"] {
             background-color: #FFF3CD !important;
             color: #0D1959 !important;
-            border: none !important;
+            border-radius: 50% !important;
+            width: 28px !important;
+            height: 28px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-weight: bold !important;
+        }
+
+        /* AVATAR COM INICIAIS ("AJ") NO PERFIL */
+        body.dark-theme .avatar,
+        body.dark-theme [class*="avatar"],
+        body.dark-theme [class*="sigla"],
+        body.dark-theme [class*="inicial"],
+        body.dark-theme [class*="user-icon"] {
+            background-color: #FFF3CD !important;
+            color: #0D1959 !important;
+            border: 2px solid #FFF3CD !important;
+            font-weight: 800 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 50% !important;
+        }
+
+        body.dark-theme .avatar *,
+        body.dark-theme [class*="avatar"] * {
+            background: transparent !important;
+            color: #0D1959 !important;
+            font-weight: 800 !important;
+        }
+
+        /* BADGES E ETIQUETAS PEQUENAS ("NOSSA HISTÓRIA", "SUA CONTA", "PAINEL DE GESTÃO") */
+        body.dark-theme .badge,
+        body.dark-theme [class*="badge"],
+        body.dark-theme .tag,
+        body.dark-theme [class*="tag"],
+        body.dark-theme .pill,
+        body.dark-theme [class*="pill"] {
+            background-color: rgba(255, 243, 205, 0.15) !important;
+            color: #FFF3CD !important;
+            border: 1px solid rgba(255, 243, 205, 0.3) !important;
+            border-radius: 20px !important;
+            padding: 4px 12px !important;
+            font-size: 12px !important;
             font-weight: 700 !important;
         }
 
-        /* Rodapé escuro combinando com a página */
+        /* BOTÕES PRINCIPAIS E RODAPÉ */
+        body.dark-theme .btn-primary,
+        body.dark-theme button[type="submit"],
+        body.dark-theme [class*="btn-submit"],
+        body.dark-theme [class*="btn-cadastrar"],
+        body.dark-theme [class*="btn-editar"] {
+            background-color: #8C3E14 !important;
+            color: #FFFFFF !important;
+            border: 1px solid #8C3E14 !important;
+            border-radius: 6px !important;
+            font-weight: 600 !important;
+        }
+
         body.dark-theme footer,
         body.dark-theme .footer {
             background-color: #080E26 !important;
@@ -398,26 +563,6 @@
 
         body.dark-theme footer a:hover {
             color: #FFF3CD !important;
-        }
-
-        /* Formulários */
-        body.dark-theme input,
-        body.dark-theme textarea,
-        body.dark-theme select {
-            background-color: #0B132B !important;
-            color: #FFFFFF !important;
-            border: 1px solid #233261 !important;
-        }
-
-        body.dark-theme input::placeholder,
-        body.dark-theme textarea::placeholder {
-            color: #64748B !important;
-        }
-
-        body.dark-theme .btn-primary {
-            background-color: #8C3E14 !important;
-            color: #ffffff !important;
-            border-color: #8C3E14 !important;
         }
 
         button.nav-item {
