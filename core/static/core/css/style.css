@@ -1,3 +1,31 @@
+/* FONTES DO ECOMPLY */
+
+@font-face {
+    font-family: 'Banchero';
+    src: url('../fonts/Banchero-Bold.otf') format('opentype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Josefin Sans';
+    src: url('../fonts/JosefinSans-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+}
+
+@font-face {
+    font-family: 'Josefin Sans';
+    src: url('../fonts/JosefinSans-Italic-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('../fonts/OpenDyslexic-BoldItalic.otf') format('opentype');
+    font-weight: 700;
+    font-style: italic;
+}
+
 /* ==========================================
    1. VARIÁVEIS DE DESIGN & PALETA DE CORES
    ========================================== */
@@ -21,8 +49,7 @@
     --text-main: #0D1959;
     --text-muted: #4C6565;
 
-    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-family: 'Josefin Sans', Arial, sans-serif;
 
     /* Bordas e sombras */
     --border-color: #AEB6C2;
@@ -2715,4 +2742,19 @@ main,
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+
+
+body:not(.modo-dislexia) h1,
+body:not(.modo-dislexia) h2,
+body:not(.modo-dislexia) h3 {
+    font-family: 'Banchero', Georgia, serif;
+}
+
+/* TÍTULOS — SOMENTE MODO CLARO */
+
+body:not(.dark-theme) .hero-title,
+body:not(.dark-theme) .hero-card h2 {
+    color: #245B38;
 }

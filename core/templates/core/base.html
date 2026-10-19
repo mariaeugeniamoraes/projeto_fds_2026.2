@@ -61,7 +61,7 @@
             left: 0;
             width: 100%;
             height: 60px;
-            background-color: #0D1959 !important;
+            background-color: #245B38 !important;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -187,7 +187,7 @@
             left: 0 !important;
             width: 280px !important;
             height: 100vh !important;
-            background-color: #0D1959 !important;
+            background-color: #245B38 !important;
             box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3) !important;
             z-index: 1002 !important;
             overflow-y: auto !important;
@@ -197,6 +197,26 @@
             transform: translateX(-100%) !important;
             transition: transform 0.3s ease-in-out !important;
         }
+        
+        /* ROLAGEM DO MENU — MODO CLARO */
+
+body:not(.dark-theme) .sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: #6b9879 #245B38;
+}
+
+body:not(.dark-theme) .sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+body:not(.dark-theme) .sidebar::-webkit-scrollbar-track {
+    background: #245B38;
+}
+
+body:not(.dark-theme) .sidebar::-webkit-scrollbar-thumb {
+    background: #6b9879;
+    border-radius: 10px;
+}
 
         .sidebar-header-title {
             color: #AEB6C2 !important;
@@ -575,7 +595,67 @@
             cursor: pointer;
             color: inherit;
         }
+
+        /* CORES DO MODO ESCURO — PRESERVADAS */
+
+        body.dark-theme .topbar,
+        body.dark-theme .sidebar {
+        background-color: #0D1959 !important;
+
+        /* AJUSTES DO MENU — SOMENTE MODO CLARO */
+
+        body:not(.dark-theme) .sidebar .nav-links {
+            gap: 4px;
+        }
+
+        body:not(.dark-theme) .sidebar .nav-item,
+        body:not(.dark-theme) .sidebar .btn-login,
+        body:not(.dark-theme) .sidebar .btn-register,
+        body:not(.dark-theme) .sidebar .btn-logout {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        body:not(.dark-theme) .sidebar .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        /* Barra de rolagem mais discreta */
+        body:not(.dark-theme) .sidebar {
+            scrollbar-width: thin;
+            scrollbar-color: #6b9879 #245B38;
+        }
+
+        body:not(.dark-theme) .sidebar::-webkit-scrollbar {
+        width: 6px;
+        }
+
+        body:not(.dark-theme) .sidebar::-webkit-scrollbar-thumb {
+        background-color: #6b9879;
+        border-radius: 10px;
+        } 
+
+        /* ÍCONES DO MENU — SOMENTE MODO CLARO */
+
+body:not(.dark-theme) .sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+body:not(.dark-theme) .sidebar .menu-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    min-width: 22px;
+    font-size: 18px;
+}
+}
     </style>
+
 </head>
 
 <body>
@@ -610,7 +690,7 @@
 
         <div class="nav-links">
             <a href="{% url 'home' %}" class="nav-item">
-                <span>⌂</span> Início
+               <span class="menu-icon" aria-hidden="true">⌂</span> Início
             </a>
 
             <a href="{% url 'quem_somos' %}" class="nav-item">
