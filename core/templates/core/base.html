@@ -5,7 +5,6 @@
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
@@ -14,11 +13,217 @@
 
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 
-    <!-- MODO ESCURO E RESET DE BOTOES -->
     <style>
+        /* ==========================================
+           1. RESET DE ESTRUTURA DO CORPO (BODY)
+           ========================================== */
+
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            overflow-x: hidden;
+            display: block !important;
+        }
 
         /* ==========================================
-           PALETA DE CORES - MODO ESCURO
+           2. BARRA SUPERIOR (TOPBAR)
+           ========================================== */
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #0D1959 !important;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1003 !important; /* Fica acima da sidebar para o botão ser sempre clicável */
+            box-sizing: border-box;
+        }
+
+        .sidebar-toggle-btn {
+            background: transparent !important;
+            border: none !important;
+            color: #FFF3CD !important;
+            font-size: 24px !important;
+            cursor: pointer;
+            padding: 5px 10px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .sidebar-toggle-btn:hover {
+            color: #ffffff !important;
+            transform: scale(1.1);
+        }
+
+        .topbar-logo {
+            color: #FFF3CD !important;
+            text-decoration: none !important;
+            font-size: 20px;
+            margin-left: 15px;
+        }
+
+        /* ==========================================
+           3. BARRA LATERAL (SIDEBAR MÓVEL)
+           ========================================== */
+
+        .sidebar {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 280px !important;
+            height: 100vh !important;
+            background-color: #0D1959 !important;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3) !important;
+            z-index: 1002 !important;
+            overflow-y: auto !important;
+            padding: 80px 20px 20px 20px !important; /* Espaço para o botão do topo */
+            box-sizing: border-box !important;
+            
+            /* Escondida por padrão */
+            transform: translateX(-100%) !important;
+            transition: transform 0.3s ease-in-out !important;
+        }
+
+        /* Título "MENU" no topo da sidebar */
+        .sidebar-header-title {
+            color: #AEB6C2 !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            letter-spacing: 1.5px !important;
+            display: block !important;
+            margin-bottom: 15px !important;
+            text-transform: uppercase;
+        }
+
+        /* Animação quando a sidebar estiver aberta */
+        body.sidebar-open .sidebar,
+        .sidebar.active {
+            transform: translateX(0) !important;
+        }
+
+        /* Fundo escuro interativo ao clicar fora */
+        .sidebar-overlay {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: rgba(0, 0, 0, 0.4) !important;
+            z-index: 1001 !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transition: opacity 0.3s ease, visibility 0.3s ease !important;
+        }
+
+        body.sidebar-open .sidebar-overlay,
+        .sidebar-overlay.active {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        /* Itens do menu */
+        .sidebar .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar .nav-item, 
+        .sidebar .btn-login, 
+        .sidebar .btn-register, 
+        .sidebar .btn-logout {
+            color: #FFF3CD !important;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .sidebar .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar .sidebar-divider {
+            height: 1px;
+            background-color: #4C6565;
+            margin: 10px 0;
+        }
+
+        .sidebar .sidebar-section {
+            color: #AEB6C2;
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* ==========================================
+           4. CENTRALIZAÇÃO DINÂMICA DO CONTEÚDO
+           ========================================== */
+
+        /* ESTADO FECHADO: Centralizado na tela inteira */
+        main,
+        .main-content {
+            margin-left: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            padding-top: 90px !important;
+            padding-bottom: 40px !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            min-height: calc(100vh - 60px);
+            transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out !important;
+        }
+
+        main > *,
+        .main-content > *,
+        section {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            box-sizing: border-box !important;
+        }
+
+        /* ESTADO ABERTO: Empurra o conteúdo e recentraliza no espaço restante */
+        @media (min-width: 769px) {
+            body.sidebar-open main,
+            body.sidebar-open .main-content {
+                margin-left: 280px !important;
+                width: calc(100% - 280px) !important;
+            }
+
+            body.sidebar-open footer,
+            body.sidebar-open .footer {
+                margin-left: 280px !important;
+                width: calc(100% - 280px) !important;
+            }
+        }
+
+        footer,
+        .footer {
+            width: 100% !important;
+            margin-left: 0 !important;
+            text-align: center !important;
+            box-sizing: border-box !important;
+            padding: 20px 0 !important;
+            transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out !important;
+        }
+
+        /* ==========================================
+           5. PALETA DE CORES - MODO ESCURO
            ========================================== */
 
         body.dark-theme {
@@ -32,11 +237,6 @@
                 ) !important;
         }
 
-
-        /* ==========================================
-           CARDS E BLOCOS
-           ========================================== */
-
         body.dark-theme header,
         body.dark-theme footer,
         body.dark-theme nav,
@@ -48,19 +248,11 @@
             border-color: #4C6565 !important;
         }
 
-
-        /* Áreas de layout transparentes */
-
         body.dark-theme main,
         body.dark-theme .main-content,
         body.dark-theme section {
             background-color: transparent !important;
         }
-
-
-        /* ==========================================
-           TÍTULOS E TEXTOS
-           ========================================== */
 
         body.dark-theme h1,
         body.dark-theme h2,
@@ -81,64 +273,11 @@
             color: #AEB6C2 !important;
         }
 
-
-        /* ==========================================
-           LINKS DA NAVBAR
-           ========================================== */
-
-        body.dark-theme .nav-item,
-        body.dark-theme .user-welcome,
-        body.dark-theme .btn-login,
-        body.dark-theme .btn-register,
-        body.dark-theme .btn-logout {
-            color: #FFF3CD !important;
-        }
-
-        body.dark-theme .nav-item:hover,
-        body.dark-theme .user-welcome:hover,
-        body.dark-theme .btn-login:hover,
-        body.dark-theme .btn-register:hover,
-        body.dark-theme .btn-logout:hover {
-            color: #AEB6C2 !important;
-        }
-
-        body.dark-theme
-        a:not(.btn):not(.btn-primary):not(.btn-login):not(.btn-register):not(.btn-logout) {
-            color: #FFF3CD;
-        }
-
-
-        /* ==========================================
-           BOTÕES
-           ========================================== */
-
         body.dark-theme .btn-primary {
             background-color: #8C3E14 !important;
             color: #ffffff !important;
             border-color: #8C3E14 !important;
         }
-
-        body.dark-theme .btn-primary:hover {
-            background-color: #a54c1d !important;
-            border-color: #a54c1d !important;
-        }
-
-        body.dark-theme .btn-secondary {
-            background-color: transparent !important;
-            color: #FFF3CD !important;
-            border-color: #AEB6C2 !important;
-        }
-
-        body.dark-theme .btn-secondary:hover {
-            background-color: #FFF3CD !important;
-            color: #0D1959 !important;
-            border-color: #FFF3CD !important;
-        }
-
-
-        /* ==========================================
-           CAMPOS DE FORMULÁRIO
-           ========================================== */
 
         body.dark-theme input,
         body.dark-theme textarea,
@@ -147,77 +286,6 @@
             color: #FFF3CD !important;
             border-color: #4C6565 !important;
         }
-
-        body.dark-theme select option {
-            background-color: #080f2f !important;
-            color: #FFF3CD !important;
-        }
-
-        body.dark-theme input:focus,
-        body.dark-theme textarea:focus,
-        body.dark-theme select:focus {
-            border-color: #FFF3CD !important;
-            box-shadow: 0 0 0 3px rgba(255, 243, 205, 0.15) !important;
-        }
-
-        body.dark-theme input::placeholder,
-        body.dark-theme textarea::placeholder {
-            color: #AEB6C2 !important;
-        }
-
-
-        /* ==========================================
-           CORREÇÃO FAQ / DETALHES
-           ========================================== */
-
-        body.dark-theme details,
-        body.dark-theme summary,
-        body.dark-theme .faq-card,
-        body.dark-theme .faq-item,
-        body.dark-theme [class*="faq"] {
-            background-color: #0D1959 !important;
-            color: #FFF3CD !important;
-            border-color: #4C6565 !important;
-        }
-
-        body.dark-theme summary *,
-        body.dark-theme details *,
-        body.dark-theme [class*="faq"] * {
-            color: #FFF3CD !important;
-        }
-
-
-        /* ==========================================
-           CORREÇÃO BADGES / STATUS (DESIGN LIMPO)
-           ========================================== */
-
-        body.dark-theme p,
-        body.dark-theme span,
-        body.dark-theme div {
-            background-color: transparent;
-        }
-
-        body.dark-theme .badge,
-        body.dark-theme .pill,
-        body.dark-theme .tag,
-        body.dark-theme [class*="badge"],
-        body.dark-theme [class*="pill"],
-        body.dark-theme [class*="tag"] {
-            background-color: rgba(140, 62, 20, 0.25) !important;
-            color: #FFF3CD !important;
-            border: 1px solid #8C3E14 !important;
-        }
-
-        body.dark-theme .badge *,
-        body.dark-theme .pill *,
-        body.dark-theme .tag * {
-            color: #FFF3CD !important;
-        }
-
-
-        /* ==========================================
-           RESET DE BOTÕES PARA NAVBAR
-           ========================================== */
 
         button.nav-item {
             background: transparent !important;
@@ -229,123 +297,111 @@
             cursor: pointer;
             color: inherit;
         }
-
-        .user-welcome {
-            text-decoration: none;
-        }
-
     </style>
-
 </head>
 
 <body>
 
-    <header class="header">
-        <nav class="navbar sidebar">
-
-            <a href="{% url 'home' %}" class="logo">
-                <strong>Ecomply</strong>
-            </a>
-
-            <div class="nav-links">
-
-                <a href="{% url 'home' %}" class="nav-item">
-                    <span>⌂</span> Início
-                </a>
-
-                <a href="{% url 'quem_somos' %}" class="nav-item">
-                    <span>ⓘ</span> Quem Somos
-                </a>
-
-                <a href="{% url 'projeto' %}" class="nav-item">
-                    <span>▤</span> O Projeto
-                </a>
-
-                <a href="{% url 'feedback' %}" class="nav-item">
-                    <span>✉</span> Fale Conosco
-                </a>
-
-                {% if user.is_authenticated %}
-
-                    <div class="sidebar-divider"></div>
-                    <span class="sidebar-section">ÁREA DA EMPRESA</span>
-
-                    <a href="{% url 'minhas_empresas' %}" class="nav-item">
-                        <span>▣</span> Minhas empresas
-                    </a>
-
-                    {% if empresa_selecionada %}
-                        <a href="{% url 'listar_planos_acao' empresa_selecionada.id %}" class="nav-item">
-                            <span>▤</span> Planos de ação
-                        </a>
-                        
-                        <a href="{% url 'listar_fornecedores' empresa_selecionada.id %}" class="nav-item">
-                            <span>▧</span> Monitoramento
-                        </a>
-                    {% endif %}
-
-                    <a href="{% url 'ferramentas' %}" class="nav-item">
-                        <span>⚙</span> Ferramentas
-                    </a>
-
-                    <a href="{% url 'dashboard' %}" class="nav-item">
-                        <span>▦</span> Dashboard
-                    </a>
-
-                    <a href="{% url 'perfil' %}" class="nav-item">
-                        <span>♙</span> Meu perfil
-                    </a>
-
-                    <a href="{% url 'logout' %}" class="btn-logout">
-                        Sair da conta
-                    </a>
-
-                {% else %}
-
-                    <div class="sidebar-divider"></div>
-
-                    <a href="{% url 'login' %}" class="btn-login">
-                        Entrar
-                    </a>
-
-                    <a href="{% url 'cadastro' %}" class="btn-register">
-                        Criar conta
-                    </a>
-
-                {% endif %}
-
-                <div class="sidebar-divider"></div>
-
-                <button id="theme-toggle" class="nav-item" type="button">
-                    <span id="theme-icon">◐</span> <span id="theme-text">Modo Escuro</span>
-                </button>
-                
-                <button id="dislexia-toggle" class="nav-item" type="button" aria-pressed="false">
-                    <span>◎</span> <span id="dislexia-text">Dislexia: OFF</span>
-                </button>
-
-            </div>
-        </nav>
+    <!-- BARRA SUPERIOR FIXA -->
+    <header class="topbar">
+        <button id="sidebar-toggle" class="sidebar-toggle-btn" type="button" aria-label="Abrir ou Fechar Menu">
+            <span id="toggle-icon">☰</span>
+        </button>
+        <a href="{% url 'home' %}" class="topbar-logo">
+            <strong>Ecomply</strong>
+        </a>
     </header>
 
+    <!-- OVERLAY (CLIQUE FORA PARA FECHAR) -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- BARRA LATERAL (SIDEBAR MÓVEL) -->
+    <aside class="sidebar" id="sidebar">
+        <!-- TÍTULO SUBTITULO MENU -->
+        <span class="sidebar-header-title">MENU</span>
+
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="nav-item">
+                <span>⌂</span> Início
+            </a>
+
+            <a href="{% url 'quem_somos' %}" class="nav-item">
+                <span>ⓘ</span> Quem Somos
+            </a>
+
+            <a href="{% url 'projeto' %}" class="nav-item">
+                <span>▤</span> O Projeto
+            </a>
+
+            <a href="{% url 'feedback' %}" class="nav-item">
+                <span>✉</span> Fale Conosco
+            </a>
+
+            {% if user.is_authenticated %}
+                <div class="sidebar-divider"></div>
+                <span class="sidebar-section">ÁREA DA EMPRESA</span>
+
+                <a href="{% url 'minhas_empresas' %}" class="nav-item">
+                    <span>▣</span> Minhas empresas
+                </a>
+
+                {% if empresa_selecionada %}
+                    <a href="{% url 'listar_planos_acao' empresa_selecionada.id %}" class="nav-item">
+                        <span>▤</span> Planos de ação
+                    </a>
+                    
+                    <a href="{% url 'listar_fornecedores' empresa_selecionada.id %}" class="nav-item">
+                        <span>▧</span> Monitoramento
+                    </a>
+                {% endif %}
+
+                <a href="{% url 'ferramentas' %}" class="nav-item">
+                    <span>⚙</span> Ferramentas
+                </a>
+
+                <a href="{% url 'dashboard' %}" class="nav-item">
+                    <span>▦</span> Dashboard
+                </a>
+
+                <a href="{% url 'perfil' %}" class="nav-item">
+                    <span>♙</span> Meu perfil
+                </a>
+
+                <a href="{% url 'logout' %}" class="btn-logout">
+                    Sair da conta
+                </a>
+            {% else %}
+                <div class="sidebar-divider"></div>
+
+                <a href="{% url 'login' %}" class="btn-login">
+                    Entrar
+                </a>
+
+                <a href="{% url 'cadastro' %}" class="btn-register">
+                    Criar conta
+                </a>
+            {% endif %}
+
+            <div class="sidebar-divider"></div>
+
+            <button id="theme-toggle" class="nav-item" type="button">
+                <span id="theme-icon">◐</span> <span id="theme-text">Modo Escuro</span>
+            </button>
+            
+            <button id="dislexia-toggle" class="nav-item" type="button" aria-pressed="false">
+                <span>◎</span> <span id="dislexia-text">Dislexia: OFF</span>
+            </button>
+        </div>
+    </aside>
+
     <main class="main-content">
-
         {% block content %}
-
         {% endblock %}
-
     </main>
 
     <footer class="footer">
-        <p>
-            © 2026 Ecomply. ESG de forma simples e acessível.
-        </p>
-
-        <p>
-             <a href="{% url 'politica_privacidade' %}">
-                 Política de Privacidade
-             </a>
-        </p>
+        <p>© 2026 Ecomply. ESG de forma simples e acessível.</p>
+        <p><a href="{% url 'politica_privacidade' %}">Política de Privacidade</a></p>
     </footer>
 
     <!-- AVISO DE PRIVACIDADE -->
@@ -353,25 +409,61 @@
         <div class="aviso-privacidade-conteudo">
             <div>
                 <h3>Privacidade no Ecomply</h3>
-
-                <p>
-                    Utilizamos recursos essenciais para autenticação
-                    e segurança da plataforma. Também armazenamos
-                    sua preferência de tema no navegador.
-                </p>
-
-                <a href="{% url 'politica_privacidade' %}">
-                    Política de Privacidade
-                </a>
+                <p>Utilizamos recursos essenciais para autenticação e segurança da plataforma. Também armazenamos sua preferência de tema no navegador.</p>
+                <a href="{% url 'politica_privacidade' %}">Política de Privacidade</a>
             </div>
-
-            <button type="button" id="btn-entendi">
-                Entendi
-            </button>
+            <button type="button" id="btn-entendi">Entendi</button>
         </div>
     </div>
 
-    <!-- SCRIPT DE ALTERNÂNCIA DO TEMA -->
+    <!-- SCRIPT DA BARRA LATERAL (ABRIR E FECHAR) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const toggleIcon = document.getElementById('toggle-icon');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            function openMenu() {
+                document.body.classList.add('sidebar-open');
+                if (sidebar) sidebar.classList.add('active');
+                if (overlay) overlay.classList.add('active');
+                if (toggleIcon) toggleIcon.textContent = '✕';
+            }
+
+            function closeMenu() {
+                document.body.classList.remove('sidebar-open');
+                if (sidebar) sidebar.classList.remove('active');
+                if (overlay) overlay.classList.remove('active');
+                if (toggleIcon) toggleIcon.textContent = '☰';
+            }
+
+            function toggleMenu() {
+                if (document.body.classList.contains('sidebar-open') || (sidebar && sidebar.classList.contains('active'))) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', toggleMenu);
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', closeMenu);
+            }
+
+            // Permite fechar pressionando a tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMenu();
+                }
+            });
+        });
+    </script>
+
+    <!-- SCRIPT TEMA -->
     <script>
         const toggleBtn = document.getElementById('theme-toggle');
         const themeText = document.getElementById('theme-text');
@@ -402,17 +494,15 @@
         }
     </script>
 
+    <!-- SCRIPT AVISO DE PRIVACIDADE -->
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const aviso = document.getElementById("aviso-privacidade");
         const botao = document.getElementById("btn-entendi");
 
-        if (!aviso || !botao) {
-            return;
-        }
+        if (!aviso || !botao) return;
 
         const avisoLido = localStorage.getItem("ecomply-aviso-privacidade");
-
         if (avisoLido !== "entendido") {
             aviso.hidden = false;
         }
@@ -424,6 +514,7 @@
     });
     </script>
 
+    <!-- SCRIPT MODO DISLEXIA -->
     <script>
     const dislexiaBtn = document.getElementById("dislexia-toggle");
     const dislexiaText = document.getElementById("dislexia-text");
@@ -436,8 +527,8 @@
 
     function atualizarBotaoDislexia() {
         const ativado = document.body.classList.contains("modo-dislexia");
-        dislexiaText.textContent = ativado ? "Dislexia: ON" : "Dislexia: OFF";
-        dislexiaBtn.setAttribute("aria-pressed", String(ativado));
+        if (dislexiaText) dislexiaText.textContent = ativado ? "Dislexia: ON" : "Dislexia: OFF";
+        if (dislexiaBtn) dislexiaBtn.setAttribute("aria-pressed", String(ativado));
     }
 
     atualizarBotaoDislexia();
@@ -450,7 +541,7 @@
             atualizarBotaoDislexia();
         });
     }
-</script>
+    </script>
 
 </body>
 
