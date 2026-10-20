@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Feedback, Empresa, RegistroFinanceiro
+from .models import Feedback, Empresa, RegistroFinanceiro, PlanoAcaoESG, Fornecedor
 
 
 class FeedbackForm(forms.ModelForm):
@@ -29,6 +29,11 @@ class FeedbackForm(forms.ModelForm):
                 }
             ),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Define 5 ("5 - Excelente") como opção selecionada por padrão
+        self.fields['nota'].initial = 5
 
 
 class CadastroUsuarioForm(UserCreationForm):
@@ -147,6 +152,8 @@ class CalculadoraEmbalagemForm(forms.Form):
         required=True,
         widget=forms.NumberInput(attrs={'placeholder': 'Ex: 1.50'})
     )
+
+
 class RegistroFinanceiroForm(forms.ModelForm):
     class Meta:
         model = RegistroFinanceiro
@@ -188,8 +195,6 @@ class RegistroFinanceiroForm(forms.ModelForm):
             }),
         }
 
-from django import forms
-from .models import PlanoAcaoESG
 
 class PlanoAcaoForm(forms.ModelForm):
     class Meta:
@@ -202,8 +207,6 @@ class PlanoAcaoForm(forms.ModelForm):
             'status': forms.Select(attrs={'class': 'form-select'}),
         }
 
-from django import forms
-from .models import Fornecedor
 
 class FornecedorForm(forms.ModelForm):
     class Meta:
