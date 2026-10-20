@@ -1,9 +1,17 @@
+
 {% extends 'core/base.html' %}
 
-{% block title %}Calculadora de Embalagens - Ecomply{% endblock %}
+{% block title %}
+Calculadora de Embalagens - Ecomply
+{% endblock %}
 
 {% block content %}
+
 <style>
+    /* ========================================
+       ESTILOS ORIGINAIS
+       ======================================== */
+
     .calc-wrapper {
         max-width: 650px;
         margin: 2.5rem auto;
@@ -49,7 +57,7 @@
         margin-bottom: 0.4rem;
     }
 
-    .form-group input, 
+    .form-group input,
     .form-group select {
         width: 100%;
         padding: 0.65rem 0.85rem;
@@ -125,7 +133,10 @@
         margin-top: 1rem;
     }
 
-    /* Modo Escuro */
+    /* ========================================
+       MODO ESCURO ORIGINAL - PRESERVADO
+       ======================================== */
+
     body.dark-theme .calc-card,
     body.dark-theme .result-card,
     body.dark-theme .result-box {
@@ -144,61 +155,378 @@
     body.dark-theme .eco-banner {
         border-color: #4C6565 !important;
     }
+
+    /* ========================================
+       NOVO VISUAL - SOMENTE MODO CLARO
+       ======================================== */
+
+    /* Fundo bege liso */
+
+    body:not(.dark-theme):has(.calc-wrapper) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.calc-wrapper) main,
+    body:not(.dark-theme):has(.calc-wrapper) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Área principal */
+
+    body:not(.dark-theme) .calc-wrapper {
+        max-width: 650px;
+        margin: 0 auto;
+        padding: 60px 20px 85px;
+        box-sizing: border-box;
+
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Link de voltar */
+
+    body:not(.dark-theme) .calc-wrapper .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        margin-bottom: 20px;
+
+        color: #245B38;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    body:not(.dark-theme) .calc-wrapper .back-link:hover {
+        color: #8C3E14;
+        text-decoration: underline;
+    }
+
+    /* Cartão do formulário */
+
+    body:not(.dark-theme) .calc-card {
+        padding: 35px;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 15px;
+
+        box-shadow: 0 8px 24px rgba(13, 25, 89, 0.04);
+
+        margin-bottom: 28px;
+    }
+
+    /* Título */
+
+    body:not(.dark-theme) .calc-card h2 {
+        color: #0D1959;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.25;
+        margin: 0 0 12px;
+    }
+
+    /* Descrição */
+
+    body:not(.dark-theme) .calc-card .subtitle {
+        color: #4C6565;
+        font-size: 14px;
+        line-height: 1.7;
+        margin: 0 0 30px;
+    }
+
+    /* Grupos do formulário */
+
+    body:not(.dark-theme) .calc-card .form-group {
+        margin-bottom: 23px;
+    }
+
+    body:not(.dark-theme) .calc-card .form-group label {
+        display: block;
+        margin-bottom: 10px;
+
+        color: #0D1959;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    /* Campos */
+
+    body:not(.dark-theme) .calc-card .form-group input,
+    body:not(.dark-theme) .calc-card .form-group select {
+        display: block;
+        width: 100%;
+        min-height: 46px;
+        padding: 12px 14px;
+
+        box-sizing: border-box;
+
+        background: #F7F2E9;
+        border: 1px solid #E5DED2;
+        border-radius: 9px;
+
+        color: #242C28;
+        font: inherit;
+        font-size: 14px;
+    }
+
+    body:not(.dark-theme) .calc-card .form-group input:focus,
+    body:not(.dark-theme) .calc-card .form-group select:focus {
+        outline: 2px solid #245B38;
+        outline-offset: 1px;
+        border-color: #245B38;
+    }
+
+    /* Botão Calcular Impacto */
+
+    body:not(.dark-theme) .calc-card .btn-submit {
+        display: block;
+        width: 100%;
+        min-height: 48px;
+        padding: 13px 20px;
+
+        margin-top: 10px;
+
+        background: #8C3E14 !important;
+        border: 1px solid #8C3E14;
+        border-radius: 9px;
+
+        color: #FFFFFF !important;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+
+        box-shadow: 0 4px 10px rgba(140, 62, 20, 0.13);
+    }
+
+    body:not(.dark-theme) .calc-card .btn-submit:hover {
+        background: #73320F !important;
+        border-color: #73320F;
+    }
+
+    /* ========================================
+       RESULTADOS DOS CÁLCULOS
+       ======================================== */
+
+    body:not(.dark-theme) .calc-wrapper .result-card {
+        padding: 30px;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 15px;
+
+        box-shadow: 0 6px 20px rgba(13, 25, 89, 0.04);
+    }
+
+    body:not(.dark-theme) .calc-wrapper .result-card h3 {
+        color: #0D1959;
+        font-size: 21px;
+        line-height: 1.4;
+        margin: 0 0 12px;
+    }
+
+    body:not(.dark-theme) .calc-wrapper .result-card p {
+        color: #4C6565;
+        line-height: 1.7;
+    }
+
+    body:not(.dark-theme) .calc-wrapper .result-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin: 25px 0;
+    }
+
+    body:not(.dark-theme) .calc-wrapper .result-box {
+        min-width: 0;
+        padding: 16px 10px;
+
+        background: #F7F2E9;
+        border: 1px solid #E5DED2;
+        border-radius: 10px;
+
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .calc-wrapper .result-box small {
+        display: block;
+        color: #4C6565;
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+        opacity: 1;
+    }
+
+    body:not(.dark-theme) .calc-wrapper .result-box strong {
+        display: block;
+        color: #0D1959;
+        font-size: 17px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+
+    /* Destaque ambiental */
+
+    body:not(.dark-theme) .calc-wrapper .eco-banner {
+        padding: 18px;
+
+        background: #E7F0E8;
+        border: 1px solid #BBD4C0;
+        border-radius: 10px;
+
+        color: #245B38;
+        font-size: 14px;
+        line-height: 1.7;
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .calc-wrapper .eco-banner strong {
+        color: #245B38;
+    }
+
+    /* ========================================
+       RESPONSIVIDADE
+       ======================================== */
+
+    @media (max-width: 600px) {
+        body:not(.dark-theme) .calc-wrapper {
+            padding: 40px 16px 60px;
+        }
+
+        body:not(.dark-theme) .calc-card {
+            padding: 26px 20px;
+        }
+
+        body:not(.dark-theme) .calc-card h2 {
+            font-size: 25px;
+        }
+
+        body:not(.dark-theme) .calc-wrapper .result-card {
+            padding: 24px 18px;
+        }
+
+        body:not(.dark-theme) .calc-wrapper .result-grid {
+            grid-template-columns: 1fr;
+        }
+
+        body:not(.dark-theme) .calc-wrapper .result-box {
+            padding: 18px;
+        }
+    }
 </style>
 
 <div class="calc-wrapper">
-    <a href="{% url 'ferramentas' %}" class="back-link">← Voltar às Ferramentas</a>
+
+    <!-- LINK PARA VOLTAR -->
+
+    <a href="{% url 'ferramentas' %}" class="back-link">
+        ← Voltar às Ferramentas
+    </a>
+
+    <!-- FORMULÁRIO DA CALCULADORA -->
 
     <div class="calc-card">
+
         <h2>Calculadora de Embalagens</h2>
-        <p class="subtitle">Selecione o material utilizado e calcule a estimativa da transição ecológico-financeira.</p>
+
+        <p class="subtitle">
+            Selecione o material utilizado e calcule a estimativa
+            da transição ecológico-financeira.
+        </p>
 
         <form method="post">
+
             {% csrf_token %}
 
             <div class="form-group">
-                <label for="{{ form.material_atual.id_for_label }}">{{ form.material_atual.label }}</label>
+                <label for="{{ form.material_atual.id_for_label }}">
+                    {{ form.material_atual.label }}
+                </label>
+
                 {{ form.material_atual }}
             </div>
 
             <div class="form-group">
-                <label for="{{ form.quantidade_mensal.id_for_label }}">{{ form.quantidade_mensal.label }}</label>
+                <label for="{{ form.quantidade_mensal.id_for_label }}">
+                    {{ form.quantidade_mensal.label }}
+                </label>
+
                 {{ form.quantidade_mensal }}
             </div>
 
             <div class="form-group">
-                <label for="{{ form.custo_unitario_atual.id_for_label }}">{{ form.custo_unitario_atual.label }}</label>
+                <label for="{{ form.custo_unitario_atual.id_for_label }}">
+                    {{ form.custo_unitario_atual.label }}
+                </label>
+
                 {{ form.custo_unitario_atual }}
             </div>
 
-            <button type="submit" class="btn-submit">Calcular Impacto</button>
+            <button type="submit" class="btn-submit">
+                Calcular Impacto
+            </button>
+
         </form>
+
     </div>
+
+    <!-- RESULTADOS DA CALCULADORA -->
 
     {% if resultado %}
-    <div class="result-card">
-        <h3>Alternativa Recomendada: {{ resultado.alternativa_nome }}</h3>
-        <p style="font-size: 0.9rem; margin-bottom: 1rem;">{{ resultado.impacto_descricao }}</p>
 
-        <div class="result-grid">
-            <div class="result-box">
-                <small>Custo Atual Mensal</small>
-                <strong>R$ {{ resultado.custo_total_atual }}</strong>
+        <div class="result-card">
+
+            <h3>
+                Alternativa Recomendada:
+                {{ resultado.alternativa_nome }}
+            </h3>
+
+            <p style="font-size: 0.9rem; margin-bottom: 1rem;">
+                {{ resultado.impacto_descricao }}
+            </p>
+
+            <div class="result-grid">
+
+                <div class="result-box">
+                    <small>Custo Atual Mensal</small>
+
+                    <strong>
+                        R$ {{ resultado.custo_total_atual }}
+                    </strong>
+                </div>
+
+                <div class="result-box">
+                    <small>Novo Custo Estimado</small>
+
+                    <strong>
+                        R$ {{ resultado.custo_total_alternativa }}
+                    </strong>
+                </div>
+
+                <div class="result-box">
+                    <small>Diferença Mensal</small>
+
+                    <strong>
+                        R$ {{ resultado.diferenca_custo }}
+                    </strong>
+                </div>
+
             </div>
-            <div class="result-box">
-                <small>Novo Custo Estimado</small>
-                <strong>R$ {{ resultado.custo_total_alternativa }}</strong>
+
+            <div class="eco-banner">
+                <strong>Impacto Ambiental Estimado:</strong>
+                Redução de
+                <strong>{{ resultado.plastico_evitado_ano }} kg</strong>
+                de plástico por ano!
             </div>
-            <div class="result-box">
-                <small>Diferença Mensal</small>
-                <strong>R$ {{ resultado.diferenca_custo }}</strong>
-            </div>
+
         </div>
 
-        <div class="eco-banner">
-            <strong>Impacto Ambiental Estimado:</strong> Redução de <strong>{{ resultado.plastico_evitado_ano }} kg</strong> de plástico por ano!
-        </div>
-    </div>
     {% endif %}
+
 </div>
+
 {% endblock %}

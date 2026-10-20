@@ -1,100 +1,440 @@
+
 {% extends 'core/base.html' %}
 
-{% block title %}Diagnóstico ESG | Ecomply{% endblock %}
+{% block title %}
+Diagnóstico ESG | Ecomply
+{% endblock %}
 
 {% block content %}
-<section class="minhas-empresas-page">
+
+<style>
+    /* ==========================================
+       DIAGNÓSTICO ESG - SOMENTE MODO CLARO
+       ========================================== */
+
+    /* Fundo bege liso */
+
+    body:not(.dark-theme):has(.diagnostico-page) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.diagnostico-page) main,
+    body:not(.dark-theme):has(.diagnostico-page) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Área principal */
+
+    body:not(.dark-theme) .diagnostico-page {
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 55px 24px 85px;
+        box-sizing: border-box;
+
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Cabeçalho */
+
+    body:not(.dark-theme) .diagnostico-page .empresas-header {
+        text-align: center;
+        margin-bottom: 42px;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .empresas-etiqueta {
+        display: inline-block;
+        padding: 9px 18px;
+        margin-bottom: 18px;
+
+        background: #FFF1CA;
+        border-radius: 30px;
+
+        color: #0D1959;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .empresas-header h1 {
+        color: #0D1959;
+        font-size: clamp(30px, 4vw, 42px);
+        line-height: 1.2;
+        margin: 0 0 16px;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .empresas-header p {
+        max-width: 700px;
+        margin: 0 auto;
+
+        color: #4C6565;
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .empresas-header strong {
+        color: #0D1959;
+    }
+
+    /* Cartões das dimensões ESG */
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-dimensao {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+
+        margin: 0 0 26px;
+        padding: 32px;
+
+        background: #FFFCF7 !important;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+
+        box-shadow: 0 6px 20px rgba(13, 25, 89, 0.04);
+    }
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-dimensao h2 {
+        color: #0D1959;
+        font-size: 25px;
+        font-weight: 700;
+        margin: 0 0 10px;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-dimensao > p {
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.7;
+        margin: 0 0 28px;
+    }
+
+    /* Cada pergunta */
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-pergunta {
+        display: block;
+        min-width: 0;
+        margin: 0 0 24px;
+        padding: 22px;
+
+        background: #F7F2E9;
+        border: 1px solid #E5DED2;
+        border-radius: 12px;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-pergunta:last-child {
+        margin-bottom: 0;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-pergunta legend {
+        max-width: 100%;
+        padding: 0 8px;
+
+        color: #0D1959;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.6;
+    }
+
+    /* Opções de resposta */
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-opcoes {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-opcoes label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        min-width: 0;
+        padding: 14px 15px;
+        box-sizing: border-box;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 9px;
+
+        color: #4C6565;
+        font-size: 14px;
+        line-height: 1.5;
+
+        cursor: pointer;
+        transition: border-color 0.2s ease,
+                    background-color 0.2s ease;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-opcoes label:hover {
+        background: #F1F5EF;
+        border-color: #245B38;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-opcoes input[type="radio"] {
+        width: 17px;
+        height: 17px;
+        margin: 0;
+        flex-shrink: 0;
+
+        accent-color: #245B38;
+        cursor: pointer;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .diagnostico-opcoes label:has(input:checked) {
+        background: #E7F0E8;
+        border-color: #245B38;
+        color: #245B38;
+        font-weight: 700;
+    }
+
+    /* Mensagem de erro */
+
+    body:not(.dark-theme) .diagnostico-page .empresa-erro {
+        padding: 16px 20px;
+        margin-bottom: 25px;
+
+        background: #FFF0ED;
+        border: 1px solid #E5B8AE;
+        border-radius: 10px;
+
+        color: #A12D1E;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* Nenhuma pergunta disponível */
+
+    body:not(.dark-theme) .diagnostico-page .empresas-vazio {
+        padding: 45px 30px;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 15px;
+
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .empresas-vazio h2 {
+        color: #0D1959;
+        margin-bottom: 12px;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .empresas-vazio p {
+        color: #4C6565;
+    }
+
+    /* Botão de conclusão */
+
+    body:not(.dark-theme) .diagnostico-page .empresa-botao {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        min-height: 52px;
+        padding: 14px 25px;
+        box-sizing: border-box;
+
+        margin-top: 30px;
+
+        background: #8C3E14 !important;
+        border: 1px solid #8C3E14 !important;
+        border-radius: 9px;
+
+        color: #FFFFFF !important;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    body:not(.dark-theme) .diagnostico-page .empresa-botao:hover {
+        background: #73320F !important;
+        border-color: #73320F !important;
+    }
+
+    /* Responsividade */
+
+    @media (max-width: 650px) {
+        body:not(.dark-theme) .diagnostico-page {
+            padding: 35px 16px 60px;
+        }
+
+        body:not(.dark-theme) .diagnostico-page .diagnostico-dimensao {
+            padding: 24px 18px;
+        }
+
+        body:not(.dark-theme) .diagnostico-page .diagnostico-pergunta {
+            padding: 18px 14px;
+        }
+
+        body:not(.dark-theme) .diagnostico-page .diagnostico-opcoes {
+            grid-template-columns: 1fr;
+        }
+
+        body:not(.dark-theme) .diagnostico-page .diagnostico-opcoes label {
+            padding: 13px;
+        }
+    }
+</style>
+
+<section class="minhas-empresas-page diagnostico-page">
+
+    <!-- CABEÇALHO -->
 
     <header class="empresas-header">
-        <span class="empresas-etiqueta">AVALIAÇÃO DE SUSTENTABILIDADE</span>
+
+        <span class="empresas-etiqueta">
+            AVALIAÇÃO DE SUSTENTABILIDADE
+        </span>
+
         <h1>Diagnóstico ESG</h1>
+
         <p>
             Avalie as práticas ambientais, sociais e de governança
             da empresa <strong>{{ empresa.nome }}</strong>.
         </p>
+
     </header>
 
+    <!-- MENSAGEM DE ERRO -->
+
     {% if erro %}
-        <p class="empresa-erro">{{ erro }}</p>
+        <p class="empresa-erro">
+            {{ erro }}
+        </p>
     {% endif %}
 
+    <!-- PERGUNTAS DO DIAGNÓSTICO -->
+
     {% if not perguntas %}
+
         <div class="empresas-vazio">
+
             <h2>Nenhuma pergunta disponível</h2>
-            <p>Não existem perguntas ESG ativas no momento.</p>
+
+            <p>
+                Não existem perguntas ESG ativas no momento.
+            </p>
+
         </div>
+
     {% else %}
+
         <form method="post" class="diagnostico-form">
+
             {% csrf_token %}
 
             {% regroup perguntas by dimensao as grupos %}
 
             {% for grupo in grupos %}
+
                 <div class="empresa-form diagnostico-dimensao">
 
                     {% if grupo.grouper == "E" %}
+
                         <h2>Ambiental</h2>
-                        <p>Consumo de recursos, resíduos e impacto ambiental.</p>
+                        <p>
+                            Consumo de recursos, resíduos e impacto ambiental.
+                        </p>
+
                     {% elif grupo.grouper == "S" %}
+
                         <h2>Social</h2>
-                        <p>Bem-estar, diversidade e responsabilidade social.</p>
+                        <p>
+                            Bem-estar, diversidade e responsabilidade social.
+                        </p>
+
                     {% else %}
+
                         <h2>Governança</h2>
-                        <p>Ética, transparência e gestão responsável.</p>
+                        <p>
+                            Ética, transparência e gestão responsável.
+                        </p>
+
                     {% endif %}
 
                     {% for pergunta in grupo.list %}
+
                         <fieldset class="diagnostico-pergunta">
+
                             <legend>
                                 {{ forloop.counter }}. {{ pergunta.texto }}
                             </legend>
+
                             {% for valor, rotulo in pergunta.PONTUACOES %}
                             {% endfor %}
 
                             <div class="diagnostico-opcoes">
+
                                 <label>
-                                    <input type="radio"
-                                           name="pergunta_{{ pergunta.id }}"
-                                           value="0"
-                                           required>
+                                    <input
+                                        type="radio"
+                                        name="pergunta_{{ pergunta.id }}"
+                                        value="0"
+                                        required
+                                    >
                                     <span>0: Não implementado</span>
                                 </label>
 
                                 <label>
-                                    <input type="radio"
-                                           name="pergunta_{{ pergunta.id }}"
-                                           value="1"
-                                           required>
+                                    <input
+                                        type="radio"
+                                        name="pergunta_{{ pergunta.id }}"
+                                        value="1"
+                                        required
+                                    >
                                     <span>1: Em início</span>
                                 </label>
 
                                 <label>
-                                    <input type="radio"
-                                           name="pergunta_{{ pergunta.id }}"
-                                           value="2"
-                                           required>
+                                    <input
+                                        type="radio"
+                                        name="pergunta_{{ pergunta.id }}"
+                                        value="2"
+                                        required
+                                    >
                                     <span>2: Parcialmente implementado</span>
                                 </label>
 
                                 <label>
-                                    <input type="radio"
-                                           name="pergunta_{{ pergunta.id }}"
-                                           value="3"
-                                           required>
+                                    <input
+                                        type="radio"
+                                        name="pergunta_{{ pergunta.id }}"
+                                        value="3"
+                                        required
+                                    >
                                     <span>3: Implementado e monitorado</span>
                                 </label>
+
                             </div>
+
                         </fieldset>
+
                     {% endfor %}
 
                 </div>
+
             {% endfor %}
 
-            <button type="submit" class="btn btn-primary empresa-botao">
+            <!-- BOTÃO FINALIZAR -->
+
+            <button
+                type="submit"
+                class="btn btn-primary empresa-botao"
+            >
                 Concluir diagnóstico
             </button>
+
         </form>
+
     {% endif %}
 
 </section>
+
 {% endblock %}

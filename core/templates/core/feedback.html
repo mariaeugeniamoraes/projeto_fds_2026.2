@@ -1,3 +1,4 @@
+
 {% extends 'core/base.html' %}
 
 {% block title %}
@@ -5,9 +6,12 @@ Fale Conosco | Ecomply
 {% endblock %}
 
 {% block content %}
-<!-- ESTILO EXCLUSIVO (FAQ E TOAST MESSAGES) -->
+
 <style>
-    /* Estilo da mensagem de alerta (Toast) */
+    /* ==========================================
+       ESTILOS ORIGINAIS - FAQ E MENSAGENS
+       ========================================== */
+
     .messages-container {
         width: 100%;
         margin-bottom: 1.5rem;
@@ -22,6 +26,7 @@ Fale Conosco | Ecomply
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 15px;
         font-weight: 600;
         font-size: 0.95rem;
         box-shadow: 0 4px 12px rgba(27, 77, 62, 0.1);
@@ -54,13 +59,13 @@ Fale Conosco | Ecomply
             opacity: 0;
             transform: translateY(-12px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
         }
     }
 
-    /* Estilo do FAQ */
     .faq-section {
         margin-top: 1rem;
         width: 100%;
@@ -120,9 +125,12 @@ Fale Conosco | Ecomply
         background-color: rgba(230, 240, 236, 0.35);
     }
 
-    .faq-question::-webkit-details-marker,
-    .faq-question::marker {
+    .faq-question::-webkit-details-marker {
         display: none;
+    }
+
+    .faq-question::marker {
+        content: "";
     }
 
     .faq-question::after {
@@ -152,7 +160,7 @@ Fale Conosco | Ecomply
     }
 
     .faq-answer {
-        padding: 0 1.4rem 1.2rem 1.4rem;
+        padding: 0 1.4rem 1.2rem;
         color: var(--text-muted, #637069);
         font-size: 0.93rem;
         line-height: 1.65;
@@ -162,108 +170,543 @@ Fale Conosco | Ecomply
         margin: 0;
     }
 
-    abbr[title] {
-        text-decoration: underline dotted var(--primary-green, #1b4d3e);
+    .feedback-container abbr[title] {
+        text-decoration: underline dotted;
         cursor: help;
+    }
+
+    /* ==========================================
+       FALE CONOSCO - SOMENTE MODO CLARO
+       ========================================== */
+
+    /* FUNDO BEGE LISO */
+
+    body:not(.dark-theme):has(.feedback-container) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.feedback-container) main,
+    body:not(.dark-theme):has(.feedback-container) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme) .feedback-container {
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 55px 24px 80px;
+        box-sizing: border-box;
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* CABEÇALHO */
+
+    body:not(.dark-theme) .feedback-header {
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    body:not(.dark-theme) .feedback-header .badge {
+        display: inline-block;
+        padding: 8px 18px;
+        margin-bottom: 18px;
+
+        background: #FFF1CA;
+        color: #0D1959;
+        border-radius: 30px;
+
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    body:not(.dark-theme) .feedback-header .page-title {
+        color: #0D1959;
+        font-size: clamp(30px, 4vw, 44px);
+        line-height: 1.2;
+        margin: 0 0 15px;
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .feedback-header .page-subtitle {
+        max-width: 650px;
+        margin: 0 auto;
+
+        color: #4C6565;
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: center;
+    }
+
+    /* PERGUNTAS FREQUENTES */
+
+    body:not(.dark-theme) .feedback-container .faq-section {
+        margin-bottom: 42px;
+    }
+
+    body:not(.dark-theme) .feedback-container .section-title {
+        color: #0D1959;
+        font-size: 27px;
+        line-height: 1.3;
+        margin: 0 0 12px;
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-subtitle {
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-grid {
+        gap: 14px;
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-item {
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-left: 4px solid transparent;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(13, 25, 89, 0.03);
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-item:hover {
+        border-color: #245B38;
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-item[open] {
+        background: #FFFCF7;
+        border-color: #E5DED2;
+        border-left-color: #245B38;
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-question {
+        color: #0D1959;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 20px 22px;
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-question:hover {
+        background: #F7F2E9;
+        color: #245B38;
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-question::after {
+        background: #E7F0E8;
+        color: #245B38;
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-item[open] .faq-question {
+        color: #245B38;
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-item[open] .faq-question::after {
+        background: #245B38;
+        color: #FFFFFF;
+    }
+
+    body:not(.dark-theme) .feedback-container .faq-answer {
+        color: #4C6565;
+        font-size: 14px;
+        line-height: 1.8;
+        padding: 0 22px 22px;
+    }
+
+    /* FORMULÁRIO DE FEEDBACK */
+
+    body:not(.dark-theme) .feedback-form-card {
+        padding: 36px;
+        box-sizing: border-box;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+    }
+
+    body:not(.dark-theme) .feedback-form-card .section-title {
+        color: #0D1959;
+        margin-bottom: 12px;
+    }
+
+    body:not(.dark-theme) .feedback-form-card .form-description {
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 0 0 28px;
+    }
+
+    /* CAMPOS GERADOS PELO DJANGO */
+
+    body:not(.dark-theme) .feedback-form-card .django-form-fields > p {
+        margin: 0 0 20px;
+    }
+
+    body:not(.dark-theme) .feedback-form-card .django-form-fields label {
+        display: block;
+        margin-bottom: 9px;
+        color: #0D1959;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    body:not(.dark-theme) .feedback-form-card .django-form-fields input:not([type="checkbox"]),
+    body:not(.dark-theme) .feedback-form-card .django-form-fields select,
+    body:not(.dark-theme) .feedback-form-card .django-form-fields textarea {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+
+        background: #F8F7F2;
+        border: 1px solid #D6D9DC;
+        border-radius: 8px;
+
+        color: #0D1959;
+        font: inherit;
+        font-size: 14px;
+    }
+
+    body:not(.dark-theme) .feedback-form-card .django-form-fields textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    body:not(.dark-theme) .feedback-form-card .django-form-fields input:focus,
+    body:not(.dark-theme) .feedback-form-card .django-form-fields select:focus,
+    body:not(.dark-theme) .feedback-form-card .django-form-fields textarea:focus {
+        outline: 2px solid #245B38;
+        outline-offset: 1px;
+    }
+
+    body:not(.dark-theme) .feedback-form-card .django-form-fields .helptext {
+        display: block;
+        margin-top: 7px;
+        color: #4C6565;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    body:not(.dark-theme) .feedback-form-card .django-form-fields .errorlist {
+        color: #B42318;
+        font-size: 13px;
+        line-height: 1.5;
+        padding-left: 20px;
+    }
+
+    /* BOTÕES */
+
+    body:not(.dark-theme) .feedback-container .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 12px 24px;
+        box-sizing: border-box;
+
+        background: #8C3E14 !important;
+        border: 1px solid #8C3E14 !important;
+        border-radius: 8px;
+
+        color: #FFFFFF !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    body:not(.dark-theme) .feedback-container .btn-primary:hover {
+        background: #73320F !important;
+        border-color: #73320F !important;
+    }
+
+    body:not(.dark-theme) .feedback-container .feedback-form .btn-block {
+        display: flex;
+        width: 100%;
+        margin-top: 24px;
+    }
+
+    body:not(.dark-theme) .feedback-container .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 12px 24px;
+        box-sizing: border-box;
+
+        background: #FFFCF7;
+        border: 1px solid #8C3E14;
+        border-radius: 8px;
+
+        color: #8C3E14;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    body:not(.dark-theme) .feedback-container .btn-secondary:hover {
+        background: #F7F2E9;
+    }
+
+    /* AVISO PARA QUEM NÃO ESTÁ LOGADO */
+
+    body:not(.dark-theme) .feedback-container .auth-notice {
+        padding: 25px;
+        background: #F8F7F2;
+        border: 1px solid #E5DED2;
+        border-radius: 10px;
+    }
+
+    body:not(.dark-theme) .feedback-container .auth-notice p {
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 0 0 20px;
+    }
+
+    body:not(.dark-theme) .feedback-container .cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    /* MENSAGENS DE SUCESSO */
+
+    body:not(.dark-theme) .feedback-container .alert-toast.success {
+        background: #E7F0E8;
+        border-color: #245B38;
+        color: #245B38;
+    }
+
+    body:not(.dark-theme) .feedback-container .close-toast-btn {
+        color: #245B38;
+    }
+
+    /* RESPONSIVIDADE */
+
+    @media (max-width: 600px) {
+        body:not(.dark-theme) .feedback-container {
+            padding: 35px 16px 55px;
+        }
+
+        body:not(.dark-theme) .feedback-form-card {
+            padding: 25px 20px;
+        }
+
+        body:not(.dark-theme) .feedback-container .faq-question {
+            padding: 17px;
+        }
+
+        body:not(.dark-theme) .feedback-container .faq-answer {
+            padding: 0 17px 18px;
+        }
+
+        body:not(.dark-theme) .feedback-container .cta-buttons {
+            flex-direction: column;
+        }
+
+        body:not(.dark-theme) .feedback-container .cta-buttons .btn {
+            width: 100%;
+        }
     }
 </style>
 
 <section class="feedback-container">
-    
-    <!-- MENSAGEM DE SUCESSO DO DJANGO (TOAST) -->
+
+    <!-- MENSAGENS DO DJANGO -->
+
     {% if messages %}
         <div class="messages-container">
+
             {% for message in messages %}
-                <div class="alert-toast {{ message.tags }}">
+                <div class="alert-toast {{ message.tags }}" role="alert">
+
                     <span>✓ {{ message }}</span>
-                    <button type="button" class="close-toast-btn" onclick="this.parentElement.remove()">✕</button>
+
+                    <button
+                        type="button"
+                        class="close-toast-btn"
+                        aria-label="Fechar mensagem"
+                        onclick="this.parentElement.remove()"
+                    >
+                        ✕
+                    </button>
+
                 </div>
             {% endfor %}
+
         </div>
     {% endif %}
 
-    <!-- Cabeçalho-->
+    <!-- CABEÇALHO -->
+
     <div class="feedback-header">
-        <span class="badge">Atendimento & Contato</span>
-        <h1 class="page-title">Fale Conosco</h1>
+
+        <span class="badge">
+            Atendimento &amp; Contato
+        </span>
+
+        <h1 class="page-title">
+            Fale Conosco
+        </h1>
+
         <p class="page-subtitle">
-            Tem alguma dúvida, sugestão ou feedback? Entre em contato com a equipe Ecomply.
+            Tem alguma dúvida, sugestão ou feedback?
+            Entre em contato com a equipe Ecomply.
         </p>
+
     </div>
 
-    <!-- Seção de Perguntas Frequentes (FAQ) -->
+    <!-- PERGUNTAS FREQUENTES -->
+
     <section class="faq-section">
-        <h2 class="section-title">Perguntas Frequentes (FAQ)</h2>
-        <p class="faq-subtitle">Tire suas dúvidas rápidas sobre a plataforma e o projeto Ecomply.</p>
-        
+
+        <h2 class="section-title">
+            Perguntas Frequentes (FAQ)
+        </h2>
+
+        <p class="faq-subtitle">
+            Tire suas dúvidas rápidas sobre a plataforma e o projeto Ecomply.
+        </p>
+
         <div class="faq-grid">
+
             <details class="faq-item">
                 <summary class="faq-question">
-                    <span>O que é o diagnóstico <abbr title="Environmental, Social & Governance (Ambiental, Social e Governança)">ESG</abbr> do Ecomply?</span>
+                    <span>
+                        O que é o diagnóstico
+                        <abbr title="Environmental, Social &amp; Governance (Ambiental, Social e Governança)">ESG</abbr>
+                        do Ecomply?
+                    </span>
                 </summary>
+
                 <div class="faq-answer">
-                   <p>O Ecomply é uma plataforma que auxilia <abbr title="Pequenas e Médias Empresas">PMEs</abbr> do setor de e-commerce a diagnosticarem suas práticas ambientais, sociais e de governança de forma intuitiva e acessível.</p>
+                    <p>
+                        O Ecomply é uma plataforma que auxilia
+                        <abbr title="Pequenas e Médias Empresas">PMEs</abbr>
+                        do setor de e-commerce a diagnosticarem suas práticas
+                        ambientais, sociais e de governança de forma intuitiva
+                        e acessível.
+                    </p>
                 </div>
             </details>
 
             <details class="faq-item">
                 <summary class="faq-question">
-                    <span>Como a metodologia Deloitte é utilizada no projeto?</span>
+                    <span>
+                        Como a metodologia Deloitte é utilizada no projeto?
+                    </span>
                 </summary>
+
                 <div class="faq-answer">
-                    <p>Utilizamos relatórios, diretrizes e indicadores de boas práticas ESG da Deloitte como benchmarking estratégico para estruturar nossas métricas de avaliação.</p>
+                    <p>
+                        Utilizamos relatórios, diretrizes e indicadores de boas
+                        práticas ESG da Deloitte como benchmarking estratégico
+                        para estruturar nossas métricas de avaliação.
+                    </p>
                 </div>
             </details>
 
             <details class="faq-item">
                 <summary class="faq-question">
-                    <span>A plataforma é gratuita para pequenas empresas?</span>
+                    <span>
+                        A plataforma é gratuita para pequenas empresas?
+                    </span>
                 </summary>
+
                 <div class="faq-answer">
-                   <p>Sim, o Ecomply foi desenvolvido como uma solução acadêmica e aberta voltada para apoiar o desenvolvimento sustentável de pequenas e médias empresas do setor de e-commerce.</p>
+                    <p>
+                        Sim, o Ecomply foi desenvolvido como uma solução
+                        acadêmica e aberta voltada para apoiar o desenvolvimento
+                        sustentável de pequenas e médias empresas do setor
+                        de e-commerce.
+                    </p>
                 </div>
             </details>
 
             <details class="faq-item">
                 <summary class="faq-question">
-                    <span>Como posso enviar uma sugestão ou feedback para a equipe?</span>
+                    <span>
+                        Como posso enviar uma sugestão ou feedback para a equipe?
+                    </span>
                 </summary>
+
                 <div class="faq-answer">
-                    <p>Você pode utilizar o formulário abaixo nesta própria página ou entrar em contato com os membros da equipe através da página Quem Somos.</p>
+                    <p>
+                        Você pode utilizar o formulário abaixo nesta própria
+                        página ou entrar em contato com os membros da equipe
+                        através da página Quem Somos.
+                    </p>
                 </div>
             </details>
+
         </div>
+
     </section>
 
-    <!-- Seção do Formulário e Autenticação-->
+    <!-- FORMULÁRIO DE FEEDBACK -->
+
     <section class="feedback-form-card">
-        <h2 class="section-title">Deixe seu feedback</h2>
+
+        <h2 class="section-title">
+            Deixe seu feedback
+        </h2>
+
         <p class="form-description">
             Sua opinião é importante para continuarmos melhorando o Ecomply.
         </p>
 
         {% if user.is_authenticated %}
+
             <form method="POST" class="feedback-form">
+
                 {% csrf_token %}
-                
+
                 <div class="django-form-fields">
                     {{ form.as_p }}
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block">
+                <button
+                    type="submit"
+                    class="btn btn-primary btn-block"
+                >
                     Enviar feedback
                 </button>
+
             </form>
+
         {% else %}
+
             <div class="auth-notice">
-                <p>Para enviar um feedback, você precisa estar conectado à sua conta.</p>
+
+                <p>
+                    Para enviar um feedback, você precisa estar conectado
+                    à sua conta.
+                </p>
+
                 <div class="cta-buttons">
-                    <a href="{% url 'login' %}" class="btn btn-primary">Entrar</a>
-                    <a href="{% url 'cadastro' %}" class="btn btn-secondary">Criar conta</a>
+
+                    <a href="{% url 'login' %}" class="btn btn-primary">
+                        Entrar
+                    </a>
+
+                    <a href="{% url 'cadastro' %}" class="btn btn-secondary">
+                        Criar conta
+                    </a>
+
                 </div>
+
             </div>
+
         {% endif %}
+
     </section>
 
 </section>
+
 {% endblock %}

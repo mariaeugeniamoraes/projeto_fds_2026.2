@@ -1,64 +1,565 @@
+
 {% extends 'core/base.html' %}
 
-{% block title %}Resultado do diagnóstico | Ecomply{% endblock %}
+{% block title %}
+Resultado do diagnóstico | Ecomply
+{% endblock %}
 
 {% block content %}
+
+<style>
+    /* ==========================================
+       RESULTADO ESG - SOMENTE MODO CLARO
+       ========================================== */
+
+    /* Fundo bege liso */
+
+    body:not(.dark-theme):has(.resultado-esg) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.resultado-esg) main,
+    body:not(.dark-theme):has(.resultado-esg) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Área principal */
+
+    body:not(.dark-theme) .resultado-esg {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 55px 24px 85px;
+        box-sizing: border-box;
+
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Cabeçalho */
+
+    body:not(.dark-theme) .resultado-esg .resultado-cabecalho {
+        text-align: center;
+        margin-bottom: 42px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .empresas-etiqueta {
+        display: inline-block;
+        padding: 8px 17px;
+        margin-bottom: 16px;
+
+        background: #FFF1CA;
+        border-radius: 30px;
+
+        color: #0D1959;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-cabecalho h1 {
+        color: #0D1959;
+        font-size: clamp(30px, 4vw, 42px);
+        line-height: 1.2;
+        margin: 0 0 15px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-cabecalho p {
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 6px 0;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-cabecalho strong {
+        color: #0D1959;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-data-icone {
+        color: #245B38;
+        font-weight: 700;
+        margin-right: 5px;
+    }
+
+    /* ==========================================
+       VISÃO GERAL E PONTUAÇÃO
+       ========================================== */
+
+    body:not(.dark-theme) .resultado-esg .resultado-geral {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 35px;
+
+        padding: 38px 42px;
+        margin-bottom: 48px;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 17px;
+
+        box-shadow: 0 6px 20px rgba(13, 25, 89, 0.04);
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-geral-texto {
+        flex: 1;
+        min-width: 0;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-selo {
+        display: inline-block;
+        margin-bottom: 14px;
+
+        color: #8C3E14;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-geral h2 {
+        color: #0D1959;
+        font-size: clamp(24px, 3vw, 30px);
+        line-height: 1.3;
+        margin: 0 0 14px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-geral-texto p {
+        max-width: 540px;
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    /* Círculo da pontuação geral */
+
+    body:not(.dark-theme) .resultado-esg .resultado-circulo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        width: 175px;
+        height: 175px;
+        min-width: 175px;
+        box-sizing: border-box;
+
+        background: #E7F0E8;
+        border: 9px solid #245B38;
+        border-radius: 50%;
+
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-numero {
+        color: #0D1959;
+        font-size: 35px;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-circulo-legenda {
+        color: #4C6565;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 6px;
+    }
+
+    /* ==========================================
+       TÍTULOS DAS SEÇÕES
+       ========================================== */
+
+    body:not(.dark-theme) .resultado-esg .resultado-secao-titulo {
+        margin-bottom: 25px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-secao-titulo h2 {
+        color: #0D1959;
+        font-size: 27px;
+        line-height: 1.3;
+        margin: 0 0 10px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-secao-titulo p {
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* ==========================================
+       DESEMPENHO POR DIMENSÃO
+       ========================================== */
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensoes {
+        margin-bottom: 48px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-grade {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensao {
+        min-width: 0;
+        padding: 25px 22px;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 14px;
+
+        box-shadow: 0 4px 16px rgba(13, 25, 89, 0.04);
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensao-topo {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 22px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensao-identidade {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Letra E, S ou G */
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensao-letra {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 43px;
+        height: 43px;
+        min-width: 43px;
+
+        background: #E7F0E8;
+        border-radius: 10px;
+
+        color: #245B38;
+        font-size: 19px;
+        font-weight: 700;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensao-s .resultado-dimensao-letra {
+        background: #FFF1CA;
+        color: #8C3E14;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensao-g .resultado-dimensao-letra {
+        background: #E9ECF8;
+        color: #0D1959;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensao-identidade h3 {
+        color: #0D1959;
+        font-size: 17px;
+        line-height: 1.3;
+        margin: 0 0 5px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensao-identidade p {
+        color: #4C6565;
+        font-size: 12px;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-percentual {
+        color: #0D1959;
+        font-size: 28px;
+        line-height: 1.2;
+    }
+
+    /* Barras de progresso */
+
+    body:not(.dark-theme) .resultado-esg .resultado-barra {
+        width: 100%;
+        height: 11px;
+
+        background: #E5DED2;
+        border-radius: 30px;
+        overflow: hidden;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-barra-preenchimento {
+        height: 100%;
+        background: #245B38;
+        border-radius: 30px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensao-s .resultado-barra-preenchimento {
+        background: #8C3E14;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-dimensao-g .resultado-barra-preenchimento {
+        background: #0D1959;
+    }
+
+    /* ==========================================
+       RESPOSTAS REGISTRADAS
+       ========================================== */
+
+    body:not(.dark-theme) .resultado-esg .resultado-respostas {
+        display: block;
+        padding: 32px;
+        margin-bottom: 35px;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+    }
+
+    body:not(.dark-theme) .resultado-esg .resposta-item {
+        display: block;
+        padding: 22px 0;
+        border-bottom: 1px solid #E5DED2;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resposta-item:last-of-type {
+        border-bottom: none;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resposta-cabecalho {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+
+        margin-bottom: 13px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resposta-dimensao {
+        display: inline-block;
+        padding: 6px 12px;
+
+        background: #E7F0E8;
+        border-radius: 20px;
+
+        color: #245B38;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resposta-nota {
+        color: #0D1959;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resposta-pergunta {
+        color: #0D1959;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.6;
+        margin: 0 0 15px;
+    }
+
+    /* Mini barra de cada resposta */
+
+    body:not(.dark-theme) .resultado-esg .resposta-mini-barra {
+        width: 100%;
+        height: 8px;
+
+        background: #E5DED2;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resposta-mini-preenchimento {
+        height: 100%;
+        background: #245B38;
+        border-radius: 20px;
+    }
+
+    /* ==========================================
+       BOTÃO DE VOLTAR
+       ========================================== */
+
+    body:not(.dark-theme) .resultado-esg .resultado-acoes {
+        display: flex;
+        justify-content: center;
+        margin-top: 35px;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-voltar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 50px;
+        padding: 13px 28px;
+
+        background: #8C3E14 !important;
+        border: 1px solid #8C3E14 !important;
+        border-radius: 9px;
+
+        color: #FFFFFF !important;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    body:not(.dark-theme) .resultado-esg .resultado-voltar:hover {
+        background: #73320F !important;
+        border-color: #73320F !important;
+    }
+
+    /* ==========================================
+       RESPONSIVIDADE
+       ========================================== */
+
+    @media (max-width: 850px) {
+        body:not(.dark-theme) .resultado-esg .resultado-grade {
+            grid-template-columns: 1fr;
+        }
+
+        body:not(.dark-theme) .resultado-esg .resultado-geral {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 600px) {
+        body:not(.dark-theme) .resultado-esg {
+            padding: 35px 16px 60px;
+        }
+
+        body:not(.dark-theme) .resultado-esg .resultado-geral {
+            padding: 28px 20px;
+        }
+
+        body:not(.dark-theme) .resultado-esg .resultado-circulo {
+            width: 150px;
+            height: 150px;
+            min-width: 150px;
+        }
+
+        body:not(.dark-theme) .resultado-esg .resultado-numero {
+            font-size: 30px;
+        }
+
+        body:not(.dark-theme) .resultado-esg .resultado-respostas {
+            padding: 25px 18px;
+        }
+
+        body:not(.dark-theme) .resultado-esg .resultado-voltar {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
 <section class="minhas-empresas-page resultado-esg">
 
+    <!-- CABEÇALHO -->
+
     <header class="empresas-header resultado-cabecalho">
-        <span class="empresas-etiqueta">RESULTADO DA AVALIAÇÃO</span>
+
+        <span class="empresas-etiqueta">
+            RESULTADO DA AVALIAÇÃO
+        </span>
+
         <h1>Diagnóstico ESG</h1>
+
         <p>
-            Empresa: <strong>{{ diagnostico.empresa.nome }}</strong>
+            Empresa:
+            <strong>{{ diagnostico.empresa.nome }}</strong>
         </p>
+
         <p>
             <span class="resultado-data-icone">✓</span>
             Concluído em {{ diagnostico.data_criacao|date:"d/m/Y" }}
         </p>
+
     </header>
 
+    <!-- VISÃO GERAL -->
+
     <div class="resultado-geral">
+
         <div class="resultado-geral-texto">
-            <span class="resultado-selo">VISÃO GERAL</span>
+
+            <span class="resultado-selo">
+                VISÃO GERAL
+            </span>
+
             <h2>Sua empresa está avançando!</h2>
+
             <p>
                 Confira o desempenho da empresa nos três pilares ESG
                 e identifique oportunidades de melhoria.
             </p>
+
         </div>
 
         <div class="resultado-circulo">
+
             <span class="resultado-numero">
                 {{ diagnostico.percentual_geral|floatformat:1 }}%
             </span>
-            <span class="resultado-circulo-legenda">Pontuação geral</span>
+
+            <span class="resultado-circulo-legenda">
+                Pontuação geral
+            </span>
+
         </div>
+
     </div>
 
+    <!-- DESEMPENHO POR DIMENSÃO -->
+
     <div class="resultado-dimensoes">
+
         <div class="resultado-secao-titulo">
-            <span class="empresas-etiqueta">SEU DESEMPENHO</span>
+
+            <span class="empresas-etiqueta">
+                SEU DESEMPENHO
+            </span>
+
             <h2>Desempenho por dimensão</h2>
-            <p>Veja a pontuação alcançada em cada pilar.</p>
+
+            <p>
+                Veja a pontuação alcançada em cada pilar.
+            </p>
+
         </div>
 
         <div class="resultado-grade">
+
             {% for dimensao in dimensoes %}
+
                 <article class="resultado-dimensao resultado-dimensao-{{ dimensao.codigo|lower }}">
+
                     <div class="resultado-dimensao-topo">
+
                         <div class="resultado-dimensao-identidade">
+
                             <span class="resultado-dimensao-letra">
                                 {{ dimensao.codigo }}
                             </span>
+
                             <div>
                                 <h3>{{ dimensao.nome }}</h3>
-                                <p>{{ dimensao.pontuacao }} pontos obtidos</p>
+
+                                <p>
+                                    {{ dimensao.pontuacao }} pontos obtidos
+                                </p>
                             </div>
+
                         </div>
 
                         <strong class="resultado-percentual">
                             {{ dimensao.percentual|floatformat:1 }}%
                         </strong>
+
                     </div>
 
                     <div
@@ -74,27 +575,47 @@
                             style="width: {{ dimensao.percentual|stringformat:'f' }}%;"
                         ></div>
                     </div>
+
                 </article>
+
             {% endfor %}
+
         </div>
+
     </div>
 
+    <!-- RESPOSTAS REGISTRADAS -->
+
     <div class="lista-empresas resultado-respostas">
+
         <div class="resultado-secao-titulo">
-            <span class="empresas-etiqueta">DETALHAMENTO</span>
+
+            <span class="empresas-etiqueta">
+                DETALHAMENTO
+            </span>
+
             <h2>Respostas registradas</h2>
-            <p>Consulte as notas atribuídas em cada pergunta.</p>
+
+            <p>
+                Consulte as notas atribuídas em cada pergunta.
+            </p>
+
         </div>
 
         {% for resposta in respostas %}
+
             <article class="resposta-item">
+
                 <div class="resposta-cabecalho">
+
                     <span class="resposta-dimensao">
                         {{ resposta.pergunta.get_dimensao_display }}
                     </span>
+
                     <span class="resposta-nota">
                         {{ resposta.pontuacao }} de 3 pontos
                     </span>
+
                 </div>
 
                 <p class="resposta-pergunta">
@@ -107,17 +628,32 @@
                         style="width: {% widthratio resposta.pontuacao 3 100 %}%;"
                     ></div>
                 </div>
+
             </article>
+
         {% empty %}
-            <p>Não foram encontradas respostas para este diagnóstico.</p>
+
+            <p>
+                Não foram encontradas respostas para este diagnóstico.
+            </p>
+
         {% endfor %}
+
     </div>
 
+    <!-- BOTÃO VOLTAR -->
+
     <div class="resultado-acoes">
-        <a href="{% url 'minhas_empresas' %}" class="btn btn-primary resultado-voltar">
+
+        <a
+            href="{% url 'minhas_empresas' %}"
+            class="btn btn-primary resultado-voltar"
+        >
             ← Voltar para minhas empresas
         </a>
+
     </div>
 
 </section>
+
 {% endblock %}

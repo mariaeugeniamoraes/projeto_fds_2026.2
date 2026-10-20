@@ -1,29 +1,321 @@
 
 {% extends 'core/base.html' %}
 
-{% block title %}Histórico de diagnósticos | Ecomply{% endblock %}
+{% block title %}
+Histórico de diagnósticos | Ecomply
+{% endblock %}
 
 {% block content %}
+
+<style>
+    /* ==========================================
+       HISTÓRICO ESG - SOMENTE MODO CLARO
+       ========================================== */
+
+    /* Fundo bege liso, sem bolinhas */
+
+    body:not(.dark-theme):has(.historico-esg) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.historico-esg) main,
+    body:not(.dark-theme):has(.historico-esg) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Área principal */
+
+    body:not(.dark-theme) .historico-esg {
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 55px 24px 85px;
+        box-sizing: border-box;
+
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Cabeçalho */
+
+    body:not(.dark-theme) .historico-esg .empresas-header {
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+    body:not(.dark-theme) .historico-esg .empresas-etiqueta {
+        display: inline-block;
+        padding: 9px 18px;
+        margin-bottom: 18px;
+
+        background: #FFF1CA;
+        border-radius: 30px;
+
+        color: #0D1959;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    body:not(.dark-theme) .historico-esg .empresas-header h1 {
+        color: #0D1959;
+        font-size: clamp(30px, 4vw, 42px);
+        line-height: 1.2;
+        margin: 0 0 16px;
+    }
+
+    body:not(.dark-theme) .historico-esg .empresas-header p {
+        max-width: 650px;
+        margin: 0 auto;
+
+        color: #4C6565;
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    /* ==========================================
+       CARTÕES DOS DIAGNÓSTICOS
+       ========================================== */
+
+    body:not(.dark-theme) .historico-esg .historico-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 30px 35px;
+        margin-bottom: 20px;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 15px;
+
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+
+        transition: border-color 0.2s ease,
+                    transform 0.2s ease,
+                    box-shadow 0.2s ease;
+    }
+
+    body:not(.dark-theme) .historico-esg .historico-card:hover {
+        border-color: #245B38;
+        transform: translateY(-2px);
+        box-shadow: 0 9px 24px rgba(13, 25, 89, 0.07);
+    }
+
+    /* Informações do diagnóstico */
+
+    body:not(.dark-theme) .historico-esg .historico-card-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* Data da avaliação */
+
+    body:not(.dark-theme) .historico-esg .historico-data {
+        display: inline-block;
+        padding: 7px 13px;
+        margin-bottom: 15px;
+
+        background: #E7F0E8;
+        border-radius: 20px;
+
+        color: #245B38;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    /* Nome da empresa */
+
+    body:not(.dark-theme) .historico-esg .historico-card h2 {
+        color: #0D1959;
+        font-size: 23px;
+        line-height: 1.3;
+        margin: 0 0 16px;
+        overflow-wrap: anywhere;
+    }
+
+    /* Legenda da pontuação */
+
+    body:not(.dark-theme) .historico-esg .historico-card-info p {
+        color: #4C6565;
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0 0 5px;
+    }
+
+    /* Percentual geral */
+
+    body:not(.dark-theme) .historico-esg .historico-percentual {
+        display: inline-block;
+
+        color: #245B38;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    /* ==========================================
+       BOTÕES
+       ========================================== */
+
+    body:not(.dark-theme) .historico-esg .historico-card .btn-primary,
+    body:not(.dark-theme) .historico-esg .historico-vazio .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 48px;
+        padding: 12px 25px;
+        box-sizing: border-box;
+
+        background: #8C3E14 !important;
+        border: 1px solid #8C3E14 !important;
+        border-radius: 9px;
+
+        color: #FFFFFF !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+
+        transition: background-color 0.2s ease;
+    }
+
+    body:not(.dark-theme) .historico-esg .historico-card .btn-primary:hover,
+    body:not(.dark-theme) .historico-esg .historico-vazio .btn-primary:hover {
+        background: #73320F !important;
+        border-color: #73320F !important;
+    }
+
+    /* ==========================================
+       QUANDO NÃO EXISTEM DIAGNÓSTICOS
+       ========================================== */
+
+    body:not(.dark-theme) .historico-esg .historico-vazio {
+        padding: 55px 30px;
+        margin-bottom: 30px;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .historico-esg .historico-vazio h2 {
+        color: #0D1959;
+        font-size: 25px;
+        line-height: 1.3;
+        margin: 0 0 14px;
+    }
+
+    body:not(.dark-theme) .historico-esg .historico-vazio p {
+        max-width: 500px;
+        margin: 0 auto 25px;
+
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    /* ==========================================
+       LINK VOLTAR PARA MINHAS EMPRESAS
+       ========================================== */
+
+    body:not(.dark-theme) .historico-esg .historico-voltar {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-top: 18px;
+
+        color: #245B38;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    body:not(.dark-theme) .historico-esg .historico-voltar:hover {
+        color: #8C3E14;
+        text-decoration: underline;
+    }
+
+    /* ==========================================
+       RESPONSIVIDADE
+       ========================================== */
+
+    @media (max-width: 650px) {
+
+        body:not(.dark-theme) .historico-esg {
+            padding: 35px 16px 60px;
+        }
+
+        body:not(.dark-theme) .historico-esg .historico-card {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 22px;
+
+            padding: 25px 20px;
+        }
+
+        body:not(.dark-theme) .historico-esg .historico-card h2 {
+            font-size: 21px;
+        }
+
+        body:not(.dark-theme) .historico-esg .historico-percentual {
+            font-size: 29px;
+        }
+
+        body:not(.dark-theme) .historico-esg .historico-card .btn-primary {
+            width: 100%;
+        }
+
+        body:not(.dark-theme) .historico-esg .historico-vazio {
+            padding: 40px 20px;
+        }
+    }
+</style>
+
 <section class="minhas-empresas-page historico-esg">
 
+    <!-- CABEÇALHO -->
+
     <header class="empresas-header">
-        <span class="empresas-etiqueta">ACOMPANHAMENTO ESG</span>
+
+        <span class="empresas-etiqueta">
+            ACOMPANHAMENTO ESG
+        </span>
+
         <h1>Histórico de diagnósticos</h1>
+
         <p>
             Consulte suas avaliações anteriores e acompanhe
             a evolução das suas empresas.
         </p>
+
     </header>
 
+    <!-- LISTAGEM DOS DIAGNÓSTICOS -->
+
     {% for diagnostico in diagnosticos %}
+
         <article class="historico-card">
 
             <div class="historico-card-info">
+
                 <span class="historico-data">
                     Avaliação de {{ diagnostico.data_criacao|date:"d/m/Y" }}
                 </span>
 
-                <h2>{{ diagnostico.empresa.nome }}</h2>
+                <h2>
+                    {{ diagnostico.empresa.nome }}
+                </h2>
 
                 <p>
                     Pontuação geral
@@ -32,7 +324,10 @@
                 <strong class="historico-percentual">
                     {{ diagnostico.percentual_geral|floatformat:1 }}%
                 </strong>
+
             </div>
+
+            <!-- BOTÃO VER RESULTADO -->
 
             <a
                 href="{% url 'resultado_diagnostico' diagnostico.id %}"
@@ -42,23 +337,42 @@
             </a>
 
         </article>
+
     {% empty %}
+
+        <!-- QUANDO NÃO HÁ DIAGNÓSTICOS -->
+
         <div class="historico-vazio">
-            <h2>Nenhum diagnóstico encontrado</h2>
+
+            <h2>
+                Nenhum diagnóstico encontrado
+            </h2>
+
             <p>
                 Quando você concluir uma avaliação ESG,
                 ela aparecerá aqui.
             </p>
 
-            <a href="{% url 'minhas_empresas' %}" class="btn btn-primary">
+            <a
+                href="{% url 'minhas_empresas' %}"
+                class="btn btn-primary"
+            >
                 Ir para minhas empresas
             </a>
+
         </div>
+
     {% endfor %}
 
-    <a href="{% url 'minhas_empresas' %}" class="historico-voltar">
+    <!-- LINK PARA VOLTAR -->
+
+    <a
+        href="{% url 'minhas_empresas' %}"
+        class="historico-voltar"
+    >
         ← Voltar para minhas empresas
     </a>
 
 </section>
+
 {% endblock %}

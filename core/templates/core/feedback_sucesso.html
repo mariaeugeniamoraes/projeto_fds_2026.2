@@ -1,3 +1,4 @@
+
 {% extends 'core/base.html' %}
 
 {% block title %}
@@ -5,12 +6,159 @@ Feedback enviado | Ecomply
 {% endblock %}
 
 {% block content %}
+
+<style>
+    /* ========================================
+       FEEDBACK ENVIADO - SOMENTE MODO CLARO
+       ======================================== */
+
+    /* Fundo bege liso, sem bolinhas */
+
+    body:not(.dark-theme):has(.feedback-success-container) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.feedback-success-container) main,
+    body:not(.dark-theme):has(.feedback-success-container) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Centralização da página */
+
+    body:not(.dark-theme) .feedback-success-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        min-height: 520px;
+        padding: 55px 20px 75px;
+        box-sizing: border-box;
+
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Cartão central */
+
+    body:not(.dark-theme) .feedback-success-card {
+        width: 100%;
+        max-width: 650px;
+        padding: 60px 45px;
+        box-sizing: border-box;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 18px;
+
+        box-shadow: 0 8px 24px rgba(13, 25, 89, 0.05);
+
+        text-align: center;
+    }
+
+    /* Ícone de confirmação */
+
+    body:not(.dark-theme) .feedback-success-card .success-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 30px;
+
+        background: #FFF1CA;
+        border-radius: 50%;
+
+        color: #0D1959;
+        font-size: 36px;
+        font-weight: 700;
+    }
+
+    /* Título */
+
+    body:not(.dark-theme) .feedback-success-card .success-title {
+        margin: 0 0 18px;
+
+        color: #0D1959;
+        font-size: clamp(28px, 4vw, 38px);
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    /* Mensagem */
+
+    body:not(.dark-theme) .feedback-success-card .success-message {
+        max-width: 490px;
+        margin: 0 auto 35px;
+
+        color: #4C6565;
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+    /* Botão voltar para o início */
+
+    body:not(.dark-theme) .feedback-success-card .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 50px;
+        padding: 14px 30px;
+        box-sizing: border-box;
+
+        background: #8C3E14 !important;
+        border: 1px solid #8C3E14 !important;
+        border-radius: 9px;
+
+        color: #FFFFFF !important;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+
+        transition: background-color 0.2s ease;
+    }
+
+    body:not(.dark-theme) .feedback-success-card .btn-primary:hover {
+        background: #73320F !important;
+        border-color: #73320F !important;
+    }
+
+    /* Responsividade */
+
+    @media (max-width: 600px) {
+        body:not(.dark-theme) .feedback-success-container {
+            min-height: 450px;
+            padding: 35px 16px 55px;
+        }
+
+        body:not(.dark-theme) .feedback-success-card {
+            padding: 45px 22px;
+        }
+
+        body:not(.dark-theme) .feedback-success-card .success-message {
+            font-size: 15px;
+        }
+
+        body:not(.dark-theme) .feedback-success-card .btn-primary {
+            width: 100%;
+        }
+    }
+</style>
+
 <section class="feedback-success-container">
+
     <div class="feedback-success-card">
+
         <div class="success-icon">✓</div>
-        
-        <h1 class="success-title">Feedback enviado!</h1>
-        
+
+        <h1 class="success-title">
+            Feedback enviado!
+        </h1>
+
         <p class="success-message">
             Obrigado por compartilhar sua opinião com a equipe do Ecomply.
         </p>
@@ -18,6 +166,9 @@ Feedback enviado | Ecomply
         <a href="{% url 'home' %}" class="btn btn-primary">
             Voltar para o início
         </a>
+
     </div>
+
 </section>
+
 {% endblock %}

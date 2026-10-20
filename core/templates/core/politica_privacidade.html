@@ -1,64 +1,284 @@
 
 {% extends 'core/base.html' %}
 
-{% block title %}Política de Privacidade | Ecomply{% endblock %}
+{% block title %}
+Política de Privacidade | Ecomply
+{% endblock %}
 
 {% block content %}
-<section class="minhas-empresas-page">
+
+<style>
+    /* ==========================================
+       POLÍTICA DE PRIVACIDADE
+       SOMENTE MODO CLARO
+       ========================================== */
+
+    /* Fundo bege liso */
+
+    body:not(.dark-theme):has(.politica-privacidade-page) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.politica-privacidade-page) main,
+    body:not(.dark-theme):has(.politica-privacidade-page) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Área principal */
+
+    body:not(.dark-theme) .politica-privacidade-page {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 55px 24px 85px;
+        box-sizing: border-box;
+
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* ==========================================
+       CABEÇALHO
+       ========================================== */
+
+    body:not(.dark-theme) .politica-privacidade-page .empresas-header {
+        text-align: center;
+        margin-bottom: 42px;
+    }
+
+    body:not(.dark-theme) .politica-privacidade-page .empresas-etiqueta {
+        display: inline-block;
+        padding: 9px 18px;
+        margin-bottom: 18px;
+
+        background: #FFF1CA;
+        border-radius: 30px;
+
+        color: #0D1959;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    body:not(.dark-theme) .politica-privacidade-page .empresas-header h1 {
+        color: #0D1959;
+        font-size: clamp(30px, 4vw, 42px);
+        line-height: 1.2;
+        margin: 0 0 16px;
+    }
+
+    body:not(.dark-theme) .politica-privacidade-page .empresas-header p {
+        max-width: 650px;
+        margin: 0 auto;
+
+        color: #4C6565;
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    /* ==========================================
+       CARTÃO PRINCIPAL
+       ========================================== */
+
+    body:not(.dark-theme) .politica-privacidade-page .politica-conteudo {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+
+        padding: 42px 45px;
+
+        background: #FFFCF7 !important;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+
+        box-shadow: 0 6px 20px rgba(13, 25, 89, 0.04);
+    }
+
+    /* ==========================================
+       SEÇÕES DA POLÍTICA
+       ========================================== */
+
+    body:not(.dark-theme) .politica-privacidade-page .politica-secao {
+        padding: 0 0 25px;
+        margin-bottom: 27px;
+
+        border-bottom: 1px solid #E5DED2;
+    }
+
+    body:not(.dark-theme) .politica-privacidade-page .politica-secao:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: none;
+    }
+
+    /* Títulos das seções */
+
+    body:not(.dark-theme) .politica-privacidade-page .politica-secao h2 {
+        color: #0D1959;
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 1.4;
+
+        margin: 0 0 13px;
+    }
+
+    /* Textos */
+
+    body:not(.dark-theme) .politica-privacidade-page .politica-secao p {
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.9;
+        margin: 0;
+    }
+
+    /* ==========================================
+       RESPONSIVIDADE
+       ========================================== */
+
+    @media (max-width: 650px) {
+
+        body:not(.dark-theme) .politica-privacidade-page {
+            padding: 35px 16px 60px;
+        }
+
+        body:not(.dark-theme) .politica-privacidade-page .politica-conteudo {
+            padding: 28px 22px;
+        }
+
+        body:not(.dark-theme) .politica-privacidade-page .politica-secao h2 {
+            font-size: 19px;
+        }
+
+        body:not(.dark-theme) .politica-privacidade-page .politica-secao p {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+    }
+</style>
+
+<section class="minhas-empresas-page politica-privacidade-page">
+
+    <!-- CABEÇALHO -->
+
     <header class="empresas-header">
-        <span class="empresas-etiqueta">PRIVACIDADE E PROTEÇÃO DE DADOS</span>
+
+        <span class="empresas-etiqueta">
+            PRIVACIDADE E PROTEÇÃO DE DADOS
+        </span>
+
         <h1>Política de Privacidade</h1>
-        <p>Saiba como o Ecomply trata as informações utilizadas na plataforma.</p>
+
+        <p>
+            Saiba como o Ecomply trata as informações utilizadas na plataforma.
+        </p>
+
     </header>
 
-    <div class="empresa-form">
-        <h2>1. Dados pessoais</h2>
-        <p>
-            O Ecomply utiliza informações fornecidas no cadastro,
-            como nome, e-mail e dados relacionados às empresas
-            cadastradas, para oferecer suas funcionalidades.
-        </p>
+    <!-- CONTEÚDO DA POLÍTICA -->
 
-        <h2>2. Finalidade do tratamento</h2>
-        <p>
-            As informações são utilizadas para permitir o acesso
-            à plataforma, gerenciar empresas, realizar avaliações
-            ESG e apresentar seus resultados.
-        </p>
+    <div class="empresa-form politica-conteudo">
 
-        <h2>3. Divulgação dos resultados ESG</h2>
-        <p>
-            Os resultados ESG somente são exibidos no portal público
-            quando o responsável pela empresa autoriza a publicação.
-            Essa autorização pode ser retirada na plataforma.
-        </p>
+        <!-- 1. DADOS PESSOAIS -->
 
-        <h2>4. Cookies e preferências</h2>
-        <p>
-            A plataforma utiliza recursos técnicos para manter
-            sessões e proteger formulários. A preferência de
-            tema claro ou escuro é armazenada no navegador.
-        </p>
+        <div class="politica-secao">
 
-        <h2>5. Segurança</h2>
-        <p>
-            O Ecomply utiliza mecanismos de segurança oferecidos
-            pelo Django. A proteção das informações é considerada
-            durante o desenvolvimento e a manutenção da plataforma.
-        </p>
+            <h2>1. Dados pessoais</h2>
 
-        <h2>6. Direitos dos titulares</h2>
-        <p>
-            Os titulares podem solicitar informações sobre o
-            tratamento de seus dados e exercer os direitos
-            previstos na Lei Geral de Proteção de Dados (LGPD).
-        </p>
+            <p>
+                O Ecomply utiliza informações fornecidas no cadastro,
+                como nome, e-mail e dados relacionados às empresas
+                cadastradas, para oferecer suas funcionalidades.
+            </p>
 
-        <h2>7. Contato</h2>
-        <p>
-            Para dúvidas relacionadas à privacidade, utilize
-            o canal Fale Conosco da plataforma.
-        </p>
+        </div>
+
+        <!-- 2. FINALIDADE DO TRATAMENTO -->
+
+        <div class="politica-secao">
+
+            <h2>2. Finalidade do tratamento</h2>
+
+            <p>
+                As informações são utilizadas para permitir o acesso
+                à plataforma, gerenciar empresas, realizar avaliações
+                ESG e apresentar seus resultados.
+            </p>
+
+        </div>
+
+        <!-- 3. DIVULGAÇÃO DOS RESULTADOS -->
+
+        <div class="politica-secao">
+
+            <h2>3. Divulgação dos resultados ESG</h2>
+
+            <p>
+                Os resultados ESG somente são exibidos no portal público
+                quando o responsável pela empresa autoriza a publicação.
+                Essa autorização pode ser retirada na plataforma.
+            </p>
+
+        </div>
+
+        <!-- 4. COOKIES E PREFERÊNCIAS -->
+
+        <div class="politica-secao">
+
+            <h2>4. Cookies e preferências</h2>
+
+            <p>
+                A plataforma utiliza recursos técnicos para manter
+                sessões e proteger formulários. A preferência de
+                tema claro ou escuro é armazenada no navegador.
+            </p>
+
+        </div>
+
+        <!-- 5. SEGURANÇA -->
+
+        <div class="politica-secao">
+
+            <h2>5. Segurança</h2>
+
+            <p>
+                O Ecomply utiliza mecanismos de segurança oferecidos
+                pelo Django. A proteção das informações é considerada
+                durante o desenvolvimento e a manutenção da plataforma.
+            </p>
+
+        </div>
+
+        <!-- 6. DIREITOS DOS TITULARES -->
+
+        <div class="politica-secao">
+
+            <h2>6. Direitos dos titulares</h2>
+
+            <p>
+                Os titulares podem solicitar informações sobre o
+                tratamento de seus dados e exercer os direitos
+                previstos na Lei Geral de Proteção de Dados (LGPD).
+            </p>
+
+        </div>
+
+        <!-- 7. CONTATO -->
+
+        <div class="politica-secao">
+
+            <h2>7. Contato</h2>
+
+            <p>
+                Para dúvidas relacionadas à privacidade, utilize
+                o canal Fale Conosco da plataforma.
+            </p>
+
+        </div>
+
     </div>
+
 </section>
+
 {% endblock %}

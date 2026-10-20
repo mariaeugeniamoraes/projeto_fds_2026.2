@@ -1,3 +1,4 @@
+
 {% extends 'core/base.html' %}
 
 {% block title %}
@@ -5,42 +6,271 @@ Entrar | Ecomply
 {% endblock %}
 
 {% block content %}
-<section class="auth-container">
+
+<style>
+    /* =====================================
+       LOGIN - APENAS MODO CLARO
+       ===================================== */
+
+    body:not(.dark-theme):has(.login-page) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.login-page) .main-content,
+    body:not(.dark-theme):has(.login-page) main {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme) .login-page {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme) .login-page .auth-card {
+        width: 100%;
+        max-width: 440px;
+        margin: 0 auto;
+        padding: 38px 34px 32px;
+        box-sizing: border-box;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(13, 25, 89, 0.07);
+    }
+
+    /* ETIQUETA SUPERIOR */
+
+    body:not(.dark-theme) .login-page .badge {
+        display: table;
+        margin: 0 auto 20px;
+        padding: 8px 15px;
+
+        background: #FFF1CA;
+        color: #0D1959;
+        border-radius: 30px;
+
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    /* TÍTULO E SUBTÍTULO */
+
+    body:not(.dark-theme) .login-page .auth-title {
+        margin: 0 0 12px;
+        color: #0D1959;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .login-page .auth-subtitle {
+        margin: 0 auto 32px;
+        color: #4C6565;
+        font-size: 14px;
+        line-height: 1.6;
+        text-align: center;
+    }
+
+    /* CAMPOS DO LOGIN */
+
+    body:not(.dark-theme) .login-page .form-group {
+        margin-bottom: 22px;
+    }
+
+    body:not(.dark-theme) .login-page .form-group label {
+        display: block;
+        margin-bottom: 8px;
+
+        color: #0D1959;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    body:not(.dark-theme) .login-page .form-group input {
+        display: block;
+        width: 100%;
+        min-height: 42px;
+        box-sizing: border-box;
+        padding: 10px 13px;
+
+        background: #F8F7F2;
+        border: 1px solid #D6D9DC;
+        border-radius: 7px;
+
+        color: #0D1959;
+        font: inherit;
+        font-size: 14px;
+    }
+
+    body:not(.dark-theme) .login-page .form-group input::placeholder {
+        color: #84908D;
+    }
+
+    body:not(.dark-theme) .login-page .form-group input:focus {
+        outline: 2px solid #245B38;
+        outline-offset: 1px;
+    }
+
+    /* MENSAGEM DE ERRO */
+
+    body:not(.dark-theme) .login-page .alert-error {
+        margin-bottom: 22px;
+        padding: 12px 15px;
+
+        background: #FFF0ED;
+        border: 1px solid #E9B9B0;
+        border-radius: 8px;
+        color: #B42318;
+    }
+
+    body:not(.dark-theme) .login-page .alert-error p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    /* BOTÃO ENTRAR */
+
+    body:not(.dark-theme) .login-page .btn-primary {
+        display: block;
+        width: 100%;
+        min-height: 46px;
+        margin-top: 28px;
+        padding: 12px 20px;
+
+        background: #8C3E14 !important;
+        border: 1px solid #8C3E14 !important;
+        border-radius: 7px;
+
+        color: #FFFFFF !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    body:not(.dark-theme) .login-page .btn-primary:hover {
+        background: #73320F !important;
+        border-color: #73320F !important;
+    }
+
+    /* LINK PARA CADASTRO */
+
+    body:not(.dark-theme) .login-page .auth-footer {
+        margin-top: 28px;
+        padding-top: 22px;
+
+        border-top: 1px solid #E5DED2;
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .login-page .auth-footer p {
+        margin: 0;
+        color: #4C6565;
+        font-size: 13px;
+    }
+
+    body:not(.dark-theme) .login-page .link-highlight {
+        color: #0D1959;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    body:not(.dark-theme) .login-page .link-highlight:hover {
+        text-decoration: underline;
+    }
+
+    /* =====================================
+       ESTRUTURA E RESPONSIVIDADE
+       ===================================== */
+
+    .login-page {
+        min-height: 100%;
+        padding: 75px 20px 90px;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 520px) {
+        .login-page {
+            padding: 40px 14px 60px;
+        }
+
+        body:not(.dark-theme) .login-page .auth-card {
+            padding: 28px 20px;
+        }
+
+        body:not(.dark-theme) .login-page .auth-title {
+            font-size: 26px;
+        }
+    }
+</style>
+
+<section class="auth-container login-page">
+
     <div class="auth-card">
-        <span class="badge">Acesso à Conta</span>
-        <h1 class="auth-title">Entrar</h1>
+
+        <!-- ETIQUETA -->
+
+        <span class="badge">
+            Acesso à Conta
+        </span>
+
+        <!-- TÍTULO -->
+
+        <h1 class="auth-title">
+            Entrar
+        </h1>
+
         <p class="auth-subtitle">
             Acesse sua conta para continuar no Ecomply.
         </p>
 
-        <!-- Exibição de Mensagem de Erro, caso haja-->
+        <!-- MENSAGEM DE ERRO -->
+
         {% if erro %}
-            <div class="alert alert-error">
+            <div class="alert alert-error" role="alert">
                 <p>{{ erro }}</p>
             </div>
         {% endif %}
 
+        <!-- FORMULÁRIO -->
+
         <form method="POST" class="auth-form">
+
             {% csrf_token %}
 
             <div class="form-group">
-                <label for="username">Usuário</label>
+                <label for="username">
+                    Usuário
+                </label>
+
                 <input
                     type="text"
                     id="username"
                     name="username"
                     placeholder="Seu nome de usuário"
+                    autocomplete="username"
                     required
                 >
             </div>
 
             <div class="form-group">
-                <label for="password">Senha</label>
+                <label for="password">
+                    Senha
+                </label>
+
                 <input
                     type="password"
                     id="password"
                     name="password"
                     placeholder="Sua senha"
+                    autocomplete="current-password"
                     required
                 >
             </div>
@@ -48,7 +278,10 @@ Entrar | Ecomply
             <button type="submit" class="btn btn-primary btn-block">
                 Entrar
             </button>
+
         </form>
+
+        <!-- LINK PARA CADASTRO -->
 
         <div class="auth-footer">
             <p>
@@ -58,6 +291,9 @@ Entrar | Ecomply
                 </a>
             </p>
         </div>
+
     </div>
+
 </section>
+
 {% endblock %}

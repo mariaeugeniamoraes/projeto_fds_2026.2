@@ -1,3 +1,4 @@
+
 {% extends 'core/base.html' %}
 
 {% block title %}
@@ -5,15 +6,250 @@ Criar conta | Ecomply
 {% endblock %}
 
 {% block content %}
-<section class="auth-container">
+
+<style>
+    /* ======================================
+       CADASTRO - SOMENTE MODO CLARO
+       ====================================== */
+
+    body:not(.dark-theme):has(.cadastro-page) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.cadastro-page) .main-content,
+    body:not(.dark-theme):has(.cadastro-page) main {
+        background-color: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme) .cadastro-page {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme) .cadastro-page .auth-card {
+        width: 100%;
+        max-width: 440px;
+        margin: 0 auto;
+        padding: 38px 34px 32px;
+        box-sizing: border-box;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(13, 25, 89, 0.07);
+    }
+
+    body:not(.dark-theme) .cadastro-page .badge {
+        display: table;
+        margin: 0 auto 20px;
+        padding: 8px 15px;
+
+        background: #FFF1CA;
+        color: #0D1959;
+        border-radius: 30px;
+
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    body:not(.dark-theme) .cadastro-page .auth-title {
+        margin: 0 0 12px;
+        color: #0D1959;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .cadastro-page .auth-subtitle {
+        max-width: 350px;
+        margin: 0 auto 32px;
+
+        color: #4C6565;
+        font-size: 14px;
+        line-height: 1.6;
+        text-align: center;
+    }
+
+    /* CAMPOS GERADOS PELO DJANGO */
+
+    body:not(.dark-theme) .cadastro-page .django-form-fields > p {
+        margin: 0 0 19px;
+    }
+
+    body:not(.dark-theme) .cadastro-page .django-form-fields label {
+        display: block;
+        margin-bottom: 8px;
+
+        color: #0D1959;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    body:not(.dark-theme) .cadastro-page .django-form-fields input:not([type="checkbox"]),
+    body:not(.dark-theme) .cadastro-page .django-form-fields select,
+    body:not(.dark-theme) .cadastro-page .django-form-fields textarea {
+        display: block;
+        width: 100%;
+        min-height: 42px;
+        box-sizing: border-box;
+        padding: 10px 13px;
+
+        background: #F8F7F2;
+        border: 1px solid #D6D9DC;
+        border-radius: 7px;
+
+        color: #0D1959;
+        font: inherit;
+        font-size: 14px;
+    }
+
+    body:not(.dark-theme) .cadastro-page .django-form-fields input:focus,
+    body:not(.dark-theme) .cadastro-page .django-form-fields select:focus,
+    body:not(.dark-theme) .cadastro-page .django-form-fields textarea:focus {
+        outline: 2px solid #245B38;
+        outline-offset: 1px;
+    }
+
+    /* TEXTOS DE AJUDA E REGRAS DE SENHA */
+
+    body:not(.dark-theme) .cadastro-page .django-form-fields .helptext,
+    body:not(.dark-theme) .cadastro-page .django-form-fields p > span {
+        display: block;
+        margin-top: 8px;
+
+        color: #4C6565;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    body:not(.dark-theme) .cadastro-page .django-form-fields ul {
+        margin: 12px 0 20px;
+        padding-left: 20px;
+
+        color: #0D1959;
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    body:not(.dark-theme) .cadastro-page .django-form-fields li {
+        margin-bottom: 5px;
+    }
+
+    /* MENSAGENS DE ERRO */
+
+    body:not(.dark-theme) .cadastro-page .django-form-fields .errorlist {
+        margin: 6px 0 12px;
+        padding-left: 20px;
+
+        color: #B42318;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    body:not(.dark-theme) .cadastro-page .django-form-fields .errorlist li {
+        color: #B42318;
+    }
+
+    /* BOTÃO CRIAR CONTA */
+
+    body:not(.dark-theme) .cadastro-page .btn-primary {
+        display: block;
+        width: 100%;
+        min-height: 46px;
+        margin-top: 28px;
+        padding: 12px 20px;
+
+        background: #8C3E14 !important;
+        border: 1px solid #8C3E14 !important;
+        border-radius: 7px;
+
+        color: #FFFFFF !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    body:not(.dark-theme) .cadastro-page .btn-primary:hover {
+        background: #73320F !important;
+        border-color: #73320F !important;
+    }
+
+    /* LINK DE LOGIN */
+
+    body:not(.dark-theme) .cadastro-page .auth-footer {
+        margin-top: 28px;
+        padding-top: 22px;
+
+        border-top: 1px solid #E5DED2;
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .cadastro-page .auth-footer p {
+        margin: 0;
+        color: #4C6565;
+        font-size: 13px;
+    }
+
+    body:not(.dark-theme) .cadastro-page .link-highlight {
+        color: #0D1959;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    body:not(.dark-theme) .cadastro-page .link-highlight:hover {
+        text-decoration: underline;
+    }
+
+    /* ======================================
+       ESTRUTURA E RESPONSIVIDADE
+       ====================================== */
+
+    .cadastro-page {
+        min-height: 100%;
+        padding: 48px 20px 65px;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 520px) {
+        .cadastro-page {
+            padding: 28px 14px 45px;
+        }
+
+        body:not(.dark-theme) .cadastro-page .auth-card {
+            padding: 28px 20px;
+        }
+
+        body:not(.dark-theme) .cadastro-page .auth-title {
+            font-size: 26px;
+        }
+    }
+
+</style>
+
+<section class="auth-container cadastro-page">
+
     <div class="auth-card">
-        <span class="badge">Novo Usuário</span>
-        <h1 class="auth-title">Crie sua conta</h1>
+
+        <span class="badge">
+            Novo Usuário
+        </span>
+
+        <h1 class="auth-title">
+            Crie sua conta
+        </h1>
+
         <p class="auth-subtitle">
             Cadastre-se no Ecomply e comece a explorar nossas ferramentas.
         </p>
 
         <form method="POST" class="auth-form">
+
             {% csrf_token %}
 
             <div class="django-form-fields">
@@ -23,6 +259,7 @@ Criar conta | Ecomply
             <button type="submit" class="btn btn-primary btn-block">
                 Criar conta
             </button>
+
         </form>
 
         <div class="auth-footer">
@@ -33,6 +270,9 @@ Criar conta | Ecomply
                 </a>
             </p>
         </div>
+
     </div>
+
 </section>
+
 {% endblock %}

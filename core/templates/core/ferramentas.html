@@ -1,9 +1,17 @@
+
 {% extends 'core/base.html' %}
 
-{% block title %}Ferramentas - Ecomply{% endblock %}
+{% block title %}
+Ferramentas - Ecomply
+{% endblock %}
 
 {% block content %}
+
 <style>
+    /* ========================================
+       ESTILOS ORIGINAIS
+       ======================================== */
+
     .ferramentas-wrapper {
         max-width: 680px;
         margin: 3rem auto;
@@ -68,7 +76,10 @@
         background-color: #8C3E14;
     }
 
-    /* Modo Escuro */
+    /* ========================================
+       MODO ESCURO ORIGINAL - PRESERVADO
+       ======================================== */
+
     body.dark-theme .ferramenta-card {
         background-color: #0D1959 !important;
         border-color: #4C6565 !important;
@@ -81,22 +92,193 @@
     body.dark-theme .btn-minimal:hover {
         background-color: #a54c1d !important;
     }
+
+    /* ========================================
+       NOVO VISUAL - SOMENTE MODO CLARO
+       ======================================== */
+
+    /* Fundo bege uniforme, sem bolinhas */
+
+    body:not(.dark-theme):has(.ferramentas-wrapper) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.ferramentas-wrapper) main,
+    body:not(.dark-theme):has(.ferramentas-wrapper) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Área principal */
+
+    body:not(.dark-theme) .ferramentas-wrapper {
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 60px 24px 90px;
+        box-sizing: border-box;
+
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Cabeçalho */
+
+    body:not(.dark-theme) .ferramentas-header {
+        margin-bottom: 35px;
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .ferramentas-header h2 {
+        color: #0D1959;
+        font-size: clamp(30px, 4vw, 42px);
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 0 0 16px;
+    }
+
+    body:not(.dark-theme) .ferramentas-header p {
+        max-width: 650px;
+        margin: 0 auto;
+
+        color: #4C6565;
+        font-size: 16px;
+        line-height: 1.7;
+        opacity: 1;
+    }
+
+    /* Cartão da ferramenta */
+
+    body:not(.dark-theme) .ferramenta-card {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 35px;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+
+        box-shadow: 0 6px 20px rgba(13, 25, 89, 0.04);
+    }
+
+    body:not(.dark-theme) .ferramenta-card:hover {
+        border-color: #245B38;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(13, 25, 89, 0.07);
+    }
+
+    /* Título do cartão */
+
+    body:not(.dark-theme) .ferramenta-card h3 {
+        color: #0D1959;
+        font-size: 23px;
+        font-weight: 700;
+        line-height: 1.3;
+        margin: 0 0 16px;
+    }
+
+    /* Descrição */
+
+    body:not(.dark-theme) .ferramenta-card p {
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.8;
+        margin: 0 0 26px;
+    }
+
+    /* Botão laranja/marrom */
+
+    body:not(.dark-theme) .ferramenta-card .btn-minimal {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 48px;
+        padding: 13px 24px;
+        box-sizing: border-box;
+
+        background: #8C3E14 !important;
+        border: 1px solid #8C3E14;
+        border-radius: 9px;
+
+        color: #FFFFFF !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+
+        transition: background-color 0.2s ease;
+    }
+
+    body:not(.dark-theme) .ferramenta-card .btn-minimal:hover {
+        background: #73320F !important;
+        border-color: #73320F;
+    }
+
+    /* Responsividade */
+
+    @media (max-width: 600px) {
+        body:not(.dark-theme) .ferramentas-wrapper {
+            padding: 40px 16px 60px;
+        }
+
+        body:not(.dark-theme) .ferramentas-header {
+            margin-bottom: 28px;
+        }
+
+        body:not(.dark-theme) .ferramenta-card {
+            padding: 26px 22px;
+        }
+
+        body:not(.dark-theme) .ferramenta-card h3 {
+            font-size: 21px;
+        }
+
+        body:not(.dark-theme) .ferramenta-card .btn-minimal {
+            width: 100%;
+        }
+    }
 </style>
 
 <div class="ferramentas-wrapper">
+
+    <!-- CABEÇALHO -->
+
     <div class="ferramentas-header">
-        <h2>Ferramentas Sustentáveis</h2>
-        <p>Soluções práticas para apoiar a gestão socioambiental da sua empresa.</p>
+
+        <h2>
+            Ferramentas Sustentáveis
+        </h2>
+
+        <p>
+            Soluções práticas para apoiar a gestão
+            socioambiental da sua empresa.
+        </p>
+
     </div>
 
+    <!-- CALCULADORA DE EMBALAGENS -->
+
     <div class="ferramenta-card">
-        <h3>Calculadora de Embalagens</h3>
+
+        <h3>
+            Calculadora de Embalagens
+        </h3>
+
         <p>
-            Simule a substituição de materiais de embalagem convencionais por alternativas ecológicas e meça a economia financeira e o impacto ambiental.
+            Simule a substituição de materiais de embalagem
+            convencionais por alternativas ecológicas e meça
+            a economia financeira e o impacto ambiental.
         </p>
-        <a href="{% url 'calculadora_embalagens' %}" class="btn-minimal">
+
+        <a
+            href="{% url 'calculadora_embalagens' %}"
+            class="btn-minimal"
+        >
             Acessar Calculadora →
         </a>
+
     </div>
+
 </div>
+
 {% endblock %}

@@ -1,14 +1,13 @@
-{% extends 'core/base.html' %}
 
+{% extends 'core/base.html' %}
 {% load static %}
 
-{% block title %}
-Quem Somos | Ecomply
-{% endblock %}
+{% block title %}Quem Somos | Ecomply{% endblock %}
 
 {% block content %}
 
 <style>
+    /* Estilos originais mantidos */
     .team-section {
         margin-bottom: 2.5rem;
         width: 100%;
@@ -20,7 +19,7 @@ Quem Somos | Ecomply
         border-radius: 50%;
         object-fit: cover;
         display: block;
-        margin: 0 auto 0.5rem auto;
+        margin: 0 auto 0.5rem;
     }
 
     .member-name-link {
@@ -46,11 +45,241 @@ Quem Somos | Ecomply
     body.dark-theme .member-name-link:hover {
         color: #72d9a9 !important;
     }
+
+    /* ==========================================
+       QUEM SOMOS - SOMENTE MODO CLARO
+       ========================================== */
+
+    body:not(.dark-theme):has(.about-container) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.about-container) main,
+    body:not(.dark-theme):has(.about-container) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme) .about-container {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 55px 24px 80px;
+        box-sizing: border-box;
+    }
+
+    /* Cabeçalho */
+
+    body:not(.dark-theme) .about-header {
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    body:not(.dark-theme) .about-header .badge {
+        display: inline-block;
+        padding: 8px 18px;
+        margin-bottom: 18px;
+        background: #FFF1CA;
+        color: #0D1959;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    body:not(.dark-theme) .about-header .page-title {
+        color: #0D1959;
+        font-size: clamp(30px, 4vw, 44px);
+        line-height: 1.2;
+        margin: 0 0 15px;
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .about-header .page-subtitle {
+        color: #4C6565;
+        font-size: 16px;
+        line-height: 1.6;
+        max-width: 650px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    /* Equipe */
+
+    body:not(.dark-theme) .team-section {
+        margin-bottom: 45px;
+    }
+
+    body:not(.dark-theme) .section-title {
+        color: #0D1959;
+        font-size: 27px;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .team-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    body:not(.dark-theme) .team-card {
+        min-width: 0;
+        padding: 26px 14px;
+        box-sizing: border-box;
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 14px;
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    body:not(.dark-theme) .team-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 9px 24px rgba(13, 25, 89, 0.09);
+    }
+
+    body:not(.dark-theme) .member-avatar {
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 16px;
+        border: 3px solid #E5DED2;
+    }
+
+    body:not(.dark-theme) .member-name-link {
+        color: #0D1959;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 8px;
+        overflow-wrap: anywhere;
+    }
+
+    body:not(.dark-theme) .member-name-link:hover {
+        color: #245B38 !important;
+    }
+
+    body:not(.dark-theme) .member-email {
+        display: inline-block;
+        max-width: 100%;
+        color: #4C6565;
+        font-size: 12px;
+        line-height: 1.5;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+    }
+
+    body:not(.dark-theme) .member-email:hover {
+        color: #8C3E14;
+        text-decoration: underline;
+    }
+
+    /* Origem do projeto */
+
+    body:not(.dark-theme) .about-card {
+        padding: 36px 40px;
+        margin-bottom: 32px;
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+    }
+
+    body:not(.dark-theme) .card-section-title {
+        color: #0D1959;
+        font-size: 26px;
+        margin: 0 0 20px;
+    }
+
+    body:not(.dark-theme) .about-text {
+        color: #4C6565;
+        font-size: 16px;
+        line-height: 1.8;
+        margin: 0 0 16px;
+    }
+
+    body:not(.dark-theme) .about-text:last-child {
+        margin-bottom: 0;
+    }
+
+    body:not(.dark-theme) .about-text strong {
+        color: #0D1959;
+    }
+
+    /* Pilares */
+
+    body:not(.dark-theme) .pillars-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    body:not(.dark-theme) .pillar-card {
+        padding: 30px 25px;
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 14px;
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+    }
+
+    body:not(.dark-theme) .pillar-title {
+        color: #0D1959;
+        font-size: 21px;
+        margin: 0 0 15px;
+    }
+
+    body:not(.dark-theme) .pillar-desc {
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    /* Responsividade */
+
+    @media (max-width: 1000px) {
+        body:not(.dark-theme) .team-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 750px) {
+        body:not(.dark-theme) .team-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        body:not(.dark-theme) .pillars-grid {
+            grid-template-columns: 1fr;
+        }
+
+        body:not(.dark-theme) .about-card {
+            padding: 28px 22px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        body:not(.dark-theme) .about-container {
+            padding: 35px 16px 55px;
+        }
+
+        body:not(.dark-theme) .team-grid {
+            grid-template-columns: 1fr;
+        }
+
+        body:not(.dark-theme) .team-card {
+            padding: 24px 18px;
+        }
+    }
 </style>
 
 <section class="about-container">
 
-    <!-- Cabeçalho -->
+    <!-- CABEÇALHO -->
+
     <div class="about-header">
         <span class="badge">Nossa História</span>
 
@@ -61,7 +290,8 @@ Quem Somos | Ecomply
         </p>
     </div>
 
-    <!-- Equipe -->
+    <!-- NOSSA EQUIPE -->
+
     <section class="team-section">
         <h2 class="section-title">Nossa equipe</h2>
 
@@ -73,8 +303,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/amanda-carvalheira/"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     Amanda Carvalheira
                 </a>
@@ -90,8 +319,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/anajuliamelocs"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     Ana Júlia
                 </a>
@@ -107,8 +335,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/arthurmarenga"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     Arthur Marenga
                 </a>
@@ -124,8 +351,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/danielsantanabezerra/"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     Daniel Bezerra
                 </a>
@@ -141,8 +367,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/karollinemelo/"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     Flávia Karolline
                 </a>
@@ -158,8 +383,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/isabela-coutinho-de-melo-b585883b4/"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     Isabela Coutinho
                 </a>
@@ -175,8 +399,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     João Eduardo
                 </a>
@@ -192,8 +415,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/marcos-luiz-galdino-88b997426/"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     Marcos Galdino
                 </a>
@@ -209,8 +431,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/maria-eugenia-moraes"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     Maria Eugênia
                 </a>
@@ -226,8 +447,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     Maria Gabriella
                 </a>
@@ -243,8 +463,7 @@ Quem Somos | Ecomply
                      class="member-avatar">
 
                 <a href="https://www.linkedin.com/in/victor-telles-9150143b8/"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                   target="_blank" rel="noopener noreferrer"
                    class="member-name-link">
                     Victor Telles
                 </a>
@@ -257,56 +476,57 @@ Quem Somos | Ecomply
         </div>
     </section>
 
-    <!-- Card Principal: Origem e Faculdade -->
+    <!-- ORIGEM DO PROJETO -->
+
     <div class="about-card">
-
-        <h2 class="card-section-title">Nossa Origem & CESAR School</h2>
+        <h2 class="card-section-title">
+            Nossa Origem &amp; CESAR School
+        </h2>
 
         <p class="about-text">
-            O <strong>Ecomply</strong> nasceu do desejo de transformar a gestão de
-            sustentabilidade (ESG) em algo prático, transparente e acessível para
-            pequenas e médias empresas do setor de e-commerce.
+            O <strong>Ecomply</strong> nasceu do desejo de transformar a gestão
+            de sustentabilidade (ESG) em algo prático, transparente e acessível
+            para pequenas e médias empresas do setor de e-commerce.
         </p>
 
         <p class="about-text">
-            Desenvolvido por estudantes da <strong>CESAR School</strong>, o projeto
-            combina inovação tecnológica, design centrado no usuário e metodologias
-            de desenvolvimento de software para apoiar empresas na adoção de práticas
-            mais responsáveis nos aspectos ambientais, sociais e de governança.
+            Desenvolvido por estudantes da <strong>CESAR School</strong>,
+            o projeto combina inovação tecnológica, design centrado no usuário
+            e metodologias de desenvolvimento de software para apoiar empresas
+            na adoção de práticas mais responsáveis nos aspectos ambientais,
+            sociais e de governança.
         </p>
-
     </div>
 
-    <!-- Cards dos Pilares -->
+    <!-- PILARES DO ECOMPLY -->
+
     <div class="pillars-grid">
 
         <div class="pillar-card">
-
             <h3 class="pillar-title">Sustentabilidade</h3>
 
             <p class="pillar-desc">
-                Incentivar práticas responsáveis com foco nos impactos ambientais,
-                sociais e de governança das empresas do comércio eletrônico.
+                Incentivar práticas responsáveis com foco nos impactos
+                ambientais, sociais e de governança das empresas do
+                comércio eletrônico.
             </p>
         </div>
 
         <div class="pillar-icon-card pillar-card">
-
             <h3 class="pillar-title">Simplicidade</h3>
 
             <p class="pillar-desc">
-                Desmistificar critérios ESG complexos em etapas claras e fáceis
-                de aplicar no dia a dia.
+                Desmistificar critérios ESG complexos em etapas claras
+                e fáceis de aplicar no dia a dia.
             </p>
         </div>
 
         <div class="pillar-card">
-
             <h3 class="pillar-title">Inovação Acadêmica</h3>
 
             <p class="pillar-desc">
-                Aplicações práticas conectadas com os padrões de mercado e a
-                excelência da CESAR School.
+                Aplicações práticas conectadas com os padrões de mercado
+                e a excelência da CESAR School.
             </p>
         </div>
 

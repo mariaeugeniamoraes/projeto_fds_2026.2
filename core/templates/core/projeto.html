@@ -1,3 +1,4 @@
+
 {% extends 'core/base.html' %}
 
 {% block title %}
@@ -5,8 +6,12 @@ O Projeto & Deloitte | Ecomply
 {% endblock %}
 
 {% block content %}
+
 <style>
-    /* Estilos para o indicador de status dentro do card do projeto */
+    /* ==========================================
+       ESTILOS ORIGINAIS DO STATUS
+       ========================================== */
+
     .card-status-footer {
         margin-top: 1.5rem;
         padding-top: 1rem;
@@ -14,6 +19,7 @@ O Projeto & Deloitte | Ecomply
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 12px;
     }
 
     .status-label {
@@ -36,114 +42,411 @@ O Projeto & Deloitte | Ecomply
         width: 8px;
         height: 8px;
         border-radius: 50%;
+        flex-shrink: 0;
     }
 
-    /* Status 1: Em Desenvolvimento */
     .status-dev {
         background-color: #fef3c7;
         color: #92400e;
     }
+
     .status-dev .status-dot {
         background-color: #d97706;
         animation: status-pulse 1.8s infinite;
     }
 
-    /* Status 2: Concluído */
     .status-completed {
         background-color: var(--accent-green-light, #e6f0ec);
         color: var(--primary-green, #1b4d3e);
     }
+
     .status-completed .status-dot {
         background-color: var(--primary-green, #1b4d3e);
     }
 
-    /* Status 3: Em Manutenção */
     .status-maintenance {
         background-color: #e0e7ff;
         color: #3730a3;
     }
+
     .status-maintenance .status-dot {
         background-color: #4f46e5;
         animation: status-pulse 1.8s infinite;
     }
 
     @keyframes status-pulse {
-        0% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.4; transform: scale(1.2); }
-        100% { opacity: 1; transform: scale(1); }
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.4;
+            transform: scale(1.2);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* ==========================================
+       O PROJETO - SOMENTE MODO CLARO
+       ========================================== */
+
+    /* Fundo bege liso, sem bolinhas */
+
+    body:not(.dark-theme):has(.project-container) {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme):has(.project-container) main,
+    body:not(.dark-theme):has(.project-container) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme) .project-container {
+        max-width: 1150px;
+        margin: 0 auto;
+        padding: 60px 24px 80px;
+        box-sizing: border-box;
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    /* Cabeçalho */
+
+    body:not(.dark-theme) .project-header {
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+    body:not(.dark-theme) .project-header .badge {
+        display: inline-block;
+        padding: 8px 18px;
+        margin-bottom: 18px;
+
+        background: #FFF1CA;
+        color: #0D1959;
+        border-radius: 30px;
+
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    body:not(.dark-theme) .project-header .page-title {
+        color: #0D1959;
+        font-size: clamp(30px, 4vw, 44px);
+        line-height: 1.2;
+        margin: 0 0 15px;
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .project-header .page-subtitle {
+        color: #4C6565;
+        font-size: 16px;
+        line-height: 1.6;
+        max-width: 680px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    /* Dois cartões principais */
+
+    body:not(.dark-theme) .project-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        align-items: stretch;
+        margin-bottom: 32px;
+    }
+
+    body:not(.dark-theme) .project-card {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        padding: 34px;
+        box-sizing: border-box;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+    }
+
+    body:not(.dark-theme) .project-card .card-badge {
+        align-self: flex-start;
+        display: inline-block;
+        padding: 7px 13px;
+        margin-bottom: 20px;
+
+        background: #E7F0E8;
+        color: #245B38;
+        border-radius: 30px;
+
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    body:not(.dark-theme) .project-card .card-section-title {
+        color: #0D1959;
+        font-size: 25px;
+        line-height: 1.3;
+        margin: 0 0 20px;
+    }
+
+    body:not(.dark-theme) .project-card .project-text {
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.8;
+        margin: 0 0 16px;
+    }
+
+    body:not(.dark-theme) .project-card .project-text strong {
+        color: #0D1959;
+    }
+
+    /* Status do projeto */
+
+    body:not(.dark-theme) .card-status-footer {
+        margin-top: auto;
+        padding-top: 22px;
+        border-top: 1px solid #E5DED2;
+    }
+
+    body:not(.dark-theme) .status-label {
+        color: #4C6565;
+        font-size: 13px;
+    }
+
+    /* Cartão Google Sites */
+
+    body:not(.dark-theme) .external-link-card {
+        padding: 38px 32px;
+        box-sizing: border-box;
+
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+
+        text-align: center;
+    }
+
+    body:not(.dark-theme) .external-title {
+        color: #0D1959;
+        font-size: 25px;
+        line-height: 1.3;
+        margin: 0 0 15px;
+    }
+
+    body:not(.dark-theme) .external-desc {
+        max-width: 680px;
+        margin: 0 auto 26px;
+
+        color: #4C6565;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    /* Botão laranja */
+
+    body:not(.dark-theme) .project-container .btn-external {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 46px;
+        padding: 12px 26px;
+        box-sizing: border-box;
+
+        background: #8C3E14 !important;
+        border: 1px solid #8C3E14 !important;
+        border-radius: 8px;
+
+        color: #FFFFFF !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    body:not(.dark-theme) .project-container .btn-external:hover {
+        background: #73320F !important;
+        border-color: #73320F !important;
+    }
+
+    /* Responsividade */
+
+    @media (max-width: 800px) {
+        body:not(.dark-theme) .project-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 520px) {
+        body:not(.dark-theme) .project-container {
+            padding: 35px 16px 55px;
+        }
+
+        body:not(.dark-theme) .project-card {
+            padding: 25px 20px;
+        }
+
+        body:not(.dark-theme) .external-link-card {
+            padding: 28px 20px;
+        }
+
+        body:not(.dark-theme) .card-status-footer {
+            flex-wrap: wrap;
+        }
+
+        body:not(.dark-theme) .project-card .card-section-title,
+        body:not(.dark-theme) .external-title {
+            font-size: 22px;
+        }
     }
 </style>
 
 <section class="project-container">
-    
-    <!-- Cabeçalho -->
+
+    <!-- CABEÇALHO -->
+
     <div class="project-header">
-        <span class="badge">Benchmarking & Visão</span>
-        <h1 class="page-title">O Projeto & Referência</h1>
+
+        <span class="badge">
+            Benchmarking &amp; Visão
+        </span>
+
+        <h1 class="page-title">
+            O Projeto &amp; Referência
+        </h1>
+
         <p class="page-subtitle">
             Entenda a inspiração por trás do Ecomply e acesse nossa documentação completa.
         </p>
+
     </div>
 
-    <!-- Grid de Conteúdo -->
+    <!-- CARTÕES PRINCIPAIS -->
+
     <div class="project-grid">
-        
-        <!-- Card Deloitte -->
+
+        <!-- DELOITTE -->
+
         <div class="project-card">
-            <div class="card-badge">Referência de Mercado</div>
-            <h2 class="card-section-title">Empresa de Referência: Deloitte</h2>
+
+            <div class="card-badge">
+                Referência de Mercado
+            </div>
+
+            <h2 class="card-section-title">
+                Empresa de Referência: Deloitte
+            </h2>
+
             <p class="project-text">
-                A <strong>Deloitte</strong> é uma das maiores redes de prestação de serviços profissionais do mundo, 
-                reconhecida globalmente por sua liderança em consultoria de sustentabilidade, auditoria e governança corporativa.
+                A <strong>Deloitte</strong> é uma das maiores redes de prestação
+                de serviços profissionais do mundo, reconhecida globalmente
+                por sua liderança em consultoria de sustentabilidade,
+                auditoria e governança corporativa.
             </p>
+
             <p class="project-text">
-                Utilizamos as diretrizes e relatórios de boas práticas ESG da Deloitte como 
-                benchmarking estratégico para embasá-lo com métricas confiáveis e estrutura de nível corporativo.
+                Utilizamos as diretrizes e relatórios de boas práticas ESG
+                da Deloitte como benchmarking estratégico para embasar
+                nossa solução com métricas confiáveis e uma estrutura
+                de nível corporativo.
             </p>
+
         </div>
 
-        <!-- Card Sobre o Projeto (Status adicionado no rodapé deste card) -->
+        <!-- ECOMPLY -->
+
         <div class="project-card">
-            <div class="card-badge">Solução</div>
-            <h2 class="card-section-title">O Projeto Ecomply</h2>
+
+            <div class="card-badge">
+                Solução
+            </div>
+
+            <h2 class="card-section-title">
+                O Projeto Ecomply
+            </h2>
+
             <p class="project-text">
-                O Ecomply foi idealizado para preencher a lacuna entre a complexidade 
-                das normas ESG e a realidade operacional de PMEs do setor de e-commerce..
+                O Ecomply foi idealizado para preencher a lacuna entre
+                a complexidade das normas ESG e a realidade operacional
+                de pequenas e médias empresas do setor de e-commerce.
             </p>
+
             <p class="project-text">
-                A plataforma auxilia gestores a diagnosticarem suas práticas, 
-                identificarem pontos de melhoria e acompanharem metas de sustentabilidade de forma intuitiva.
+                A plataforma auxilia gestores a diagnosticarem suas práticas,
+                identificarem pontos de melhoria e acompanharem metas
+                de sustentabilidade de forma intuitiva.
             </p>
 
             <!-- STATUS DO PROJETO -->
+
             <div class="card-status-footer">
-                <span class="status-label">Status do Projeto:</span>
-                
-                <!-- Para mudar o status, troque as classes e o texto:
-                     • Em Desenvolvimento -> class="status-badge status-dev"
-                     • Concluído         -> class="status-badge status-completed"
-                     • Em Manutenção     -> class="status-badge status-maintenance"
+
+                <span class="status-label">
+                    Status do Projeto:
+                </span>
+
+                <!--
+                    Para atualizar o status futuramente:
+
+                    Em Desenvolvimento:
+                    class="status-badge status-dev"
+
+                    Concluído:
+                    class="status-badge status-completed"
+
+                    Em Manutenção:
+                    class="status-badge status-maintenance"
                 -->
+
                 <div class="status-badge status-dev">
                     <span class="status-dot"></span>
-                    <span class="status-text">Em Desenvolvimento</span>
+                    <span class="status-text">
+                        Em Desenvolvimento
+                    </span>
                 </div>
+
             </div>
+
         </div>
 
     </div>
 
-    <!-- Google Sites -->
+    <!-- DOCUMENTAÇÃO -->
+
     <div class="external-link-card">
-        <h3 class="external-title">Quer se aprofundar na documentação?</h3>
+
+        <h3 class="external-title">
+            Quer se aprofundar na documentação?
+        </h3>
+
         <p class="external-desc">
-            Acesse nosso portal no Google Sites para conferir relatórios detalhados, pesquisas e toda a documentação do projeto.
+            Acesse nosso portal no Google Sites para conferir relatórios
+            detalhados, pesquisas e toda a documentação do projeto.
         </p>
-        
-        <a href="https://sites.google.com/cesar.school/projetos2-equipe16/home" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-external">
+
+        <a
+            href="https://sites.google.com/cesar.school/projetos2-equipe16/home"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary btn-external"
+        >
             Acessar Google Sites
         </a>
+
     </div>
 
 </section>
+
 {% endblock %}
