@@ -1,8 +1,16 @@
+
 {% extends "core/base.html" %}
 {% load static %}
 
+{% block title %}Dashboard | Ecomply{% endblock %}
+
 {% block content %}
+
 <style>
+    /* ==========================================
+       DASHBOARD — ESTILOS GERAIS
+       ========================================== */
+
     .dashboard {
         --dash-bg: var(--bg-color, #f8f7f2);
         --dash-card: var(--card-bg, #ffffff);
@@ -59,6 +67,8 @@
         max-width: 650px;
     }
 
+    /* SELETOR DE EMPRESA */
+
     .dashboard .dash-selector {
         display: flex;
         align-items: center;
@@ -102,6 +112,8 @@
         opacity: 0.85;
     }
 
+    /* SEÇÕES */
+
     .dashboard .dash-section {
         margin-top: 34px;
     }
@@ -125,6 +137,8 @@
         color: var(--dash-muted);
     }
 
+    /* INDICADORES ESG */
+
     .dashboard .dash-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -138,7 +152,10 @@
         color: var(--dash-text);
         border: 1px solid var(--dash-border);
         border-radius: 15px;
-        box-shadow: var(--shadow-subtle, 0 5px 18px rgba(13, 25, 89, 0.06));
+        box-shadow: var(
+            --shadow-subtle,
+            0 5px 18px rgba(13, 25, 89, 0.06)
+        );
     }
 
     .dashboard .dash-card-main {
@@ -242,6 +259,8 @@
         color: var(--dash-accent);
     }
 
+    /* FINANCEIRO */
+
     .dashboard .dash-finance-card .dash-value {
         font-size: clamp(21px, 2.5vw, 28px);
     }
@@ -257,6 +276,8 @@
     .dashboard .dash-balance {
         color: var(--dash-primary);
     }
+
+    /* STATUS DOS PLANOS */
 
     .dashboard .dash-status-grid {
         display: grid;
@@ -282,6 +303,8 @@
         border-top: 4px solid var(--dash-primary);
     }
 
+    /* AVISOS */
+
     .dashboard .dash-notice {
         background: var(--dash-card);
         color: var(--dash-muted);
@@ -299,6 +322,8 @@
         color: var(--dash-text);
     }
 
+    /* GRÁFICOS */
+
     .dashboard .dash-chart-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -311,7 +336,10 @@
         background: var(--dash-card);
         border: 1px solid var(--dash-border);
         border-radius: 15px;
-        box-shadow: var(--shadow-subtle, 0 5px 18px rgba(13, 25, 89, 0.06));
+        box-shadow: var(
+            --shadow-subtle,
+            0 5px 18px rgba(13, 25, 89, 0.06)
+        );
     }
 
     .dashboard .dash-chart-card h3 {
@@ -355,7 +383,8 @@
         width: 100%;
     }
 
-    /* Estilos da Lista de Ações */
+    /* LISTA DE AÇÕES */
+
     .dashboard .dash-action-list {
         list-style: none;
         padding: 0;
@@ -383,6 +412,10 @@
         background: var(--dash-bg);
         color: var(--dash-brown);
     }
+
+    /* ==========================================
+       RESPONSIVIDADE
+       ========================================== */
 
     @media (max-width: 900px) {
         .dashboard .dash-chart-grid {
@@ -434,51 +467,157 @@
             align-items: flex-start;
         }
     }
+
+    /* ==========================================
+       FIGMA — SOMENTE MODO CLARO
+
+       IMPORTANTE:
+       Este bloco está FORA dos @media.
+       Assim funciona no computador e celular.
+       ========================================== */
+
+    body:not(.dark-theme):has(.dashboard),
+    body:not(.dark-theme):has(.dashboard) .main-content {
+        background-color: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme) .dashboard {
+        --dash-bg: #F7F2E9;
+        --dash-card: #FFFCF7;
+        --dash-primary: #0D1959;
+        --dash-accent: #FFF3CD;
+        --dash-text: #0D1959;
+        --dash-muted: #4C6565;
+        --dash-border: #E5DED2;
+        --dash-brown: #8C3E14;
+    }
+
+    /* Cartões claros */
+
+    body:not(.dark-theme) .dashboard .dash-card,
+    body:not(.dark-theme) .dashboard .dash-chart-card,
+    body:not(.dark-theme) .dashboard .dash-notice,
+    body:not(.dark-theme) .dashboard .dash-selector {
+        background-color: #FFFCF7;
+        border-color: #E5DED2;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Primeiro cartão ESG verde */
+
+    body:not(.dark-theme) .dashboard .dash-card-main {
+        background: #245B38 !important;
+        border-color: #245B38 !important;
+        color: #FFFFFF !important;
+    }
+
+    body:not(.dark-theme) .dashboard .dash-card-main .dash-label,
+    body:not(.dark-theme) .dashboard .dash-card-main .dash-value {
+        color: #FFFFFF !important;
+    }
+
+    body:not(.dark-theme) .dashboard .dash-card-main .dash-note {
+        color: #FFF3CD;
+    }
+
+    /* Botões marrons */
+
+    body:not(.dark-theme) .dashboard .dash-button {
+        background: #8C3E14 !important;
+        border-color: #8C3E14 !important;
+        color: #FFFFFF !important;
+    }
+
+    body:not(.dark-theme) .dashboard .dash-button:hover {
+        background: #713010 !important;
+    }
+
+    /* Indicadores */
+
+    body:not(.dark-theme) .dashboard .dash-status-pending {
+        border-top: 4px solid #8C3E14;
+    }
+
+    body:not(.dark-theme) .dashboard .dash-status-progress {
+        border-top: 4px solid #4C6565;
+    }
+
+    body:not(.dark-theme) .dashboard .dash-status-done {
+        border-top: 4px solid #0D1959;
+    }
+
+    /* Títulos */
+
+    body:not(.dark-theme) .dashboard h1,
+    body:not(.dark-theme) .dashboard h2,
+    body:not(.dark-theme) .dashboard .dash-chart-card h3 {
+        color: #0D1959;
+    }
+
 </style>
 
 <div class="dashboard">
+
+    <!-- CABEÇALHO -->
+
     <section class="dash-header">
         <div>
             <p class="dash-eyebrow">Visão geral</p>
+
             <h1 class="dash-title">Seu dashboard</h1>
+
             <p class="dash-description">
-                Acompanhe o desempenho ESG, os planos de ação e a saúde financeira da sua empresa.
+                Acompanhe o desempenho ESG, os planos de ação
+                e a saúde financeira da sua empresa.
             </p>
         </div>
 
         {% if empresas %}
-        <form method="get" class="dash-selector">
-            <label for="empresa">Empresa</label>
+            <form method="get" class="dash-selector">
+                <label for="empresa">Empresa</label>
 
-            <select name="empresa" id="empresa">
-                {% for item in empresas %}
-                    <option value="{{ item.id }}"
-                        {% if empresa_selecionada and item.id == empresa_selecionada.id %}
-                            selected
-                        {% endif %}>
-                        {{ item }}
-                    </option>
-                {% endfor %}
-            </select>
+                <select name="empresa" id="empresa">
+                    {% for item in empresas %}
+                        <option value="{{ item.id }}"
+                            {% if empresa_selecionada and item.id == empresa_selecionada.id %}
+                                selected
+                            {% endif %}>
+                            {{ item }}
+                        </option>
+                    {% endfor %}
+                </select>
 
-            <button type="submit" class="dash-button">Atualizar</button>
-        </form>
+                <button type="submit" class="dash-button">
+                    Atualizar
+                </button>
+            </form>
         {% endif %}
     </section>
 
     {% if empresas %}
 
-    <!-- Desempenho ESG -->
+    <!-- DESEMPENHO ESG -->
+
     <section class="dash-section">
         <div class="dash-section-heading">
             <h2>Desempenho ESG</h2>
-            <span class="dash-legend">Último diagnóstico concluído</span>
+            <span class="dash-legend">
+                Último diagnóstico concluído
+            </span>
         </div>
 
         <div class="dash-grid">
+
+            <!-- PONTUAÇÃO GERAL -->
+
             <article class="dash-card dash-card-main">
                 <div class="dash-card-top">
-                    <span class="dash-label">Pontuação ESG geral</span>
+                    <span class="dash-label">
+                        Pontuação ESG geral
+                    </span>
+
                     <span class="dash-icon">★</span>
                 </div>
 
@@ -491,8 +630,9 @@
                 </div>
 
                 <div class="dash-bar">
-                    <div class="dash-bar-fill"
-                         style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_geral }}{% else %}0{% endif %}%;">
+                    <div
+                        class="dash-bar-fill"
+                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_geral }}{% else %}0{% endif %}%;">
                     </div>
                 </div>
 
@@ -504,6 +644,8 @@
                     {% endif %}
                 </div>
             </article>
+
+            <!-- AMBIENTAL -->
 
             <article class="dash-card">
                 <div class="dash-card-top">
@@ -520,13 +662,18 @@
                 </div>
 
                 <div class="dash-bar">
-                    <div class="dash-bar-fill"
-                         style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_ambiental }}{% else %}0{% endif %}%;">
+                    <div
+                        class="dash-bar-fill"
+                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_ambiental }}{% else %}0{% endif %}%;">
                     </div>
                 </div>
 
-                <div class="dash-note">Impacto ambiental</div>
+                <div class="dash-note">
+                    Impacto ambiental
+                </div>
             </article>
+
+            <!-- SOCIAL -->
 
             <article class="dash-card">
                 <div class="dash-card-top">
@@ -543,13 +690,18 @@
                 </div>
 
                 <div class="dash-bar">
-                    <div class="dash-bar-fill dash-bar-social"
-                         style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_social }}{% else %}0{% endif %}%;">
+                    <div
+                        class="dash-bar-fill dash-bar-social"
+                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_social }}{% else %}0{% endif %}%;">
                     </div>
                 </div>
 
-                <div class="dash-note">Responsabilidade social</div>
+                <div class="dash-note">
+                    Responsabilidade social
+                </div>
             </article>
+
+            <!-- GOVERNANÇA -->
 
             <article class="dash-card">
                 <div class="dash-card-top">
@@ -566,192 +718,304 @@
                 </div>
 
                 <div class="dash-bar">
-                    <div class="dash-bar-fill dash-bar-governance"
-                         style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_governanca }}{% else %}0{% endif %}%;">
+                    <div
+                        class="dash-bar-fill dash-bar-governance"
+                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_governanca }}{% else %}0{% endif %}%;">
                     </div>
                 </div>
 
-                <div class="dash-note">Ética e transparência</div>
+                <div class="dash-note">
+                    Ética e transparência
+                </div>
             </article>
+
         </div>
     </section>
-    
-    <!-- Análise de Indicadores -->
+
+    <!-- ANÁLISE DOS INDICADORES -->
+
     <section class="dash-section">
         <div class="dash-section-heading">
             <h2>Análise dos indicadores</h2>
-            <span class="dash-legend">Dados do diagnóstico selecionado</span>
+            <span class="dash-legend">
+                Dados do diagnóstico selecionado
+            </span>
         </div>
 
         <div class="dash-chart-grid">
+
             <article class="dash-chart-card">
                 <h3>Comparativo por dimensão</h3>
+
                 <p class="dash-chart-description">
                     Identifique quais dimensões ESG apresentam maior pontuação.
                 </p>
 
                 {% if ultimo_diagnostico %}
                     <div class="dash-chart-container">
-                        <canvas id="esgChart"
-                                role="img"
-                                aria-label="Comparação das pontuações Ambiental, Social e Governança">
+                        <canvas
+                            id="esgChart"
+                            role="img"
+                            aria-label="Comparação das pontuações Ambiental, Social e Governança">
                         </canvas>
                     </div>
                 {% else %}
                     <div class="dash-chart-empty">
-                        Conclua seu primeiro diagnóstico para visualizar este gráfico.
+                        Conclua seu primeiro diagnóstico
+                        para visualizar este gráfico.
                     </div>
                 {% endif %}
             </article>
 
             <article class="dash-chart-card">
                 <h3>Evolução da pontuação ESG</h3>
+
                 <p class="dash-chart-description">
-                    Compare a pontuação geral dos diagnósticos ao longo do tempo.
+                    Compare a pontuação geral dos diagnósticos
+                    ao longo do tempo.
                 </p>
 
                 {% if total_diagnosticos > 0 %}
                     {% if total_diagnosticos > 1 %}
                         <div class="dash-chart-container">
-                            <canvas id="historyChart"
-                                    role="img"
-                                    aria-label="Evolução histórica da pontuação ESG geral">
+                            <canvas
+                                id="historyChart"
+                                role="img"
+                                aria-label="Evolução histórica da pontuação ESG geral">
                             </canvas>
                         </div>
                     {% else %}
                         <div class="dash-chart-empty">
-                            Você tem um diagnóstico concluído. Realize outro para começar a comparar sua evolução.
+                            Você tem um diagnóstico concluído.
+                            Realize outro para começar a comparar sua evolução.
                         </div>
                     {% endif %}
                 {% else %}
                     <div class="dash-chart-empty">
-                        Seu histórico aparecerá aqui após a conclusão dos diagnósticos.
+                        Seu histórico aparecerá aqui após
+                        a conclusão dos diagnósticos.
                     </div>
                 {% endif %}
             </article>
+
         </div>
     </section>
 
-    <!-- Planos de Ação -->
+    <!-- PLANOS DE AÇÃO -->
+
     <section class="dash-section">
+
         <div class="dash-section-heading">
             <div>
                 <h2>Planos de ação</h2>
-                <span class="dash-legend">Acompanhamento das iniciativas</span>
+                <span class="dash-legend">
+                    Acompanhamento das iniciativas
+                </span>
             </div>
 
             {% if empresa_selecionada %}
-                <a href="{% url 'listar_planos_acao' empresa_selecionada.id %}" class="dash-button" style="font-size: 13px;">
+                <a
+                    href="{% url 'listar_planos_acao' empresa_selecionada.id %}"
+                    class="dash-button"
+                    style="font-size: 13px;">
                     + Gerenciar ações
                 </a>
             {% endif %}
         </div>
 
         <div class="dash-status-grid">
+
             <article class="dash-card dash-status-pending">
                 <div class="dash-label">Pendentes</div>
-                <div class="dash-status-number">{{ planos_pendentes }}</div>
-                <div class="dash-note">Aguardando início</div>
+                <div class="dash-status-number">
+                    {{ planos_pendentes }}
+                </div>
+                <div class="dash-note">
+                    Aguardando início
+                </div>
             </article>
 
             <article class="dash-card dash-status-progress">
                 <div class="dash-label">Em andamento</div>
-                <div class="dash-status-number">{{ planos_em_andamento }}</div>
-                <div class="dash-note">Iniciativas em execução</div>
+                <div class="dash-status-number">
+                    {{ planos_em_andamento }}
+                </div>
+                <div class="dash-note">
+                    Iniciativas em execução
+                </div>
             </article>
 
             <article class="dash-card dash-status-done">
                 <div class="dash-label">Concluídos</div>
-                <div class="dash-status-number">{{ planos_concluidos }}</div>
-                <div class="dash-note">Iniciativas finalizadas</div>
+                <div class="dash-status-number">
+                    {{ planos_concluidos }}
+                </div>
+                <div class="dash-note">
+                    Iniciativas finalizadas
+                </div>
             </article>
+
         </div>
-        
+
+        <!-- GRÁFICO DOS PLANOS -->
+
         <div class="dash-chart-card" style="margin-top: 18px;">
             <h3>Distribuição dos planos de ação</h3>
+
             <p class="dash-chart-description">
-                Visualize como as iniciativas estão distribuídas entre os status.
+                Visualize como as iniciativas estão distribuídas
+                entre os status.
             </p>
 
             <div class="dash-chart-container">
-                <canvas id="plansChart"
-                        role="img"
-                        aria-label="Distribuição dos planos de ação por status">
+                <canvas
+                    id="plansChart"
+                    role="img"
+                    aria-label="Distribuição dos planos de ação por status">
                 </canvas>
             </div>
         </div>
 
-        <!-- Bloco de Próximas Ações Sugeridas -->
+        <!-- PRÓXIMAS AÇÕES -->
+
         <div class="dash-notice" style="margin-top: 18px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <h3 style="margin: 0; color: var(--dash-primary); font-size: 17px;">Próximas ações sugeridas</h3>
+
+            <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16px;
+                gap: 12px;
+                flex-wrap: wrap;
+            ">
+                <h3 style="
+                    margin: 0;
+                    color: var(--dash-primary);
+                    font-size: 17px;
+                ">
+                    Próximas ações sugeridas
+                </h3>
+
                 {% if empresa_selecionada %}
-                    <a href="{% url 'listar_planos_acao' empresa_selecionada.id %}" style="font-size: 13px; color: var(--dash-primary); font-weight: bold; text-decoration: none;">
+                    <a
+                        href="{% url 'listar_planos_acao' empresa_selecionada.id %}"
+                        style="
+                            font-size: 13px;
+                            color: var(--dash-primary);
+                            font-weight: bold;
+                            text-decoration: none;
+                        ">
                         Ver todas →
                     </a>
                 {% endif %}
             </div>
 
             {% if ultimos_planos %}
+
                 <ul class="dash-action-list">
                     {% for plano in ultimos_planos %}
-                    <li class="dash-action-item">
-                        <div>
-                            <strong style="color: var(--dash-text); display: block; font-size: 14px;">{{ plano.titulo }}</strong>
-                            <span style="font-size: 12px; color: var(--dash-muted);">
-                                {% if plano.get_pilar_display %}Pilar: {{ plano.get_pilar_display }}{% endif %}
+                        <li class="dash-action-item">
+
+                            <div>
+                                <strong style="
+                                    color: var(--dash-text);
+                                    display: block;
+                                    font-size: 14px;
+                                ">
+                                    {{ plano.titulo }}
+                                </strong>
+
+                                <span style="
+                                    font-size: 12px;
+                                    color: var(--dash-muted);
+                                ">
+                                    {% if plano.get_pilar_display %}
+                                        Pilar: {{ plano.get_pilar_display }}
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                            <span class="dash-action-badge">
+                                {% if plano.get_status_display %}
+                                    {{ plano.get_status_display }}
+                                {% else %}
+                                    {{ plano.status }}
+                                {% endif %}
                             </span>
-                        </div>
-                        <span class="dash-action-badge">
-                            {% if plano.get_status_display %}{{ plano.get_status_display }}{% else %}{{ plano.status }}{% endif %}
-                        </span>
-                    </li>
+
+                        </li>
                     {% endfor %}
                 </ul>
+
             {% else %}
-                <p style="margin: 0; font-size: 13px;">Nenhuma ação pendente no momento para esta empresa.</p>
+
+                <p style="margin: 0; font-size: 13px;">
+                    Nenhuma ação pendente no momento para esta empresa.
+                </p>
+
             {% endif %}
+
         </div>
 
     </section>
 
-    <!-- Resumo Financeiro -->
+    <!-- RESUMO FINANCEIRO -->
+
     <section class="dash-section">
+
         <div class="dash-section-heading">
             <h2>Resumo financeiro</h2>
-            <span class="dash-legend">Valores registrados</span>
+            <span class="dash-legend">
+                Valores registrados
+            </span>
         </div>
 
         <div class="dash-grid dash-finance-grid">
+
             <article class="dash-card dash-finance-card">
                 <div class="dash-label">Receitas</div>
+
                 <div class="dash-value dash-income">
                     R$ {{ receitas|floatformat:2 }}
                 </div>
-                <div class="dash-note">Entradas registradas</div>
+
+                <div class="dash-note">
+                    Entradas registradas
+                </div>
             </article>
 
             <article class="dash-card dash-finance-card">
                 <div class="dash-label">Custos</div>
+
                 <div class="dash-value dash-cost">
                     R$ {{ custos|floatformat:2 }}
                 </div>
-                <div class="dash-note">Saídas registradas</div>
+
+                <div class="dash-note">
+                    Saídas registradas
+                </div>
             </article>
 
             <article class="dash-card dash-finance-card">
                 <div class="dash-label">Saldo</div>
+
                 <div class="dash-value dash-balance">
                     R$ {{ saldo|floatformat:2 }}
                 </div>
-                <div class="dash-note">Receitas menos custos</div>
+
+                <div class="dash-note">
+                    Receitas menos custos
+                </div>
             </article>
+
         </div>
 
         <article class="dash-chart-card dash-finance-chart">
             <h3>Receitas e custos ao longo do tempo</h3>
+
             <p class="dash-chart-description">
-                Compare as movimentações financeiras registradas nos últimos seis meses.
+                Compare as movimentações financeiras registradas
+                nos últimos seis meses.
             </p>
 
             <div class="dash-chart-container">
@@ -762,36 +1026,54 @@
                 </canvas>
             </div>
         </article>
+
     </section>
 
-    <!-- Último Diagnóstico -->
+    <!-- ÚLTIMO DIAGNÓSTICO -->
+
     <section class="dash-section">
+
         <div class="dash-section-heading">
             <h2>Último diagnóstico</h2>
         </div>
 
         {% if ultimo_diagnostico %}
+
             <div class="dash-notice">
                 <strong>Data de conclusão:</strong>
                 {{ ultimo_diagnostico.data_criacao|date:"d/m/Y" }}
             </div>
+
         {% else %}
+
             <div class="dash-notice">
                 Sua empresa ainda não possui diagnósticos concluídos.
-                Realize um diagnóstico ESG para acompanhar os indicadores nesta página.
+                Realize um diagnóstico ESG para acompanhar os indicadores
+                nesta página.
             </div>
+
         {% endif %}
+
     </section>
 
     {% else %}
 
-    <div class="dash-notice">
-        <h2>Nenhuma empresa cadastrada</h2>
-        <p>Cadastre uma empresa para visualizar os indicadores ESG e financeiros.</p>
-    </div>
+        <!-- NENHUMA EMPRESA -->
+
+        <div class="dash-notice">
+            <h2>Nenhuma empresa cadastrada</h2>
+
+            <p>
+                Cadastre uma empresa para visualizar
+                os indicadores ESG e financeiros.
+            </p>
+        </div>
 
     {% endif %}
+
 </div>
+
+<!-- DADOS DOS GRÁFICOS -->
 
 {{ dados_graficos|json_script:"dashboard-chart-data" }}
 
@@ -799,7 +1081,10 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const dataElement = document.getElementById("dashboard-chart-data");
+
+    const dataElement = document.getElementById(
+        "dashboard-chart-data"
+    );
 
     if (!dataElement || typeof Chart === "undefined") {
         return;
@@ -817,10 +1102,12 @@ document.addEventListener("DOMContentLoaded", function () {
         muted: "#AEB6C2"
     };
 
-    const texto = getComputedStyle(document.querySelector(".dashboard"))
+    const dashboard = document.querySelector(".dashboard");
+
+    const texto = getComputedStyle(dashboard)
         .getPropertyValue("--dash-text").trim() || cores.navy;
 
-    const grade = getComputedStyle(document.querySelector(".dashboard"))
+    const grade = getComputedStyle(dashboard)
         .getPropertyValue("--dash-border").trim() || cores.muted;
 
     Chart.defaults.color = texto;
@@ -836,70 +1123,90 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    /* COMPARATIVO ESG */
+
     criarGrafico("esgChart", {
         type: "bar",
+
         data: {
             labels: dados.esg.labels,
+
             datasets: [{
                 label: "Pontuação (%)",
                 data: dados.esg.valores,
+
                 backgroundColor: [
                     cores.navy,
                     cores.teal,
                     cores.brown
                 ],
+
                 borderRadius: 7,
                 maxBarThickness: 65
             }]
         },
+
         options: {
             indexAxis: "y",
+
             scales: {
                 x: {
                     beginAtZero: true,
                     max: 100,
                     grid: { color: grade },
+
                     title: {
                         display: true,
                         text: "Pontuação (%)"
                     }
                 },
+
                 y: {
                     grid: { display: false }
                 }
             },
+
             plugins: {
                 legend: { display: false }
             }
         }
     });
 
+    /* EVOLUÇÃO ESG */
+
     criarGrafico("historyChart", {
         type: "line",
+
         data: {
             labels: dados.historico.labels,
+
             datasets: [{
                 label: "Pontuação geral (%)",
                 data: dados.historico.valores,
+
                 borderColor: cores.navy,
                 backgroundColor: cores.cream,
+
                 fill: true,
                 tension: 0.3,
                 pointRadius: 5,
                 pointHoverRadius: 7
             }]
         },
+
         options: {
             scales: {
                 y: {
                     beginAtZero: true,
                     max: 100,
                     grid: { color: grade },
+
                     title: {
                         display: true,
                         text: "Pontuação (%)"
                     }
                 },
+
                 x: {
                     grid: { display: false }
                 }
@@ -907,10 +1214,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    /* FINANCEIRO */
+
     criarGrafico("financeChart", {
         type: "bar",
+
         data: {
             labels: dados.financeiro.labels,
+
             datasets: [
                 {
                     label: "Receitas",
@@ -918,6 +1229,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     backgroundColor: cores.green,
                     borderRadius: 5
                 },
+
                 {
                     label: "Custos",
                     data: dados.financeiro.custos,
@@ -926,21 +1238,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             ]
         },
+
         options: {
             scales: {
                 y: {
                     beginAtZero: true,
                     grid: { color: grade },
+
                     ticks: {
                         callback: function (valor) {
-                            return Number(valor).toLocaleString("pt-BR", {
-                                style: "currency",
-                                currency: "BRL",
-                                maximumFractionDigits: 0
-                            });
+                            return Number(valor).toLocaleString(
+                                "pt-BR",
+                                {
+                                    style: "currency",
+                                    currency: "BRL",
+                                    maximumFractionDigits: 0
+                                }
+                            );
                         }
                     }
                 },
+
                 x: {
                     grid: { display: false }
                 }
@@ -948,26 +1266,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    /* DISTRIBUIÇÃO DOS PLANOS */
+
     criarGrafico("plansChart", {
         type: "doughnut",
+
         data: {
             labels: dados.planos.labels,
+
             datasets: [{
                 data: dados.planos.valores,
+
                 backgroundColor: [
                     cores.brown,
                     cores.teal,
                     cores.navy
                 ],
-                borderColor: getComputedStyle(
-                    document.querySelector(".dashboard")
-                ).getPropertyValue("--dash-card").trim() || "#ffffff",
+
+                borderColor: getComputedStyle(dashboard)
+                    .getPropertyValue("--dash-card").trim()
+                    || "#ffffff",
+
                 borderWidth: 3,
                 hoverOffset: 6
             }]
         },
+
         options: {
             cutout: "62%",
+
             plugins: {
                 legend: {
                     position: "bottom"
@@ -975,6 +1302,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+
 });
 </script>
 

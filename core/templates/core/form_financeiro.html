@@ -1,48 +1,62 @@
+
 {% extends "core/base.html" %}
 
+{% block title %}{{ titulo }} | Ecomply{% endblock %}
+
 {% block content %}
-<div class="financeiro-form-card">
-    <h1>{{ titulo }}</h1>
+<section class="financeiro-form-page">
+    <div class="financeiro-form-card">
+        <div class="financeiro-form-header">
+            <span class="financeiro-form-etiqueta">
+                CONTROLE FINANCEIRO
+            </span>
 
-    <p class="financeiro-subtitulo">
-        Empresa: <strong>{{ empresa.nome }}</strong>
-    </p>
+            <h1>{{ titulo }}</h1>
 
-    <form method="post" class="financeiro-formulario">
-        {% csrf_token %}
-
-        {% if form.non_field_errors %}
-            <div class="financeiro-erros">
-                {{ form.non_field_errors }}
-            </div>
-        {% endif %}
-
-        {% for field in form %}
-            <p>
-                {{ field.label_tag }}
-                {{ field }}
-
-                {% if field.help_text %}
-                    <small class="helptext">{{ field.help_text }}</small>
-                {% endif %}
-
-                {% if field.errors %}
-                    <span class="financeiro-erros">
-                        {{ field.errors }}
-                    </span>
-                {% endif %}
+            <p class="financeiro-subtitulo">
+                Empresa: <strong>{{ empresa.nome }}</strong>
             </p>
-        {% endfor %}
-
-        <div class="financeiro-form-botoes">
-            <button type="submit" class="btn btn-primary">
-                Salvar movimentação
-            </button>
-
-            <a href="{% url 'listar_registros_financeiros' empresa.id %}" class="btn financeiro-btn-voltar">
-                Cancelar
-            </a>
         </div>
-    </form>
-</div>
+
+        <form method="post" class="financeiro-formulario">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="financeiro-erros">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div class="financeiro-form-campo">
+                    {{ field.label_tag }}
+                    {{ field }}
+
+                    {% if field.help_text %}
+                        <small class="helptext">
+                            {{ field.help_text }}
+                        </small>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <div class="financeiro-erros">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="financeiro-form-botoes">
+                <button type="submit" class="btn btn-primary">
+                    Salvar movimentação
+                </button>
+
+                <a href="{% url 'listar_registros_financeiros' empresa.id %}"
+                   class="btn financeiro-btn-voltar">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
 {% endblock %}
