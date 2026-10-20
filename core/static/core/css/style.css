@@ -4065,3 +4065,45 @@ body:not(.dark-theme) .planos-erros {
 }
 
 
+/* =====================================
+   ACESSIBILIDADE - FONTES MAIORES
+   ===================================== */
+
+/* Modo normal e modo escuro */
+html {
+    font-size: 18px;
+}
+
+body {
+    line-height: 1.7;
+}
+
+/* Textos menores das páginas */
+body p,
+body li,
+body label,
+body input,
+body select,
+body textarea,
+body button,
+body a,
+body small {
+    font-size: max(1em, 18px);
+}
+
+/* Modo dislexia */
+body.modo-dislexia p,
+body.modo-dislexia li,
+body.modo-dislexia label,
+body.modo-dislexia input,
+body.modo-dislexia select,
+body.modo-dislexia textarea,
+body.modo-dislexia button,
+body.modo-dislexia a,
+body.modo-dislexia small {
+    font-size: max(1em, 20px);
+    line-height: 1.8;
+}
+
+
+
