@@ -5,7 +5,9 @@ Início | Ecomply
 {% endblock %}
 
 {% block content %}
-<section class="hero-section">
+
+<!-- 1. SEÇÃO INÍCIO -->
+<section id="inicio" class="hero-section">
     <div class="hero-card">
         
         <div class="hero-leaf-icon" aria-hidden="true">
@@ -16,12 +18,11 @@ Início | Ecomply
                 <path d="M20 4c-9 0-15 4-15 11a5 5 0 0 0 5 5c7 0 11-6 10-16Z"/>
                 <path d="M5 20c2-5 6-9 11-12"/>
             </svg>
-    </div>
+        </div>
 
-<span class="badge">Sustentabilidade & E-commerce</span>
+        <span class="badge">Sustentabilidade & E-commerce</span>
 
-<h1 class="hero-title">Bem-vindo ao Ecomply</h1>
-        
+        <h1 class="hero-title">Bem-vindo ao Ecomply</h1>
 
         <p class="hero-subtitle">
             ESG de forma simples e acessível para pequenas e médias empresas
@@ -52,4 +53,15 @@ Início | Ecomply
         {% endif %}
     </div>
 </section>
+
+<!-- 2. SEÇÃO QUEM SOMOS -->
+<section id="quem-somos">
+    {% include 'core/quem_somos.html' %}
+</section>
+
+<!-- 3. SEÇÃO O PROJETO -->
+<section id="projeto">
+    {% include 'core/projeto.html' %}
+</section>
+
 {% endblock %}

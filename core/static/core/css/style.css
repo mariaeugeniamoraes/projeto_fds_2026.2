@@ -4104,6 +4104,11 @@ body.modo-dislexia small {
     font-size: max(1em, 20px);
     line-height: 1.8;
 }
-
+html {
+    scroll-behavior: smooth;
+}
+html {
+    scroll-behavior: smooth;
+}
 
 
