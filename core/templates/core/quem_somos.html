@@ -1,10 +1,6 @@
-
-
 {% load static %}
 
 {% block title %}Quem Somos | Ecomply{% endblock %}
-
-
 
 <style>
     /* Estilos originais mantidos */
@@ -44,6 +40,20 @@
 
     body.dark-theme .member-name-link:hover {
         color: #72d9a9 !important;
+    }
+
+    /* Subtítulos dos cursos (Design e CC) */
+    .course-subtitle {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 35px 0 20px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #E5DED2;
+    }
+
+    body.dark-theme .course-subtitle {
+        color: #FFFFFF !important;
+        border-bottom-color: rgba(255, 255, 255, 0.15) !important;
     }
 
     /* ==========================================
@@ -116,8 +126,13 @@
     body:not(.dark-theme) .section-title {
         color: #0D1959;
         font-size: 27px;
-        margin-bottom: 25px;
+        margin-bottom: 10px;
         text-align: center;
+    }
+
+    body:not(.dark-theme) .course-subtitle {
+        color: #0D1959;
+        border-bottom-color: #E5DED2;
     }
 
     body:not(.dark-theme) .team-grid {
@@ -295,23 +310,9 @@
     <section class="team-section">
         <h2 class="section-title">Nossa equipe</h2>
 
+        <!-- GRUPO: CIÊNCIA DA COMPUTAÇÃO -->
+        <h3 class="course-subtitle">Ciência da Computação</h3>
         <div class="team-grid">
-
-            <div class="team-card">
-                <img src="{% static 'images/equipe/Amanda.jpg' %}"
-                     alt="Amanda Carvalheira Ferreira da Silva"
-                     class="member-avatar">
-
-                <a href="https://www.linkedin.com/in/amanda-carvalheira/"
-                   target="_blank" rel="noopener noreferrer"
-                   class="member-name-link">
-                    Amanda Carvalheira
-                </a>
-
-                <a href="mailto:acfs2@cesar.school" class="member-email">
-                    acfs2@cesar.school
-                </a>
-            </div>
 
             <div class="team-card">
                 <img src="{% static 'images/equipe/aj.jpeg' %}"
@@ -358,6 +359,76 @@
 
                 <a href="mailto:dsb3@cesar.school" class="member-email">
                     dsb3@cesar.school
+                </a>
+            </div>
+
+            <div class="team-card">
+                <img src="{% static 'images/equipe/marcos.jpeg' %}"
+                     alt="Marcos Luiz Galdino Berto Alves"
+                     class="member-avatar">
+
+                <a href="https://www.linkedin.com/in/marcos-luiz-galdino-88b997426/"
+                   target="_blank" rel="noopener noreferrer"
+                   class="member-name-link">
+                    Marcos Galdino
+                </a>
+
+                <a href="mailto:mlgba@cesar.school" class="member-email">
+                    mlgba@cesar.school
+                </a>
+            </div>
+
+            <div class="team-card">
+                <img src="{% static 'images/equipe/eu.jpeg' %}"
+                     alt="Maria Eugênia Moraes"
+                     class="member-avatar">
+
+                <a href="https://www.linkedin.com/in/maria-eugenia-moraes"
+                   target="_blank" rel="noopener noreferrer"
+                   class="member-name-link">
+                    Maria Eugênia
+                </a>
+
+                <a href="mailto:memm@cesar.school" class="member-email">
+                    memm@cesar.school
+                </a>
+            </div>
+
+            <div class="team-card">
+                <img src="{% static 'images/equipe/vt.jpeg' %}"
+                     alt="José Victor Telles de Araujo Pereira Tavares"
+                     class="member-avatar">
+
+                <a href="https://www.linkedin.com/in/victor-telles-9150143b8/"
+                   target="_blank" rel="noopener noreferrer"
+                   class="member-name-link">
+                    Victor Telles
+                </a>
+
+                <a href="mailto:Jvtapt@cesar.school" class="member-email">
+                    Jvtapt@cesar.school
+                </a>
+            </div>
+
+        </div>
+
+        <!-- GRUPO: DESIGN -->
+        <h3 class="course-subtitle">Design</h3>
+        <div class="team-grid">
+
+            <div class="team-card">
+                <img src="{% static 'images/equipe/Amanda.jpg' %}"
+                     alt="Amanda Carvalheira Ferreira da Silva"
+                     class="member-avatar">
+
+                <a href="https://www.linkedin.com/in/amanda-carvalheira/"
+                   target="_blank" rel="noopener noreferrer"
+                   class="member-name-link">
+                    Amanda Carvalheira
+                </a>
+
+                <a href="mailto:acfs2@cesar.school" class="member-email">
+                    acfs2@cesar.school
                 </a>
             </div>
 
@@ -410,38 +481,6 @@
             </div>
 
             <div class="team-card">
-                <img src="{% static 'images/equipe/marcos.jpeg' %}"
-                     alt="Marcos Luiz Galdino Berto Alves"
-                     class="member-avatar">
-
-                <a href="https://www.linkedin.com/in/marcos-luiz-galdino-88b997426/"
-                   target="_blank" rel="noopener noreferrer"
-                   class="member-name-link">
-                    Marcos Galdino
-                </a>
-
-                <a href="mailto:mlgba@cesar.school" class="member-email">
-                    mlgba@cesar.school
-                </a>
-            </div>
-
-            <div class="team-card">
-                <img src="{% static 'images/equipe/eu.jpeg' %}"
-                     alt="Maria Eugênia Moraes"
-                     class="member-avatar">
-
-                <a href="https://www.linkedin.com/in/maria-eugenia-moraes"
-                   target="_blank" rel="noopener noreferrer"
-                   class="member-name-link">
-                    Maria Eugênia
-                </a>
-
-                <a href="mailto:memm@cesar.school" class="member-email">
-                    memm@cesar.school
-                </a>
-            </div>
-
-            <div class="team-card">
                 <img src="{% static 'images/equipe/Gabriella.png' %}"
                      alt="Maria Gabriella Figueredo de Holanda"
                      class="member-avatar">
@@ -454,22 +493,6 @@
 
                 <a href="mailto:mgfh@cesar.school" class="member-email">
                     mgfh@cesar.school
-                </a>
-            </div>
-
-            <div class="team-card">
-                <img src="{% static 'images/equipe/vt.jpeg' %}"
-                     alt="José Victor Telles de Araujo Pereira Tavares"
-                     class="member-avatar">
-
-                <a href="https://www.linkedin.com/in/victor-telles-9150143b8/"
-                   target="_blank" rel="noopener noreferrer"
-                   class="member-name-link">
-                    Victor Telles
-                </a>
-
-                <a href="mailto:Jvtapt@cesar.school" class="member-email">
-                    Jvtapt@cesar.school
                 </a>
             </div>
 
@@ -533,4 +556,3 @@
     </div>
 
 </section>
-
