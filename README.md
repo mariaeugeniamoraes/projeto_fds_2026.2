@@ -50,19 +50,19 @@ pontos fracos, além de um benchmark comparativo.
 
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-08-31%20234721.png" width="220">
-  <img src="Captura%20de%20tela%202026-08-31%20234734.png" width="220">
-  <img src="Captura%20de%20tela%202026-08-31%20234746.png" width="220">
+  <img src="screenshots/Captura%20de%20tela%202026-08-31%20234721.png" width="220">
+  <img src="screenshots/Captura%20de%20tela%202026-08-31%20234734.png" width="220">
+  <img src="screenshots/Captura%20de%20tela%202026-08-31%20234746.png" width="220">
 </p>
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-08-31%20234757.png" width="220">
-  <img src="Captura%20de%20tela%202026-08-31%20234810.png" width="220">
-  <img src="Captura%20de%20tela%202026-08-31%20234824.png" width="220">
+  <img src="screenshots/Captura%20de%20tela%202026-08-31%20234757.png" width="220">
+  <img src="screenshots/Captura%20de%20tela%202026-08-31%20234810.png" width="220">
+  <img src="screenshots/Captura%20de%20tela%202026-08-31%20234824.png" width="220">
 </p>
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-08-31%20234834.png" width="220">
+  <img src="screenshots/Captura%20de%20tela%202026-08-31%20234834.png" width="220">
 </p>
 
 ---
@@ -89,7 +89,7 @@ durante o desenvolvimento.
 
 ### Issue de acompanhamento
 
-<img src="issue-tracker.png" width="600">
+<img src="screenshots/issue-tracker.png" width="600">
 
 ## Link do Jira
 
@@ -125,10 +125,10 @@ A Issue #1 reúne as funcionalidades já desenvolvidas e as tarefas que ainda es
 Issue #1 — Acompanhamento do desenvolvimento
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-10-11%20205153.png" width="700">
-  <img src="Captura%20de%20tela%202026-10-11%20205221.png" width="700">
-  <img src="Captura%20de%20tela%202026-10-11%20205340.png" width="700">
-  <img src="Captura%20de%20tela%202026-10-11%20205443.png" width="700">
+  <img src="screenshots/Captura%20de%20tela%202026-10-11%20205153.png" width="700">
+  <img src="screenshots/Captura%20de%20tela%202026-10-11%20205221.png" width="700">
+  <img src="screenshots/Captura%20de%20tela%202026-10-11%20205340.png" width="700">
+  <img src="screenshots/Captura%20de%20tela%202026-10-11%20205443.png" width="700">
 </p>
 
 Issue #2 — Testes e bugs
@@ -138,9 +138,9 @@ Também criamos a Issue #2 para verificar possíveis erros na aplicação.
 Foram realizadas 16 verificações, incluindo cadastro, login, perfil, feedback, navegação e banco de dados. Não foram identificados bugs nos testes realizados.
 
 <p align="center">
-  <img src="Captura%20de%20tela%202026-10-11%20205736.png" width="700">
-  <img src="Captura%20de%20tela%202026-10-11%20205758.png" width="700">
-  <img src="Captura%20de%20tela%202026-10-11%20205824.png" width="700">
+  <img src="screenshots/Captura%20de%20tela%202026-10-11%20205736.png" width="700">
+  <img src="screenshots/Captura%20de%20tela%202026-10-11%20205758.png" width="700">
+  <img src="screenshots/Captura%20de%20tela%202026-10-11%20205824.png" width="700">
 </p>
 
 A Issue #1 continua aberta para acompanhar as próximas funcionalidades, enquanto a Issue #2 foi fechada após a conclusão dos testes.
@@ -149,4 +149,3 @@ Link do vídeo interno do Ecomply (código)
 https://youtu.be/jH9BQNj_Gn8?is=lUfa6UXB_3NZ-K5k
 
 Print do Jira: <img width="1510" height="822" alt="sprint png" src="https://github.com/user-attachments/assets/ddf37a5e-cb8c-4994-8cde-30d8510bb134" />
-
