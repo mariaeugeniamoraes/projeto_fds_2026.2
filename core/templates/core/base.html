@@ -853,10 +853,48 @@ body.sidebar-open .sidebar-overlay,
         <span class="sidebar-header-title">MENU</span>
 
         <div class="nav-links">
+<!-- ESTILO DIRETO PARA EVITAR CACHE E ALINHAR CORRETAMENTE -->
+            <style>
+                details.sidebar-dropdown {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    width: 100% !important;
+                }
 
-           <a href="{% url 'home' %}" class="nav-item">
-           <span class="menu-icon" aria-hidden="true">⌂</span> Início
-           </a>
+                details.sidebar-dropdown > summary.nav-item {
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: space-between !important;
+                    list-style: none !important;
+                    padding: 10px 12px !important; /* Mantém o mesmo espaçamento interno dos outros botões */
+                    margin: 0 !important;
+                    cursor: pointer !important;
+                    box-sizing: border-box !important;
+                }
+
+                details.sidebar-dropdown > summary::-webkit-details-marker,
+                details.sidebar-dropdown > summary::marker {
+                    display: none !important;
+                    content: "" !important;
+                }
+            </style>
+
+            <!-- SUBMENU EXPANDÍVEL DO INÍCIO -->
+            <details class="sidebar-dropdown" open>
+                <summary class="nav-item">
+                    <span style="display: flex; align-items: center; gap: 12px;">
+                        <span class="menu-icon" aria-hidden="true">⌂</span>
+                        <span>Início</span>
+                    </span>
+                    <span class="dropdown-arrow">▾</span>
+                </summary>
+
+                <div class="submenu-links">
+                    <a href="{% url 'home' %}#inicio" class="submenu-item">• Apresentação</a>
+                    <a href="{% url 'home' %}#quem-somos" class="submenu-item">• Quem Somos</a>
+                    <a href="{% url 'home' %}#projeto" class="submenu-item">• O Projeto</a>
+                </div>
+            </details>
 
             <a href="{% url 'feedback' %}" class="nav-item">
 
