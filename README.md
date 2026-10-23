@@ -117,6 +117,14 @@ https://ecomply-5taq.onrender.com/
 
 - [Histórias de Usuário — Ecomply](historias_usuario.md)
 
+
+## Histórias Implementadas no formato post-it
+
+Nesta entrega, foram implementadas nove histórias de usuário relacionadas à gestão ESG, acessibilidade e transparência.
+
+![Histórias implementadas — Entrega 03](historias_entrega03.png)
+
+
 ## Issue/Bug Tracker atualizado
 
 
