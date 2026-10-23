@@ -118,11 +118,88 @@ https://ecomply-5taq.onrender.com/
 - [Histórias de Usuário — Ecomply](historias_usuario.md)
 
 
-## Histórias Implementadas no formato post-it
 
-Nesta entrega, foram implementadas nove histórias de usuário relacionadas à gestão ESG, acessibilidade e transparência.
+## Histórias implementadas no formato post-it
 
-![Histórias implementadas — Entrega 03](historias_entrega03.png)
+| POST-IT 01 — Portal da Transparência ESG |
+|---|
+| **História de usuário** |
+| Como empreendedor, quero publicar os resultados ESG da minha empresa, para demonstrar transparência e compromisso com práticas sustentáveis aos consumidores. |
+| **Critérios de aceitação** |
+| • O sistema disponibiliza uma área para publicação das informações ESG da empresa.<br>• O empreendedor pode publicar seus resultados ESG.<br>• O empreendedor pode retirar a publicação e publicá-la novamente.<br>• Os visitantes podem consultar as informações publicadas. |
+
+<br>
+
+| POST-IT 02 — Modo Dislexia |
+|---|
+| **História de usuário** |
+| Como usuário com dificuldades de leitura, quero ativar um modo de acessibilidade com fontes e espaçamentos adaptados, para navegar pela plataforma com mais facilidade. |
+| **Critérios de aceitação** |
+| • O sistema disponibiliza uma opção para ativar o modo dislexia.<br>• Ao ativar o modo, os textos são adaptados para facilitar a leitura.<br>• O usuário pode desativar o modo dislexia quando desejar.<br>• O sistema mantém a preferência de acessibilidade durante a navegação. |
+
+<br>
+
+| POST-IT 03 — Diagnóstico ESG |
+|---|
+| **História de usuário** |
+| Como empreendedor, quero responder a um questionário sobre as práticas ambientais, sociais e de governança da minha empresa, para identificar seu desempenho ESG e os pontos que precisam de melhorias. |
+| **Critérios de aceitação** |
+| • O sistema disponibiliza um questionário sobre as dimensões ambiental, social e de governança.<br>• O empreendedor pode responder ao diagnóstico da empresa cadastrada.<br>• Após a conclusão, o sistema apresenta o resultado ESG.<br>• O empreendedor pode consultar o histórico de diagnósticos realizados. |
+
+<br>
+
+| POST-IT 04 — Aviso de Privacidade |
+|---|
+| **História de usuário** |
+| Como usuário da plataforma, quero visualizar um aviso de privacidade e acessar a política de tratamento de dados, para compreender como minhas informações pessoais são utilizadas. |
+| **Critérios de aceitação** |
+| • O sistema apresenta um aviso de privacidade ao usuário.<br>• O aviso contém um link para a Política de Privacidade.<br>• O usuário pode confirmar a visualização clicando em "Entendi".<br>• O sistema registra a confirmação no navegador para evitar a exibição repetida do aviso. |
+
+<br>
+
+| POST-IT 05 — Calculadora de Embalagens |
+|---|
+| **História de usuário** |
+| Como empreendedor, quero calcular e comparar informações sobre as embalagens utilizadas nos meus produtos, para identificar alternativas mais sustentáveis para minha empresa. |
+| **Critérios de aceitação** |
+| • O sistema disponibiliza uma calculadora de embalagens.<br>• O empreendedor pode informar os dados necessários para o cálculo.<br>• O sistema apresenta os resultados com base nas informações fornecidas.<br>• O empreendedor pode utilizar os resultados para comparar alternativas de embalagens. |
+
+<br>
+
+| POST-IT 06 — Dashboard ESG |
+|---|
+| **História de usuário** |
+| Como empreendedor, quero visualizar os principais indicadores ESG da minha empresa em um painel, para acompanhar seu desempenho e facilitar a tomada de decisões. |
+| **Critérios de aceitação** |
+| • O sistema disponibiliza um dashboard para acompanhamento da empresa.<br>• O painel apresenta informações e indicadores relacionados à gestão ESG.<br>• O empreendedor pode visualizar os dados da empresa selecionada.<br>• As informações permitem acompanhar o desempenho ESG da empresa. |
+
+<br>
+
+| POST-IT 07 — Plano de Ação ESG |
+|---|
+| **História de usuário** |
+| Como empreendedor, quero cadastrar e acompanhar ações de melhoria relacionadas ao ESG, para organizar iniciativas sustentáveis e monitorar seu progresso. |
+| **Critérios de aceitação** |
+| • O sistema disponibiliza uma área para gerenciamento de planos de ação ESG.<br>• O empreendedor pode cadastrar ações de melhoria para sua empresa.<br>• O sistema permite acompanhar as ações registradas.<br>• O empreendedor pode consultar as iniciativas planejadas. |
+
+<br>
+
+| POST-IT 08 — Cadastro de Empresas |
+|---|
+| **História de usuário** |
+| Como empreendedor, quero cadastrar e gerenciar minhas empresas na plataforma, para acompanhar individualmente suas informações e práticas ESG. |
+| **Critérios de aceitação** |
+| • O sistema disponibiliza um formulário para cadastro de empresas.<br>• O empreendedor pode registrar as informações de suas empresas.<br>• O sistema apresenta as empresas cadastradas pelo usuário.<br>• O empreendedor pode acessar as informações de cada empresa. |
+
+<br>
+
+| POST-IT 09 — Controle Financeiro |
+|---|
+| **História de usuário** |
+| Como empreendedor, quero registrar e acompanhar as informações financeiras do meu negócio, para controlar melhor os recursos e apoiar o planejamento da empresa. |
+| **Critérios de aceitação** |
+| • O sistema disponibiliza uma área de controle financeiro.<br>• O empreendedor pode registrar informações financeiras da empresa.<br>• O sistema apresenta os dados financeiros registrados.<br>• O empreendedor pode consultar essas informações para acompanhar a situação financeira do negócio. |
+
 
 
 ## Issue/Bug Tracker atualizado
