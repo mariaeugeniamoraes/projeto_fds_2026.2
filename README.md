@@ -148,4 +148,7 @@ A Issue #1 continua aberta para acompanhar as próximas funcionalidades, enquant
 Link do vídeo interno do Ecomply (código)
 https://youtu.be/jH9BQNj_Gn8?is=lUfa6UXB_3NZ-K5k
 
+Link do vídeo sobre as novidades do site
+https://youtu.be/dNT4FYKQnFU?feature=shared
+
 Print do Jira: <img width="1510" height="822" alt="sprint png" src="https://github.com/user-attachments/assets/ddf37a5e-cb8c-4994-8cde-30d8510bb134" />
