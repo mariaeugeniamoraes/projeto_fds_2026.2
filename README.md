@@ -236,4 +236,17 @@ https://youtu.be/jH9BQNj_Gn8?is=lUfa6UXB_3NZ-K5k
 ## Link do vídeo sobre as novidades do site
 https://youtu.be/dNT4FYKQnFU?feature=shared
 
-## Print do Jira: <img width="1510" height="822" alt="sprint png" src="https://github.com/user-attachments/assets/ddf37a5e-cb8c-4994-8cde-30d8510bb134" />
+
+
+## Quadro do Jira — Entrega 03
+
+O quadro do Jira foi utilizado para organizar e acompanhar as atividades do projeto Ecomply, permitindo visualizar o andamento das tarefas da equipe.
+
+![Quadro do Jira — Ecomply](quadro_jira.jpeg)
+
+## Sprint 03 e Backlog
+
+A Sprint 03 reúne as atividades planejadas para esta entrega, enquanto o backlog apresenta as tarefas e funcionalidades organizadas para o desenvolvimento do Ecomply.
+
+![Sprint 03 e Backlog — Ecomply](sprint_backlog.jpeg)
+
