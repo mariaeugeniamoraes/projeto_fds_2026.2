@@ -25,18 +25,54 @@
             {{ form.non_field_errors }}
 
             {% for field in form %}
-                <div class="empresa-campo">
-                    {{ field.label_tag }}
-                    {{ field }}
+                {% if 'setor' in field.name %}
+                    <!-- CAMPO CUSTOMIZADO DE SETOR DE ATUAÇÃO -->
+                    <div class="empresa-campo">
+                        <label for="setor_select">Setor de atuação:</label>
+                        <select id="setor_select" class="form-control" onchange="atualizarSetorFinal()" required>
+                            <option value="" disabled selected>Selecione um setor...</option>
+                            <option value="Moda e Vestuário">Moda e Vestuário</option>
+                            <option value="Cosméticos e Perfumaria">Cosméticos e Perfumaria</option>
+                            <option value="Alimentos e Bebidas">Alimentos e Bebidas</option>
+                            <option value="Tecnologia e Eletrônicos">Tecnologia e Eletrônicos</option>
+                            <option value="Casa e Decoração">Casa e Decoração</option>
+                            <option value="Saúde e Bem-estar">Saúde e Bem-estar</option>
+                            <option value="Serviços">Serviços</option>
+                            <option value="Outros">Outros</option>
+                        </select>
 
-                    {% if field.help_text %}
-                        <small>{{ field.help_text }}</small>
-                    {% endif %}
+                        <!-- CAMPO LIVRE (EXIBIDO APENAS AO SELECIONAR "OUTROS") -->
+                        <div id="container_setor_outros" style="display: none; margin-top: 10px;">
+                            <label for="input_setor_outros">Qual o seu setor?</label>
+                            <input type="text" id="input_setor_outros" class="form-control" placeholder="Digite o setor de atuação..." oninput="atualizarSetorFinal()">
+                        </div>
 
-                    {% for error in field.errors %}
-                        <small class="empresa-erro">{{ error }}</small>
-                    {% endfor %}
-                </div>
+                        <!-- CAMPO OCULTO QUE ENVIA O VALOR REAL AO DJANGO -->
+                        <input type="hidden" name="{{ field.html_name }}" id="id_setor_real" value="{{ field.value|default:'' }}">
+
+                        {% if field.help_text %}
+                            <small>{{ field.help_text }}</small>
+                        {% endif %}
+
+                        {% for error in field.errors %}
+                            <small class="empresa-erro">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <!-- DEMAIS CAMPOS DO FORMULÁRIO (NOME, CNPJ, ETC.) -->
+                    <div class="empresa-campo">
+                        {{ field.label_tag }}
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <small>{{ field.help_text }}</small>
+                        {% endif %}
+
+                        {% for error in field.errors %}
+                            <small class="empresa-erro">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% endfor %}
 
             <button type="submit" class="btn btn-primary empresa-botao">
@@ -144,5 +180,24 @@
     </div>
 
 </section>
-{% endblock %}
 
+<!-- SCRIPT DE CONTROLE DO CAMPO DE SETOR -->
+<script>
+    function atualizarSetorFinal() {
+        const select = document.getElementById('setor_select');
+        const containerOutros = document.getElementById('container_setor_outros');
+        const inputOutros = document.getElementById('input_setor_outros');
+        const inputHidden = document.getElementById('id_setor_real');
+
+        if (select.value === 'Outros') {
+            containerOutros.style.display = 'block';
+            inputOutros.required = true;
+            inputHidden.value = inputOutros.value;
+        } else {
+            containerOutros.style.display = 'none';
+            inputOutros.required = false;
+            inputHidden.value = select.value;
+        }
+    }
+</script>
+{% endblock %}
