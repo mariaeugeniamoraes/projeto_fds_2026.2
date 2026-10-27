@@ -54,7 +54,7 @@
                 <tr>
                     <td>{{ registro.data|date:"d/m/Y" }}</td>
                     <td>
-                        <span class="financeiro-tipo financeiro-tipo-{{ registro.tipo }}">
+                        <span class="financeiro-tipo financeiro-tipo-{{ registro.get_tipo_display }}">
                             {{ registro.get_tipo_display }}
                         </span>
                     </td>

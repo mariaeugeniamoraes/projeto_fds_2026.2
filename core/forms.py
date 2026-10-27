@@ -155,6 +155,16 @@ class CalculadoraEmbalagemForm(forms.Form):
 
 
 class RegistroFinanceiroForm(forms.ModelForm):
+
+    tipo = forms.ChoiceField(
+    choices=[
+        ("", "Selecione o tipo de movimentação"),
+        ("receita", "Receita"),
+        ("custo", "Custo"),
+    ],
+    label="Tipo de movimentação",
+    widget=forms.Select(),
+)
     class Meta:
         model = RegistroFinanceiro
         fields = [
@@ -174,7 +184,11 @@ class RegistroFinanceiroForm(forms.ModelForm):
             "observacao": "Observações",
         }
         widgets = {
-            "tipo": forms.Select(),
+            "tipo": forms.Select(choices=[
+    ("", "Selecione o tipo de movimentação"),
+    ("receita", "Receita"),
+    ("custo", "Custo"),
+]),
             "descricao": forms.TextInput(attrs={
                 "placeholder": "Ex.: Venda de produtos"
             }),
