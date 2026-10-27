@@ -10,25 +10,30 @@
 
     <title>{% block title %}Ecomply{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <!-- CSS ORIGINAL DO ECOMPLY -->
+    <link
+        rel="stylesheet"
+        href="{% static 'core/css/style.css' %}?v=20261027-3"
+    >
 
     <style>
-
         /* ==========================================
-           1. CONFIGURAÇÕES GERAIS
+           1. ESTRUTURA GERAL
         ========================================== */
-
-        * {
-            box-sizing: border-box;
-        }
 
         html,
         body {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100% !important;
+            margin: 0;
+            padding: 0;
+            width: 100%;
             min-height: 100%;
             overflow-x: hidden;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* ==========================================
@@ -39,14 +44,21 @@
             position: fixed;
             top: 0;
             left: 0;
+
             width: 100%;
             height: 60px;
-            background-color: #245B38 !important;
+
+            padding: 0 20px;
+            box-sizing: border-box;
+
+            background-color: #245B38;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
             z-index: 1003;
         }
 
@@ -58,13 +70,19 @@
         }
 
         .sidebar-toggle-btn {
-            background: transparent !important;
-            border: none !important;
-            color: #FFF3CD !important;
-            font-size: 24px !important;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: transparent;
+            border: none;
+
+            color: #FFF3CD;
+            font-size: 24px;
+
             padding: 5px 10px;
-            line-height: 1;
+            cursor: pointer;
+
             transition: transform 0.2s ease;
         }
 
@@ -73,10 +91,13 @@
         }
 
         .topbar-logo {
-            color: #FFF3CD !important;
-            text-decoration: none !important;
-            font-size: 20px;
             margin-left: 15px;
+
+            color: #FFF3CD;
+            text-decoration: none;
+
+            font-size: 20px;
+            font-weight: 700;
         }
 
         .topbar-logo strong {
@@ -84,7 +105,7 @@
         }
 
         /* ==========================================
-           3. BOTÃO DO MODO ESCURO
+           3. INTERRUPTOR DO MODO ESCURO
         ========================================== */
 
         .theme-toggle-container {
@@ -96,6 +117,7 @@
         .theme-switch {
             position: relative;
             display: inline-block;
+
             width: 50px;
             height: 26px;
         }
@@ -108,50 +130,49 @@
 
         .slider {
             position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
+
             background-color: rgba(255, 255, 255, 0.2);
+
             border: 1px solid rgba(255, 243, 205, 0.4);
+            border-radius: 26px;
+
+            cursor: pointer;
             transition: 0.3s ease;
         }
 
-        .slider:before {
+        .slider::before {
             position: absolute;
             content: "☀";
-            height: 20px;
+
             width: 20px;
+            height: 20px;
+
             left: 2px;
             bottom: 2px;
+
             background-color: #FFF3CD;
             color: #0D1959;
-            font-size: 13px;
+
+            border-radius: 50%;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
+            font-size: 13px;
             transition: 0.3s ease;
         }
 
-        .slider.round {
-            border-radius: 26px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
+        .theme-switch input:checked + .slider {
             background-color: #8C3E14;
             border-color: #FFF3CD;
         }
 
-        input:checked + .slider:before {
+        .theme-switch input:checked + .slider::before {
             transform: translateX(24px);
-            content: "⏾";
+            content: "☾";
             background-color: #FFFFFF;
-            color: #080E26;
         }
 
         /* ==========================================
@@ -159,37 +180,54 @@
         ========================================== */
 
         .sidebar {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 280px !important;
-            height: 100vh !important;
-            background-color: #245B38 !important;
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 280px;
+            height: 100vh;
+
+            padding: 80px 16px 20px;
+            box-sizing: border-box;
+
+            background-color: #245B38;
+
             box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
-            z-index: 1002 !important;
-            overflow-y: auto !important;
-            padding: 80px 16px 20px !important;
-            transform: translateX(-100%) !important;
-            transition: transform 0.3s ease-in-out !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
+
+            overflow-y: auto;
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+
+            z-index: 1002;
+
+            scrollbar-width: thin;
+            scrollbar-color: #6B9879 #245B38;
         }
 
-        body.sidebar-open .sidebar,
-        .sidebar.active {
-            transform: translateX(0) !important;
+        body.sidebar-open .sidebar {
+            transform: translateX(0);
         }
 
         .sidebar-overlay {
             position: fixed;
             inset: 0;
+
             background: rgba(0, 0, 0, 0.4);
-            z-index: 1001;
+
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease,
-                        visibility 0.3s ease;
+
+            transition:
+                opacity 0.3s ease,
+                visibility 0.3s ease;
+
+            z-index: 1001;
         }
 
         body.sidebar-open .sidebar-overlay {
@@ -197,19 +235,30 @@
             visibility: visible;
         }
 
-        .sidebar-header-title,
-        .sidebar-section {
+        /* ==========================================
+           5. LINKS E TÍTULOS DO MENU
+        ========================================== */
+
+        .sidebar .sidebar-header-title,
+        .sidebar .sidebar-section {
+            display: block;
+
+            margin: 18px 0 8px 12px;
+
             color: #AEB6C2 !important;
-            font-size: 11px !important;
-            font-weight: 700 !important;
-            letter-spacing: 1.5px !important;
-            text-transform: uppercase !important;
-            margin: 18px 0 8px 12px !important;
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
 
         .sidebar .nav-links {
             display: flex;
             flex-direction: column;
+
+            align-items: stretch;
+
             gap: 4px;
             width: 100%;
         }
@@ -218,54 +267,53 @@
         .sidebar .btn-login,
         .sidebar .btn-register,
         .sidebar .btn-logout {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            width: 100%;
+            box-sizing: border-box;
+
+            gap: 12px;
+            padding: 10px 12px;
+
+            background: transparent;
+
+            border: none;
+            border-radius: 7px;
+
             color: #FFF3CD !important;
-            text-decoration: none !important;
-            padding: 10px 12px !important;
-            border-radius: 6px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: flex-start !important;
-            gap: 12px !important;
-            width: 100% !important;
-            text-align: left !important;
-            font-size: 14px !important;
-            font-weight: 500 !important;
-            background: transparent !important;
-            border: none !important;
-            cursor: pointer;
+            text-decoration: none;
+
             font-family: inherit;
+            font-size: 17px;
+            font-weight: 500;
+
+            text-align: left;
+            cursor: pointer;
+
+            white-space: normal;
         }
 
         .sidebar .nav-item:hover,
         .sidebar .btn-login:hover,
         .sidebar .btn-register:hover,
         .sidebar .btn-logout:hover {
-            background-color: rgba(255, 255, 255, 0.12) !important;
+            background-color: rgba(255, 255, 255, 0.12);
         }
 
         .sidebar-divider {
             width: 100%;
             height: 1px;
-            background-color: rgba(255, 255, 255, 0.15);
+
             margin: 12px 0;
-        }
 
-        .sidebar {
-            scrollbar-width: thin;
-            scrollbar-color: #6b9879 #245B38;
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background-color: #6b9879;
-            border-radius: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.15);
         }
 
         /* ==========================================
-           5. MENU INÍCIO COM SUBTÍTULOS
+           6. INÍCIO COM SUBMENU
         ========================================== */
 
         .inicio-menu {
@@ -275,24 +323,28 @@
         .inicio-menu-header {
             display: flex;
             align-items: stretch;
+
             width: 100%;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.12);
+
+            border-radius: 7px;
+            background-color: rgba(255, 255, 255, 0.12);
         }
 
         .sidebar .inicio-link {
-            display: flex !important;
-            align-items: center !important;
-            gap: 12px;
+            display: flex;
+            align-items: center;
+
             flex: 1;
             min-width: 0;
-            width: auto !important;
-            padding: 12px !important;
+
+            gap: 12px;
+            padding: 12px;
+
             color: #FFF3CD !important;
-            text-decoration: none !important;
-            font-size: 15px !important;
-            font-weight: 700 !important;
-            background: transparent !important;
+            text-decoration: none;
+
+            font-size: 17px;
+            font-weight: 700;
         }
 
         .sidebar .inicio-link:hover {
@@ -300,36 +352,43 @@
         }
 
         .sidebar .inicio-dropdown-btn {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            width: 42px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 42px;
             min-width: 42px;
-            padding: 8px !important;
-            border: none !important;
-            border-radius: 6px;
-            background: transparent !important;
-            color: #FFF3CD !important;
+
+            padding: 8px;
+
+            border: none;
+            background: transparent;
+
+            color: #FFF3CD;
             cursor: pointer;
         }
 
         .sidebar .inicio-dropdown-btn:hover {
-            background: rgba(255, 255, 255, 0.1) !important;
+            background-color: rgba(255, 255, 255, 0.12);
         }
 
         .dropdown-arrow {
+            display: inline-block;
             transition: transform 0.2s ease;
         }
 
-        .inicio-dropdown-btn[aria-expanded="false"] .dropdown-arrow {
+        .inicio-dropdown-btn[aria-expanded="false"]
+        .dropdown-arrow {
             transform: rotate(-90deg);
         }
 
         .submenu-links {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+
             width: 100%;
+            gap: 4px;
+
             padding: 8px 0 0 16px;
         }
 
@@ -338,264 +397,147 @@
         }
 
         .sidebar .submenu-item {
-            display: block !important;
-            width: 100% !important;
-            padding: 10px 12px !important;
-            border-radius: 6px !important;
+            display: block;
+
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 10px 12px;
+
+            border-radius: 7px;
+
+            background: transparent;
             color: #FFF3CD !important;
-            background: transparent !important;
-            text-decoration: none !important;
-            font-size: 14px !important;
-            font-weight: 500 !important;
+
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
         }
 
         .sidebar .submenu-item:hover {
-            background-color: rgba(255, 255, 255, 0.12) !important;
+            background-color: rgba(255, 255, 255, 0.12);
         }
 
         /* ==========================================
-           6. CONTEÚDO PRINCIPAL
+           7. ÁREA PRINCIPAL
+           CORREÇÃO DE CENTRALIZAÇÃO
         ========================================== */
 
-        main,
-        .main-content {
-            margin-left: 0 !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            min-height: calc(100vh - 60px);
-            padding: 90px 20px 40px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: flex-start !important;
-            transition: margin-left 0.3s ease-in-out,
-                        width 0.3s ease-in-out !important;
+        main.main-content {
+            flex: 1;
+
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+
+            margin-left: 0;
+            padding: 90px 20px 40px;
+
+            box-sizing: border-box;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: flex-start;
+
+            transition:
+                margin-left 0.3s ease-in-out,
+                width 0.3s ease-in-out;
         }
 
-        main > *,
-        .main-content > * {
+        /* ==========================================
+           8. CENTRALIZAÇÃO DAS PÁGINAS
+           SEM ALTERAR OS CARDS
+        ========================================== */
+
+        .main-content > .minhas-empresas-page,
+        .main-content > .financeiro-container,
+        .main-content > .planos-container,
+        .main-content > .perfil-container {
+            width: 100%;
+
             margin-left: auto;
             margin-right: auto;
-            box-sizing: border-box;
         }
+
+        /* Mantém o limite de largura do CSS original */
+
+        .main-content > .minhas-empresas-page {
+            max-width: 1100px;
+        }
+
+        .main-content > .financeiro-container {
+            max-width: 1200px;
+        }
+
+        .main-content > .perfil-container {
+            max-width: 520px;
+        }
+
+        /* ==========================================
+           9. PÁGINA INICIAL
+           PRESERVA O CARD CENTRALIZADO
+        ========================================== */
+
+        main.main-content:has(.hero-section) {
+            justify-content: center;
+            min-height: calc(100vh - 60px);
+        }
+
+        main.main-content > .hero-section {
+            width: 100%;
+            max-width: 780px;
+
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ==========================================
+           10. RODAPÉ
+        ========================================== */
+
+        footer.footer {
+            width: 100%;
+
+            margin-left: 0;
+            box-sizing: border-box;
+
+            text-align: center;
+
+            transition:
+                margin-left 0.3s ease-in-out,
+                width 0.3s ease-in-out;
+        }
+
+        footer.footer p {
+            margin: 4px 0;
+        }
+
+        /* ==========================================
+           11. COMPORTAMENTO COM MENU ABERTO
+        ========================================== */
 
         @media (min-width: 769px) {
-            body.sidebar-open main,
-            body.sidebar-open .main-content {
-                margin-left: 280px !important;
-                width: calc(100% - 280px) !important;
+
+            body.sidebar-open main.main-content {
+                margin-left: 280px;
+                width: calc(100% - 280px);
             }
 
-            body.sidebar-open footer,
-            body.sidebar-open .footer {
-                margin-left: 280px !important;
-                width: calc(100% - 280px) !important;
+            body.sidebar-open footer.footer {
+                margin-left: 280px;
+                width: calc(100% - 280px);
             }
         }
 
-        footer,
-        .footer {
-            width: 100%;
-            margin-left: 0;
-            padding: 20px 0;
-            text-align: center;
-            transition: margin-left 0.3s ease-in-out,
-                        width 0.3s ease-in-out;
-        }
-
         /* ==========================================
-           7. PÁGINA INICIAL - FUNDO BEGE
-        ========================================== */
-
-        body:not(.dark-theme):has(.hero-section) {
-            background-color: #F7F2E9 !important;
-            background-image: none !important;
-        }
-
-        body:not(.dark-theme):has(.hero-section) main,
-        body:not(.dark-theme):has(.hero-section) .main-content {
-            background-color: #F7F2E9 !important;
-            background-image: none !important;
-        }
-
-        /* Centralizar o card */
-        body:has(.hero-section) .main-content {
-            min-height: 100vh !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: center !important;
-            padding: 90px 24px 70px !important;
-        }
-
-        .hero-section {
-            width: 100% !important;
-            max-width: 780px !important;
-            margin: 0 auto !important;
-            padding: 0 !important;
-        }
-
-        /* ==========================================
-           8. CARD DE BOAS-VINDAS
-        ========================================== */
-
-        .hero-card {
-            width: 100% !important;
-            padding: 44px 55px !important;
-            background: #FFFCF7 !important;
-            border: none !important;
-            border-radius: 16px !important;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.09) !important;
-            text-align: center !important;
-        }
-
-        /* Ícone circular verde */
-        .hero-leaf-icon {
-            width: 54px !important;
-            height: 54px !important;
-            margin: 0 auto 26px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            background: #245B38 !important;
-            color: #FFFFFF !important;
-            border-radius: 50% !important;
-        }
-
-        .hero-leaf-icon svg {
-            stroke: #FFFFFF !important;
-        }
-
-        /* Sustentabilidade e E-commerce */
-        .hero-card .badge {
-            display: inline-block !important;
-            background: transparent !important;
-            color: #A94E12 !important;
-            border: none !important;
-            padding: 0 !important;
-            margin-bottom: 55px !important;
-            font-size: 13px !important;
-            font-weight: 700 !important;
-            letter-spacing: 2px !important;
-            text-transform: uppercase !important;
-        }
-
-        /* Título */
-        .hero-card .hero-title {
-            color: #0D1959 !important;
-            font-size: clamp(30px, 4vw, 38px) !important;
-            font-weight: 800 !important;
-            line-height: 1.3 !important;
-            margin: 0 0 16px !important;
-        }
-
-        /* Subtítulo */
-        .hero-card .hero-subtitle {
-            color: #4C6565 !important;
-            font-size: 18px !important;
-            line-height: 1.8 !important;
-            max-width: 650px !important;
-            margin: 0 auto 28px !important;
-        }
-
-        /* Texto de cadastro */
-        .hero-card .cta-text {
-            color: #4C6565 !important;
-            font-size: 20px !important;
-            line-height: 1.6 !important;
-            margin: 25px 0 38px !important;
-        }
-
-        /* Botões */
-        .hero-card .cta-buttons {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            flex-wrap: wrap !important;
-            gap: 22px !important;
-        }
-
-        .hero-card .cta-buttons .btn {
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            min-height: 74px !important;
-            padding: 18px 40px !important;
-            border-radius: 10px !important;
-            font-size: 20px !important;
-            font-weight: 700 !important;
-            text-decoration: none !important;
-            box-shadow: none !important;
-        }
-
-        /* Criar conta */
-        .hero-card .cta-buttons .btn-primary {
-            background-color: #8C3E14 !important;
-            color: #FFFFFF !important;
-            border: 1px solid #8C3E14 !important;
-            min-width: 194px !important;
-        }
-
-        .hero-card .cta-buttons .btn-primary:hover {
-            background-color: #73320F !important;
-        }
-
-        /* Entrar */
-        .hero-card .cta-buttons .btn-secondary {
-            background-color: transparent !important;
-            color: #8C3E14 !important;
-            border: 1px solid #CEB9A7 !important;
-            min-width: 146px !important;
-        }
-
-        .hero-card .cta-buttons .btn-secondary:hover {
-            background-color: #F7F2E9 !important;
-        }
-
-        /* Usuário autenticado */
-        .hero-card .user-welcome-card {
-            background-color: #E7F0E8 !important;
-            border-radius: 12px !important;
-            padding: 24px !important;
-            margin: 25px auto 0 !important;
-            max-width: 650px;
-        }
-
-        /* ==========================================
-           9. DIAGNÓSTICO ESG
-        ========================================== */
-
-        legend,
-        fieldset legend,
-        .pergunta-title,
-        .pergunta-texto,
-        .question-title,
-        .form-group > label:first-child {
-            color: #0D1959 !important;
-            font-weight: 600 !important;
-        }
-
-        body.dark-theme legend,
-        body.dark-theme fieldset legend,
-        body.dark-theme .pergunta-title,
-        body.dark-theme .pergunta-texto,
-        body.dark-theme .question-title,
-        body.dark-theme .form-group > label:first-child {
-            color: #FFF3CD !important;
-        }
-
-        /* ==========================================
-           10. MODO ESCURO
+           12. MODO ESCURO - ESTRUTURA
         ========================================== */
 
         body.dark-theme {
             background-color: #080E26 !important;
-            color: #F8FAFC !important;
-            background-image: radial-gradient(
-                rgba(255, 255, 255, 0.12) 1.5px,
-                transparent 1.5px
-            ) !important;
-            background-size: 24px 24px !important;
+            color: #F8FAFC;
         }
 
         body.dark-theme .topbar,
@@ -603,150 +545,12 @@
             background-color: #0D1959 !important;
         }
 
-        body.dark-theme h1,
-        body.dark-theme h2,
-        body.dark-theme h3,
-        body.dark-theme h4,
-        body.dark-theme h5,
-        body.dark-theme h6,
-        body.dark-theme strong,
-        body.dark-theme b {
-            color: #FFFFFF !important;
-        }
-
-        body.dark-theme .topbar-logo strong {
-            color: #FFF3CD !important;
-        }
-
-        body.dark-theme p,
-        body.dark-theme li,
-        body.dark-theme label,
-        body.dark-theme dd {
-            color: #CBD5E1 !important;
-        }
-
-        body.dark-theme small,
-        body.dark-theme .text-muted {
-            color: #93C5FD !important;
-        }
-
-        body.dark-theme main,
-        body.dark-theme .main-content {
-            background: transparent !important;
-        }
-
-        /* Cards das demais páginas */
-        body.dark-theme .card,
-        body.dark-theme [class*="card"]:not(.hero-card),
-        body.dark-theme form,
-        body.dark-theme article,
-        body.dark-theme .box,
-        body.dark-theme [class*="box"],
-        body.dark-theme .membro,
-        body.dark-theme [class*="membro"],
-        body.dark-theme [class*="equipe"],
-        body.dark-theme [class*="team-card"],
-        body.dark-theme [class*="member-card"],
-        body.dark-theme [class*="pilar"],
-        body.dark-theme [class*="pillar-card"],
-        body.dark-theme [class*="profile"],
-        body.dark-theme [class*="perfil"],
-        body.dark-theme [class*="panel"] {
-            background-color: #121C3E !important;
-            color: #F8FAFC !important;
-            border: 1px solid #233261 !important;
-            border-radius: 12px !important;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
-        }
-
-        /* Formulários */
-        body.dark-theme input:not([type="checkbox"]),
-        body.dark-theme textarea,
-        body.dark-theme select,
-        body.dark-theme .form-control {
-            background-color: #080E26 !important;
-            color: #FFFFFF !important;
-            border: 1px solid #2B3A67 !important;
-            border-radius: 6px !important;
-            padding: 10px 14px !important;
-        }
-
-        body.dark-theme input::placeholder,
-        body.dark-theme textarea::placeholder {
-            color: #64748B !important;
-        }
-
-        /* FAQ */
-        body.dark-theme details:not(.sidebar-dropdown),
-        body.dark-theme [class*="faq"],
-        body.dark-theme [class*="accordion"] {
-            background-color: #121C3E !important;
-            color: #FFFFFF !important;
-            border: 1px solid #233261 !important;
-            border-radius: 8px !important;
-        }
-
-        body.dark-theme summary {
-            color: #FFFFFF !important;
-            cursor: pointer;
-        }
-
-        /* Card inicial escuro */
-        body.dark-theme .hero-card {
-            background: #121C3E !important;
-            border: 1px solid #233261 !important;
-        }
-
-        body.dark-theme .hero-card .hero-title {
-            color: #FFFFFF !important;
-        }
-
-        body.dark-theme .hero-card .hero-subtitle,
-        body.dark-theme .hero-card .cta-text {
-            color: #CBD5E1 !important;
-        }
-
-        body.dark-theme .hero-card .badge {
-            color: #FFF3CD !important;
-            background: transparent !important;
-        }
-
-        body.dark-theme .hero-card .hero-leaf-icon {
-            background-color: #245B38 !important;
-        }
-
-        body.dark-theme .hero-card .user-welcome-card {
-            background-color: #1C2B5B !important;
-        }
-
-        body.dark-theme .hero-card .cta-buttons .btn-secondary {
-            color: #FFF3CD !important;
-            border-color: #64748B !important;
-            background: transparent !important;
-        }
-
-        /* Botões principais */
-        body.dark-theme .btn-primary,
-        body.dark-theme button[type="submit"] {
-            background-color: #8C3E14 !important;
-            color: #FFFFFF !important;
-            border: 1px solid #8C3E14 !important;
-        }
-
-        /* Rodapé */
-        body.dark-theme footer,
-        body.dark-theme .footer {
-            background-color: #080E26 !important;
-            border-top: 1px solid #1A254B !important;
-        }
-
-        body.dark-theme footer p,
-        body.dark-theme footer a {
-            color: #94A3B8 !important;
+        body.dark-theme main.main-content {
+            background: transparent;
         }
 
         /* ==========================================
-           11. AVISO DE PRIVACIDADE
+           13. AVISO DE PRIVACIDADE
         ========================================== */
 
         .aviso-privacidade[hidden] {
@@ -755,15 +559,26 @@
 
         .aviso-privacidade {
             position: fixed;
+
             bottom: 24px;
             left: 50%;
+            right: auto;
+
             transform: translateX(-50%);
+
             width: calc(100% - 48px);
             max-width: 1400px;
+
+            box-sizing: border-box;
             padding: 24px 28px;
+
             background-color: #245B38;
+
+            border: none;
             border-radius: 13px;
+
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+
             z-index: 1100;
         }
 
@@ -771,12 +586,14 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             gap: 28px;
         }
 
         .aviso-privacidade-texto {
             display: flex;
             align-items: center;
+
             gap: 20px;
             min-width: 0;
         }
@@ -785,24 +602,28 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
             width: 42px;
             height: 42px;
             min-width: 42px;
+
+            border-radius: 50%;
+
             background-color: #FFF3CD;
             color: #245B38;
-            border-radius: 50%;
         }
 
         .aviso-privacidade h3 {
             color: #FFF3CD !important;
+
             font-size: 16px;
             margin: 0 0 7px;
         }
 
         .aviso-privacidade p {
             color: #FFFFFF !important;
+
             font-size: 13px;
-            line-height: 1.6;
             margin: 0 0 9px;
         }
 
@@ -813,13 +634,19 @@
 
         .aviso-privacidade #btn-entendi {
             flex-shrink: 0;
+
             padding: 13px 24px;
-            background-color: #8C3E14;
+
             border: none;
             border-radius: 8px;
-            color: #FFFFFF;
+
+            background-color: #8C3E14;
+            color: #FFFFFF !important;
+
+            font-family: inherit;
             font-size: 14px;
             font-weight: 700;
+
             cursor: pointer;
         }
 
@@ -828,50 +655,30 @@
         }
 
         /* ==========================================
-           12. RESPONSIVIDADE
+           14. RESPONSIVIDADE
         ========================================== */
+
+        @media (max-width: 768px) {
+
+            main.main-content {
+                padding: 80px 12px 35px;
+            }
+
+            body.sidebar-open main.main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .sidebar {
+                width: min(280px, 90vw);
+            }
+        }
 
         @media (max-width: 650px) {
 
-            body:has(.hero-section) .main-content {
-                padding: 90px 16px 40px !important;
-            }
-
-            .hero-card {
-                padding: 35px 22px !important;
-            }
-
-            .hero-card .badge {
-                margin-bottom: 30px !important;
-                font-size: 11px !important;
-                letter-spacing: 1px !important;
-            }
-
-            .hero-card .hero-title {
-                font-size: 30px !important;
-            }
-
-            .hero-card .hero-subtitle {
-                font-size: 16px !important;
-            }
-
-            .hero-card .cta-text {
-                font-size: 16px !important;
-            }
-
-            .hero-card .cta-buttons {
-                gap: 12px !important;
-            }
-
-            .hero-card .cta-buttons .btn {
-                min-height: 52px !important;
-                font-size: 16px !important;
-                padding: 12px 22px !important;
-                min-width: 0 !important;
-            }
-
             .aviso-privacidade {
                 width: calc(100% - 24px);
+
                 bottom: 12px;
                 padding: 20px;
             }
@@ -879,6 +686,7 @@
             .aviso-privacidade-conteudo {
                 flex-direction: column;
                 align-items: stretch;
+
                 gap: 18px;
             }
 
@@ -893,6 +701,7 @@
         }
 
     </style>
+
 </head>
 
 <body>
@@ -931,10 +740,7 @@
                     for="theme-toggle"
                     aria-label="Alternar modo escuro"
                 >
-                    <input
-                        type="checkbox"
-                        id="theme-toggle"
-                    >
+                    <input type="checkbox" id="theme-toggle">
 
                     <span class="slider round"></span>
                 </label>
@@ -945,7 +751,9 @@
 
     </header>
 
-    <!-- OVERLAY DO MENU -->
+    <!-- ==========================================
+         OVERLAY DO MENU
+    ========================================== -->
 
     <div
         id="sidebar-overlay"
@@ -953,12 +761,14 @@
     ></div>
 
     <!-- ==========================================
-         BARRA LATERAL
+         MENU LATERAL
     ========================================== -->
 
     <aside class="sidebar" id="sidebar">
 
-        <span class="sidebar-header-title">MENU</span>
+        <span class="sidebar-header-title">
+            MENU
+        </span>
 
         <nav class="nav-links" aria-label="Menu principal">
 
@@ -972,13 +782,7 @@
                         href="{% url 'home' %}"
                         class="inicio-link"
                     >
-                        <span
-                            class="menu-icon"
-                            aria-hidden="true"
-                        >
-                            ⌂
-                        </span>
-
+                        <span aria-hidden="true">⌂</span>
                         <span>Início</span>
                     </a>
 
@@ -990,14 +794,10 @@
                         aria-controls="inicio-submenu"
                         aria-expanded="true"
                     >
-                        <span class="dropdown-arrow">
-                            ▾
-                        </span>
+                        <span class="dropdown-arrow">▾</span>
                     </button>
 
                 </div>
-
-                <!-- SUBTÍTULOS DO INÍCIO -->
 
                 <div
                     id="inicio-submenu"
@@ -1033,8 +833,6 @@
             </a>
 
             {% if user.is_authenticated %}
-
-                <!-- ÁREA DA EMPRESA -->
 
                 <div class="sidebar-divider"></div>
 
@@ -1103,8 +901,6 @@
 
             {% else %}
 
-                <!-- USUÁRIO NÃO AUTENTICADO -->
-
                 <div class="sidebar-divider"></div>
 
                 <a
@@ -1125,7 +921,7 @@
 
             <div class="sidebar-divider"></div>
 
-            <!-- MODO DISLEXIA -->
+            <!-- ACESSIBILIDADE -->
 
             <button
                 id="dislexia-toggle"
@@ -1145,7 +941,7 @@
     </aside>
 
     <!-- ==========================================
-         CONTEÚDO DAS PÁGINAS
+         CONTEÚDO PRINCIPAL
     ========================================== -->
 
     <main class="main-content">
@@ -1204,7 +1000,6 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                     >
-
                         <rect
                             x="5"
                             y="10"
@@ -1216,7 +1011,6 @@
                         <path
                             d="M8 10V7a4 4 0 0 1 8 0v3"
                         ></path>
-
                     </svg>
 
                 </span>
@@ -1252,11 +1046,10 @@
     </div>
 
     <!-- ==========================================
-         JAVASCRIPT DA BARRA LATERAL
+         JAVASCRIPT - MENU LATERAL
     ========================================== -->
 
     <script>
-
         document.addEventListener("DOMContentLoaded", function () {
 
             const sidebarToggle =
@@ -1279,10 +1072,6 @@
                     sidebar.classList.add("active");
                 }
 
-                if (overlay) {
-                    overlay.classList.add("active");
-                }
-
                 if (toggleIcon) {
                     toggleIcon.textContent = "✕";
                 }
@@ -1303,10 +1092,6 @@
                     sidebar.classList.remove("active");
                 }
 
-                if (overlay) {
-                    overlay.classList.remove("active");
-                }
-
                 if (toggleIcon) {
                     toggleIcon.textContent = "☰";
                 }
@@ -1319,104 +1104,85 @@
                 }
             }
 
-            function toggleMenu() {
-
-                if (document.body.classList.contains("sidebar-open")) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            }
-
             if (sidebarToggle) {
 
                 sidebarToggle.addEventListener(
                     "click",
-                    toggleMenu
+                    function () {
+
+                        if (
+                            document.body.classList.contains(
+                                "sidebar-open"
+                            )
+                        ) {
+                            closeMenu();
+                        } else {
+                            openMenu();
+                        }
+                    }
                 );
             }
 
             if (overlay) {
+                overlay.addEventListener("click", closeMenu);
+            }
 
-                overlay.addEventListener(
+            document.addEventListener(
+                "keydown",
+                function (evento) {
+
+                    if (evento.key === "Escape") {
+                        closeMenu();
+                    }
+                }
+            );
+
+            /* SUBMENU INÍCIO */
+
+            const botaoInicio =
+                document.getElementById("inicio-dropdown-btn");
+
+            const submenuInicio =
+                document.getElementById("inicio-submenu");
+
+            if (botaoInicio && submenuInicio) {
+
+                botaoInicio.addEventListener(
                     "click",
-                    closeMenu
+                    function () {
+
+                        const estavaAberto = !submenuInicio.hidden;
+
+                        submenuInicio.hidden = estavaAberto;
+
+                        botaoInicio.setAttribute(
+                            "aria-expanded",
+                            String(!estavaAberto)
+                        );
+                    }
                 );
             }
 
-            document.addEventListener("keydown", function (e) {
-
-                if (e.key === "Escape") {
-                    closeMenu();
-                }
-
-            });
-
         });
-
     </script>
 
     <!-- ==========================================
-         JAVASCRIPT DO SUBMENU INÍCIO
+         JAVASCRIPT - MODO ESCURO
     ========================================== -->
 
     <script>
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const botao =
-                document.getElementById("inicio-dropdown-btn");
-
-            const submenu =
-                document.getElementById("inicio-submenu");
-
-            if (botao && submenu) {
-
-                botao.addEventListener("click", function () {
-
-                    const estaAberto = !submenu.hidden;
-
-                    submenu.hidden = estaAberto;
-
-                    botao.setAttribute(
-                        "aria-expanded",
-                        String(!estaAberto)
-                    );
-
-                });
-
-            }
-
-        });
-
-    </script>
-
-    <!-- ==========================================
-         JAVASCRIPT DO MODO ESCURO
-    ========================================== -->
-
-    <script>
-
         const themeToggle =
             document.getElementById("theme-toggle");
 
         function aplicarTema(isDark) {
 
-            if (isDark) {
+            document.body.classList.toggle(
+                "dark-theme",
+                isDark
+            );
 
-                document.body.classList.add("dark-theme");
-
-                if (themeToggle) {
-                    themeToggle.checked = true;
-                }
-
-            } else {
-
-                document.body.classList.remove("dark-theme");
-
-                if (themeToggle) {
-                    themeToggle.checked = false;
-                }
+            if (themeToggle) {
+                themeToggle.checked = isDark;
             }
         }
 
@@ -1427,29 +1193,28 @@
 
         if (themeToggle) {
 
-            themeToggle.addEventListener("change", function () {
+            themeToggle.addEventListener(
+                "change",
+                function () {
 
-                const novoEstado = this.checked;
+                    const novoEstado = this.checked;
 
-                localStorage.setItem(
-                    "ecomply-theme",
-                    novoEstado ? "dark" : "light"
-                );
+                    localStorage.setItem(
+                        "ecomply-theme",
+                        novoEstado ? "dark" : "light"
+                    );
 
-                aplicarTema(novoEstado);
-
-            });
-
+                    aplicarTema(novoEstado);
+                }
+            );
         }
-
     </script>
 
     <!-- ==========================================
-         JAVASCRIPT DO AVISO DE PRIVACIDADE
+         JAVASCRIPT - AVISO DE PRIVACIDADE
     ========================================== -->
 
     <script>
-
         document.addEventListener("DOMContentLoaded", function () {
 
             const aviso =
@@ -1463,7 +1228,9 @@
             }
 
             const avisoLido =
-                localStorage.getItem("ecomply-aviso-privacidade");
+                localStorage.getItem(
+                    "ecomply-aviso-privacidade"
+                );
 
             if (avisoLido !== "entendido") {
                 aviso.hidden = false;
@@ -1477,19 +1244,16 @@
                 );
 
                 aviso.hidden = true;
-
             });
 
         });
-
     </script>
 
     <!-- ==========================================
-         JAVASCRIPT DO MODO DISLEXIA
+         JAVASCRIPT - MODO DISLEXIA
     ========================================== -->
 
     <script>
-
         const dislexiaBtn =
             document.getElementById("dislexia-toggle");
 
@@ -1497,25 +1261,26 @@
             document.getElementById("dislexia-text");
 
         const dislexiaAtivada =
-            localStorage.getItem("ecomply-modo-dislexia") === "true";
+            localStorage.getItem(
+                "ecomply-modo-dislexia"
+            ) === "true";
 
         if (dislexiaAtivada) {
-
             document.body.classList.add("modo-dislexia");
-
         }
 
         function atualizarBotaoDislexia() {
 
             const ativado =
-                document.body.classList.contains("modo-dislexia");
+                document.body.classList.contains(
+                    "modo-dislexia"
+                );
 
             if (dislexiaText) {
 
                 dislexiaText.textContent = ativado
                     ? "Dislexia: ON"
                     : "Dislexia: OFF";
-
             }
 
             if (dislexiaBtn) {
@@ -1524,7 +1289,6 @@
                     "aria-pressed",
                     String(ativado)
                 );
-
             }
         }
 
@@ -1532,24 +1296,28 @@
 
         if (dislexiaBtn) {
 
-            dislexiaBtn.addEventListener("click", function () {
+            dislexiaBtn.addEventListener(
+                "click",
+                function () {
 
-                document.body.classList.toggle("modo-dislexia");
+                    document.body.classList.toggle(
+                        "modo-dislexia"
+                    );
 
-                const ativado =
-                    document.body.classList.contains("modo-dislexia");
+                    const ativado =
+                        document.body.classList.contains(
+                            "modo-dislexia"
+                        );
 
-                localStorage.setItem(
-                    "ecomply-modo-dislexia",
-                    String(ativado)
-                );
+                    localStorage.setItem(
+                        "ecomply-modo-dislexia",
+                        String(ativado)
+                    );
 
-                atualizarBotaoDislexia();
-
-            });
-
+                    atualizarBotaoDislexia();
+                }
+            );
         }
-
     </script>
 
 </body>

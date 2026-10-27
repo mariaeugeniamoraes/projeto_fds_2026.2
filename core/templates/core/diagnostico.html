@@ -9,10 +9,8 @@ Diagnóstico ESG | Ecomply
 
 <style>
     /* ==========================================
-       DIAGNÓSTICO ESG - SOMENTE MODO CLARO
-       ========================================== */
-
-    /* Fundo bege liso */
+       DIAGNÓSTICO ESG - MODO CLARO
+    ========================================== */
 
     body:not(.dark-theme):has(.diagnostico-page) {
         background: #F7F2E9 !important;
@@ -25,14 +23,12 @@ Diagnóstico ESG | Ecomply
         background-image: none !important;
     }
 
-    /* Área principal */
-
     body:not(.dark-theme) .diagnostico-page {
         max-width: 1050px;
+        width: 100%;
         margin: 0 auto;
         padding: 55px 24px 85px;
         box-sizing: border-box;
-
         background: #F7F2E9 !important;
         background-image: none !important;
     }
@@ -48,10 +44,8 @@ Diagnóstico ESG | Ecomply
         display: inline-block;
         padding: 9px 18px;
         margin-bottom: 18px;
-
         background: #FFF1CA;
         border-radius: 30px;
-
         color: #0D1959;
         font-size: 12px;
         font-weight: 700;
@@ -68,7 +62,6 @@ Diagnóstico ESG | Ecomply
     body:not(.dark-theme) .diagnostico-page .empresas-header p {
         max-width: 700px;
         margin: 0 auto;
-
         color: #4C6565;
         font-size: 16px;
         line-height: 1.7;
@@ -78,21 +71,18 @@ Diagnóstico ESG | Ecomply
         color: #0D1959;
     }
 
-    /* Cartões das dimensões ESG */
+    /* Cards das dimensões */
 
     body:not(.dark-theme) .diagnostico-page .diagnostico-dimensao {
         display: block;
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
-
         margin: 0 0 26px;
         padding: 32px;
-
         background: #FFFCF7 !important;
         border: 1px solid #E5DED2;
         border-radius: 16px;
-
         box-shadow: 0 6px 20px rgba(13, 25, 89, 0.04);
     }
 
@@ -110,14 +100,13 @@ Diagnóstico ESG | Ecomply
         margin: 0 0 28px;
     }
 
-    /* Cada pergunta */
+    /* Cards das perguntas */
 
     body:not(.dark-theme) .diagnostico-page .diagnostico-pergunta {
         display: block;
         min-width: 0;
         margin: 0 0 24px;
         padding: 22px;
-
         background: #F7F2E9;
         border: 1px solid #E5DED2;
         border-radius: 12px;
@@ -130,14 +119,13 @@ Diagnóstico ESG | Ecomply
     body:not(.dark-theme) .diagnostico-page .diagnostico-pergunta legend {
         max-width: 100%;
         padding: 0 8px;
-
         color: #0D1959;
         font-size: 15px;
         font-weight: 700;
         line-height: 1.6;
     }
 
-    /* Opções de resposta */
+    /* Alternativas */
 
     body:not(.dark-theme) .diagnostico-page .diagnostico-opcoes {
         display: grid;
@@ -150,19 +138,15 @@ Diagnóstico ESG | Ecomply
         display: flex;
         align-items: center;
         gap: 10px;
-
         min-width: 0;
         padding: 14px 15px;
         box-sizing: border-box;
-
         background: #FFFCF7;
         border: 1px solid #E5DED2;
         border-radius: 9px;
-
         color: #4C6565;
         font-size: 14px;
         line-height: 1.5;
-
         cursor: pointer;
         transition: border-color 0.2s ease,
                     background-color 0.2s ease;
@@ -178,7 +162,6 @@ Diagnóstico ESG | Ecomply
         height: 17px;
         margin: 0;
         flex-shrink: 0;
-
         accent-color: #245B38;
         cursor: pointer;
     }
@@ -190,30 +173,77 @@ Diagnóstico ESG | Ecomply
         font-weight: 700;
     }
 
-    /* Mensagem de erro */
+    /* Erro geral do servidor */
 
-    body:not(.dark-theme) .diagnostico-page .empresa-erro {
+    .diagnostico-page .empresa-erro {
         padding: 16px 20px;
         margin-bottom: 25px;
-
         background: #FFF0ED;
         border: 1px solid #E5B8AE;
         border-radius: 10px;
-
-        color: #A12D1E;
+        color: #A12D1E !important;
         font-size: 14px;
         line-height: 1.6;
     }
 
-    /* Nenhuma pergunta disponível */
+    /* ==========================================
+       NOVO: VALIDAÇÃO DAS PERGUNTAS
+    ========================================== */
+
+    /* Quando a pergunta não foi respondida */
+
+    .diagnostico-page .diagnostico-pergunta.pergunta-invalida {
+        border: 2px solid #C62828 !important;
+        background-color: #FFF0ED !important;
+        box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.08) !important;
+    }
+
+    /* Mensagem personalizada */
+
+    .diagnostico-page .mensagem-pergunta-erro {
+        display: none;
+        margin: 12px 0 0;
+        color: #B42318 !important;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+    }
+
+    .diagnostico-page .pergunta-invalida .mensagem-pergunta-erro {
+        display: block;
+    }
+
+    /* Evita que a barra superior esconda a pergunta */
+
+    .diagnostico-page .diagnostico-pergunta {
+        scroll-margin-top: 100px;
+    }
+
+    /* Modo escuro */
+
+    body.dark-theme .diagnostico-page .diagnostico-pergunta.pergunta-invalida {
+        border: 2px solid #FF8A80 !important;
+        background-color: #42212A !important;
+        box-shadow: 0 0 0 3px rgba(255, 138, 128, 0.1) !important;
+    }
+
+    body.dark-theme .diagnostico-page .mensagem-pergunta-erro {
+        color: #FFB4AB !important;
+    }
+
+    body.dark-theme .diagnostico-page .empresa-erro {
+        background-color: #42212A !important;
+        border-color: #FF8A80 !important;
+        color: #FFB4AB !important;
+    }
+
+    /* Nenhuma pergunta cadastrada */
 
     body:not(.dark-theme) .diagnostico-page .empresas-vazio {
         padding: 45px 30px;
-
         background: #FFFCF7;
         border: 1px solid #E5DED2;
         border-radius: 15px;
-
         text-align: center;
     }
 
@@ -232,23 +262,18 @@ Diagnóstico ESG | Ecomply
         display: flex;
         align-items: center;
         justify-content: center;
-
         width: 100%;
         min-height: 52px;
         padding: 14px 25px;
         box-sizing: border-box;
-
         margin-top: 30px;
-
         background: #8C3E14 !important;
         border: 1px solid #8C3E14 !important;
         border-radius: 9px;
-
         color: #FFFFFF !important;
         font-size: 16px;
         font-weight: 700;
         text-decoration: none;
-
         cursor: pointer;
         transition: background-color 0.2s ease;
     }
@@ -288,7 +313,6 @@ Diagnóstico ESG | Ecomply
     <!-- CABEÇALHO -->
 
     <header class="empresas-header">
-
         <span class="empresas-etiqueta">
             AVALIAÇÃO DE SUSTENTABILIDADE
         </span>
@@ -299,34 +323,35 @@ Diagnóstico ESG | Ecomply
             Avalie as práticas ambientais, sociais e de governança
             da empresa <strong>{{ empresa.nome }}</strong>.
         </p>
-
     </header>
 
-    <!-- MENSAGEM DE ERRO -->
+    <!-- MENSAGEM GERAL -->
 
     {% if erro %}
-        <p class="empresa-erro">
+        <p class="empresa-erro" role="alert">
             {{ erro }}
         </p>
     {% endif %}
 
-    <!-- PERGUNTAS DO DIAGNÓSTICO -->
+    <!-- PERGUNTAS -->
 
     {% if not perguntas %}
 
         <div class="empresas-vazio">
-
             <h2>Nenhuma pergunta disponível</h2>
-
             <p>
                 Não existem perguntas ESG ativas no momento.
             </p>
-
         </div>
 
     {% else %}
 
-        <form method="post" class="diagnostico-form">
+        <form
+            method="post"
+            class="diagnostico-form"
+            id="form-diagnostico"
+            novalidate
+        >
 
             {% csrf_token %}
 
@@ -337,38 +362,34 @@ Diagnóstico ESG | Ecomply
                 <div class="empresa-form diagnostico-dimensao">
 
                     {% if grupo.grouper == "E" %}
-
                         <h2>Ambiental</h2>
                         <p>
                             Consumo de recursos, resíduos e impacto ambiental.
                         </p>
 
                     {% elif grupo.grouper == "S" %}
-
                         <h2>Social</h2>
                         <p>
                             Bem-estar, diversidade e responsabilidade social.
                         </p>
 
                     {% else %}
-
                         <h2>Governança</h2>
                         <p>
                             Ética, transparência e gestão responsável.
                         </p>
-
                     {% endif %}
 
                     {% for pergunta in grupo.list %}
 
-                        <fieldset class="diagnostico-pergunta">
+                        <fieldset
+                            class="diagnostico-pergunta"
+                            data-pergunta-id="{{ pergunta.id }}"
+                        >
 
                             <legend>
                                 {{ forloop.counter }}. {{ pergunta.texto }}
                             </legend>
-
-                            {% for valor, rotulo in pergunta.PONTUACOES %}
-                            {% endfor %}
 
                             <div class="diagnostico-opcoes">
 
@@ -378,6 +399,7 @@ Diagnóstico ESG | Ecomply
                                         name="pergunta_{{ pergunta.id }}"
                                         value="0"
                                         required
+                                        aria-describedby="erro-pergunta-{{ pergunta.id }}"
                                     >
                                     <span>0: Não implementado</span>
                                 </label>
@@ -388,6 +410,7 @@ Diagnóstico ESG | Ecomply
                                         name="pergunta_{{ pergunta.id }}"
                                         value="1"
                                         required
+                                        aria-describedby="erro-pergunta-{{ pergunta.id }}"
                                     >
                                     <span>1: Em início</span>
                                 </label>
@@ -398,6 +421,7 @@ Diagnóstico ESG | Ecomply
                                         name="pergunta_{{ pergunta.id }}"
                                         value="2"
                                         required
+                                        aria-describedby="erro-pergunta-{{ pergunta.id }}"
                                     >
                                     <span>2: Parcialmente implementado</span>
                                 </label>
@@ -408,11 +432,22 @@ Diagnóstico ESG | Ecomply
                                         name="pergunta_{{ pergunta.id }}"
                                         value="3"
                                         required
+                                        aria-describedby="erro-pergunta-{{ pergunta.id }}"
                                     >
                                     <span>3: Implementado e monitorado</span>
                                 </label>
 
                             </div>
+
+                            <!-- ERRO DA PERGUNTA -->
+
+                            <p
+                                class="mensagem-pergunta-erro"
+                                id="erro-pergunta-{{ pergunta.id }}"
+                            >
+                                ⚠ Esta pergunta é obrigatória.
+                                Selecione uma resposta para continuar.
+                            </p>
 
                         </fieldset>
 
@@ -421,8 +456,6 @@ Diagnóstico ESG | Ecomply
                 </div>
 
             {% endfor %}
-
-            <!-- BOTÃO FINALIZAR -->
 
             <button
                 type="submit"
@@ -436,5 +469,122 @@ Diagnóstico ESG | Ecomply
     {% endif %}
 
 </section>
+
+<!-- ==========================================
+     VALIDAÇÃO E ROLAGEM AUTOMÁTICA
+========================================== -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const formulario = document.getElementById("form-diagnostico");
+
+    if (!formulario) {
+        return;
+    }
+
+    const perguntas = Array.from(
+        formulario.querySelectorAll(".diagnostico-pergunta")
+    );
+
+    function validarPergunta(pergunta, mostrarErro = true) {
+
+        const alternativas = Array.from(
+            pergunta.querySelectorAll('input[type="radio"]')
+        );
+
+        const respondida = alternativas.some(function (alternativa) {
+            return alternativa.checked;
+        });
+
+        const invalida = !respondida && mostrarErro;
+
+        pergunta.classList.toggle("pergunta-invalida", invalida);
+
+        alternativas.forEach(function (alternativa) {
+            if (invalida) {
+                alternativa.setAttribute("aria-invalid", "true");
+            } else {
+                alternativa.removeAttribute("aria-invalid");
+            }
+        });
+
+        const mensagem = pergunta.querySelector(
+            ".mensagem-pergunta-erro"
+        );
+
+        if (mensagem) {
+            if (invalida) {
+                mensagem.setAttribute("role", "alert");
+            } else {
+                mensagem.removeAttribute("role");
+            }
+        }
+
+        return respondida;
+    }
+
+    /* Remove o erro assim que uma resposta for escolhida */
+
+    perguntas.forEach(function (pergunta) {
+
+        const alternativas = pergunta.querySelectorAll(
+            'input[type="radio"]'
+        );
+
+        alternativas.forEach(function (alternativa) {
+
+            alternativa.addEventListener("change", function () {
+                validarPergunta(pergunta, false);
+            });
+
+        });
+
+    });
+
+    /* Verifica todas as perguntas antes de enviar */
+
+    formulario.addEventListener("submit", function (evento) {
+
+        let primeiraPerguntaInvalida = null;
+
+        perguntas.forEach(function (pergunta) {
+
+            const respondida = validarPergunta(pergunta, true);
+
+            if (!respondida && primeiraPerguntaInvalida === null) {
+                primeiraPerguntaInvalida = pergunta;
+            }
+
+        });
+
+        if (primeiraPerguntaInvalida !== null) {
+
+            evento.preventDefault();
+
+            /* Rola até a primeira pergunta sem resposta */
+
+            primeiraPerguntaInvalida.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+            /* Coloca o foco na primeira alternativa */
+
+            const primeiraAlternativa =
+                primeiraPerguntaInvalida.querySelector(
+                    'input[type="radio"]'
+                );
+
+            if (primeiraAlternativa) {
+                primeiraAlternativa.focus({
+                    preventScroll: true
+                });
+            }
+        }
+    });
+
+});
+</script>
 
 {% endblock %}
