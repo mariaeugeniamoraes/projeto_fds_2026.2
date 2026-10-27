@@ -1,9 +1,123 @@
-
 {% extends "core/base.html" %}
 
 {% block title %}Planos de ação | Ecomply{% endblock %}
 
 {% block content %}
+<style>
+    /* ==========================================
+       INDICADOR DE ATIVIDADE FINALIZADA
+    ========================================== */
+
+    .planos-progresso {
+        margin-bottom: 22px;
+        padding: 18px 20px;
+        background: #F7F2E9;
+        border: 1px solid #E5DED2;
+        border-radius: 12px;
+    }
+
+    .planos-progresso-topo {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+        color: #0D1959;
+        font-size: 15px;
+    }
+
+    .planos-progresso-topo strong {
+        font-size: 22px;
+        color: #245B38;
+    }
+
+    .planos-progresso-barra {
+        width: 100%;
+        height: 12px;
+        overflow: hidden;
+        background: #E5DED2;
+        border-radius: 20px;
+    }
+
+    .planos-progresso-preenchimento {
+        height: 100%;
+        background: #245B38;
+        border-radius: 20px;
+        transition: width 0.4s ease;
+    }
+
+    .plano-finalizado-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-left: 8px;
+        padding: 3px 10px;
+        background: #E7F0E8;
+        border: 1px solid #245B38;
+        border-radius: 20px;
+        color: #245B38;
+        font-size: 12px;
+        font-weight: 700;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .planos-table tr.plano-finalizado td {
+        background: rgba(36, 91, 56, 0.06);
+    }
+
+    .planos-table tr.plano-finalizado .plano-titulo {
+        color: #4C6565;
+        text-decoration: line-through;
+        text-decoration-color: rgba(36, 91, 56, 0.6);
+    }
+
+    .planos-table tr.plano-finalizado td:first-child {
+        box-shadow: inset 4px 0 0 #245B38;
+    }
+
+    /* Modo escuro */
+
+    body.dark-theme .planos-progresso {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    body.dark-theme .planos-progresso-topo {
+        color: #E8ECF3;
+    }
+
+    body.dark-theme .planos-progresso-topo strong {
+        color: #A8E6BF;
+    }
+
+    body.dark-theme .planos-progresso-barra {
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    body.dark-theme .planos-progresso-preenchimento {
+        background: #4CAF7A;
+    }
+
+    body.dark-theme .plano-finalizado-badge {
+        background: #1E3A2B;
+        border-color: #A8E6BF;
+        color: #A8E6BF;
+    }
+
+    body.dark-theme .planos-table tr.plano-finalizado td {
+        background: rgba(168, 230, 191, 0.06);
+    }
+
+    body.dark-theme .planos-table tr.plano-finalizado .plano-titulo {
+        color: #AEB6C2;
+    }
+
+    body.dark-theme .planos-table tr.plano-finalizado td:first-child {
+        box-shadow: inset 4px 0 0 #A8E6BF;
+    }
+</style>
 <section class="planos-container">
 
     <header class="planos-header">
@@ -90,6 +204,35 @@
             <p>Acompanhe e atualize o andamento das ações da empresa.</p>
         </div>
 
+        {% if total_planos %}
+            <!-- PROGRESSO DO PLANO -->
+
+            <div class="planos-progresso">
+                <div class="planos-progresso-topo">
+                    <span>
+                        <strong>{{ planos_concluidos }}</strong>
+                        de {{ total_planos }} ações finalizadas
+                    </span>
+
+                    <span>{{ percentual_concluido }}% concluído</span>
+                </div>
+
+                <div
+                    class="planos-progresso-barra"
+                    role="progressbar"
+                    aria-label="Progresso do plano de ação"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="{{ percentual_concluido }}"
+                >
+                    <div
+                        class="planos-progresso-preenchimento"
+                        style="width: {{ percentual_concluido }}%;"
+                    ></div>
+                </div>
+            </div>
+        {% endif %}
+
         {% if planos %}
             <div class="planos-tabela-wrapper">
                 <table class="planos-table">
@@ -104,9 +247,15 @@
 
                     <tbody>
                         {% for plano in planos %}
-                        <tr>
+                        <tr class="{% if plano.status == 'concluida' %}plano-finalizado{% endif %}">
                             <td>
-                                <strong>{{ plano.titulo }}</strong>
+                                <strong class="plano-titulo">{{ plano.titulo }}</strong>
+
+                                {% if plano.status == 'concluida' %}
+                                    <span class="plano-finalizado-badge">
+                                        ✓ Finalizada
+                                    </span>
+                                {% endif %}
 
                                 {% if plano.descricao %}
                                     <p class="planos-descricao">

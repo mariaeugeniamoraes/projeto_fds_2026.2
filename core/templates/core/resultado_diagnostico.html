@@ -1,4 +1,3 @@
-
 {% extends 'core/base.html' %}
 
 {% block title %}
@@ -655,5 +654,14 @@ Resultado do diagnóstico | Ecomply
     </div>
 
 </section>
+
+<!-- Diagnóstico concluído: apaga o rascunho salvo automaticamente -->
+<script>
+    try {
+        localStorage.removeItem(
+            "ecomply_diagnostico_{{ diagnostico.empresa.id }}"
+        );
+    } catch (erro) {}
+</script>
 
 {% endblock %}

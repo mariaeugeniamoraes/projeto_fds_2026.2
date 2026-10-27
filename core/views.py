@@ -1,4 +1,3 @@
-
 from decimal import Decimal
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -1076,6 +1075,21 @@ def listar_planos_acao(request, empresa_id):
         diagnostico__empresa=empresa
     ).order_by("-id")
 
+    # Progresso geral do plano de ação
+    # (calculado antes do filtro para considerar todas as ações)
+
+    total_planos = planos.count()
+
+    planos_concluidos = planos.filter(
+        status=PlanoAcaoESG.Status.CONCLUIDA
+    ).count()
+
+    percentual_concluido = (
+        round(planos_concluidos * 100 / total_planos)
+        if total_planos
+        else 0
+    )
+
     status_filtro = request.GET.get("status")
 
     if status_filtro:
@@ -1091,6 +1105,9 @@ def listar_planos_acao(request, empresa_id):
             "planos": planos,
             "form": form,
             "status_filtro": status_filtro,
+            "total_planos": total_planos,
+            "planos_concluidos": planos_concluidos,
+            "percentual_concluido": percentual_concluido,
         },
     )
 

@@ -1,4 +1,3 @@
-
 {% extends 'core/base.html' %}
 
 {% block title %}
@@ -283,6 +282,105 @@ Diagnóstico ESG | Ecomply
         border-color: #73320F !important;
     }
 
+    /* ==========================================
+       LIMPAR RESPOSTA E SALVAMENTO AUTOMÁTICO
+    ========================================== */
+
+    .diagnostico-page .btn-limpar-resposta {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 12px;
+        padding: 7px 14px;
+        background: transparent;
+        border: 1px solid #C9BFAF;
+        border-radius: 20px;
+        color: #4C6565;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease,
+                    border-color 0.2s ease,
+                    color 0.2s ease;
+    }
+
+    .diagnostico-page .btn-limpar-resposta:hover:not(:disabled) {
+        background: #FFF0ED;
+        border-color: #B42318;
+        color: #B42318;
+    }
+
+    .diagnostico-page .btn-limpar-resposta:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
+
+    .diagnostico-page .autosave-status {
+        position: sticky;
+        top: 80px;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 0 0 26px;
+        padding: 12px 18px;
+        background: #E7F0E8;
+        border: 1px solid #B9D3BF;
+        border-radius: 10px;
+        color: #245B38;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .diagnostico-page .autosave-status[hidden] {
+        display: none;
+    }
+
+    .diagnostico-page .autosave-descartar {
+        padding: 6px 12px;
+        background: transparent;
+        border: 1px solid #245B38;
+        border-radius: 20px;
+        color: #245B38;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .diagnostico-page .autosave-descartar:hover {
+        background: #245B38;
+        color: #FFFFFF;
+    }
+
+    body.dark-theme .diagnostico-page .btn-limpar-resposta {
+        border-color: rgba(255, 255, 255, 0.25);
+        color: #D7DEE8;
+    }
+
+    body.dark-theme .diagnostico-page .btn-limpar-resposta:hover:not(:disabled) {
+        background: #42212A;
+        border-color: #FF8A80;
+        color: #FFB4AB;
+    }
+
+    body.dark-theme .diagnostico-page .autosave-status {
+        background: #1E3A2B;
+        border-color: #2F6B47;
+        color: #A8E6BF;
+    }
+
+    body.dark-theme .diagnostico-page .autosave-descartar {
+        border-color: #A8E6BF;
+        color: #A8E6BF;
+    }
+
+    body.dark-theme .diagnostico-page .autosave-descartar:hover {
+        background: #A8E6BF;
+        color: #1E3A2B;
+    }
+
     /* Responsividade */
 
     @media (max-width: 650px) {
@@ -346,10 +444,31 @@ Diagnóstico ESG | Ecomply
 
     {% else %}
 
+        <!-- STATUS DO SALVAMENTO AUTOMÁTICO -->
+
+        <div
+            class="autosave-status"
+            id="autosave-status"
+            role="status"
+            aria-live="polite"
+            hidden
+        >
+            <span id="autosave-texto"></span>
+
+            <button
+                type="button"
+                class="autosave-descartar"
+                id="autosave-descartar"
+            >
+                Recomeçar do zero
+            </button>
+        </div>
+
         <form
             method="post"
             class="diagnostico-form"
             id="form-diagnostico"
+            data-empresa-id="{{ empresa.id }}"
             novalidate
         >
 
@@ -439,6 +558,17 @@ Diagnóstico ESG | Ecomply
 
                             </div>
 
+                            <!-- LIMPAR RESPOSTA -->
+
+                            <button
+                                type="button"
+                                class="btn-limpar-resposta"
+                                aria-label="Limpar resposta da pergunta {{ forloop.counter }}"
+                                disabled
+                            >
+                                ✕ Limpar resposta
+                            </button>
+
                             <!-- ERRO DA PERGUNTA -->
 
                             <p
@@ -524,6 +654,177 @@ document.addEventListener("DOMContentLoaded", function () {
         return respondida;
     }
 
+    /* ======================================
+       SALVAMENTO AUTOMÁTICO (RASCUNHO)
+       As respostas ficam guardadas no navegador
+       enquanto o diagnóstico é preenchido.
+    ====================================== */
+
+    const chaveRascunho =
+        "ecomply_diagnostico_" + formulario.dataset.empresaId;
+
+    const caixaStatus = document.getElementById("autosave-status");
+    const textoStatus = document.getElementById("autosave-texto");
+    const botaoDescartar = document.getElementById("autosave-descartar");
+
+    function mostrarStatus(texto) {
+        if (!caixaStatus || !textoStatus) {
+            return;
+        }
+
+        textoStatus.textContent = texto;
+        caixaStatus.hidden = false;
+    }
+
+    function horaAtual() {
+        return new Date().toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+
+    function lerRascunho() {
+        try {
+            const salvo = localStorage.getItem(chaveRascunho);
+            return salvo ? JSON.parse(salvo) : null;
+        } catch (erro) {
+            return null;
+        }
+    }
+
+    function salvarRascunho() {
+        const respostas = {};
+
+        formulario
+            .querySelectorAll('input[type="radio"]:checked')
+            .forEach(function (alternativa) {
+                respostas[alternativa.name] = alternativa.value;
+            });
+
+        try {
+            if (Object.keys(respostas).length === 0) {
+                localStorage.removeItem(chaveRascunho);
+                caixaStatus.hidden = true;
+                return;
+            }
+
+            localStorage.setItem(
+                chaveRascunho,
+                JSON.stringify(respostas)
+            );
+
+            mostrarStatus(
+                "Respostas salvas automaticamente às " + horaAtual() + "."
+            );
+        } catch (erro) {
+            /* Navegador sem armazenamento disponível */
+        }
+    }
+
+    function restaurarRascunho() {
+        const rascunho = lerRascunho();
+
+        if (!rascunho) {
+            return;
+        }
+
+        let restauradas = 0;
+
+        Object.keys(rascunho).forEach(function (nome) {
+            const alternativa = formulario.querySelector(
+                'input[type="radio"][name="' + nome + '"]' +
+                '[value="' + rascunho[nome] + '"]'
+            );
+
+            if (alternativa) {
+                alternativa.checked = true;
+                restauradas += 1;
+            }
+        });
+
+        if (restauradas > 0) {
+            mostrarStatus(
+                "Continuando de onde você parou: " +
+                restauradas + " de " + perguntas.length +
+                " respostas recuperadas."
+            );
+        }
+    }
+
+    if (botaoDescartar) {
+        botaoDescartar.addEventListener("click", function () {
+            if (!confirm("Deseja apagar todas as respostas e recomeçar?")) {
+                return;
+            }
+
+            formulario
+                .querySelectorAll('input[type="radio"]')
+                .forEach(function (alternativa) {
+                    alternativa.checked = false;
+                });
+
+            perguntas.forEach(function (pergunta) {
+                validarPergunta(pergunta, false);
+                atualizarBotaoLimpar(pergunta);
+            });
+
+            try {
+                localStorage.removeItem(chaveRascunho);
+            } catch (erro) {}
+
+            caixaStatus.hidden = true;
+        });
+    }
+
+    /* ======================================
+       BOTÃO LIMPAR RESPOSTA
+    ====================================== */
+
+    function atualizarBotaoLimpar(pergunta) {
+        const botao = pergunta.querySelector(".btn-limpar-resposta");
+
+        if (!botao) {
+            return;
+        }
+
+        const respondida = pergunta.querySelector(
+            'input[type="radio"]:checked'
+        );
+
+        botao.disabled = !respondida;
+    }
+
+    perguntas.forEach(function (pergunta) {
+        const botao = pergunta.querySelector(".btn-limpar-resposta");
+
+        if (!botao) {
+            return;
+        }
+
+        botao.addEventListener("click", function () {
+            pergunta
+                .querySelectorAll('input[type="radio"]')
+                .forEach(function (alternativa) {
+                    alternativa.checked = false;
+                });
+
+            validarPergunta(pergunta, false);
+            atualizarBotaoLimpar(pergunta);
+            salvarRascunho();
+
+            const primeiraAlternativa =
+                pergunta.querySelector('input[type="radio"]');
+
+            if (primeiraAlternativa) {
+                primeiraAlternativa.focus({ preventScroll: true });
+            }
+        });
+    });
+
+    restaurarRascunho();
+
+    perguntas.forEach(atualizarBotaoLimpar);
+
     /* Remove o erro assim que uma resposta for escolhida */
 
     perguntas.forEach(function (pergunta) {
@@ -536,6 +837,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             alternativa.addEventListener("change", function () {
                 validarPergunta(pergunta, false);
+                atualizarBotaoLimpar(pergunta);
+                salvarRascunho();
             });
 
         });
