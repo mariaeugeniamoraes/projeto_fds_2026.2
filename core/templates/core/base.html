@@ -1,4 +1,3 @@
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -475,6 +474,38 @@
 
         .sidebar .submenu-item:hover {
             background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        /* ==========================================
+           PÁGINA ATUAL NA BARRA LATERAL
+           Setinha indicando onde o usuário está
+        ========================================== */
+
+        .sidebar .nav-item,
+        .sidebar .inicio-link,
+        .sidebar .submenu-item {
+            position: relative;
+        }
+
+        .sidebar .is-current {
+            background-color: rgba(255, 255, 255, 0.16) !important;
+            color: #FFFFFF !important;
+            font-weight: 700;
+            box-shadow: inset 3px 0 0 #FFF3CD;
+        }
+
+        .sidebar .is-current::after {
+            content: "▸";
+            margin-left: auto;
+            padding-left: 10px;
+            color: #FFF3CD;
+            font-size: 15px;
+            line-height: 1;
+        }
+
+        .sidebar .submenu-item.is-current {
+            display: flex;
+            align-items: center;
         }
 
         /* ==========================================
@@ -1056,6 +1087,7 @@
                 <a
                     href="{% url 'minhas_empresas' %}"
                     class="nav-item"
+                    data-subsecoes="^/empresas/\d+/(diagnostico|financeiro|publicacao)/|^/diagnosticos/|^/historico-diagnosticos/"
                 >
                     <span aria-hidden="true">▣</span>
                     Minhas empresas
@@ -1088,6 +1120,7 @@
                 <a
                     href="{% url 'ferramentas' %}"
                     class="nav-item"
+                    data-subsecoes="^/calculadora-embalagens/"
                 >
                     <span aria-hidden="true">⚙</span>
                     Ferramentas
@@ -1356,6 +1389,60 @@
                     }
                 }
             );
+
+            /* PÁGINA ATUAL NA BARRA LATERAL */
+
+            const linksMenu = Array.from(
+                document.querySelectorAll(
+                    ".sidebar .nav-item[href], " +
+                    ".sidebar .inicio-link[href], " +
+                    ".sidebar .submenu-item[href]"
+                )
+            );
+
+            const caminhoAtual = window.location.pathname;
+
+            let linkAtual = null;
+            let maiorCaminho = 0;
+
+            linksMenu.forEach(function (link) {
+                const caminhoLink = new URL(
+                    link.href,
+                    window.location.origin
+                ).pathname;
+
+                const mesmaPagina = caminhoLink === caminhoAtual;
+
+                const subpagina =
+                    caminhoLink !== "/" &&
+                    caminhoAtual.startsWith(caminhoLink);
+
+                if (
+                    (mesmaPagina || subpagina) &&
+                    caminhoLink.length > maiorCaminho
+                ) {
+                    linkAtual = link;
+                    maiorCaminho = caminhoLink.length;
+                }
+            });
+
+            /* Páginas internas sem link próprio no menu
+               (diagnóstico, financeiro, calculadora...)
+               marcam a seção de onde são acessadas */
+
+            if (!linkAtual) {
+                linkAtual = linksMenu.find(function (link) {
+                    const padrao = link.dataset.subsecoes;
+
+                    return padrao &&
+                        new RegExp(padrao).test(caminhoAtual);
+                }) || null;
+            }
+
+            if (linkAtual) {
+                linkAtual.classList.add("is-current");
+                linkAtual.setAttribute("aria-current", "page");
+            }
 
             /* SUBMENU INÍCIO */
 
