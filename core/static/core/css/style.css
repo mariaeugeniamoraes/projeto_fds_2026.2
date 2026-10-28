@@ -4434,6 +4434,7 @@ footer a,
     font-size: 0.95rem !important;
     font-weight: 700 !important;
 }
+
 /* --- Ajuste Fino nos Rótulos (NOME, SOBRENOME, NOME DE USUÁRIO, E-MAIL) --- */
 .perfil-box label,
 .perfil-campo label,
@@ -4447,4 +4448,126 @@ footer a,
     letter-spacing: 0.8px !important;    /* Espaçamento legível */
     display: block !important;
     margin-bottom: 2px !important;
+}
+
+/* --- Forçar estilo de Rótulo em qualquer tag do Perfil --- */
+.perfil-box label,
+.perfil-box small,
+.perfil-box span:first-child,
+.perfil-box p:first-child,
+.perfil-box div > span,
+.perfil-box strong,
+.perfil-campo label,
+.perfil-campo small,
+.perfil-campo span:first-child,
+.perfil-campo p:first-child,
+.campo-label,
+div[class*="perfil"] label,
+div[class*="perfil"] small,
+div[class*="campo"] label,
+div[class*="campo"] small {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 0.6rem !important;      /* ~9.5px a 10px (visivelmente menor) */
+    font-weight: 800 !important;        /* Negrito bem destacado */
+    color: #0D1959 !important;           /* Azul oficial */
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    display: block !important;
+    margin-bottom: 2px !important;
+}
+
+/* --- Ajuste Global da Tela (CORRIGIDO: Sem zoom que quebra a largura) --- */
+html {
+    font-size: 100% !important;
+    background-color: #F8F5EE !important;
+}
+
+body {
+    zoom: 1 !important; /* Desativado o zoom que gerava a barra branca na lateral */
+    background-color: #F8F5EE !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+}
+
+/* Força a camada escura de fundo do menu a cobrir 100% da tela */
+.offcanvas-backdrop,
+.modal-backdrop,
+.drawer-overlay {
+    width: 100vw !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* --- Aumentar Rótulos do Formulário (Nome da empresa, CNPJ, etc.) --- */
+.cadastro-empresa label,
+.minhas-empresas-page label,
+.minhas-empresas-page form label,
+form label {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 0.88rem !important;  /* Aumentado para ~14px para leitura confortável */
+    font-weight: 700 !important;    /* Negrito bem definido */
+    color: #0D1959 !important;      /* Azul escuro da marca */
+    margin-bottom: 6px !important;
+    display: block !important;
+}
+
+/* --- Ajuste de Tamanho do Rodapé (Aumentado para Leitura Confortável) --- */
+footer,
+footer p,
+footer a,
+.footer,
+.rodape {
+    font-size: 0.85rem !important; /* ~13.5px (tamanho legível e discreto) */
+    opacity: 0.9 !important;
+}
+
+/* --- Correção das Perguntas do FAQ --- */
+.faq-item summary,
+.faq-item h3,
+.faq-item button,
+.faq-question,
+.faq-title,
+.faq-container summary,
+.accordion-button,
+details summary {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 1.05rem !important;     /* Tamanho legível (~17px) */
+    font-weight: 700 !important;       /* Negrito bem definido */
+    color: #0D1959 !important;         /* Azul oficial da marca */
+    line-height: 1.4 !important;
+}
+/* --- Ajuste no Tamanho da Resposta do FAQ --- */
+.faq-item p,
+.faq-answer,
+.faq-content,
+.faq-container p,
+details p,
+details div {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 0.98rem !important;    /* Aumentado para ~15.5px (leitura equilibrada) */
+    font-weight: 400 !important;
+    color: #4C6565 !important;
+    line-height: 1.5 !important;
+    margin-top: 8px !important;
+}
+/* =========================================================
+   1. Ajuste do Formuário de Feedback ("Deixe seu feedback")
+   ========================================================= */
+
+/* Rótulos ("Nota:", "Comentário:") - Aumentados e visíveis */
+.feedback-container label,
+.feedback-card label,
+.fale-conosco-page label,
+.fale-conosco-container label,
+form label {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 0.88rem !important;  /* ~14px */
+    font-weight: 700 !important;
+    color: #0D1959 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.6px !important;
+    display: block !important;
+    margin-bottom: 6px !important;
 }
