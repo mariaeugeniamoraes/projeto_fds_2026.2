@@ -1,3 +1,4 @@
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -12,12 +13,12 @@
     <!-- CSS ORIGINAL DO ECOMPLY -->
     <link
         rel="stylesheet"
-        href="{% static 'core/css/style.css' %}?v=20261027-3"
+        href="{% static 'core/css/style.css' %}?v=20261028-1"
     >
 
     <style>
         /* ==========================================
-           1. ESTRUTURA GERAL
+           ESTRUTURA GERAL
         ========================================== */
 
         html,
@@ -36,7 +37,7 @@
         }
 
         /* ==========================================
-           2. BARRA SUPERIOR
+           BARRA SUPERIOR
         ========================================== */
 
         .topbar {
@@ -57,7 +58,6 @@
             justify-content: space-between;
 
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-
             z-index: 1003;
         }
 
@@ -91,10 +91,8 @@
 
         .topbar-logo {
             margin-left: 15px;
-
             color: #FFF3CD;
             text-decoration: none;
-
             font-size: 20px;
             font-weight: 700;
         }
@@ -104,13 +102,10 @@
         }
 
         /* ==========================================
-           3. NOVOS BOTÕES SUPERIORES
            MEU PERFIL E DISLEXIA
         ========================================== */
 
         .topbar-right {
-            display: flex;
-            align-items: center;
             justify-content: flex-end;
             gap: 14px;
         }
@@ -135,10 +130,7 @@
             font-size: 21px;
 
             cursor: pointer;
-
-            transition:
-                background-color 0.2s ease,
-                color 0.2s ease;
+            transition: background-color 0.2s ease;
         }
 
         .topbar-action svg {
@@ -155,15 +147,13 @@
             outline-offset: 2px;
         }
 
-        /* Indica visualmente quando o modo dislexia está ativo */
-
         .topbar-action[aria-pressed="true"] {
             background: #FFF3CD;
             color: #245B38 !important;
         }
 
         /* ==========================================
-           4. INTERRUPTOR DO MODO ESCURO
+           MODO ESCURO - INTERRUPTOR
         ========================================== */
 
         .theme-toggle-container {
@@ -175,7 +165,6 @@
         .theme-switch {
             position: relative;
             display: inline-block;
-
             width: 50px;
             height: 26px;
         }
@@ -191,7 +180,6 @@
             inset: 0;
 
             background-color: rgba(255, 255, 255, 0.2);
-
             border: 1px solid rgba(255, 243, 205, 0.4);
             border-radius: 26px;
 
@@ -205,7 +193,6 @@
 
             width: 20px;
             height: 20px;
-
             left: 2px;
             bottom: 2px;
 
@@ -234,12 +221,11 @@
         }
 
         /* ==========================================
-           5. BARRA LATERAL
+           BARRA LATERAL
         ========================================== */
 
         .sidebar {
             position: fixed;
-
             top: 0;
             left: 0;
 
@@ -250,7 +236,6 @@
             box-sizing: border-box;
 
             background-color: #245B38;
-
             box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
 
             overflow-y: auto;
@@ -294,7 +279,7 @@
         }
 
         /* ==========================================
-           6. LINKS E TÍTULOS DO MENU
+           LINKS DO MENU
         ========================================== */
 
         .sidebar .sidebar-header-title,
@@ -314,9 +299,9 @@
         .sidebar .nav-links {
             display: flex;
             flex-direction: column;
-
             align-items: stretch;
 
+            flex: 1;
             gap: 4px;
             width: 100%;
         }
@@ -325,6 +310,8 @@
         .sidebar .btn-login,
         .sidebar .btn-register,
         .sidebar .btn-logout {
+            position: relative;
+
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -336,7 +323,6 @@
             padding: 10px 12px;
 
             background: transparent;
-
             border: none;
             border-radius: 7px;
 
@@ -349,8 +335,6 @@
 
             text-align: left;
             cursor: pointer;
-
-            white-space: normal;
         }
 
         .sidebar .nav-item:hover,
@@ -371,7 +355,7 @@
         }
 
         /* ==========================================
-           7. INÍCIO COM SUBMENU
+           MENU INÍCIO
         ========================================== */
 
         .inicio-menu {
@@ -389,6 +373,8 @@
         }
 
         .sidebar .inicio-link {
+            position: relative;
+
             display: flex;
             align-items: center;
 
@@ -403,10 +389,6 @@
 
             font-size: 17px;
             font-weight: 700;
-        }
-
-        .sidebar .inicio-link:hover {
-            color: #FFFFFF !important;
         }
 
         .sidebar .inicio-dropdown-btn {
@@ -445,8 +427,9 @@
             flex-direction: column;
 
             width: 100%;
-            gap: 4px;
+            box-sizing: border-box;
 
+            gap: 4px;
             padding: 8px 0 0 16px;
         }
 
@@ -455,8 +438,9 @@
         }
 
         .sidebar .submenu-item {
-            display: block;
+            position: relative;
 
+            display: block;
             width: 100%;
             box-sizing: border-box;
 
@@ -477,8 +461,158 @@
         }
 
         /* ==========================================
-           PÁGINA ATUAL NA BARRA LATERAL
-           Setinha indicando onde o usuário está
+           MINHAS EMPRESAS COM SUBMENU
+           CORRIGIDO - SEM DUPLICAÇÕES
+        ========================================== */
+
+        .sidebar .empresas-menu {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .sidebar .empresas-menu-header {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+
+            background-color: rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+        }
+
+        /* Link e seta dividem a mesma linha */
+
+        .sidebar .empresas-menu-header .empresas-menu-link {
+            display: flex;
+            align-items: center;
+            flex: 1 1 auto;
+
+            min-width: 0;
+            width: auto;
+
+            margin: 0;
+            padding: 12px 8px;
+
+            gap: 10px;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            background: transparent;
+            white-space: nowrap;
+        }
+
+        .sidebar .empresas-menu-link span {
+            white-space: nowrap;
+        }
+
+        /* Não permite uma segunda seta gerada pelo CSS */
+
+        .sidebar .empresas-menu-link::after {
+            display: none !important;
+            content: none !important;
+        }
+
+        /* ÚNICO botão de expandir */
+
+        .sidebar .empresas-dropdown-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex: 0 0 36px;
+            width: 36px;
+            height: 42px;
+
+            padding: 0;
+            margin: 0;
+
+            background: transparent;
+            border: none;
+            border-radius: 7px;
+
+            color: #FFF3CD;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .sidebar .empresas-dropdown-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .empresas-dropdown-arrow {
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+
+        .empresas-dropdown-btn[aria-expanded="false"]
+        .empresas-dropdown-arrow {
+            transform: rotate(-90deg);
+        }
+
+        /* Subtópicos */
+
+        .sidebar .empresas-submenu {
+            display: flex;
+            flex-direction: column;
+
+            width: 100%;
+            box-sizing: border-box;
+
+            gap: 4px;
+            padding: 8px 0 8px 14px;
+        }
+
+        .sidebar .empresas-submenu[hidden] {
+            display: none !important;
+        }
+
+        .sidebar .empresas-submenu-item {
+            display: block;
+
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 10px 12px;
+            border-radius: 7px;
+
+            background: transparent;
+            color: #FFF3CD !important;
+
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+
+            white-space: normal;
+        }
+
+        .sidebar .empresas-submenu-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* Página atual dentro do submenu */
+
+        .sidebar .empresas-submenu-item.empresa-submenu-atual {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(255, 255, 255, 0.18);
+            border-left: 3px solid #FFF3CD;
+
+            font-weight: 700;
+        }
+
+        .sidebar .empresas-submenu-item.empresa-submenu-atual::after {
+            content: "▸";
+            margin-left: 8px;
+            color: #FFF3CD;
+        }
+
+        /* ==========================================
+           PÁGINA ATUAL NOS LINKS DO MENU
         ========================================== */
 
         .sidebar .nav-item,
@@ -490,14 +624,17 @@
         .sidebar .is-current {
             background-color: rgba(255, 255, 255, 0.16) !important;
             color: #FFFFFF !important;
+
             font-weight: 700;
             box-shadow: inset 3px 0 0 #FFF3CD;
         }
 
         .sidebar .is-current::after {
             content: "▸";
+
             margin-left: auto;
             padding-left: 10px;
+
             color: #FFF3CD;
             font-size: 15px;
             line-height: 1;
@@ -508,9 +645,50 @@
             align-items: center;
         }
 
+        /* Evita seta duplicada em Minhas empresas */
+
+        .sidebar .empresas-menu-link.is-current::after {
+            display: none !important;
+        }
+
         /* ==========================================
-           8. ÁREA PRINCIPAL
-           CENTRALIZAÇÃO DAS PÁGINAS
+           SAIR DA CONTA NO FINAL DO MENU
+        ========================================== */
+
+        .sidebar .sidebar-logout {
+            margin-top: auto;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            width: 100%;
+            padding: 14px 12px;
+
+            color: #FFF3CD !important;
+
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 243, 205, 0.15);
+            border-radius: 9px;
+
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+
+            transition: background-color 0.2s ease;
+        }
+
+        .sidebar .sidebar-logout:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .sidebar .sidebar-logout svg {
+            flex-shrink: 0;
+            color: #FFF3CD;
+        }
+
+        /* ==========================================
+           ÁREA PRINCIPAL
         ========================================== */
 
         main.main-content {
@@ -536,8 +714,6 @@
                 width 0.3s ease-in-out;
         }
 
-        /* Preserva a centralização que corrigimos anteriormente */
-
         .main-content > .minhas-empresas-page,
         .main-content > .financeiro-container,
         .main-content > .planos-container,
@@ -560,7 +736,7 @@
         }
 
         /* ==========================================
-           9. PÁGINA INICIAL
+           PÁGINA INICIAL
         ========================================== */
 
         main.main-content:has(.hero-section) {
@@ -577,15 +753,14 @@
         }
 
         /* ==========================================
-           10. RODAPÉ
+           RODAPÉ
         ========================================== */
 
         footer.footer {
             width: 100%;
-
             margin-left: 0;
-            box-sizing: border-box;
 
+            box-sizing: border-box;
             text-align: center;
 
             transition:
@@ -598,7 +773,7 @@
         }
 
         /* ==========================================
-           11. COMPORTAMENTO COM MENU ABERTO
+           DESKTOP
         ========================================== */
 
         @media (min-width: 769px) {
@@ -615,7 +790,7 @@
         }
 
         /* ==========================================
-           12. MODO ESCURO - ESTRUTURA
+           MODO ESCURO
         ========================================== */
 
         body.dark-theme {
@@ -633,7 +808,7 @@
         }
 
         /* ==========================================
-           13. AVISO DE PRIVACIDADE
+           AVISO DE PRIVACIDADE
         ========================================== */
 
         .aviso-privacidade[hidden] {
@@ -661,7 +836,6 @@
             border-radius: 13px;
 
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
-
             z-index: 1100;
         }
 
@@ -669,14 +843,12 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             gap: 28px;
         }
 
         .aviso-privacidade-texto {
             display: flex;
             align-items: center;
-
             gap: 20px;
             min-width: 0;
         }
@@ -691,21 +863,18 @@
             min-width: 42px;
 
             border-radius: 50%;
-
             background-color: #FFF3CD;
             color: #245B38;
         }
 
         .aviso-privacidade h3 {
             color: #FFF3CD !important;
-
             font-size: 16px;
             margin: 0 0 7px;
         }
 
         .aviso-privacidade p {
             color: #FFFFFF !important;
-
             font-size: 13px;
             margin: 0 0 9px;
         }
@@ -717,7 +886,6 @@
 
         .aviso-privacidade #btn-entendi {
             flex-shrink: 0;
-
             padding: 13px 24px;
 
             border: none;
@@ -738,7 +906,7 @@
         }
 
         /* ==========================================
-           14. RESPONSIVIDADE
+           RESPONSIVIDADE
         ========================================== */
 
         @media (max-width: 768px) {
@@ -785,7 +953,6 @@
 
             .aviso-privacidade {
                 width: calc(100% - 24px);
-
                 bottom: 12px;
                 padding: 20px;
             }
@@ -793,7 +960,6 @@
             .aviso-privacidade-conteudo {
                 flex-direction: column;
                 align-items: stretch;
-
                 gap: 18px;
             }
 
@@ -806,54 +972,7 @@
                 width: 100%;
             }
         }
-
-        
-/* ==========================================
-   SAIR DA CONTA NO FINAL DO MENU LATERAL
-========================================== */
-
-/* O menu ocupa toda a altura disponível */
-.sidebar .nav-links {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    width: 100%;
-}
-
-/* Empurra o botão para a parte inferior */
-.sidebar .sidebar-logout {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    width: 100%;
-    padding: 14px 12px;
-
-    color: #FFF3CD !important;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 243, 205, 0.15);
-    border-radius: 9px;
-
-    font-size: 16px;
-    font-weight: 600;
-    text-decoration: none;
-
-    transition: background-color 0.2s ease;
-}
-
-.sidebar .sidebar-logout:hover {
-    background: rgba(255, 255, 255, 0.18);
-}
-
-.sidebar .sidebar-logout svg {
-    flex-shrink: 0;
-    color: #FFF3CD;
-}
-
-
     </style>
-
 </head>
 
 <body>
@@ -866,8 +985,6 @@
 
         <div class="topbar-left">
 
-            <!-- MENU HAMBÚRGUER -->
-
             <button
                 id="sidebar-toggle"
                 class="sidebar-toggle-btn"
@@ -879,22 +996,15 @@
                 <span id="toggle-icon">☰</span>
             </button>
 
-            <!-- NOME DO SITE -->
-
             <a href="{% url 'home' %}" class="topbar-logo">
                 <strong>Ecomply</strong>
             </a>
 
         </div>
 
-        <!-- ======================================
-             BOTÕES DO CANTO SUPERIOR DIREITO
-        ====================================== -->
-
         <div class="topbar-right">
 
             <!-- MEU PERFIL -->
-            <!-- Aparece apenas para usuários logados -->
 
             {% if user.is_authenticated %}
 
@@ -904,7 +1014,6 @@
                     title="Meu Perfil"
                     aria-label="Meu Perfil"
                 >
-
                     <svg
                         width="21"
                         height="21"
@@ -916,17 +1025,9 @@
                         stroke-linejoin="round"
                         aria-hidden="true"
                     >
-                        <circle
-                            cx="12"
-                            cy="8"
-                            r="4"
-                        ></circle>
-
-                        <path
-                            d="M4 21v-2a8 8 0 0 1 16 0v2"
-                        ></path>
+                        <circle cx="12" cy="8" r="4"></circle>
+                        <path d="M4 21v-2a8 8 0 0 1 16 0v2"></path>
                     </svg>
-
                 </a>
 
             {% endif %}
@@ -941,7 +1042,6 @@
                 aria-label="Ativar modo dislexia"
                 aria-pressed="false"
             >
-
                 <svg
                     width="21"
                     height="21"
@@ -954,16 +1054,9 @@
                     aria-hidden="true"
                 >
                     <circle cx="12" cy="12" r="9"></circle>
-
-                    <path
-                        d="M8 7h4a3 3 0 0 1 0 6H8V7z"
-                    ></path>
-
-                    <path
-                        d="M8 13h5a3 3 0 0 1 0 6H8v-6z"
-                    ></path>
+                    <path d="M8 7h4a3 3 0 0 1 0 6H8V7z"></path>
+                    <path d="M8 13h5a3 3 0 0 1 0 6H8v-6z"></path>
                 </svg>
-
             </button>
 
             <!-- MODO ESCURO -->
@@ -975,14 +1068,8 @@
                     for="theme-toggle"
                     aria-label="Alternar modo escuro"
                 >
-
-                    <input
-                        type="checkbox"
-                        id="theme-toggle"
-                    >
-
+                    <input type="checkbox" id="theme-toggle">
                     <span class="slider round"></span>
-
                 </label>
 
             </div>
@@ -992,7 +1079,7 @@
     </header>
 
     <!-- ==========================================
-         OVERLAY DO MENU
+         OVERLAY
     ========================================== -->
 
     <div
@@ -1012,7 +1099,9 @@
 
         <nav class="nav-links" aria-label="Menu principal">
 
-            <!-- INÍCIO -->
+            <!-- ==================================
+                 INÍCIO
+            ================================== -->
 
             <div class="inicio-menu">
 
@@ -1039,8 +1128,6 @@
 
                 </div>
 
-                <!-- SUBMENU -->
-
                 <div
                     id="inicio-submenu"
                     class="submenu-links"
@@ -1064,7 +1151,9 @@
 
             </div>
 
-            <!-- FALE CONOSCO -->
+            <!-- ==================================
+                 FALE CONOSCO
+            ================================== -->
 
             <a
                 href="{% url 'feedback' %}"
@@ -1082,18 +1171,145 @@
                     ÁREA DA EMPRESA
                 </span>
 
-                <!-- MINHAS EMPRESAS -->
+                <!-- ==============================
+                     MINHAS EMPRESAS
+                     SUBMENU CORRIGIDO
+                ============================== -->
 
-                <a
-                    href="{% url 'minhas_empresas' %}"
-                    class="nav-item"
-                    data-subsecoes="^/empresas/\d+/(diagnostico|financeiro|publicacao)/|^/diagnosticos/|^/historico-diagnosticos/"
-                >
-                    <span aria-hidden="true">▣</span>
-                    Minhas empresas
-                </a>
+                <div class="empresas-menu">
 
-                <!-- PLANOS E FORNECEDORES -->
+                    <div class="empresas-menu-header">
+
+                        <!-- Nome abre a página de empresas -->
+
+                        <a
+                            href="{% url 'minhas_empresas' %}"
+                            class="nav-item empresas-menu-link"
+                        >
+                            <span aria-hidden="true">▣</span>
+                            <span>Minhas empresas</span>
+                        </a>
+
+                        <!-- Seta abre e fecha o submenu -->
+
+                        <button
+                            type="button"
+                            id="empresas-dropdown-btn"
+                            class="empresas-dropdown-btn"
+                            aria-label="Expandir subseções de Minhas empresas"
+                            aria-controls="empresas-submenu"
+                            aria-expanded="false"
+                        >
+                            <span
+                                class="empresas-dropdown-arrow"
+                                aria-hidden="true"
+                            >
+                                ▾
+                            </span>
+                        </button>
+
+                    </div>
+
+                    <!-- QUATRO SUBTÓPICOS -->
+
+                    <div
+                        id="empresas-submenu"
+                        class="empresas-submenu"
+                        hidden
+                    >
+
+                        <!-- AVALIAÇÃO ESG -->
+
+                        {% if empresa_selecionada %}
+
+                            <a
+                                href="{% url 'iniciar_diagnostico' empresa_selecionada.id %}"
+                                class="empresas-submenu-item"
+                                data-rota="avaliacao"
+                            >
+                                Avaliação ESG
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'minhas_empresas' %}"
+                                class="empresas-submenu-item"
+                                data-rota="avaliacao"
+                                title="Escolha uma empresa para iniciar a avaliação"
+                            >
+                                Avaliação ESG
+                            </a>
+
+                        {% endif %}
+
+                        <!-- CONTROLE FINANCEIRO -->
+
+                        {% if empresa_selecionada %}
+
+                            <a
+                                href="{% url 'listar_registros_financeiros' empresa_selecionada.id %}"
+                                class="empresas-submenu-item"
+                                data-rota="financeiro"
+                            >
+                                Controle Financeiro
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'minhas_empresas' %}"
+                                class="empresas-submenu-item"
+                                data-rota="financeiro"
+                                title="Escolha uma empresa para acessar o financeiro"
+                            >
+                                Controle Financeiro
+                            </a>
+
+                        {% endif %}
+
+                        <!-- HISTÓRICO DE AVALIAÇÕES -->
+
+                        <a
+                            href="{% url 'historico_diagnosticos' %}"
+                            class="empresas-submenu-item"
+                            data-rota="historico"
+                        >
+                            Histórico de Avaliações
+                        </a>
+
+                        <!-- PORTAL PÚBLICO -->
+
+                        {% if empresa_selecionada %}
+
+                            <a
+                                href="{% url 'portal_transparencia' empresa_selecionada.id %}"
+                                class="empresas-submenu-item"
+                                data-rota="portal"
+                            >
+                                Portal Público
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'minhas_empresas' %}"
+                                class="empresas-submenu-item"
+                                data-rota="portal"
+                                title="Escolha uma empresa para acessar o portal"
+                            >
+                                Portal Público
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                <!-- ==============================
+                     PLANOS E FORNECEDORES
+                ============================== -->
 
                 {% if empresa_selecionada %}
 
@@ -1115,7 +1331,9 @@
 
                 {% endif %}
 
-                <!-- FERRAMENTAS -->
+                <!-- ==============================
+                     FERRAMENTAS
+                ============================== -->
 
                 <a
                     href="{% url 'ferramentas' %}"
@@ -1126,7 +1344,9 @@
                     Ferramentas
                 </a>
 
-                <!-- DASHBOARD -->
+                <!-- ==============================
+                     DASHBOARD
+                ============================== -->
 
                 <a
                     href="{% url 'dashboard' %}"
@@ -1136,38 +1356,50 @@
                     Dashboard
                 </a>
 
-                <!-- SAIR -->
-                <!-- Meu Perfil foi movido para a barra superior -->
+                <!-- ==============================
+                     SAIR DA CONTA
+                ============================== -->
 
-               
-<a
-    href="{% url 'logout' %}"
-    class="btn-logout sidebar-logout"
-    aria-label="Sair da conta"
->
-    <svg
-        width="21"
-        height="21"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-    >
-        <path d="M10 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2Z"></path>
-        <path d="M10 5 4 7v12l6 2"></path>
-        <circle cx="7.5" cy="13" r="0.8" fill="currentColor"></circle>
-    </svg>
+                <a
+                    href="{% url 'logout' %}"
+                    class="btn-logout sidebar-logout"
+                    aria-label="Sair da conta"
+                >
 
-    <span>Sair da conta</span>
-</a>
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M10 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2Z"
+                        ></path>
 
+                        <path d="M10 5 4 7v12l6 2"></path>
+
+                        <circle
+                            cx="7.5"
+                            cy="13"
+                            r="0.8"
+                            fill="currentColor"
+                        ></circle>
+                    </svg>
+
+                    <span>Sair da conta</span>
+
+                </a>
 
             {% else %}
 
-                <!-- ÁREA DE AUTENTICAÇÃO -->
+                <!-- ==============================
+                     AUTENTICAÇÃO
+                ============================== -->
 
                 <div class="sidebar-divider"></div>
 
@@ -1186,8 +1418,6 @@
                 </a>
 
             {% endif %}
-
-            <!-- O botão Dislexia foi movido para a barra superior -->
 
         </nav>
 
@@ -1242,7 +1472,6 @@
                     class="aviso-privacidade-icone"
                     aria-hidden="true"
                 >
-
                     <svg
                         width="22"
                         height="22"
@@ -1260,12 +1489,10 @@
                             height="11"
                             rx="2"
                         ></rect>
-
                         <path
                             d="M8 10V7a4 4 0 0 1 8 0v3"
                         ></path>
                     </svg>
-
                 </span>
 
                 <div>
@@ -1390,7 +1617,141 @@
                 }
             );
 
-            /* PÁGINA ATUAL NA BARRA LATERAL */
+            /* ==================================
+               SUBMENU INÍCIO
+            ================================== */
+
+            const botaoInicio =
+                document.getElementById("inicio-dropdown-btn");
+
+            const submenuInicio =
+                document.getElementById("inicio-submenu");
+
+            if (botaoInicio && submenuInicio) {
+
+                botaoInicio.addEventListener(
+                    "click",
+                    function () {
+
+                        const abrir = submenuInicio.hidden;
+
+                        submenuInicio.hidden = !abrir;
+
+                        botaoInicio.setAttribute(
+                            "aria-expanded",
+                            String(abrir)
+                        );
+                    }
+                );
+            }
+
+            /* ==================================
+               SUBMENU MINHAS EMPRESAS
+               UM ÚNICO CONTROLADOR
+            ================================== */
+
+            const botaoEmpresas =
+                document.getElementById("empresas-dropdown-btn");
+
+            const submenuEmpresas =
+                document.getElementById("empresas-submenu");
+
+            function definirSubmenuEmpresas(aberto) {
+
+                if (!botaoEmpresas || !submenuEmpresas) {
+                    return;
+                }
+
+                submenuEmpresas.hidden = !aberto;
+
+                botaoEmpresas.setAttribute(
+                    "aria-expanded",
+                    String(aberto)
+                );
+
+                botaoEmpresas.setAttribute(
+                    "aria-label",
+                    aberto
+                        ? "Recolher subseções de Minhas empresas"
+                        : "Expandir subseções de Minhas empresas"
+                );
+            }
+
+            if (botaoEmpresas && submenuEmpresas) {
+
+                /* Começa recolhido */
+
+                definirSubmenuEmpresas(false);
+
+                /* Clique na seta abre ou fecha */
+
+                botaoEmpresas.addEventListener(
+                    "click",
+                    function (evento) {
+
+                        evento.preventDefault();
+                        evento.stopPropagation();
+
+                        definirSubmenuEmpresas(
+                            submenuEmpresas.hidden
+                        );
+                    }
+                );
+            }
+
+            /* ==================================
+               IDENTIFICA A PÁGINA ATUAL
+            ================================== */
+
+            const rotaAtual =
+                "{{ request.resolver_match.url_name|default:''|escapejs }}";
+
+            const caminhoAtual = window.location.pathname;
+
+            const paginasEmpresas = {
+
+                "iniciar_diagnostico": "avaliacao",
+                "resultado_diagnostico": "avaliacao",
+
+                "listar_registros_financeiros": "financeiro",
+                "adicionar_registro_financeiro": "financeiro",
+                "editar_registro_financeiro": "financeiro",
+                "excluir_registro_financeiro": "financeiro",
+
+                "historico_diagnosticos": "historico",
+
+                "portal_transparencia": "portal",
+                "alterar_publicacao_esg": "portal"
+            };
+
+            const secaoAtual = paginasEmpresas[rotaAtual];
+
+            if (secaoAtual && submenuEmpresas) {
+
+                /* Abre o submenu na página correspondente */
+
+                definirSubmenuEmpresas(true);
+
+                const linkAtual = submenuEmpresas.querySelector(
+                    '[data-rota="' + secaoAtual + '"]'
+                );
+
+                if (linkAtual) {
+
+                    linkAtual.classList.add(
+                        "empresa-submenu-atual"
+                    );
+
+                    linkAtual.setAttribute(
+                        "aria-current",
+                        "location"
+                    );
+                }
+            }
+
+            /* ==================================
+               DESTAQUE DOS LINKS NORMAIS
+            ================================== */
 
             const linksMenu = Array.from(
                 document.querySelectorAll(
@@ -1400,18 +1761,18 @@
                 )
             );
 
-            const caminhoAtual = window.location.pathname;
-
             let linkAtual = null;
-            let maiorCaminho = 0;
+            let maiorCaminho = -1;
 
             linksMenu.forEach(function (link) {
+
                 const caminhoLink = new URL(
                     link.href,
                     window.location.origin
                 ).pathname;
 
-                const mesmaPagina = caminhoLink === caminhoAtual;
+                const mesmaPagina =
+                    caminhoLink === caminhoAtual;
 
                 const subpagina =
                     caminhoLink !== "/" &&
@@ -1426,47 +1787,29 @@
                 }
             });
 
-            /* Páginas internas sem link próprio no menu
-               (diagnóstico, financeiro, calculadora...)
-               marcam a seção de onde são acessadas */
-
             if (!linkAtual) {
+
                 linkAtual = linksMenu.find(function (link) {
+
                     const padrao = link.dataset.subsecoes;
 
-                    return padrao &&
-                        new RegExp(padrao).test(caminhoAtual);
+                    return (
+                        padrao &&
+                        new RegExp(padrao).test(caminhoAtual)
+                    );
+
                 }) || null;
             }
 
+            /* Não destaca Minhas empresas com seta extra */
+
             if (linkAtual) {
+
                 linkAtual.classList.add("is-current");
-                linkAtual.setAttribute("aria-current", "page");
-            }
 
-            /* SUBMENU INÍCIO */
-
-            const botaoInicio =
-                document.getElementById("inicio-dropdown-btn");
-
-            const submenuInicio =
-                document.getElementById("inicio-submenu");
-
-            if (botaoInicio && submenuInicio) {
-
-                botaoInicio.addEventListener(
-                    "click",
-                    function () {
-
-                        const estavaAberto = !submenuInicio.hidden;
-
-                        submenuInicio.hidden = estavaAberto;
-
-                        botaoInicio.setAttribute(
-                            "aria-expanded",
-                            String(!estavaAberto)
-                        );
-                    }
+                linkAtual.setAttribute(
+                    "aria-current",
+                    "page"
                 );
             }
 
@@ -1558,7 +1901,6 @@
 
     <!-- ==========================================
          JAVASCRIPT - MODO DISLEXIA
-         BOTÃO AGORA NA BARRA SUPERIOR
     ========================================== -->
 
     <script>
