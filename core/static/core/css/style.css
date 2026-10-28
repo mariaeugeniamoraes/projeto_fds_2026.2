@@ -31,40 +31,64 @@
    ========================================== */
 
 :root {
-    /* Nova paleta Ecomply */
-    --bg-color: #f8f7f2;
-    --card-bg: #ffffff;
+    /* ... variáveis anteriores de cores ... */
 
-    /* Azul-marinho */
-    --primary-green: #0D1959;
-    --primary-green-hover: #09113d;
+    /* Tipografia e Fontes */
+    --font-title: 'Banchero', sans-serif;
+    --font-body: 'Josefin Sans', sans-serif;
 
-    /* Creme */
-    --accent-green-light: #FFF3CD;
-
-    /* Pontinhos do fundo */
-    --dot-color: rgba(76, 101, 101, 0.20);
-
-    /* Tipografia e textos */
-    --text-main: #0D1959;
-    --text-muted: #4C6565;
-
-    --font-family: 'Josefin Sans', Arial, sans-serif;
-
-    /* Bordas e sombras */
-    --border-color: #AEB6C2;
-    --radius-sm: 8px;
-    --radius-lg: 16px;
-    --shadow-subtle: 0 10px 30px rgba(13, 25, 89, 0.08);
-
-    /* Cores complementares */
-    --accent-brown: #8C3E14;
-    --secondary: #4C6565;
-    --soft-gray: #AEB6C2;
-    --cream: #FFF3CD;
+    /* Tamanhos de Fonte (Tokens de Tipografia) */
+    --fs-title-main: 2.33rem;  /* 42px - Título principal */
+    --fs-sub-title: 1.55rem;   /* 28px - Subtítulo */
+    --fs-section-title: 1.22rem; /* 22px - Título de seção */
+    --fs-body: 1rem;            /* 18px - Corpo do texto e Botões */
+    --fs-caption: 0.78rem;       /* 14px - Legenda / Badges */
+}
+/* Título Principal (42px | Bold 700) */
+h1, .title-main {
+    font-family: var(--font-title);
+    font-size: var(--fs-title-main); /* 42px */
+    font-weight: 700;               /* Bold */
+    color: var(--text-primary);     /* Azul #0D1959 */
 }
 
+/* Subtítulo (28px | Semi-bold 600) */
+h2, .title-sub {
+    font-family: var(--font-body);
+    font-size: var(--fs-sub-title); /* 28px */
+    font-weight: 600;              /* Semi-bold */
+    color: var(--text-primary);
+}
 
+/* Título de Seção (22px | Semi-bold 600) */
+h3, .title-section {
+    font-family: var(--font-body);
+    font-size: var(--fs-section-title); /* 22px */
+    font-weight: 600;                 /* Semi-bold */
+    color: var(--text-primary);
+}
+
+/* Corpo do Texto (18px | Regular 400) */
+p, .body-text {
+    font-family: var(--font-body);
+    font-size: var(--fs-body); /* 18px */
+    font-weight: 400;         /* Regular */
+    color: var(--text-secondary);
+}
+
+/* Botões (18px | Semi-bold 600) */
+button, .btn {
+    font-family: var(--font-body);
+    font-size: var(--fs-body); /* 18px */
+    font-weight: 600;         /* Semi-bold */
+}
+
+/* Badges e Legendas (14px | Semi-bold 600) */
+.badge, .caption {
+    font-family: var(--font-body);
+    font-size: var(--fs-caption); /* 14px */
+    font-weight: 600;           /* Semi-bold */
+}
 /* ==========================================
    2. RESET & FUNDO PONTILHADO (BULLET JOURNAL)
    ========================================== */
@@ -1764,23 +1788,17 @@ a {
     margin-top: 16px;
 }
 
-.empresa-botao-historico {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 18px;
-    border: 1px solid #0D1959;
-    border-radius: 8px;
-    color: #0D1959;
-    background: transparent;
-    font-weight: 700;
-    text-decoration: none;
-    transition: background 0.2s ease, color 0.2s ease;
+.empresa-botoes .empresa-botao-historico,
+a.empresa-botao-historico,
+button.empresa-botao-historico {
+    background-color: #8C3E14 !important; /* Fundo marrom[cite: 1, 3] */
+    color: #F7F2E8 !important;            /* Texto creme[cite: 1, 4] */
+    border: none !important;
 }
 
-.empresa-botao-historico:hover {
-    background: #0D1959;
-    color: #FFFFFF;
+.empresa-botoes .empresa-botao-historico:hover {
+    background-color: #703110 !important;
+    color: #F7F2E8 !important;
 }
 
 @media (max-width: 500px) {
@@ -4110,6 +4128,323 @@ html {
 html {
     scroll-behavior: smooth;
 }
+/* Garante a cor marrom oficial para todos os botões primários */
+.btn-primary {
+    background-color: #8C3E14 !important; /* Marrom Ecomply */
+    color: #F7F2E8 !important;            /* Texto creme[cite: 1, 4] */
+    border: none !important;
+    padding: 10px 18px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: 600;
+}
 
+.btn-primary:hover {
+    background-color: #703110 !important;
+    color: #F7F2E8 !important;
+}
+.empresa-botao-diagnostico {
+    border-radius: 8px !important;
+}
+/* 1. Igualar a altura e o espaçamento interno de todos os botões do quadro */
+.empresa-dados .btn {
+    padding: 14px 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 48px !important;
+}
 
+/* 2. Aumentar a fonte do texto "Setor: ..." */
+.empresa-dados p,
+.empresa-item p,
+.empresa-setor {
+    font-size: 1.1rem !important; /* ~18px */
+    font-weight: 600 !important;
+    margin-top: 4px !important;
+    margin-bottom: 16px !important;
+}
 
+/* 1. Fonte Banchero no Título da Empresa */
+.empresa-dados h2,
+.historico-esg h1 {
+    font-family: 'Banchero', sans-serif !important;
+    font-size: 2.33rem !important; /* 42px */
+    font-weight: 700 !important;
+    color: #0D1959 !important;    /* Azul oficial */
+}
+
+/* 2. Cor do texto de status/descrição */
+.empresa-publicacao p,
+.text-muted {
+    color: #0B1959 !important;    /* Cinza oficial */
+}
+
+/* 3. Botão Secundário ("Publicar resultados") */
+.empresa-publicacao .btn,
+.btn-secondary {
+    background-color: #F7F2E8 !important; /* Fundo creme */
+    color: #275D37 !important;            /* Texto verde */
+    border: 1px solid #275D37 !important; /* Borda verde */
+    font-weight: 600 !important;
+}
+
+.empresa-publicacao .btn:hover {
+    background-color: #275D37 !important;
+    color: #F7F2E8 !important;
+}
+
+/* 4. Badges / Avatares */
+.empresa-item .avatar,
+.badge {
+    background-color: #FFF3CD !important; /* Fundo amarelo claro */
+    color: #8C3E14 !important;            /* Texto marrom */
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600 !important;
+}
+/* --- Formulário de Cadastro: Aumento de Fontes --- */
+
+/* 1. Texto explicativo ("Preencha os dados para adicionar...") */
+.cadastro-empresa p,
+form p {
+    font-size: 1.15rem !important; /* ~18px a 19px */
+    font-weight: 500 !important;
+}
+
+/* 2. Rótulos ("Nome da empresa:", "CNPJ (opcional):", "Setor de atuação:") */
+form label,
+.cadastro-empresa label {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 1.1rem !important;  /* ~17px a 18px */
+    font-weight: 600 !important;
+    color: #0D1959 !important;
+}
+
+/* 3. Campos de digitação e seleções */
+form input,
+form select,
+.cadastro-empresa input,
+.cadastro-empresa select {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 1.1rem !important;  /* ~17px a 18px */
+    color: #245B38 !important;
+}
+
+/* 4. Sugestões / Exemplos internos (Placeholders) */
+form input::placeholder,
+form select::placeholder {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 1.1rem !important;  /* ~17px a 18px */
+    color: #AEB6C2 !important;
+}
+/* Aumentar o texto explicativo ("Preencha os dados para adicionar...") */
+.cadastro-empresa p,
+form p,
+.empresas-header p,
+.form-description,
+.subtitulo,
+section p {
+    font-size: 1.25rem !important; /* ~20px */
+    font-weight: 500 !important;
+    line-height: 1.6 !important;
+}
+/* --- Ajuste Fino nos Tamanhos do Cadastro --- */
+
+/* 1. "Cadastrar empresa" (Ligeiramente menor ~27px) */
+.minhas-empresas-page h2,
+.cadastro-empresa h2,
+form h2,
+.form-titulo {
+    font-size: 1.7rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    margin-bottom: 4px !important;
+}
+
+/* 2. "Preencha os dados para adicionar..." (Ligeiramente menor ~14px) */
+.minhas-empresas-page form p,
+.cadastro-empresa p,
+form > p,
+.form-subtitulo {
+    font-size: 0.88rem !important;
+    font-weight: 400 !important;
+    opacity: 0.85 !important;
+    margin-bottom: 18px !important;
+}
+/* Espaçamento acima do botão "+ Cadastrar empresa" */
+.cadastro-empresa button,
+.cadastro-empresa .btn,
+form button,
+form .btn-primary {
+    margin-top: 24px !important;
+}
+
+/* --- Legenda / Eyebrow "PAINEL DE GESTÃO" --- */
+.painel-gestao,
+.eyebrow,
+.subtitulo-topo,
+.empresas-header span {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 0.85rem !important;      /* ~13px - 14px */
+    font-weight: 700 !important;
+    color: #8C3E14 !important;           /* Marrom oficial Ecomply[cite: 1, 3] */
+    text-transform: uppercase !important; /* Força letras maiúsculas */
+    letter-spacing: 1.5px !important;    /* Espaçamento entre as letras */
+    display: block !important;
+    margin-bottom: 6px !important;
+}
+/* --- Badge / Contador de empresas ("3 empresas") --- */
+.badge,
+.contador-empresas,
+.empresas-contador,
+.contador-badge {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 0.85rem !important;      /* Mesmo tamanho do Painel de Gestão */
+    font-weight: 700 !important;        /* Negrito */
+    color: #8C3E14 !important;           /* Cor marrom oficial[cite: 1, 3] */
+    background-color: #FFF3CD !important; /* Fundo amarelo suave */
+    padding: 4px 12px !important;
+    border-radius: 12px !important;
+    display: inline-block !important;
+}
+/* --- Ajuste Leve nos Subtítulos/Descrições de Ferramentas --- */
+
+/* 1. Subtítulo principal ("Soluções práticas para apoiar...") */
+.ferramentas-header p,
+.ferramentas-page > p,
+.ferramentas-container > p {
+    font-size: 1.15rem !important; /* Ligeiramente maior (~18px) */
+    line-height: 1.5 !important;
+}
+
+/* 2. Descrição do card ("Simule a substituição de materiais...") */
+.ferramenta-card p,
+.calculadora-card p,
+.card p {
+    font-size: 1.05rem !important; /* Ligeiramente maior (~17px) */
+    line-height: 1.5 !important;
+}
+/* --- Reduzir Fonte do Rodapé --- */
+footer,
+footer p,
+footer a,
+.footer,
+.rodape {
+    font-size: 0.75rem !important; /* ~12px (discreto e compacto) */
+    opacity: 0.8 !important;
+}
+/* --- Fonte Oficial do Botão "Acessar Calculadora" --- */
+.ferramenta-card a,
+.ferramenta-card button,
+.calculadora-card a,
+.calculadora-card button,
+.card .btn,
+.btn-ferramenta {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    text-decoration: none !important;
+    letter-spacing: 0.3px !important;
+}
+/* =========================================================
+   Ajuste Fino do Perfil (Réplica Exata do Figma)
+   ========================================================= */
+
+/* 1. Força Josefin Sans em absolutamente TUDO no cartão de dados */
+.perfil-box *,
+.perfil-card *,
+.perfil-container * {
+    font-family: 'Josefin Sans', sans-serif !important;
+}
+
+/* 2. Exceção: Apenas o título principal "Meu Perfil" usa Banchero */
+.perfil-card h1,
+.perfil-card h2,
+.perfil-header h1,
+.perfil-header h2,
+.titulo-perfil {
+    font-family: 'Banchero', sans-serif !important;
+    font-size: 1.6rem !important;
+    font-weight: 700 !important;
+    color: #0D1959 !important;
+    margin-bottom: 4px !important;
+}
+
+/* 3. Subtítulo ("Visualize e gerencie...") */
+.perfil-card > p,
+.perfil-header p {
+    font-size: 0.8rem !important;
+    color: #4C6565 !important;
+    margin-bottom: 16px !important;
+}
+
+/* 4. Caixa interna Bege/Cinza (Espaçamento compacto) */
+.perfil-box,
+.perfil-campos-container,
+.perfil-card .card-body {
+    padding: 16px 20px !important;
+    margin-bottom: 16px !important;
+}
+
+/* 5. Rótulos (NOME, SOBRENOME, NOME DE USUÁRIO, E-MAIL) */
+.perfil-box label,
+.perfil-campo label,
+.campo-label,
+.perfil-box small {
+    font-size: 0.68rem !important; /* ~11px */
+    font-weight: 700 !important;
+    color: #0D1959 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.6px !important;
+    display: block !important;
+    margin-bottom: 2px !important;
+}
+
+/* 6. Valores preenchidos ("Ana Júlia", "de Melo", "ajmcs2", etc.) */
+.perfil-box p,
+.perfil-box span,
+.perfil-box div,
+.perfil-box h3,
+.perfil-box h4,
+.perfil-box h5,
+.perfil-campo p,
+.perfil-campo span,
+.campo-valor {
+    font-size: 0.85rem !important;  /* ~13.5px */
+    font-weight: 400 !important;    /* Regular, sem negrito/serifa */
+    color: #0D1959 !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;  /* Espaço compacto entre os blocos */
+    line-height: 1.3 !important;
+}
+
+/* Remove margem sob o último valor para não esticar a caixa */
+.perfil-box > div:last-child p,
+.perfil-campo:last-child p {
+    margin-bottom: 0 !important;
+}
+
+/* 7. Botão "Editar dados" */
+.perfil-card button,
+.perfil-card .btn,
+.perfil-card a {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+}
+/* --- Ajuste Fino nos Rótulos (NOME, SOBRENOME, NOME DE USUÁRIO, E-MAIL) --- */
+.perfil-box label,
+.perfil-campo label,
+.campo-label,
+.perfil-box small {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 0.62rem !important;      /* Um tiquinho menor (~10px) */
+    font-weight: 800 !important;        /* Negrito bem destacado */
+    color: #0D1959 !important;           /* Azul oficial */
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;    /* Espaçamento legível */
+    display: block !important;
+    margin-bottom: 2px !important;
+}

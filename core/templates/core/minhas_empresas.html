@@ -115,19 +115,17 @@
                         <p><strong>CNPJ:</strong> {{ empresa.cnpj }}</p>
                     {% endif %}
                     
-                    <div class="empresa-botoes">
-                        <a href="{% url 'iniciar_diagnostico' empresa.id %}"
-                        class="btn btn-primary empresa-botao-diagnostico">
-                            Iniciar avaliação ESG
-                        </a>
-                        <a href="{% url 'listar_registros_financeiros' empresa.id %}" class="btn btn-primary">
-                            Controle financeiro
-                        </a>
-                        <a href="{% url 'historico_diagnosticos' %}?empresa={{ empresa.id }}"
-                        class="btn empresa-botao-historico">
-                            Histórico de avaliações
-                        </a>
-                    </div>
+                  <div class="empresa-dados">
+    <a href="{% url 'iniciar_diagnostico' empresa.id %}" class="btn btn-primary empresa-botao-diagnostico">
+        Iniciar avaliação ESG
+    </a>
+    <a href="{% url 'listar_registros_financeiros' empresa.id %}" class="btn btn-primary">
+        Controle financeiro
+    </a>
+    <a href="{% url 'historico_diagnosticos' %}?empresa={{ empresa.id }}" class="btn btn-primary">
+        Histórico de avaliações
+    </a>
+</div>
 
                     <div class="empresa-publicacao">
 
