@@ -191,7 +191,6 @@ Calculadora de Embalagens - Ecomply
         display: inline-flex;
         align-items: center;
         gap: 6px;
-
         margin-bottom: 20px;
 
         color: #245B38;
@@ -215,7 +214,6 @@ Calculadora de Embalagens - Ecomply
         border-radius: 15px;
 
         box-shadow: 0 8px 24px rgba(13, 25, 89, 0.04);
-
         margin-bottom: 28px;
     }
 
@@ -388,10 +386,83 @@ Calculadora de Embalagens - Ecomply
     }
 
     /* ========================================
+       NOVO: AVISO DE CÁLCULO REALIZADO
+       ======================================== */
+
+    .aviso-calculo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        padding: 18px 20px;
+        margin-bottom: 22px;
+
+        background-color: #E7F0E8;
+        border: 1px solid #BBD4C0;
+        border-radius: 10px;
+
+        color: #245B38;
+        text-align: center;
+
+        animation: aparecerAviso 0.4s ease;
+    }
+
+    .aviso-calculo strong {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .aviso-calculo p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #245B38 !important;
+    }
+
+    .aviso-calculo .seta-resultado {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    /* Garante que a barra superior não cubra o resultado */
+
+    #resultado-calculadora {
+        scroll-margin-top: 90px;
+    }
+
+    @keyframes aparecerAviso {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Aviso no modo escuro */
+
+    body.dark-theme .aviso-calculo {
+        background-color: #193D36;
+        border-color: #4C6565;
+        color: #FFF3CD;
+    }
+
+    body.dark-theme .aviso-calculo p {
+        color: #FFF3CD !important;
+    }
+
+    /* ========================================
        RESPONSIVIDADE
        ======================================== */
 
     @media (max-width: 600px) {
+
         body:not(.dark-theme) .calc-wrapper {
             padding: 40px 16px 60px;
         }
@@ -415,8 +486,21 @@ Calculadora de Embalagens - Ecomply
         body:not(.dark-theme) .calc-wrapper .result-box {
             padding: 18px;
         }
+
+        .aviso-calculo {
+            padding: 16px;
+        }
+    }
+
+    /* Respeita usuários que desativam animações */
+
+    @media (prefers-reduced-motion: reduce) {
+        .aviso-calculo {
+            animation: none;
+        }
     }
 </style>
+
 
 <div class="calc-wrapper">
 
@@ -425,6 +509,7 @@ Calculadora de Embalagens - Ecomply
     <a href="{% url 'ferramentas' %}" class="back-link">
         ← Voltar às Ferramentas
     </a>
+
 
     <!-- FORMULÁRIO DA CALCULADORA -->
 
@@ -441,29 +526,73 @@ Calculadora de Embalagens - Ecomply
 
             {% csrf_token %}
 
+            <!-- MATERIAL ATUAL -->
+
             <div class="form-group">
+
                 <label for="{{ form.material_atual.id_for_label }}">
                     {{ form.material_atual.label }}
                 </label>
 
                 {{ form.material_atual }}
+
+                {% if form.material_atual.errors %}
+                    <div class="field-error">
+                        {{ form.material_atual.errors }}
+                    </div>
+                {% endif %}
+
             </div>
 
+
+            <!-- QUANTIDADE MENSAL -->
+
             <div class="form-group">
+
                 <label for="{{ form.quantidade_mensal.id_for_label }}">
                     {{ form.quantidade_mensal.label }}
                 </label>
 
                 {{ form.quantidade_mensal }}
+
+                {% if form.quantidade_mensal.errors %}
+                    <div class="field-error">
+                        {{ form.quantidade_mensal.errors }}
+                    </div>
+                {% endif %}
+
             </div>
 
+
+            <!-- CUSTO UNITÁRIO -->
+
             <div class="form-group">
+
                 <label for="{{ form.custo_unitario_atual.id_for_label }}">
                     {{ form.custo_unitario_atual.label }}
                 </label>
 
                 {{ form.custo_unitario_atual }}
+
+                {% if form.custo_unitario_atual.errors %}
+                    <div class="field-error">
+                        {{ form.custo_unitario_atual.errors }}
+                    </div>
+                {% endif %}
+
             </div>
+
+
+            <!-- ERROS GERAIS -->
+
+            {% if form.non_field_errors %}
+                <div class="field-error">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+
+            <!-- BOTÃO CALCULAR -->
 
             <button type="submit" class="btn-submit">
                 Calcular Impacto
@@ -473,54 +602,117 @@ Calculadora de Embalagens - Ecomply
 
     </div>
 
-    <!-- RESULTADOS DA CALCULADORA -->
+
+    <!-- ========================================
+         RESULTADOS DA CALCULADORA
+         ======================================== -->
 
     {% if resultado %}
 
-        <div class="result-card">
+        <div
+            id="resultado-calculadora"
+            class="result-card"
+            tabindex="-1"
+        >
+
+            <!-- NOVO AVISO -->
+
+            <div
+                class="aviso-calculo"
+                role="status"
+            >
+
+                <strong>
+                    ✓ Cálculo realizado com sucesso!
+                </strong>
+
+                <p>
+                    Confira abaixo os resultados da sua análise.
+                </p>
+
+                <span class="seta-resultado" aria-hidden="true">
+                    ↓
+                </span>
+
+            </div>
+
+
+            <!-- ALTERNATIVA RECOMENDADA -->
 
             <h3>
                 Alternativa Recomendada:
                 {{ resultado.alternativa_nome }}
             </h3>
 
+
+            <!-- DESCRIÇÃO DO IMPACTO -->
+
             <p style="font-size: 0.9rem; margin-bottom: 1rem;">
                 {{ resultado.impacto_descricao }}
             </p>
 
+
+            <!-- RESULTADOS FINANCEIROS -->
+
             <div class="result-grid">
 
                 <div class="result-box">
-                    <small>Custo Atual Mensal</small>
+
+                    <small>
+                        Custo Atual Mensal
+                    </small>
 
                     <strong>
                         R$ {{ resultado.custo_total_atual }}
                     </strong>
+
                 </div>
 
+
                 <div class="result-box">
-                    <small>Novo Custo Estimado</small>
+
+                    <small>
+                        Novo Custo Estimado
+                    </small>
 
                     <strong>
                         R$ {{ resultado.custo_total_alternativa }}
                     </strong>
+
                 </div>
 
+
                 <div class="result-box">
-                    <small>Diferença Mensal</small>
+
+                    <small>
+                        Diferença Mensal
+                    </small>
 
                     <strong>
                         R$ {{ resultado.diferenca_custo }}
                     </strong>
+
                 </div>
 
             </div>
 
+
+            <!-- IMPACTO AMBIENTAL -->
+
             <div class="eco-banner">
-                <strong>Impacto Ambiental Estimado:</strong>
+
+                <strong>
+                    Impacto Ambiental Estimado:
+                </strong>
+
                 Redução de
-                <strong>{{ resultado.plastico_evitado_ano }} kg</strong>
+
+                <strong>
+                    {{ resultado.plastico_evitado_ano }} kg
+                </strong>
+
                 de plástico por ano!
+
             </div>
 
         </div>
@@ -528,5 +720,37 @@ Calculadora de Embalagens - Ecomply
     {% endif %}
 
 </div>
+
+
+<!-- ========================================
+     NOVO: ROLAGEM AUTOMÁTICA
+     ======================================== -->
+
+{% if resultado %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const resultado = document.getElementById(
+            "resultado-calculadora"
+        );
+
+        if (resultado) {
+
+            const movimentoReduzido = window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+            ).matches;
+
+            resultado.scrollIntoView({
+                behavior: movimentoReduzido ? "auto" : "smooth",
+                block: "start"
+            });
+
+        }
+
+    });
+</script>
+
+{% endif %}
 
 {% endblock %}
