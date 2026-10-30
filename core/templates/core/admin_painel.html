@@ -1,0 +1,629 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Painel Admin | Ecomply
+{% endblock %}
+
+{% block content %}
+
+<style>
+    /* ==========================================
+       PAINEL ADMIN - CORES
+       ========================================== */
+
+    .painel-admin {
+        --adm-bg: var(--bg-color, #F7F2E9);
+        --adm-card: var(--card-bg, #FFFCF7);
+        --adm-title: var(--text-main, #0D1959);
+        --adm-muted: var(--text-muted, #4C6565);
+        --adm-border: var(--border-color, #E5DED2);
+        --adm-green: #245B38;
+        --adm-green-soft: #E7F0E8;
+        --adm-badge: #FFF1CA;
+        --adm-brown: #8C3E14;
+    }
+
+    body:not(.dark-theme):has(.painel-admin),
+    body:not(.dark-theme):has(.painel-admin) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme) .painel-admin {
+        --adm-bg: #F7F2E9;
+        --adm-card: #FFFCF7;
+        --adm-title: #0D1959;
+        --adm-muted: #4C6565;
+        --adm-border: #E5DED2;
+    }
+
+    /* ==========================================
+       ESTRUTURA
+       ========================================== */
+
+    .painel-admin {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 55px 24px 85px;
+        box-sizing: border-box;
+    }
+
+    .painel-admin .adm-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .painel-admin .adm-etiqueta {
+        display: inline-block;
+        padding: 9px 18px;
+        margin-bottom: 18px;
+
+        background: var(--adm-badge);
+        border-radius: 30px;
+
+        color: #0D1959;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .painel-admin .adm-header h1 {
+        margin: 0 0 14px;
+        color: var(--adm-title);
+        font-size: clamp(30px, 4vw, 42px);
+        line-height: 1.2;
+    }
+
+    .painel-admin .adm-header p {
+        max-width: 650px;
+        margin: 0 auto 22px;
+        color: var(--adm-muted);
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .painel-admin .adm-btn {
+        display: inline-block;
+        padding: 11px 20px;
+
+        background: var(--adm-green);
+        border-radius: 8px;
+
+        color: #FFF3CD;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+
+        transition: opacity 0.2s ease;
+    }
+
+    .painel-admin .adm-btn:hover {
+        opacity: 0.88;
+    }
+
+    .painel-admin .adm-secao {
+        margin-bottom: 40px;
+    }
+
+    .painel-admin .adm-secao h2 {
+        margin: 0 0 18px;
+        color: var(--adm-title);
+        font-size: 22px;
+    }
+
+    .painel-admin .adm-card {
+        padding: 24px;
+
+        background: var(--adm-card);
+        border: 1px solid var(--adm-border);
+        border-radius: 15px;
+
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+        box-sizing: border-box;
+    }
+
+    /* ==========================================
+       CARDS DE RESUMO
+       ========================================== */
+
+    .painel-admin .adm-resumo {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 16px;
+    }
+
+    .painel-admin .adm-numero {
+        display: block;
+        margin: 6px 0 4px;
+
+        color: var(--adm-title);
+        font-size: 32px;
+        font-weight: 800;
+        line-height: 1.1;
+    }
+
+    .painel-admin .adm-rotulo {
+        color: var(--adm-muted);
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+    }
+
+    .painel-admin .adm-detalhe {
+        color: var(--adm-muted);
+        font-size: 13px;
+    }
+
+    /* ==========================================
+       MÉDIA ESG
+       ========================================== */
+
+    .painel-admin .adm-barras {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .painel-admin .adm-barra-topo {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+
+        color: var(--adm-title);
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .painel-admin .adm-barra {
+        height: 10px;
+        background: var(--adm-green-soft);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .painel-admin .adm-barra span {
+        display: block;
+        height: 100%;
+        background: var(--adm-green);
+        border-radius: 10px;
+    }
+
+    /* ==========================================
+       TABELA DE USUÁRIOS
+       ========================================== */
+
+    .painel-admin .adm-busca {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .painel-admin .adm-busca input {
+        flex: 1 1 220px;
+        padding: 10px 14px;
+
+        background: var(--adm-card);
+        border: 1px solid var(--adm-border);
+        border-radius: 8px;
+
+        color: var(--adm-title);
+        font-family: inherit;
+        font-size: 15px;
+    }
+
+    .painel-admin .adm-busca button {
+        padding: 10px 18px;
+
+        background: var(--adm-green);
+        border: none;
+        border-radius: 8px;
+
+        color: #FFF3CD;
+        font-family: inherit;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .painel-admin .adm-limpar {
+        align-self: center;
+        color: var(--adm-muted);
+        font-size: 14px;
+    }
+
+    .painel-admin .adm-tabela-wrap {
+        padding: 0;
+        overflow-x: auto;
+    }
+
+    .painel-admin table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 15px;
+    }
+
+    .painel-admin th,
+    .painel-admin td {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--adm-border);
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .painel-admin th {
+        color: var(--adm-muted);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+    }
+
+    .painel-admin td {
+        color: var(--adm-title);
+    }
+
+    .painel-admin tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .painel-admin tbody tr:hover {
+        background: rgba(36, 91, 56, 0.05);
+    }
+
+    .painel-admin .adm-tag {
+        display: inline-block;
+        margin-left: 6px;
+        padding: 3px 8px;
+
+        background: var(--adm-badge);
+        border-radius: 12px;
+
+        color: var(--adm-brown);
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .painel-admin .adm-link {
+        color: var(--adm-green);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .painel-admin .adm-link:hover {
+        text-decoration: underline;
+    }
+
+    .painel-admin .adm-vazio {
+        color: var(--adm-muted);
+        text-align: center;
+    }
+
+    /* ==========================================
+       FEEDBACKS
+       ========================================== */
+
+    .painel-admin .adm-feedbacks {
+        display: grid;
+        grid-template-columns: minmax(180px, 240px) 1fr;
+        gap: 16px;
+        align-items: start;
+    }
+
+    .painel-admin .adm-feedback-lista {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .painel-admin .adm-feedback-topo {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+
+        color: var(--adm-muted);
+        font-size: 13px;
+    }
+
+    .painel-admin .adm-feedback-topo strong {
+        color: var(--adm-title);
+    }
+
+    .painel-admin .adm-estrelas {
+        color: #C9962B;
+        letter-spacing: 1px;
+    }
+
+    .painel-admin .adm-feedback-texto {
+        margin: 0;
+        color: var(--adm-title);
+        font-size: 15px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 700px) {
+
+        .painel-admin {
+            padding: 35px 16px 60px;
+        }
+
+        .painel-admin .adm-feedbacks {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<section class="painel-admin">
+
+    <!-- ==========================================
+         CABEÇALHO
+         ========================================== -->
+
+    <header class="adm-header">
+
+        <span class="adm-etiqueta">
+            ADMINISTRAÇÃO
+        </span>
+
+        <h1>Painel Admin</h1>
+
+        <p>
+            Visão geral do uso da plataforma. São exibidas apenas
+            informações gerais, sem dados pessoais dos usuários.
+        </p>
+
+        <a href="{% url 'admin:index' %}" class="adm-btn">
+            Abrir administração do Django →
+        </a>
+
+    </header>
+
+    <!-- ==========================================
+         RESUMO
+         ========================================== -->
+
+    <div class="adm-secao">
+
+        <h2>Resumo da plataforma</h2>
+
+        <div class="adm-resumo">
+
+            <div class="adm-card">
+                <span class="adm-rotulo">Usuários</span>
+                <span class="adm-numero">{{ resumo.usuarios }}</span>
+                <span class="adm-detalhe">contas cadastradas</span>
+            </div>
+
+            <div class="adm-card">
+                <span class="adm-rotulo">Novos (7 dias)</span>
+                <span class="adm-numero">{{ resumo.novos_7_dias }}</span>
+                <span class="adm-detalhe">na última semana</span>
+            </div>
+
+            <div class="adm-card">
+                <span class="adm-rotulo">Novos (30 dias)</span>
+                <span class="adm-numero">{{ resumo.novos_30_dias }}</span>
+                <span class="adm-detalhe">no último mês</span>
+            </div>
+
+            <div class="adm-card">
+                <span class="adm-rotulo">Empresas</span>
+                <span class="adm-numero">{{ resumo.empresas }}</span>
+                <span class="adm-detalhe">cadastradas</span>
+            </div>
+
+            <div class="adm-card">
+                <span class="adm-rotulo">Diagnósticos</span>
+                <span class="adm-numero">{{ resumo.diagnosticos }}</span>
+                <span class="adm-detalhe">concluídos</span>
+            </div>
+
+            <div class="adm-card">
+                <span class="adm-rotulo">No Portal</span>
+                <span class="adm-numero">{{ resumo.empresas_publicadas }}</span>
+                <span class="adm-detalhe">empresas publicadas</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================
+         MÉDIA ESG DA PLATAFORMA
+         ========================================== -->
+
+    <div class="adm-secao">
+
+        <h2>Média ESG da plataforma</h2>
+
+        <div class="adm-card">
+
+            {% if resumo.diagnosticos %}
+
+                <div class="adm-barras">
+
+                    {% for media in medias_esg %}
+
+                        <div>
+                            <div class="adm-barra-topo">
+                                <span>{{ media.nome }}</span>
+                                <span>{{ media.valor|floatformat:1 }}%</span>
+                            </div>
+
+                            <div class="adm-barra">
+                                <span style="width: {{ media.valor|floatformat:'0u' }}%;"></span>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p class="adm-vazio">
+                    Nenhum diagnóstico concluído até o momento.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================
+         USUÁRIOS
+         ========================================== -->
+
+    <div class="adm-secao">
+
+        <h2>Usuários</h2>
+
+        <form method="get" class="adm-busca" role="search">
+
+            <input
+                type="search"
+                name="q"
+                value="{{ busca }}"
+                placeholder="Buscar por nome de usuário"
+                aria-label="Buscar por nome de usuário"
+            >
+
+            <button type="submit">Buscar</button>
+
+            {% if busca %}
+                <a href="{% url 'painel_admin' %}" class="adm-limpar">
+                    Limpar busca
+                </a>
+            {% endif %}
+
+        </form>
+
+        <div class="adm-card adm-tabela-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Usuário</th>
+                        <th>Cadastro</th>
+                        <th>Último acesso</th>
+                        <th>Empresas</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for item in usuarios %}
+
+                        <tr>
+                            <td>
+                                {{ item.username }}
+                                {% if item.is_superuser %}
+                                    <span class="adm-tag">ADMIN</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ item.date_joined|date:"d/m/Y H:i" }}</td>
+                            <td>{{ item.last_login|date:"d/m/Y H:i"|default:"Nunca acessou" }}</td>
+                            <td>{{ item.total_empresas }}</td>
+                            <td>
+                                <a
+                                    href="{% url 'admin_usuario' item.id %}"
+                                    class="adm-link"
+                                >
+                                    Ver detalhes →
+                                </a>
+                            </td>
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+                            <td colspan="5" class="adm-vazio">
+                                Nenhum usuário encontrado.
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================
+         FEEDBACKS
+         ========================================== -->
+
+    <div class="adm-secao">
+
+        <h2>Feedbacks do Fale Conosco</h2>
+
+        <div class="adm-feedbacks">
+
+            <div class="adm-card">
+                <span class="adm-rotulo">Nota média</span>
+                <span class="adm-numero">
+                    {% if feedback_total %}
+                        {{ feedback_media|floatformat:1 }} <small>/ 5</small>
+                    {% else %}
+                        —
+                    {% endif %}
+                </span>
+                <span class="adm-detalhe">
+                    {{ feedback_total }} feedback{{ feedback_total|pluralize }} recebido{{ feedback_total|pluralize }}
+                </span>
+            </div>
+
+            <div class="adm-feedback-lista">
+
+                {% for feedback in ultimos_feedbacks %}
+
+                    <div class="adm-card">
+
+                        <div class="adm-feedback-topo">
+                            <span>
+                                <strong>{{ feedback.usuario.username }}</strong>
+                                · {{ feedback.data|date:"d/m/Y H:i" }}
+                            </span>
+                            <span
+                                class="adm-estrelas"
+                                aria-label="Nota {{ feedback.nota }} de 5"
+                            >
+                                {% for i in "12345" %}{% if forloop.counter <= feedback.nota %}★{% else %}☆{% endif %}{% endfor %}
+                            </span>
+                        </div>
+
+                        <p class="adm-feedback-texto">
+                            {{ feedback.comentario }}
+                        </p>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="adm-card">
+                        <p class="adm-vazio">
+                            Nenhum feedback recebido até o momento.
+                        </p>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

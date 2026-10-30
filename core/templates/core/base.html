@@ -1435,6 +1435,28 @@
                 </a>
 
                 <!-- ==============================
+                     ADMINISTRAÇÃO (SUPERUSERS)
+                ============================== -->
+
+                {% if user.is_superuser %}
+
+                    <div class="sidebar-divider"></div>
+
+                    <span class="sidebar-section">
+                        ADMINISTRAÇÃO
+                    </span>
+
+                    <a
+                        href="{% url 'painel_admin' %}"
+                        class="nav-item"
+                    >
+                        <span aria-hidden="true">◈</span>
+                        Painel Admin
+                    </a>
+
+                {% endif %}
+
+                <!-- ==============================
                      SAIR DA CONTA
                 ============================== -->
 

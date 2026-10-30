@@ -1,0 +1,261 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+{{ usuario.username }} | Painel Admin | Ecomply
+{% endblock %}
+
+{% block content %}
+
+<style>
+    /* ==========================================
+       DETALHE DO USUÁRIO - CORES
+       ========================================== */
+
+    .admin-usuario {
+        --adm-card: var(--card-bg, #FFFCF7);
+        --adm-title: var(--text-main, #0D1959);
+        --adm-muted: var(--text-muted, #4C6565);
+        --adm-border: var(--border-color, #E5DED2);
+        --adm-green: #245B38;
+        --adm-green-soft: #E7F0E8;
+        --adm-badge: #FFF1CA;
+        --adm-brown: #8C3E14;
+    }
+
+    body:not(.dark-theme):has(.admin-usuario),
+    body:not(.dark-theme):has(.admin-usuario) .main-content {
+        background: #F7F2E9 !important;
+        background-image: none !important;
+    }
+
+    body:not(.dark-theme) .admin-usuario {
+        --adm-card: #FFFCF7;
+        --adm-title: #0D1959;
+        --adm-muted: #4C6565;
+        --adm-border: #E5DED2;
+    }
+
+    /* ==========================================
+       ESTRUTURA
+       ========================================== */
+
+    .admin-usuario {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 45px 24px 85px;
+        box-sizing: border-box;
+    }
+
+    .admin-usuario .adm-voltar {
+        display: inline-block;
+        margin-bottom: 24px;
+
+        color: var(--adm-green);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .admin-usuario .adm-voltar:hover {
+        text-decoration: underline;
+    }
+
+    .admin-usuario .adm-card {
+        padding: 24px;
+        margin-bottom: 16px;
+
+        background: var(--adm-card);
+        border: 1px solid var(--adm-border);
+        border-radius: 15px;
+
+        box-shadow: 0 5px 18px rgba(13, 25, 89, 0.04);
+        box-sizing: border-box;
+    }
+
+    .admin-usuario h1 {
+        margin: 0 0 18px;
+        color: var(--adm-title);
+        font-size: clamp(26px, 4vw, 36px);
+        overflow-wrap: anywhere;
+    }
+
+    .admin-usuario h2 {
+        margin: 32px 0 16px;
+        color: var(--adm-title);
+        font-size: 22px;
+    }
+
+    .admin-usuario h3 {
+        margin: 0 0 14px;
+        color: var(--adm-title);
+        font-size: 19px;
+        overflow-wrap: anywhere;
+    }
+
+    .admin-usuario .adm-tag {
+        display: inline-block;
+        padding: 4px 10px;
+
+        background: var(--adm-badge);
+        border-radius: 12px;
+
+        color: var(--adm-brown);
+        font-size: 11px;
+        font-weight: 700;
+        vertical-align: middle;
+    }
+
+    .admin-usuario .adm-tag-verde {
+        background: var(--adm-green-soft);
+        color: var(--adm-green);
+    }
+
+    /* Lista de informações em grade */
+
+    .admin-usuario .adm-infos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 16px;
+        margin: 0;
+    }
+
+    .admin-usuario .adm-infos dt {
+        margin-bottom: 4px;
+
+        color: var(--adm-muted);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+    }
+
+    .admin-usuario .adm-infos dd {
+        margin: 0;
+        color: var(--adm-title);
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .admin-usuario .adm-empresa-topo {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .admin-usuario .adm-vazio {
+        margin: 0;
+        color: var(--adm-muted);
+        text-align: center;
+    }
+
+    @media (max-width: 700px) {
+
+        .admin-usuario {
+            padding: 30px 16px 60px;
+        }
+    }
+</style>
+
+<section class="admin-usuario">
+
+    <a href="{% url 'painel_admin' %}" class="adm-voltar">
+        ← Voltar ao Painel Admin
+    </a>
+
+    <!-- ==========================================
+         DADOS GERAIS DO USUÁRIO
+         ========================================== -->
+
+    <div class="adm-card">
+
+        <h1>
+            {{ usuario.username }}
+            {% if usuario.is_superuser %}
+                <span class="adm-tag">ADMIN</span>
+            {% endif %}
+        </h1>
+
+        <dl class="adm-infos">
+
+            <div>
+                <dt>Cadastro</dt>
+                <dd>{{ usuario.date_joined|date:"d/m/Y H:i" }}</dd>
+            </div>
+
+            <div>
+                <dt>Último acesso</dt>
+                <dd>{{ usuario.last_login|date:"d/m/Y H:i"|default:"Nunca acessou" }}</dd>
+            </div>
+
+            <div>
+                <dt>Empresas</dt>
+                <dd>{{ empresas|length }}</dd>
+            </div>
+
+            <div>
+                <dt>Conta</dt>
+                <dd>{{ usuario.is_active|yesno:"Ativa,Desativada" }}</dd>
+            </div>
+
+        </dl>
+
+    </div>
+
+    <!-- ==========================================
+         EMPRESAS CADASTRADAS
+         ========================================== -->
+
+    <h2>Empresas cadastradas</h2>
+
+    {% for empresa in empresas %}
+
+        <div class="adm-card">
+
+            <div class="adm-empresa-topo">
+
+                <h3>{{ empresa.nome }}</h3>
+
+                {% if empresa.publicar_resultados %}
+                    <span class="adm-tag adm-tag-verde">Publicada no Portal</span>
+                {% else %}
+                    <span class="adm-tag">Não publicada</span>
+                {% endif %}
+
+            </div>
+
+            <dl class="adm-infos">
+
+                <div>
+                    <dt>Setor</dt>
+                    <dd>{{ empresa.setor|default:"Não informado" }}</dd>
+                </div>
+
+                <div>
+                    <dt>Criada em</dt>
+                    <dd>{{ empresa.data_criacao|date:"d/m/Y H:i" }}</dd>
+                </div>
+
+                <div>
+                    <dt>Diagnósticos</dt>
+                    <dd>{{ empresa.total_diagnosticos }}</dd>
+                </div>
+
+            </dl>
+
+        </div>
+
+    {% empty %}
+
+        <div class="adm-card">
+            <p class="adm-vazio">
+                Este usuário ainda não cadastrou nenhuma empresa.
+            </p>
+        </div>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}

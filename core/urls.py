@@ -106,4 +106,8 @@ urlpatterns = [
     path('empresas/<int:empresa_id>/fornecedores/adicionar/', views.adicionar_fornecedor, name='adicionar_fornecedor'),
     path('empresas/<int:empresa_id>/fornecedores/<int:fornecedor_id>/alerta/', views.alternar_alerta_fornecedor, name='alternar_alerta_fornecedor'),
     path('empresas/<int:empresa_id>/fornecedores/<int:fornecedor_id>/excluir/', views.excluir_fornecedor, name='excluir_fornecedor'),
+
+    # Painel Admin (somente superusers)
+    path("painel-admin/", views.painel_admin, name="painel_admin"),
+    path("painel-admin/usuarios/<int:usuario_id>/", views.admin_usuario, name="admin_usuario"),
 ]

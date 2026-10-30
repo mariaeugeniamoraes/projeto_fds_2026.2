@@ -1,11 +1,15 @@
+from datetime import timedelta
 from decimal import Decimal
+from functools import wraps
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import Http404
 from django.views.decorators.http import require_POST
 from django.db import transaction
-from django.db.models import Sum
+from django.db.models import Avg, Count, Q, Sum
 from django.utils import timezone
 
 from .forms import (
@@ -21,6 +25,7 @@ from .forms import (
 
 from .models import (
     Empresa,
+    Feedback,
     PerguntaESG,
     DiagnosticoESG,
     RespostaDiagnostico,
@@ -1380,4 +1385,129 @@ def excluir_fornecedor(
     return redirect(
         "listar_fornecedores",
         empresa_id=empresa.id,
+    )
+
+# ==========================================
+# PAINEL ADMIN (SOMENTE SUPERUSERS)
+# ==========================================
+
+def superuser_required(view):
+    """
+    Restringe a view a superusers. Para qualquer outro
+    visitante a página responde 404, sem revelar que existe.
+    """
+
+    @wraps(view)
+    def wrapper(request, *args, **kwargs):
+
+        if not request.user.is_superuser:
+            raise Http404
+
+        return view(request, *args, **kwargs)
+
+    return wrapper
+
+
+@superuser_required
+def painel_admin(request):
+
+    agora = timezone.now()
+
+    # Resumo geral da plataforma
+
+    diagnosticos = DiagnosticoESG.objects.filter(
+        concluido=True
+    )
+
+    resumo = {
+        "usuarios": User.objects.count(),
+        "empresas": Empresa.objects.count(),
+        "diagnosticos": diagnosticos.count(),
+        "empresas_publicadas": Empresa.objects.filter(
+            publicar_resultados=True
+        ).count(),
+        "novos_7_dias": User.objects.filter(
+            date_joined__gte=agora - timedelta(days=7)
+        ).count(),
+        "novos_30_dias": User.objects.filter(
+            date_joined__gte=agora - timedelta(days=30)
+        ).count(),
+    }
+
+    # Média ESG de todos os diagnósticos concluídos
+
+    medias = diagnosticos.aggregate(
+        geral=Avg("percentual_geral"),
+        ambiental=Avg("percentual_ambiental"),
+        social=Avg("percentual_social"),
+        governanca=Avg("percentual_governanca"),
+    )
+
+    medias_esg = [
+        {"nome": "Geral", "valor": medias["geral"] or 0},
+        {"nome": "Ambiental", "valor": medias["ambiental"] or 0},
+        {"nome": "Social", "valor": medias["social"] or 0},
+        {"nome": "Governança", "valor": medias["governanca"] or 0},
+    ]
+
+    # Lista de usuários (sem dados pessoais)
+
+    usuarios = (
+        User.objects
+        .annotate(total_empresas=Count("empresas"))
+        .order_by("-date_joined")
+    )
+
+    busca = request.GET.get("q", "").strip()
+
+    if busca:
+        usuarios = usuarios.filter(username__icontains=busca)
+
+    # Feedbacks do Fale Conosco
+
+    feedbacks = Feedback.objects.select_related("usuario")
+
+    feedback_resumo = feedbacks.aggregate(
+        media=Avg("nota"),
+        total=Count("id"),
+    )
+
+    return render(
+        request,
+        "core/admin_painel.html",
+        {
+            "resumo": resumo,
+            "medias_esg": medias_esg,
+            "usuarios": usuarios,
+            "busca": busca,
+            "feedback_media": feedback_resumo["media"],
+            "feedback_total": feedback_resumo["total"],
+            "ultimos_feedbacks": feedbacks.order_by("-data")[:5],
+        },
+    )
+
+
+@superuser_required
+def admin_usuario(request, usuario_id):
+
+    usuario = get_object_or_404(User, id=usuario_id)
+
+    empresas = (
+        usuario.empresas
+        .annotate(
+            total_diagnosticos=Count(
+                "diagnosticos",
+                filter=Q(diagnosticos__concluido=True),
+            )
+        )
+        .order_by("-data_criacao")
+    )
+
+    return render(
+        request,
+        "core/admin_usuario.html",
+        {
+            "usuario": usuario,
+            "empresas": empresas,
+        },
     )

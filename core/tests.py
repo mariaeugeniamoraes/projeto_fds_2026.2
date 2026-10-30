@@ -143,3 +143,81 @@ class PortalTransparenciaTests(TestCase):
 
         self.empresa.refresh_from_db()
         self.assertFalse(self.empresa.publicar_resultados)
+
+
+@override_settings(
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage"
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+        }
+    }
+)
+class PainelAdminTests(TestCase):
+
+    def setUp(self):
+        self.admin = User.objects.create_superuser(
+            username="adminteste",
+            email="admin@email.com",
+            password="SenhaTeste123!"
+        )
+
+        self.comum = User.objects.create_user(
+            username="comum",
+            email="comum@email.com",
+            password="SenhaTeste123!"
+        )
+
+        Empresa.objects.create(
+            usuario=self.comum,
+            nome="Loja do Comum",
+            setor="Moda"
+        )
+
+        self.url_painel = reverse("painel_admin")
+        self.url_usuario = reverse("admin_usuario", args=[self.comum.id])
+
+    def test_visitante_recebe_404(self):
+        self.assertEqual(self.client.get(self.url_painel).status_code, 404)
+        self.assertEqual(self.client.get(self.url_usuario).status_code, 404)
+
+    def test_usuario_comum_recebe_404(self):
+        self.client.force_login(self.comum)
+
+        self.assertEqual(self.client.get(self.url_painel).status_code, 404)
+        self.assertEqual(self.client.get(self.url_usuario).status_code, 404)
+
+    def test_superuser_acessa_painel(self):
+        self.client.force_login(self.admin)
+
+        resposta = self.client.get(self.url_painel)
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertContains(resposta, "comum")
+        self.assertEqual(resposta.context["resumo"]["usuarios"], 2)
+        self.assertEqual(resposta.context["resumo"]["empresas"], 1)
+
+    def test_painel_nao_exibe_email(self):
+        self.client.force_login(self.admin)
+
+        resposta = self.client.get(self.url_painel)
+
+        self.assertNotContains(resposta, "comum@email.com")
+
+    def test_detalhe_mostra_empresas_do_usuario(self):
+        self.client.force_login(self.admin)
+
+        resposta = self.client.get(self.url_usuario)
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertContains(resposta, "Loja do Comum")
+        self.assertNotContains(resposta, "comum@email.com")
+
+    def test_menu_mostra_painel_so_para_superuser(self):
+        self.client.force_login(self.comum)
+        self.assertNotContains(self.client.get(reverse("home")), self.url_painel)
+
+        self.client.force_login(self.admin)
+        self.assertContains(self.client.get(reverse("home")), self.url_painel)
