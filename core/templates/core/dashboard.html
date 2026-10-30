@@ -975,7 +975,7 @@
                 <div class="dash-label">Receitas</div>
 
                 <div class="dash-value dash-income">
-                    R$ {{ receitas|floatformat:2 }}
+                    R$ {{ receitas|floatformat:"2g" }}
                 </div>
 
                 <div class="dash-note">
@@ -987,7 +987,7 @@
                 <div class="dash-label">Custos</div>
 
                 <div class="dash-value dash-cost">
-                    R$ {{ custos|floatformat:2 }}
+                    R$ {{ custos|floatformat:"2g" }}
                 </div>
 
                 <div class="dash-note">
@@ -999,7 +999,7 @@
                 <div class="dash-label">Saldo</div>
 
                 <div class="dash-value dash-balance">
-                    R$ {{ saldo|floatformat:2 }}
+                    R$ {{ saldo|floatformat:"2g" }}
                 </div>
 
                 <div class="dash-note">
@@ -1274,6 +1274,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 x: {
                     grid: { display: false }
+                }
+            },
+
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (contexto) {
+                            return contexto.dataset.label + ": " +
+                                Number(contexto.parsed.y).toLocaleString(
+                                    "pt-BR",
+                                    {
+                                        style: "currency",
+                                        currency: "BRL"
+                                    }
+                                );
+                        }
+                    }
                 }
             }
         }

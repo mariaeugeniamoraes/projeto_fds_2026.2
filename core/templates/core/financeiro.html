@@ -10,21 +10,21 @@
         <div class="financeiro-card">
             <h3>Receitas</h3>
             <p class="receita">
-                R$ {{ receitas|floatformat:2 }}
+                R$ {{ receitas|floatformat:"2g" }}
             </p>
         </div>
 
         <div class="financeiro-card">
             <h3>Custos</h3>
             <p class="custo">
-                R$ {{ custos|floatformat:2 }}
+                R$ {{ custos|floatformat:"2g" }}
             </p>
         </div>
 
         <div class="financeiro-card">
             <h3>Saldo</h3>
             <p class="{% if saldo < 0 %}custo{% else %}receita{% endif %}">
-                R$ {{ saldo|floatformat:2 }}
+                R$ {{ saldo|floatformat:"2g" }}
             </p>
         </div>
     </div>
@@ -61,7 +61,7 @@
                     <td>{{ registro.descricao }}</td>
                     <td>{{ registro.categoria }}</td>
                     <td class="{% if registro.tipo == 'receita' %}financeiro-valor-receita{% else %}financeiro-valor-custo{% endif %}">
-                        R$ {{ registro.valor|floatformat:2 }}
+                        R$ {{ registro.valor|floatformat:"2g" }}
                     </td>
                     <td>
                         <div class="financeiro-acoes">

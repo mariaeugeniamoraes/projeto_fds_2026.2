@@ -663,7 +663,7 @@ Calculadora de Embalagens - Ecomply
                     </small>
 
                     <strong>
-                        R$ {{ resultado.custo_total_atual }}
+                        R$ {{ resultado.custo_total_atual|floatformat:"2g" }}
                     </strong>
 
                 </div>
@@ -676,7 +676,7 @@ Calculadora de Embalagens - Ecomply
                     </small>
 
                     <strong>
-                        R$ {{ resultado.custo_total_alternativa }}
+                        R$ {{ resultado.custo_total_alternativa|floatformat:"2g" }}
                     </strong>
 
                 </div>
@@ -689,7 +689,7 @@ Calculadora de Embalagens - Ecomply
                     </small>
 
                     <strong>
-                        R$ {{ resultado.diferenca_custo }}
+                        R$ {{ resultado.diferenca_custo|floatformat:"2g" }}
                     </strong>
 
                 </div>
@@ -708,7 +708,7 @@ Calculadora de Embalagens - Ecomply
                 Redução de
 
                 <strong>
-                    {{ resultado.plastico_evitado_ano }} kg
+                    {{ resultado.plastico_evitado_ano|floatformat:"2g" }} kg
                 </strong>
 
                 de plástico por ano!

@@ -637,10 +637,12 @@ def calculadora_embalagens(request):
             resultado = {
                 "alternativa_nome": alternativa["nome"],
                 "impacto_descricao": alternativa["impacto_descricao"],
-                "custo_total_atual": f"{custo_total_atual:.2f}",
-                "custo_total_alternativa": f"{custo_total_alternativa:.2f}",
-                "diferenca_custo": f"{diferenca_custo:.2f}",
-                "plastico_evitado_ano": f"{plastico_evitado_ano:.2f}",
+                # Valores numéricos: a formatação em pt-BR
+                # (1.234,56) é feita no template.
+                "custo_total_atual": round(custo_total_atual, 2),
+                "custo_total_alternativa": round(custo_total_alternativa, 2),
+                "diferenca_custo": round(diferenca_custo, 2),
+                "plastico_evitado_ano": round(plastico_evitado_ano, 2),
             }
 
     else:
