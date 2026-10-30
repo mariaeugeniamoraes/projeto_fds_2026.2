@@ -688,6 +688,84 @@
         }
 
         /* ==========================================
+           ÁREA DA EMPRESA BLOQUEADA (VISITANTE)
+        ========================================== */
+
+        .sidebar .area-bloqueada {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100%;
+        }
+
+        .sidebar .nav-bloqueado {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+
+            border-radius: 7px;
+
+            color: #FFF3CD !important;
+            text-decoration: none;
+
+            font-size: 17px;
+            font-weight: 500;
+
+            opacity: 0.45;
+            cursor: pointer;
+
+            transition: opacity 0.2s ease, background-color 0.2s ease;
+        }
+
+        /* Cadeado alinhado à direita */
+
+        .sidebar .nav-bloqueado::after {
+            content: "";
+
+            width: 15px;
+            height: 15px;
+            margin-left: auto;
+            flex-shrink: 0;
+
+            background-color: currentColor;
+
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='11' width='16' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='11' width='16' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center / contain no-repeat;
+        }
+
+        .sidebar .nav-bloqueado:hover,
+        .sidebar .nav-bloqueado:focus-visible {
+            opacity: 0.75;
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar .area-bloqueada-aviso {
+            margin: 6px 12px 0;
+
+            color: #FFF3CD;
+            opacity: 0.7;
+
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ==========================================
            ÁREA PRINCIPAL
         ========================================== */
 
@@ -1396,6 +1474,75 @@
                 </a>
 
             {% else %}
+
+                <!-- ==============================
+                     ÁREA DA EMPRESA BLOQUEADA
+                     (visitante não logado)
+                ============================== -->
+
+                <div class="sidebar-divider"></div>
+
+                <span class="sidebar-section">
+                    ÁREA DA EMPRESA
+                </span>
+
+                <div class="area-bloqueada">
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="nav-bloqueado"
+                        title="Entre na sua conta para desbloquear"
+                    >
+                        <span aria-hidden="true">▣</span>
+                        <span>Minhas empresas</span>
+                        <span class="sr-only">(bloqueado, requer login)</span>
+                    </a>
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="nav-bloqueado"
+                        title="Entre na sua conta para desbloquear"
+                    >
+                        <span aria-hidden="true">▤</span>
+                        <span>Planos de ação</span>
+                        <span class="sr-only">(bloqueado, requer login)</span>
+                    </a>
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="nav-bloqueado"
+                        title="Entre na sua conta para desbloquear"
+                    >
+                        <span aria-hidden="true">▧</span>
+                        <span>Monitoramento</span>
+                        <span class="sr-only">(bloqueado, requer login)</span>
+                    </a>
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="nav-bloqueado"
+                        title="Entre na sua conta para desbloquear"
+                    >
+                        <span aria-hidden="true">⚙</span>
+                        <span>Ferramentas</span>
+                        <span class="sr-only">(bloqueado, requer login)</span>
+                    </a>
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="nav-bloqueado"
+                        title="Entre na sua conta para desbloquear"
+                    >
+                        <span aria-hidden="true">▦</span>
+                        <span>Dashboard</span>
+                        <span class="sr-only">(bloqueado, requer login)</span>
+                    </a>
+
+                    <p class="area-bloqueada-aviso">
+                        Entre ou crie uma conta para desbloquear as ferramentas da sua empresa.
+                    </p>
+
+                </div>
 
                 <!-- ==============================
                      AUTENTICAÇÃO
