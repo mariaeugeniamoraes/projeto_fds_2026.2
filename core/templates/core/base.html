@@ -605,12 +605,6 @@
             font-weight: 700;
         }
 
-        .sidebar .empresas-submenu-item.empresa-submenu-atual::after {
-            content: "▸";
-            margin-left: 8px;
-            color: #FFF3CD;
-        }
-
         /* ==========================================
            PÁGINA ATUAL NOS LINKS DO MENU
         ========================================== */
@@ -629,15 +623,21 @@
             box-shadow: inset 3px 0 0 #FFF3CD;
         }
 
-        .sidebar .is-current::after {
-            content: "▸";
+        /* Folha (mesmo ícone da página inicial) indica a página atual */
 
+        .sidebar .is-current::after,
+        .sidebar .empresas-submenu-item.empresa-submenu-atual::after {
+            content: "";
+
+            width: 16px;
+            height: 16px;
             margin-left: auto;
-            padding-left: 10px;
+            flex-shrink: 0;
 
-            color: #FFF3CD;
-            font-size: 15px;
-            line-height: 1;
+            background-color: #FFF3CD;
+
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 4c-9 0-15 4-15 11a5 5 0 0 0 5 5c7 0 11-6 10-16Z'/%3E%3Cpath d='M5 20c2-5 6-9 11-12'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 4c-9 0-15 4-15 11a5 5 0 0 0 5 5c7 0 11-6 10-16Z'/%3E%3Cpath d='M5 20c2-5 6-9 11-12'/%3E%3C/svg%3E") center / contain no-repeat;
         }
 
         .sidebar .submenu-item.is-current {
