@@ -295,11 +295,11 @@
     }
 
     .dashboard .dash-status-progress {
-        border-top: 4px solid var(--dash-muted);
+        border-top: 4px solid #C9962B;
     }
 
     .dashboard .dash-status-done {
-        border-top: 4px solid var(--dash-primary);
+        border-top: 4px solid #218653;
     }
 
     /* AVISOS */
@@ -540,11 +540,11 @@
     }
 
     body:not(.dark-theme) .dashboard .dash-status-progress {
-        border-top: 4px solid #4C6565;
+        border-top: 4px solid #C9962B;
     }
 
     body:not(.dark-theme) .dashboard .dash-status-done {
-        border-top: 4px solid #0D1959;
+        border-top: 4px solid #218653;
     }
 
     /* Títulos */
@@ -631,7 +631,7 @@
                 <div class="dash-bar">
                     <div
                         class="dash-bar-fill"
-                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_geral }}{% else %}0{% endif %}%;">
+                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_geral|stringformat:'f' }}{% else %}0{% endif %}%;">
                     </div>
                 </div>
 
@@ -663,7 +663,7 @@
                 <div class="dash-bar">
                     <div
                         class="dash-bar-fill"
-                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_ambiental }}{% else %}0{% endif %}%;">
+                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_ambiental|stringformat:'f' }}{% else %}0{% endif %}%;">
                     </div>
                 </div>
 
@@ -691,7 +691,7 @@
                 <div class="dash-bar">
                     <div
                         class="dash-bar-fill dash-bar-social"
-                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_social }}{% else %}0{% endif %}%;">
+                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_social|stringformat:'f' }}{% else %}0{% endif %}%;">
                     </div>
                 </div>
 
@@ -719,7 +719,7 @@
                 <div class="dash-bar">
                     <div
                         class="dash-bar-fill dash-bar-governance"
-                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_governanca }}{% else %}0{% endif %}%;">
+                        style="width: {% if ultimo_diagnostico %}{{ ultimo_diagnostico.percentual_governanca|stringformat:'f' }}{% else %}0{% endif %}%;">
                     </div>
                 </div>
 
@@ -866,13 +866,20 @@
                 entre os status.
             </p>
 
-            <div class="dash-chart-container">
-                <canvas
-                    id="plansChart"
-                    role="img"
-                    aria-label="Distribuição dos planos de ação por status">
-                </canvas>
-            </div>
+            {% if total_planos %}
+                <div class="dash-chart-container">
+                    <canvas
+                        id="plansChart"
+                        role="img"
+                        aria-label="Quantidade de planos de ação por status">
+                    </canvas>
+                </div>
+            {% else %}
+                <div class="dash-chart-empty">
+                    Cadastre seu primeiro plano de ação
+                    para visualizar este gráfico.
+                </div>
+            {% endif %}
         </div>
 
         <!-- PRÓXIMAS AÇÕES -->
@@ -1017,13 +1024,19 @@
                 nos últimos seis meses.
             </p>
 
-            <div class="dash-chart-container">
-                <canvas
-                    id="financeChart"
-                    role="img"
-                    aria-label="Gráfico mensal de receitas e custos">
-                </canvas>
-            </div>
+            {% if tem_movimentacoes %}
+                <div class="dash-chart-container">
+                    <canvas
+                        id="financeChart"
+                        role="img"
+                        aria-label="Gráfico mensal de receitas e custos">
+                    </canvas>
+                </div>
+            {% else %}
+                <div class="dash-chart-empty">
+                    Nenhuma movimentação registrada nos últimos seis meses.
+                </div>
+            {% endif %}
         </article>
 
     </section>
@@ -1076,7 +1089,7 @@
 
 {{ dados_graficos|json_script:"dashboard-chart-data" }}
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -1098,8 +1111,17 @@ document.addEventListener("DOMContentLoaded", function () {
         cream: "#FFF3CD",
         green: "#218653",
         red: "#C0392B",
+        amber: "#C9962B",
         muted: "#AEB6C2"
     };
+
+    /* Percentual no padrão brasileiro: 66,7% */
+
+    function formatarPercentual(valor) {
+        return Number(valor).toLocaleString("pt-BR", {
+            maximumFractionDigits: 1
+        }) + "%";
+    }
 
     const dashboard = document.querySelector(".dashboard");
 
@@ -1155,9 +1177,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     grid: { color: grade },
 
                     ticks: {
-                        callback: function (valor) {
-                            return valor + "%";
-                        }
+                        callback: formatarPercentual
                     },
 
                     title: {
@@ -1177,7 +1197,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 tooltip: {
                     callbacks: {
                         label: function (contexto) {
-                            return " " + contexto.parsed.y + "%";
+                            return " " + formatarPercentual(contexto.parsed.y);
                         }
                     }
                 }
@@ -1214,6 +1234,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     max: 100,
                     grid: { color: grade },
 
+                    ticks: {
+                        callback: formatarPercentual
+                    },
+
                     title: {
                         display: true,
                         text: "Pontuação (%)"
@@ -1222,6 +1246,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 x: {
                     grid: { display: false }
+                }
+            },
+
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (contexto) {
+                            return " Pontuação geral: " +
+                                formatarPercentual(contexto.parsed.y);
+                        }
+                    }
                 }
             }
         }
@@ -1298,36 +1333,61 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* DISTRIBUIÇÃO DOS PLANOS */
 
+    /* Barras horizontais: cada status em uma linha,
+       com cores que acompanham os cards acima. */
+
     criarGrafico("plansChart", {
-        type: "doughnut",
+        type: "bar",
 
         data: {
             labels: dados.planos.labels,
 
             datasets: [{
+                label: "Planos de ação",
                 data: dados.planos.valores,
 
                 backgroundColor: [
                     cores.brown,
-                    cores.teal,
-                    cores.navy
+                    cores.amber,
+                    cores.green,
+                    cores.muted
                 ],
 
-                borderColor: getComputedStyle(dashboard)
-                    .getPropertyValue("--dash-card").trim()
-                    || "#ffffff",
-
-                borderWidth: 3,
-                hoverOffset: 6
+                borderRadius: 5,
+                maxBarThickness: 38
             }]
         },
 
         options: {
-            cutout: "62%",
+            indexAxis: "y",
+
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    grid: { color: grade },
+
+                    ticks: {
+                        precision: 0
+                    }
+                },
+
+                y: {
+                    grid: { display: false }
+                }
+            },
 
             plugins: {
-                legend: {
-                    position: "bottom"
+                legend: { display: false },
+
+                tooltip: {
+                    callbacks: {
+                        label: function (contexto) {
+                            const total = contexto.parsed.x;
+
+                            return " " + total +
+                                (total === 1 ? " plano" : " planos");
+                        }
+                    }
                 }
             }
         }

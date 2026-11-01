@@ -855,10 +855,12 @@ def dashboard(request):
         "planos_pendentes": 0,
         "planos_em_andamento": 0,
         "planos_concluidos": 0,
+        "total_planos": 0,
         "ultimos_planos": [],
         "receitas": Decimal("0.00"),
         "custos": Decimal("0.00"),
         "saldo": Decimal("0.00"),
+        "tem_movimentacoes": False,
         "dados_graficos": {
             "esg": {
                 "labels": ["Ambiental", "Social", "Governança"],
@@ -878,18 +880,23 @@ def dashboard(request):
                     "Pendentes",
                     "Em andamento",
                     "Concluídos",
+                    "Cancelados",
                 ],
-                "valores": [0, 0, 0],
+                "valores": [0, 0, 0, 0],
             },
         },
     }
 
     if empresa:
 
+        # Ignora diagnósticos sem respostas (criados vazios),
+        # que distorceriam os gráficos com pontuação 0%.
+
         diagnosticos = DiagnosticoESG.objects.filter(
             empresa=empresa,
             concluido=True,
-        ).order_by("-data_criacao")
+            respostas__isnull=False,
+        ).distinct().order_by("-data_criacao")
 
         ultimo = diagnosticos.first()
 
@@ -929,17 +936,31 @@ def dashboard(request):
             status="concluida"
         ).count()
 
+        cancelados = planos.filter(
+            status="cancelada"
+        ).count()
+
         # Histórico de diagnósticos
 
-        historico = diagnosticos.order_by("data_criacao")
+        historico = list(diagnosticos.order_by("data_criacao"))
+
+        datas = [
+            timezone.localtime(d.data_criacao).strftime("%d/%m/%Y")
+            for d in historico
+        ]
+
+        # Se houver mais de um diagnóstico no mesmo dia,
+        # o horário é incluído para diferenciar os pontos.
 
         dados_historico = {
             "labels": [
-                d.data_criacao.strftime("%d/%m/%Y")
-                for d in historico
+                timezone.localtime(d.data_criacao).strftime("%d/%m/%Y %H:%M")
+                if datas.count(data) > 1
+                else data
+                for d, data in zip(historico, datas)
             ],
             "valores": [
-                float(d.percentual_geral or 0)
+                round(float(d.percentual_geral or 0), 1)
                 for d in historico
             ],
         }
@@ -953,9 +974,9 @@ def dashboard(request):
                 "Governança",
             ],
             "valores": [
-                float(ultimo.percentual_ambiental or 0),
-                float(ultimo.percentual_social or 0),
-                float(ultimo.percentual_governanca or 0),
+                round(float(ultimo.percentual_ambiental or 0), 1),
+                round(float(ultimo.percentual_social or 0), 1),
+                round(float(ultimo.percentual_governanca or 0), 1),
             ] if ultimo else [0, 0, 0],
         }
 
@@ -1029,16 +1050,23 @@ def dashboard(request):
             ],
         }
 
+        tem_movimentacoes = any(
+            valores["receitas"] or valores["custos"]
+            for valores in financeiro_por_mes.values()
+        )
+
         contexto.update({
-            "total_diagnosticos": diagnosticos.count(),
+            "total_diagnosticos": len(historico),
             "ultimo_diagnostico": ultimo,
             "planos_pendentes": pendentes,
             "planos_em_andamento": em_andamento,
             "planos_concluidos": concluidos,
+            "total_planos": planos.count(),
             "ultimos_planos": ultimos_planos,
             "receitas": receitas,
             "custos": custos,
             "saldo": receitas - custos,
+            "tem_movimentacoes": tem_movimentacoes,
             "dados_graficos": {
                 "esg": dados_esg,
                 "historico": dados_historico,
@@ -1048,11 +1076,13 @@ def dashboard(request):
                         "Pendentes",
                         "Em andamento",
                         "Concluídos",
+                        "Cancelados",
                     ],
                     "valores": [
                         pendentes,
                         em_andamento,
                         concluidos,
+                        cancelados,
                     ],
                 },
             },
