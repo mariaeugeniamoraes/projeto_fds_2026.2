@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
-from .models import Empresa, DiagnosticoESG
+from .models import Empresa, DiagnosticoESG, RegistroFinanceiro
 from .forms import CadastroUsuarioForm
 from django.test import override_settings
 
@@ -221,3 +222,72 @@ class PainelAdminTests(TestCase):
 
         self.client.force_login(self.admin)
         self.assertContains(self.client.get(reverse("home")), self.url_painel)
+
+
+@override_settings(
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage"
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+        }
+    }
+)
+class RelatorioEmpresaTests(TestCase):
+
+    def setUp(self):
+        self.usuario = User.objects.create_user(
+            username="dono",
+            password="SenhaTeste123!"
+        )
+
+        self.empresa = Empresa.objects.create(
+            usuario=self.usuario,
+            nome="ConectaShop",
+            setor="Moda"
+        )
+
+        RegistroFinanceiro.objects.create(
+            empresa=self.empresa,
+            tipo="receita",
+            descricao="Vendas do mês",
+            categoria="Vendas",
+            valor=100000,
+            data=timezone.localdate()
+        )
+
+        self.url = reverse("relatorio_empresa", args=[self.empresa.id])
+
+    def test_visitante_e_redirecionado_para_login(self):
+        resposta = self.client.get(self.url)
+
+        self.assertEqual(resposta.status_code, 302)
+        self.assertIn(reverse("login"), resposta.url)
+
+    def test_outro_usuario_recebe_404(self):
+        outro = User.objects.create_user(
+            username="outro",
+            password="SenhaTeste123!"
+        )
+
+        self.client.force_login(outro)
+
+        self.assertEqual(self.client.get(self.url).status_code, 404)
+
+    def test_dono_ve_relatorio_com_dados(self):
+        self.client.force_login(self.usuario)
+
+        resposta = self.client.get(self.url)
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertContains(resposta, "ConectaShop")
+        self.assertContains(resposta, "Vendas do mês")
+        self.assertContains(resposta, "R$ 100.000,00")
+
+    def test_dashboard_tem_botao_exportar(self):
+        self.client.force_login(self.usuario)
+
+        resposta = self.client.get(reverse("dashboard"))
+
+        self.assertContains(resposta, self.url)

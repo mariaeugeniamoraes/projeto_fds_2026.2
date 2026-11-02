@@ -591,6 +591,18 @@
                 <button type="submit" class="dash-button">
                     Atualizar
                 </button>
+
+                {% if empresa_selecionada %}
+                    <a
+                        href="{% url 'relatorio_empresa' empresa_selecionada.id %}"
+                        class="dash-button"
+                        target="_blank"
+                        rel="noopener"
+                        title="Abre o relatório da empresa para salvar em PDF"
+                    >
+                        Exportar PDF
+                    </a>
+                {% endif %}
             </form>
         {% endif %}
     </section>

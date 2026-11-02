@@ -1,0 +1,973 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- O título vira o nome sugerido do arquivo PDF -->
+    <title>Relatorio-Ecomply-{{ empresa.nome|slugify }}-{{ gerado_em|date:"Y-m-d" }}</title>
+
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="{% static 'core/img/favicon.svg' %}"
+    >
+
+    <style>
+        /* ==========================================
+           FONTES DO ECOMPLY
+        ========================================== */
+
+        @font-face {
+            font-family: 'Banchero';
+            src: url("{% static 'core/fonts/Banchero-Bold.otf' %}") format('opentype');
+            font-weight: 700;
+        }
+
+        @font-face {
+            font-family: 'Josefin Sans';
+            src: url("{% static 'core/fonts/JosefinSans-VariableFont_wght.ttf' %}") format('truetype');
+            font-weight: 100 900;
+        }
+
+        /* ==========================================
+           PÁGINA A4
+        ========================================== */
+
+        @page {
+            size: A4;
+            margin: 14mm 12mm;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #E9E4DA;
+
+            color: #0D1959;
+            font-family: 'Josefin Sans', Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.5;
+
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .relatorio {
+            width: 210mm;
+            max-width: 100%;
+            margin: 0 auto 40px;
+            padding: 16mm 14mm;
+
+            background: #FFFFFF;
+            box-shadow: 0 6px 24px rgba(13, 25, 89, 0.12);
+        }
+
+        /* ==========================================
+           BARRA DE AÇÕES (SOMENTE NA TELA)
+        ========================================== */
+
+        .rel-acoes {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+
+            padding: 14px 16px;
+            margin-bottom: 24px;
+
+            background: #245B38;
+            color: #FFF3CD;
+        }
+
+        .rel-acoes a,
+        .rel-acoes button {
+            padding: 9px 16px;
+
+            border: 1px solid rgba(255, 243, 205, 0.4);
+            border-radius: 8px;
+            background: transparent;
+
+            color: #FFF3CD;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .rel-acoes button {
+            background: #8C3E14;
+            border-color: #8C3E14;
+        }
+
+        .rel-acoes small {
+            width: 100%;
+            text-align: center;
+            opacity: 0.85;
+        }
+
+        /* ==========================================
+           CABEÇALHO DO RELATÓRIO
+        ========================================== */
+
+        .rel-topo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #245B38;
+        }
+
+        .rel-marca {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: #245B38;
+            font-family: 'Banchero', 'Josefin Sans', sans-serif;
+            font-size: 22px;
+        }
+
+        .rel-marca img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .rel-gerado {
+            color: #4C6565;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        h1 {
+            margin: 0 0 4px;
+            font-family: 'Banchero', 'Josefin Sans', sans-serif;
+            font-size: 26px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #E5DED2;
+
+            font-family: 'Banchero', 'Josefin Sans', sans-serif;
+            font-size: 17px;
+        }
+
+        .rel-subtitulo {
+            margin: 0 0 18px;
+            color: #4C6565;
+        }
+
+        .rel-secao {
+            margin-bottom: 24px;
+        }
+
+        /* ==========================================
+           DADOS GERAIS E CARDS
+        ========================================== */
+
+        .rel-infos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px 18px;
+            margin: 0;
+        }
+
+        .rel-infos dt {
+            color: #4C6565;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+
+        .rel-infos dd {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .rel-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .rel-cards-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .rel-card {
+            padding: 10px 12px;
+
+            background: #FFFCF7;
+            border: 1px solid #E5DED2;
+            border-top: 3px solid #245B38;
+            border-radius: 8px;
+
+            break-inside: avoid;
+        }
+
+        .rel-card span {
+            display: block;
+            color: #4C6565;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .rel-card strong {
+            display: block;
+            margin-top: 2px;
+            font-size: 19px;
+        }
+
+        .rel-receita { border-top-color: #218653; }
+        .rel-custo { border-top-color: #C0392B; }
+        .rel-pendente { border-top-color: #8C3E14; }
+        .rel-andamento { border-top-color: #C9962B; }
+        .rel-cancelado { border-top-color: #AEB6C2; }
+
+        .rel-positivo { color: #218653; }
+        .rel-negativo { color: #C0392B; }
+
+        /* ==========================================
+           GRÁFICOS
+        ========================================== */
+
+        .rel-graficos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rel-grafico {
+            padding: 10px 12px;
+
+            border: 1px solid #E5DED2;
+            border-radius: 8px;
+
+            break-inside: avoid;
+        }
+
+        .rel-grafico h3 {
+            margin: 0 0 6px;
+            font-size: 12px;
+        }
+
+        .rel-grafico-area {
+            position: relative;
+            height: 190px;
+        }
+
+        /* ==========================================
+           TABELAS
+        ========================================== */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tr {
+            break-inside: avoid;
+        }
+
+        th,
+        td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #E5DED2;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #F7F2E9;
+            color: #4C6565;
+            font-size: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .rel-num {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .rel-vazio {
+            margin: 0;
+            padding: 12px;
+
+            background: #F7F2E9;
+            border-radius: 8px;
+
+            color: #4C6565;
+            text-align: center;
+        }
+
+        .rel-rodape {
+            margin-top: 28px;
+            padding-top: 10px;
+            border-top: 1px solid #E5DED2;
+
+            color: #4C6565;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        /* ==========================================
+           TELA PEQUENA
+        ========================================== */
+
+        @media (max-width: 760px) {
+
+            .relatorio {
+                padding: 20px 16px;
+            }
+
+            .rel-infos,
+            .rel-cards,
+            .rel-cards-3,
+            .rel-graficos {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ==========================================
+           IMPRESSÃO / PDF
+        ========================================== */
+
+        @media print {
+
+            body {
+                background: #FFFFFF;
+            }
+
+            .rel-acoes {
+                display: none;
+            }
+
+            .relatorio {
+                width: auto;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .rel-infos {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .rel-cards {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .rel-cards-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .rel-graficos {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            h2 {
+                break-after: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==========================================
+         AÇÕES (NÃO APARECEM NO PDF)
+    ========================================== -->
+
+    <div class="rel-acoes">
+
+        <a href="{% url 'dashboard' %}?empresa={{ empresa.id }}">
+            ← Voltar ao dashboard
+        </a>
+
+        <button type="button" id="baixar-pdf">
+            Baixar PDF
+        </button>
+
+        <small>
+            Na janela que abrir, escolha "Salvar como PDF" como destino.
+        </small>
+
+    </div>
+
+    <main class="relatorio">
+
+        <!-- ==========================================
+             CABEÇALHO
+        ========================================== -->
+
+        <header class="rel-topo">
+
+            <div class="rel-marca">
+                <img src="{% static 'core/img/favicon.svg' %}" alt="">
+                Ecomply
+            </div>
+
+            <div class="rel-gerado">
+                Relatório gerado em<br>
+                <strong>{{ gerado_em|date:"d/m/Y \à\s H:i" }}</strong>
+            </div>
+
+        </header>
+
+        <h1>Relatório da empresa</h1>
+
+        <p class="rel-subtitulo">
+            Resumo do desempenho ESG, dos planos de ação,
+            das finanças e dos fornecedores.
+        </p>
+
+        <!-- ==========================================
+             DADOS GERAIS
+        ========================================== -->
+
+        <section class="rel-secao">
+
+            <h2>Dados gerais</h2>
+
+            <dl class="rel-infos">
+
+                <div>
+                    <dt>Empresa</dt>
+                    <dd>{{ empresa.nome }}</dd>
+                </div>
+
+                <div>
+                    <dt>CNPJ</dt>
+                    <dd>{{ empresa.cnpj|default:"Não informado" }}</dd>
+                </div>
+
+                <div>
+                    <dt>Setor</dt>
+                    <dd>{{ empresa.setor|default:"Não informado" }}</dd>
+                </div>
+
+                <div>
+                    <dt>Cadastrada em</dt>
+                    <dd>{{ empresa.data_criacao|date:"d/m/Y" }}</dd>
+                </div>
+
+                <div>
+                    <dt>Diagnósticos concluídos</dt>
+                    <dd>{{ total_diagnosticos }}</dd>
+                </div>
+
+                <div>
+                    <dt>Portal da Transparência</dt>
+                    <dd>{{ empresa.publicar_resultados|yesno:"Resultados publicados,Não publicado" }}</dd>
+                </div>
+
+            </dl>
+
+        </section>
+
+        <!-- ==========================================
+             DESEMPENHO ESG
+        ========================================== -->
+
+        <section class="rel-secao">
+
+            <h2>Desempenho ESG</h2>
+
+            {% if ultimo_diagnostico %}
+
+                <div class="rel-cards">
+
+                    <div class="rel-card">
+                        <span>Geral</span>
+                        <strong>{{ ultimo_diagnostico.percentual_geral|floatformat:1 }}%</strong>
+                    </div>
+
+                    <div class="rel-card">
+                        <span>Ambiental</span>
+                        <strong>{{ ultimo_diagnostico.percentual_ambiental|floatformat:1 }}%</strong>
+                    </div>
+
+                    <div class="rel-card">
+                        <span>Social</span>
+                        <strong>{{ ultimo_diagnostico.percentual_social|floatformat:1 }}%</strong>
+                    </div>
+
+                    <div class="rel-card">
+                        <span>Governança</span>
+                        <strong>{{ ultimo_diagnostico.percentual_governanca|floatformat:1 }}%</strong>
+                    </div>
+
+                </div>
+
+                <div class="rel-graficos">
+
+                    <div class="rel-grafico">
+                        <h3>Comparativo por dimensão (último diagnóstico)</h3>
+                        <div class="rel-grafico-area">
+                            <canvas id="esgChart" role="img" aria-label="Pontuação por dimensão ESG"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="rel-grafico">
+                        <h3>Evolução da pontuação geral</h3>
+                        {% if total_diagnosticos > 1 %}
+                            <div class="rel-grafico-area">
+                                <canvas id="historyChart" role="img" aria-label="Evolução da pontuação ESG geral"></canvas>
+                            </div>
+                        {% else %}
+                            <p class="rel-vazio">
+                                É preciso mais de um diagnóstico para mostrar a evolução.
+                            </p>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th class="rel-num">Geral</th>
+                            <th class="rel-num">Ambiental</th>
+                            <th class="rel-num">Social</th>
+                            <th class="rel-num">Governança</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for diagnostico in diagnosticos_recentes %}
+                            <tr>
+                                <td>{{ diagnostico.data_criacao|date:"d/m/Y H:i" }}</td>
+                                <td class="rel-num">{{ diagnostico.percentual_geral|floatformat:1 }}%</td>
+                                <td class="rel-num">{{ diagnostico.percentual_ambiental|floatformat:1 }}%</td>
+                                <td class="rel-num">{{ diagnostico.percentual_social|floatformat:1 }}%</td>
+                                <td class="rel-num">{{ diagnostico.percentual_governanca|floatformat:1 }}%</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+
+                <p class="rel-vazio">
+                    A empresa ainda não possui diagnósticos ESG concluídos.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+        <!-- ==========================================
+             PLANOS DE AÇÃO
+        ========================================== -->
+
+        <section class="rel-secao">
+
+            <h2>Planos de ação</h2>
+
+            <div class="rel-cards">
+
+                <div class="rel-card rel-pendente">
+                    <span>Pendentes</span>
+                    <strong>{{ planos_pendentes }}</strong>
+                </div>
+
+                <div class="rel-card rel-andamento">
+                    <span>Em andamento</span>
+                    <strong>{{ planos_em_andamento }}</strong>
+                </div>
+
+                <div class="rel-card">
+                    <span>Concluídos</span>
+                    <strong>{{ planos_concluidos }}</strong>
+                </div>
+
+                <div class="rel-card rel-cancelado">
+                    <span>Cancelados</span>
+                    <strong>{{ dados_graficos.planos.valores.3 }}</strong>
+                </div>
+
+            </div>
+
+            {% if planos %}
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ação</th>
+                            <th>Dimensão</th>
+                            <th>Prioridade</th>
+                            <th>Status</th>
+                            <th>Prazo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for plano in planos %}
+                            <tr>
+                                <td>{{ plano.titulo }}</td>
+                                <td>{{ plano.get_dimensao_display|default:"—" }}</td>
+                                <td>{{ plano.get_prioridade_display }}</td>
+                                <td>{{ plano.get_status_display }}</td>
+                                <td>{{ plano.prazo|date:"d/m/Y"|default:"—" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+
+                <p class="rel-vazio">
+                    Nenhum plano de ação cadastrado.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+        <!-- ==========================================
+             FINANCEIRO
+        ========================================== -->
+
+        <section class="rel-secao">
+
+            <h2>Resumo financeiro</h2>
+
+            <div class="rel-cards rel-cards-3">
+
+                <div class="rel-card rel-receita">
+                    <span>Receitas</span>
+                    <strong class="rel-positivo">R$ {{ receitas|floatformat:"2g" }}</strong>
+                </div>
+
+                <div class="rel-card rel-custo">
+                    <span>Custos</span>
+                    <strong class="rel-negativo">R$ {{ custos|floatformat:"2g" }}</strong>
+                </div>
+
+                <div class="rel-card">
+                    <span>Saldo</span>
+                    <strong class="{% if saldo < 0 %}rel-negativo{% else %}rel-positivo{% endif %}">
+                        R$ {{ saldo|floatformat:"2g" }}
+                    </strong>
+                </div>
+
+            </div>
+
+            {% if tem_movimentacoes %}
+
+                <div class="rel-graficos">
+
+                    <div class="rel-grafico" style="grid-column: 1 / -1;">
+                        <h3>Receitas e custos nos últimos seis meses</h3>
+                        <div class="rel-grafico-area">
+                            <canvas id="financeChart" role="img" aria-label="Receitas e custos por mês"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+            {% if registros %}
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Descrição</th>
+                            <th>Categoria</th>
+                            <th class="rel-num">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for registro in registros %}
+                            <tr>
+                                <td>{{ registro.data|date:"d/m/Y" }}</td>
+                                <td>{{ registro.get_tipo_display }}</td>
+                                <td>{{ registro.descricao }}</td>
+                                <td>{{ registro.categoria }}</td>
+                                <td class="rel-num {% if registro.tipo == 'custo' %}rel-negativo{% else %}rel-positivo{% endif %}">
+                                    R$ {{ registro.valor|floatformat:"2g" }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+
+                <p class="rel-vazio">
+                    Nenhuma movimentação financeira registrada.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+        <!-- ==========================================
+             FORNECEDORES
+        ========================================== -->
+
+        <section class="rel-secao">
+
+            <h2>Fornecedores</h2>
+
+            <div class="rel-cards rel-cards-3">
+
+                <div class="rel-card rel-custo">
+                    <span>Alto risco</span>
+                    <strong>{{ fornecedores_risco.alto }}</strong>
+                </div>
+
+                <div class="rel-card rel-andamento">
+                    <span>Médio risco</span>
+                    <strong>{{ fornecedores_risco.medio }}</strong>
+                </div>
+
+                <div class="rel-card">
+                    <span>Baixo risco</span>
+                    <strong>{{ fornecedores_risco.baixo }}</strong>
+                </div>
+
+            </div>
+
+            {% if fornecedores %}
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fornecedor</th>
+                            <th>Serviço</th>
+                            <th>Risco</th>
+                            <th>Auditoria</th>
+                            <th>Contrato</th>
+                            <th>Tecidos certificados</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fornecedor in fornecedores %}
+                            <tr>
+                                <td>{{ fornecedor.nome }}</td>
+                                <td>{{ fornecedor.servico|default:"—" }}</td>
+                                <td>{{ fornecedor.get_status_risco_display }}</td>
+                                <td>{{ fornecedor.auditoria_pendente|yesno:"Pendente,Em dia" }}</td>
+                                <td>{{ fornecedor.contrato_assinado|yesno:"Assinado,Não assinado" }}</td>
+                                <td>{{ fornecedor.tecidos_certificados|yesno:"Sim,Não" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+
+                <p class="rel-vazio">
+                    Nenhum fornecedor cadastrado.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+        <footer class="rel-rodape">
+            Ecomply · ESG de forma simples e acessível ·
+            Relatório gerado a partir dos dados cadastrados na plataforma.
+        </footer>
+
+    </main>
+
+    {{ dados_graficos|json_script:"relatorio-dados" }}
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.getElementById("baixar-pdf")
+            .addEventListener("click", function () {
+                window.print();
+            });
+
+        if (typeof Chart === "undefined") {
+            return;
+        }
+
+        const dados = JSON.parse(
+            document.getElementById("relatorio-dados").textContent
+        );
+
+        const cores = {
+            navy: "#0D1959",
+            teal: "#4C6565",
+            brown: "#8C3E14",
+            cream: "#FFF3CD",
+            green: "#218653",
+            red: "#C0392B",
+            grade: "#E5DED2"
+        };
+
+        /* Sem animação: o gráfico precisa estar pronto
+           no momento da impressão. Resolução maior
+           deixa o gráfico nítido no PDF. */
+
+        Chart.defaults.animation = false;
+        Chart.defaults.responsive = true;
+        Chart.defaults.maintainAspectRatio = false;
+        Chart.defaults.devicePixelRatio = 3;
+        Chart.defaults.color = cores.navy;
+        Chart.defaults.font.family = "'Josefin Sans', Arial, sans-serif";
+
+        function formatarPercentual(valor) {
+            return Number(valor).toLocaleString("pt-BR", {
+                maximumFractionDigits: 1
+            }) + "%";
+        }
+
+        function formatarReais(valor) {
+            return Number(valor).toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+                maximumFractionDigits: 0
+            });
+        }
+
+        const graficos = [];
+
+        function criarGrafico(id, configuracao) {
+            const canvas = document.getElementById(id);
+
+            if (canvas) {
+                graficos.push(new Chart(canvas, configuracao));
+            }
+        }
+
+        criarGrafico("esgChart", {
+            type: "bar",
+            data: {
+                labels: dados.esg.labels,
+                datasets: [{
+                    data: dados.esg.valores,
+                    backgroundColor: [cores.navy, cores.teal, cores.brown],
+                    borderRadius: 5,
+                    maxBarThickness: 55
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { color: cores.grade },
+                        ticks: { callback: formatarPercentual }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        criarGrafico("historyChart", {
+            type: "line",
+            data: {
+                labels: dados.historico.labels,
+                datasets: [{
+                    data: dados.historico.valores,
+                    borderColor: cores.navy,
+                    backgroundColor: cores.cream,
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { color: cores.grade },
+                        ticks: { callback: formatarPercentual }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        criarGrafico("financeChart", {
+            type: "bar",
+            data: {
+                labels: dados.financeiro.labels,
+                datasets: [
+                    {
+                        label: "Receitas",
+                        data: dados.financeiro.receitas,
+                        backgroundColor: cores.green,
+                        borderRadius: 4
+                    },
+                    {
+                        label: "Custos",
+                        data: dados.financeiro.custos,
+                        backgroundColor: cores.red,
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: cores.grade },
+                        ticks: { callback: formatarReais }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        /* Ajusta os gráficos à largura da folha antes de imprimir */
+
+        window.addEventListener("beforeprint", function () {
+            graficos.forEach(function (grafico) {
+                grafico.resize();
+            });
+        });
+
+    });
+    </script>
+
+</body>
+
+</html>

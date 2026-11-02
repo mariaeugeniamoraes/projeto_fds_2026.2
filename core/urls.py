@@ -91,9 +91,14 @@ urlpatterns = [
         name="excluir_registro_financeiro",
     ),
     path(
-        "dashboard/", 
-        views.dashboard, 
+        "dashboard/",
+        views.dashboard,
         name="dashboard"
+    ),
+    path(
+        "empresas/<int:empresa_id>/relatorio/",
+        views.relatorio_empresa,
+        name="relatorio_empresa",
     ),
 
     path('empresas/<int:empresa_id>/planos-de-acao/', views.listar_planos_acao, name='listar_planos_acao'),

@@ -835,6 +835,215 @@ def excluir_registro_financeiro(
 # DASHBOARD ESG
 # ==========================================
 
+def dados_dashboard_empresa(empresa):
+    """
+    Calcula os indicadores e os dados dos gráficos de uma
+    empresa. Usado pelo dashboard e pelo relatório em PDF.
+    """
+
+    # Ignora diagnósticos sem respostas (criados vazios),
+    # que distorceriam os gráficos com pontuação 0%.
+
+    diagnosticos = DiagnosticoESG.objects.filter(
+        empresa=empresa,
+        concluido=True,
+        respostas__isnull=False,
+    ).distinct().order_by("-data_criacao")
+
+    ultimo = diagnosticos.first()
+
+    planos = PlanoAcaoESG.objects.filter(
+        diagnostico__empresa=empresa
+    )
+
+    ultimos_planos = planos.exclude(
+        status="concluida"
+    )[:5]
+
+    registros = RegistroFinanceiro.objects.filter(
+        empresa=empresa
+    )
+
+    receitas = (
+        registros.filter(tipo="receita")
+        .aggregate(total=Sum("valor"))["total"]
+        or Decimal("0.00")
+    )
+
+    custos = (
+        registros.filter(tipo="custo")
+        .aggregate(total=Sum("valor"))["total"]
+        or Decimal("0.00")
+    )
+
+    pendentes = planos.filter(
+        status="pendente"
+    ).count()
+
+    em_andamento = planos.filter(
+        status="em_andamento"
+    ).count()
+
+    concluidos = planos.filter(
+        status="concluida"
+    ).count()
+
+    cancelados = planos.filter(
+        status="cancelada"
+    ).count()
+
+    # Histórico de diagnósticos
+
+    historico = list(diagnosticos.order_by("data_criacao"))
+
+    datas = [
+        timezone.localtime(d.data_criacao).strftime("%d/%m/%Y")
+        for d in historico
+    ]
+
+    # Se houver mais de um diagnóstico no mesmo dia,
+    # o horário é incluído para diferenciar os pontos.
+
+    dados_historico = {
+        "labels": [
+            timezone.localtime(d.data_criacao).strftime("%d/%m/%Y %H:%M")
+            if datas.count(data) > 1
+            else data
+            for d, data in zip(historico, datas)
+        ],
+        "valores": [
+            round(float(d.percentual_geral or 0), 1)
+            for d in historico
+        ],
+    }
+
+    # Resultado das dimensões ESG
+
+    dados_esg = {
+        "labels": [
+            "Ambiental",
+            "Social",
+            "Governança",
+        ],
+        "valores": [
+            round(float(ultimo.percentual_ambiental or 0), 1),
+            round(float(ultimo.percentual_social or 0), 1),
+            round(float(ultimo.percentual_governanca or 0), 1),
+        ] if ultimo else [0, 0, 0],
+    }
+
+    # Últimos seis meses
+
+    hoje = timezone.localdate()
+
+    meses = []
+
+    ano = hoje.year
+    mes = hoje.month
+
+    for _ in range(5):
+
+        mes -= 1
+
+        if mes == 0:
+            mes = 12
+            ano -= 1
+
+    for _ in range(6):
+
+        meses.append((ano, mes))
+
+        mes += 1
+
+        if mes == 13:
+            mes = 1
+            ano += 1
+
+    financeiro_por_mes = {
+        chave: {
+            "receitas": Decimal("0.00"),
+            "custos": Decimal("0.00"),
+        }
+        for chave in meses
+    }
+
+    movimentacoes = registros.filter(
+        data__year__gte=meses[0][0]
+    ).values_list("data", "tipo", "valor")
+
+    for data_registro, tipo, valor in movimentacoes:
+
+        chave = (
+            data_registro.year,
+            data_registro.month,
+        )
+
+        if chave not in financeiro_por_mes:
+            continue
+
+        if tipo == "receita":
+            financeiro_por_mes[chave]["receitas"] += valor
+
+        elif tipo == "custo":
+            financeiro_por_mes[chave]["custos"] += valor
+
+    dados_financeiros = {
+        "labels": [
+            f"{mes:02d}/{ano}"
+            for ano, mes in meses
+        ],
+        "receitas": [
+            float(financeiro_por_mes[chave]["receitas"])
+            for chave in meses
+        ],
+        "custos": [
+            float(financeiro_por_mes[chave]["custos"])
+            for chave in meses
+        ],
+    }
+
+    tem_movimentacoes = any(
+        valores["receitas"] or valores["custos"]
+        for valores in financeiro_por_mes.values()
+    )
+
+    return {
+        "total_diagnosticos": len(historico),
+        "ultimo_diagnostico": ultimo,
+        "planos_pendentes": pendentes,
+        "planos_em_andamento": em_andamento,
+        "planos_concluidos": concluidos,
+        "total_planos": planos.count(),
+        "ultimos_planos": ultimos_planos,
+        "receitas": receitas,
+        "custos": custos,
+        "saldo": receitas - custos,
+        "tem_movimentacoes": tem_movimentacoes,
+        "dados_graficos": {
+            "esg": dados_esg,
+            "historico": dados_historico,
+            "financeiro": dados_financeiros,
+            "planos": {
+                "labels": [
+                    "Pendentes",
+                    "Em andamento",
+                    "Concluídos",
+                    "Cancelados",
+                ],
+                "valores": [
+                    pendentes,
+                    em_andamento,
+                    concluidos,
+                    cancelados,
+                ],
+            },
+        },
+        "historico_diagnosticos": historico,
+        "planos": planos,
+        "registros": registros,
+    }
+
+
 @login_required
 def dashboard(request):
 
@@ -888,209 +1097,61 @@ def dashboard(request):
     }
 
     if empresa:
-
-        # Ignora diagnósticos sem respostas (criados vazios),
-        # que distorceriam os gráficos com pontuação 0%.
-
-        diagnosticos = DiagnosticoESG.objects.filter(
-            empresa=empresa,
-            concluido=True,
-            respostas__isnull=False,
-        ).distinct().order_by("-data_criacao")
-
-        ultimo = diagnosticos.first()
-
-        planos = PlanoAcaoESG.objects.filter(
-            diagnostico__empresa=empresa
-        )
-
-        ultimos_planos = planos.exclude(
-            status="concluida"
-        )[:5]
-
-        registros = RegistroFinanceiro.objects.filter(
-            empresa=empresa
-        )
-
-        receitas = (
-            registros.filter(tipo="receita")
-            .aggregate(total=Sum("valor"))["total"]
-            or Decimal("0.00")
-        )
-
-        custos = (
-            registros.filter(tipo="custo")
-            .aggregate(total=Sum("valor"))["total"]
-            or Decimal("0.00")
-        )
-
-        pendentes = planos.filter(
-            status="pendente"
-        ).count()
-
-        em_andamento = planos.filter(
-            status="em_andamento"
-        ).count()
-
-        concluidos = planos.filter(
-            status="concluida"
-        ).count()
-
-        cancelados = planos.filter(
-            status="cancelada"
-        ).count()
-
-        # Histórico de diagnósticos
-
-        historico = list(diagnosticos.order_by("data_criacao"))
-
-        datas = [
-            timezone.localtime(d.data_criacao).strftime("%d/%m/%Y")
-            for d in historico
-        ]
-
-        # Se houver mais de um diagnóstico no mesmo dia,
-        # o horário é incluído para diferenciar os pontos.
-
-        dados_historico = {
-            "labels": [
-                timezone.localtime(d.data_criacao).strftime("%d/%m/%Y %H:%M")
-                if datas.count(data) > 1
-                else data
-                for d, data in zip(historico, datas)
-            ],
-            "valores": [
-                round(float(d.percentual_geral or 0), 1)
-                for d in historico
-            ],
-        }
-
-        # Resultado das dimensões ESG
-
-        dados_esg = {
-            "labels": [
-                "Ambiental",
-                "Social",
-                "Governança",
-            ],
-            "valores": [
-                round(float(ultimo.percentual_ambiental or 0), 1),
-                round(float(ultimo.percentual_social or 0), 1),
-                round(float(ultimo.percentual_governanca or 0), 1),
-            ] if ultimo else [0, 0, 0],
-        }
-
-        # Últimos seis meses
-
-        hoje = timezone.localdate()
-
-        meses = []
-
-        ano = hoje.year
-        mes = hoje.month
-
-        for _ in range(5):
-
-            mes -= 1
-
-            if mes == 0:
-                mes = 12
-                ano -= 1
-
-        for _ in range(6):
-
-            meses.append((ano, mes))
-
-            mes += 1
-
-            if mes == 13:
-                mes = 1
-                ano += 1
-
-        financeiro_por_mes = {
-            chave: {
-                "receitas": Decimal("0.00"),
-                "custos": Decimal("0.00"),
-            }
-            for chave in meses
-        }
-
-        movimentacoes = registros.filter(
-            data__year__gte=meses[0][0]
-        ).values_list("data", "tipo", "valor")
-
-        for data_registro, tipo, valor in movimentacoes:
-
-            chave = (
-                data_registro.year,
-                data_registro.month,
-            )
-
-            if chave not in financeiro_por_mes:
-                continue
-
-            if tipo == "receita":
-                financeiro_por_mes[chave]["receitas"] += valor
-
-            elif tipo == "custo":
-                financeiro_por_mes[chave]["custos"] += valor
-
-        dados_financeiros = {
-            "labels": [
-                f"{mes:02d}/{ano}"
-                for ano, mes in meses
-            ],
-            "receitas": [
-                float(financeiro_por_mes[chave]["receitas"])
-                for chave in meses
-            ],
-            "custos": [
-                float(financeiro_por_mes[chave]["custos"])
-                for chave in meses
-            ],
-        }
-
-        tem_movimentacoes = any(
-            valores["receitas"] or valores["custos"]
-            for valores in financeiro_por_mes.values()
-        )
-
-        contexto.update({
-            "total_diagnosticos": len(historico),
-            "ultimo_diagnostico": ultimo,
-            "planos_pendentes": pendentes,
-            "planos_em_andamento": em_andamento,
-            "planos_concluidos": concluidos,
-            "total_planos": planos.count(),
-            "ultimos_planos": ultimos_planos,
-            "receitas": receitas,
-            "custos": custos,
-            "saldo": receitas - custos,
-            "tem_movimentacoes": tem_movimentacoes,
-            "dados_graficos": {
-                "esg": dados_esg,
-                "historico": dados_historico,
-                "financeiro": dados_financeiros,
-                "planos": {
-                    "labels": [
-                        "Pendentes",
-                        "Em andamento",
-                        "Concluídos",
-                        "Cancelados",
-                    ],
-                    "valores": [
-                        pendentes,
-                        em_andamento,
-                        concluidos,
-                        cancelados,
-                    ],
-                },
-            },
-        })
+        contexto.update(dados_dashboard_empresa(empresa))
 
     return render(
         request,
         "core/dashboard.html",
+        contexto,
+    )
+
+
+# ==========================================
+# RELATÓRIO DA EMPRESA (EXPORTAR PDF)
+# ==========================================
+
+@login_required
+def relatorio_empresa(request, empresa_id):
+
+    empresa = get_object_or_404(
+        Empresa,
+        id=empresa_id,
+        usuario=request.user,
+    )
+
+    contexto = dados_dashboard_empresa(empresa)
+
+    fornecedores = empresa.fornecedores.order_by("nome")
+
+    # Planos na ordem do andamento: pendentes primeiro
+
+    ordem_status = ["pendente", "em_andamento", "concluida", "cancelada"]
+
+    planos = sorted(
+        contexto["planos"],
+        key=lambda plano: (
+            ordem_status.index(plano.status)
+            if plano.status in ordem_status
+            else len(ordem_status)
+        ),
+    )
+
+    contexto.update({
+        "empresa": empresa,
+        "gerado_em": timezone.now(),
+        "diagnosticos_recentes": contexto["historico_diagnosticos"][::-1],
+        "planos": planos,
+        "fornecedores": fornecedores,
+        "fornecedores_risco": {
+            "alto": fornecedores.filter(status_risco="alto").count(),
+            "medio": fornecedores.filter(status_risco="medio").count(),
+            "baixo": fornecedores.filter(status_risco="baixo").count(),
+        },
+    })
+
+    return render(
+        request,
+        "core/relatorio_empresa.html",
         contexto,
     )
 
