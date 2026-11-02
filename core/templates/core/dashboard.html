@@ -79,19 +79,46 @@
         border-radius: 12px;
     }
 
+    /* Rótulo, campo e botões com a mesma altura e
+       alinhados ao centro. O !important anula as regras
+       globais de "form label" e "form button" do style.css. */
+
     .dashboard .dash-selector label {
-        font-size: 13px;
-        font-weight: 700;
+        display: inline-block !important;
+        margin: 0 !important;
+
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
     }
 
     .dashboard .dash-selector select {
+        height: 44px;
         min-width: 150px;
         max-width: 100%;
-        padding: 10px;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0 10px;
         border: 1px solid var(--dash-border);
         border-radius: 8px;
         background: var(--dash-card);
         color: var(--dash-text);
+        font-size: 16px !important;
+    }
+
+    .dashboard .dash-selector .dash-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 44px;
+        box-sizing: border-box;
+        margin: 0 !important;
+        padding: 0 18px;
+
+        font-size: 15px;
+        line-height: 1;
+        white-space: nowrap;
     }
 
     .dashboard .dash-button {
@@ -100,6 +127,7 @@
         border-radius: 8px;
         background: var(--dash-primary);
         color: #ffffff;
+        font-family: 'Josefin Sans', sans-serif;
         font-weight: 700;
         cursor: pointer;
         text-decoration: none;
@@ -442,7 +470,7 @@
         }
 
         .dashboard .dash-selector select,
-        .dashboard .dash-selector button {
+        .dashboard .dash-selector .dash-button {
             width: 100%;
         }
 
