@@ -283,37 +283,63 @@ Diagnóstico ESG | Ecomply
     }
 
     /* ==========================================
-       LIMPAR RESPOSTA E SALVAMENTO AUTOMÁTICO
+       BOTÕES FINAIS: LIMPAR RESPOSTAS E CONCLUIR
     ========================================== */
 
-    .diagnostico-page .btn-limpar-resposta {
-        display: inline-flex;
+    .diagnostico-page .diagnostico-acoes {
+        display: flex;
+        gap: 14px;
+        margin-top: 30px;
+    }
+
+    /* Anula o "form button { margin-top }" global do style.css */
+
+    .diagnostico-page .diagnostico-acoes button {
+        margin-top: 0 !important;
+    }
+
+    .diagnostico-page .diagnostico-acoes .empresa-botao {
+        flex: 2;
+    }
+
+    .diagnostico-page .btn-limpar-respostas {
+        flex: 1;
+
+        display: flex;
         align-items: center;
-        gap: 6px;
-        margin-top: 12px;
-        padding: 7px 14px;
-        background: transparent;
-        border: 1px solid #C9BFAF;
-        border-radius: 20px;
-        color: #4C6565;
-        font-size: 13px;
-        font-weight: 600;
+        justify-content: center;
+        gap: 8px;
+
+        min-height: 52px;
+        padding: 14px 20px;
+        box-sizing: border-box;
+
+        background: #B42318;
+        border: 1px solid #B42318;
+        border-radius: 9px;
+
+        color: #FFFFFF;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
         cursor: pointer;
-        transition: background-color 0.2s ease,
-                    border-color 0.2s ease,
-                    color 0.2s ease;
+
+        transition: background-color 0.2s ease, opacity 0.2s ease;
     }
 
-    .diagnostico-page .btn-limpar-resposta:hover:not(:disabled) {
-        background: #FFF0ED;
-        border-color: #B42318;
-        color: #B42318;
+    .diagnostico-page .btn-limpar-respostas:hover:not(:disabled) {
+        background: #8F1B12;
+        border-color: #8F1B12;
     }
 
-    .diagnostico-page .btn-limpar-resposta:disabled {
+    .diagnostico-page .btn-limpar-respostas:disabled {
         opacity: 0.45;
         cursor: not-allowed;
     }
+
+    /* ==========================================
+       SALVAMENTO AUTOMÁTICO
+    ========================================== */
 
     .diagnostico-page .autosave-status {
         position: sticky;
@@ -338,52 +364,22 @@ Diagnóstico ESG | Ecomply
         display: none;
     }
 
-    .diagnostico-page .autosave-descartar {
-        padding: 6px 12px;
-        background: transparent;
-        border: 1px solid #245B38;
-        border-radius: 20px;
-        color: #245B38;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    .diagnostico-page .autosave-descartar:hover {
-        background: #245B38;
-        color: #FFFFFF;
-    }
-
-    body.dark-theme .diagnostico-page .btn-limpar-resposta {
-        border-color: rgba(255, 255, 255, 0.25);
-        color: #D7DEE8;
-    }
-
-    body.dark-theme .diagnostico-page .btn-limpar-resposta:hover:not(:disabled) {
-        background: #42212A;
-        border-color: #FF8A80;
-        color: #FFB4AB;
-    }
-
     body.dark-theme .diagnostico-page .autosave-status {
         background: #1E3A2B;
         border-color: #2F6B47;
         color: #A8E6BF;
     }
 
-    body.dark-theme .diagnostico-page .autosave-descartar {
-        border-color: #A8E6BF;
-        color: #A8E6BF;
-    }
-
-    body.dark-theme .diagnostico-page .autosave-descartar:hover {
-        background: #A8E6BF;
-        color: #1E3A2B;
-    }
-
     /* Responsividade */
 
     @media (max-width: 650px) {
+
+        /* Concluir em cima, Limpar embaixo */
+
+        .diagnostico-page .diagnostico-acoes {
+            flex-direction: column-reverse;
+        }
+
         body:not(.dark-theme) .diagnostico-page {
             padding: 35px 16px 60px;
         }
@@ -454,14 +450,6 @@ Diagnóstico ESG | Ecomply
             hidden
         >
             <span id="autosave-texto"></span>
-
-            <button
-                type="button"
-                class="autosave-descartar"
-                id="autosave-descartar"
-            >
-                Recomeçar do zero
-            </button>
         </div>
 
         <form
@@ -558,17 +546,6 @@ Diagnóstico ESG | Ecomply
 
                             </div>
 
-                            <!-- LIMPAR RESPOSTA -->
-
-                            <button
-                                type="button"
-                                class="btn-limpar-resposta"
-                                aria-label="Limpar resposta da pergunta {{ forloop.counter }}"
-                                disabled
-                            >
-                                ✕ Limpar resposta
-                            </button>
-
                             <!-- ERRO DA PERGUNTA -->
 
                             <p
@@ -587,12 +564,25 @@ Diagnóstico ESG | Ecomply
 
             {% endfor %}
 
-            <button
-                type="submit"
-                class="btn btn-primary empresa-botao"
-            >
-                Concluir diagnóstico
-            </button>
+            <div class="diagnostico-acoes">
+
+                <button
+                    type="button"
+                    class="btn-limpar-respostas"
+                    id="limpar-respostas"
+                    disabled
+                >
+                    ✕ Limpar respostas
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary empresa-botao"
+                >
+                    Concluir diagnóstico
+                </button>
+
+            </div>
 
         </form>
 
@@ -665,7 +655,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const caixaStatus = document.getElementById("autosave-status");
     const textoStatus = document.getElementById("autosave-texto");
-    const botaoDescartar = document.getElementById("autosave-descartar");
+    const botaoLimpar = document.getElementById("limpar-respostas");
 
     function mostrarStatus(texto) {
         if (!caixaStatus || !textoStatus) {
@@ -751,8 +741,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    if (botaoDescartar) {
-        botaoDescartar.addEventListener("click", function () {
+    /* ======================================
+       BOTÃO LIMPAR RESPOSTAS (ÚNICO)
+       Apaga todas as respostas do diagnóstico.
+    ====================================== */
+
+    function atualizarBotaoLimpar() {
+        if (!botaoLimpar) {
+            return;
+        }
+
+        botaoLimpar.disabled = !formulario.querySelector(
+            'input[type="radio"]:checked'
+        );
+    }
+
+    if (botaoLimpar) {
+        botaoLimpar.addEventListener("click", function () {
             if (!confirm("Deseja apagar todas as respostas e recomeçar?")) {
                 return;
             }
@@ -765,7 +770,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             perguntas.forEach(function (pergunta) {
                 validarPergunta(pergunta, false);
-                atualizarBotaoLimpar(pergunta);
             });
 
             try {
@@ -773,57 +777,22 @@ document.addEventListener("DOMContentLoaded", function () {
             } catch (erro) {}
 
             caixaStatus.hidden = true;
-        });
-    }
+            atualizarBotaoLimpar();
 
-    /* ======================================
-       BOTÃO LIMPAR RESPOSTA
-    ====================================== */
+            /* Volta para a primeira pergunta */
 
-    function atualizarBotaoLimpar(pergunta) {
-        const botao = pergunta.querySelector(".btn-limpar-resposta");
-
-        if (!botao) {
-            return;
-        }
-
-        const respondida = pergunta.querySelector(
-            'input[type="radio"]:checked'
-        );
-
-        botao.disabled = !respondida;
-    }
-
-    perguntas.forEach(function (pergunta) {
-        const botao = pergunta.querySelector(".btn-limpar-resposta");
-
-        if (!botao) {
-            return;
-        }
-
-        botao.addEventListener("click", function () {
-            pergunta
-                .querySelectorAll('input[type="radio"]')
-                .forEach(function (alternativa) {
-                    alternativa.checked = false;
+            if (perguntas.length) {
+                perguntas[0].scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
                 });
-
-            validarPergunta(pergunta, false);
-            atualizarBotaoLimpar(pergunta);
-            salvarRascunho();
-
-            const primeiraAlternativa =
-                pergunta.querySelector('input[type="radio"]');
-
-            if (primeiraAlternativa) {
-                primeiraAlternativa.focus({ preventScroll: true });
             }
         });
-    });
+    }
 
     restaurarRascunho();
 
-    perguntas.forEach(atualizarBotaoLimpar);
+    atualizarBotaoLimpar();
 
     /* Remove o erro assim que uma resposta for escolhida */
 
@@ -837,7 +806,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             alternativa.addEventListener("change", function () {
                 validarPergunta(pergunta, false);
-                atualizarBotaoLimpar(pergunta);
+                atualizarBotaoLimpar();
                 salvarRascunho();
             });
 
