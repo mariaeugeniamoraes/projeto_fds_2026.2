@@ -237,11 +237,24 @@ Diagnóstico ESG | Ecomply
         clear: both;
     }
 
-    /* A Josefin Sans desenha o texto um pouco abaixo do centro;
-       desce a bolinha para ficar na mesma linha do texto. */
+    /* Texto das alternativas: escrita normal, sem caixa alta.
+       O !important anula o "form label" global do style.css,
+       feito para os rótulos dos formulários de cadastro. */
 
-    .diagnostico-page .diagnostico-opcoes input[type="radio"] {
-        transform: translateY(2px);
+    .diagnostico-page .diagnostico-opcoes label {
+        display: flex !important;
+        align-items: center;
+        margin: 0 !important;
+
+        font-family: 'Josefin Sans', sans-serif !important;
+        font-size: 16px !important;
+        font-weight: 500 !important;
+        letter-spacing: normal !important;
+        text-transform: none !important;
+    }
+
+    .diagnostico-page .diagnostico-opcoes label:has(input:checked) {
+        font-weight: 700 !important;
     }
 
     /* Modo escuro */
@@ -534,7 +547,7 @@ Diagnóstico ESG | Ecomply
                                         required
                                         aria-describedby="erro-pergunta-{{ pergunta.id }}"
                                     >
-                                    <span>0: Não implementado</span>
+                                    <span>Não implementado</span>
                                 </label>
 
                                 <label>
@@ -545,7 +558,7 @@ Diagnóstico ESG | Ecomply
                                         required
                                         aria-describedby="erro-pergunta-{{ pergunta.id }}"
                                     >
-                                    <span>1: Em início</span>
+                                    <span>Em início</span>
                                 </label>
 
                                 <label>
@@ -556,7 +569,7 @@ Diagnóstico ESG | Ecomply
                                         required
                                         aria-describedby="erro-pergunta-{{ pergunta.id }}"
                                     >
-                                    <span>2: Parcialmente implementado</span>
+                                    <span>Parcialmente implementado</span>
                                 </label>
 
                                 <label>
@@ -567,7 +580,7 @@ Diagnóstico ESG | Ecomply
                                         required
                                         aria-describedby="erro-pergunta-{{ pergunta.id }}"
                                     >
-                                    <span>3: Implementado e monitorado</span>
+                                    <span>Implementado e monitorado</span>
                                 </label>
 
                             </div>
