@@ -218,6 +218,32 @@ Diagnóstico ESG | Ecomply
         scroll-margin-top: 100px;
     }
 
+    /* Pergunta dentro da caixa: o float tira o legend de cima
+       da borda do fieldset, que assim fica com a linha contínua. */
+
+    .diagnostico-page .diagnostico-pergunta legend {
+        float: left;
+        width: 100%;
+        margin: 0 0 8px;
+        padding: 0 !important;
+
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 17px !important;
+        font-weight: 700;
+        line-height: 1.5;
+    }
+
+    .diagnostico-page .diagnostico-pergunta legend + * {
+        clear: both;
+    }
+
+    /* A Josefin Sans desenha o texto um pouco abaixo do centro;
+       desce a bolinha para ficar na mesma linha do texto. */
+
+    .diagnostico-page .diagnostico-opcoes input[type="radio"] {
+        transform: translateY(2px);
+    }
+
     /* Modo escuro */
 
     body.dark-theme .diagnostico-page .diagnostico-pergunta.pergunta-invalida {
