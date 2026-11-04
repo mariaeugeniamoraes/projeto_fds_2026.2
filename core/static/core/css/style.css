@@ -4571,3 +4571,63 @@ form label {
     display: block !important;
     margin-bottom: 6px !important;
 }
+/* =========================================================
+   1. ISOLAMENTO DA PÁGINA "QUEM SOMOS" (Sem quebrar os outros cards)
+   ========================================================= */
+
+/* Import da fonte Josefin Sans */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700;800&display=swap');
+
+body, main {
+    font-family: 'Josefin Sans', sans-serif !important;
+}
+
+/* Títulos ("Ciência da Computação", "Design") */
+.quem-somos h2,
+.quem-somos h3,
+.equipe-titulo {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #0D1959 !important;
+}
+
+/* Apenas NOMES dos integrantes na página Quem Somos */
+.quem-somos .card h3,
+.quem-somos .card h4,
+.membro-card h3,
+.membro-nome {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #0D1959 !important;
+    text-align: center !important;
+}
+
+/* Apenas E-MAILS dos integrantes na página Quem Somos */
+.quem-somos .card p,
+.membro-card p,
+.membro-email {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 0.8rem !important; /* ~13px apenas para os e-mails */
+    font-weight: 400 !important;
+    color: #7A8B9E !important;
+    text-align: center !important;
+}
+
+
+/* =========================================================
+   2. RESTAURAÇÃO DO TAMANHO DOS CARDS GLOBAIS (O Projeto, Ferramentas, etc.)
+   ========================================================= */
+
+/* Força os textos de cards gerais de volta para o tamanho normal */
+main .card:not(.membro-card) p,
+.projeto-container p,
+.ferramenta-card p,
+.calculadora-card p {
+    font-family: 'Josefin Sans', sans-serif !important;
+    font-size: 1.15rem !important; /* ~17px legível */
+    font-weight: 400 !important;
+    color: #4C6565 !important;
+    line-height: 1.6 !important;
+}
