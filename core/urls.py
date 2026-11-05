@@ -183,7 +183,13 @@ urlpatterns = [
 
     # Painel Admin (somente superusers)
     path("painel-admin/", views.painel_admin, name="painel_admin"),
-    path("painel-admin/usuarios/<int:usuario_id>/", views.admin_usuario, name="admin_usuario"),
+    path("painel-admin/usuarios/<int:usuario_id>/", views.admin_usuario, name="admin_usuario")
+    ,
+    path(
+    "ferramentas/detector-greenwashing/",
+    views.detector_greenwashing,
+    name="detector_greenwashing",
+),
 ]
 
 if settings.DEBUG:

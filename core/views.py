@@ -18,6 +18,7 @@ from django.core.files.base import ContentFile
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, Http404
 from django.urls import reverse
+from .services.greenwashing import analisar_greenwashing
 
 from .forms import (
     FeedbackForm,
@@ -1795,3 +1796,33 @@ def passaporte_download_qr(request, passaporte_id):
         response = HttpResponse(f.read(), content_type="image/png")
         response['Content-Disposition'] = f'attachment; filename="qrcode_{passaporte.nome_produto}.png"'
         return response
+
+
+
+@login_required
+def detector_greenwashing(request):
+    texto = ""
+    resultado = None
+    erro = None
+
+    if request.method == "POST":
+        texto = request.POST.get("texto", "").strip()
+
+        if len(texto) < 10:
+            erro = "Digite pelo menos 10 caracteres."
+
+        elif len(texto) > 5000:
+            erro = "O texto deve ter no máximo 5000 caracteres."
+
+        else:
+            resultado = analisar_greenwashing(texto)
+
+    return render(
+        request,
+        "core/detector_greenwashing.html",
+        {
+            "texto": texto,
+            "resultado": resultado,
+            "erro": erro,
+        },
+    )
