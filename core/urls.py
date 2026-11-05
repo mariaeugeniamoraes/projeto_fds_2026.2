@@ -86,23 +86,20 @@ urlpatterns = [
         views.passaporte_criar,
         name="passaporte_criar",
     ),
-<<<<<<< HEAD
+    
     # Rota pública OFICIAL e limpa (usada na geração dos novos QR Codes)
-=======
->>>>>>> 3e631cbf481adfea2a5a9934503c60ded80501aa
     path(
         "passaporte/publico/<uuid:passaporte_id>/",
         views.passaporte_publico,
         name="passaporte_publico",
     ),
-<<<<<<< HEAD
+    
     # Rota de compatibilidade (para QR Codes gerados anteriormente com /ferramentas/)
     path(
         "ferramentas/passaporte/publico/<uuid:passaporte_id>/",
         views.passaporte_publico,
     ),
-=======
->>>>>>> 3e631cbf481adfea2a5a9934503c60ded80501aa
+    
     path(
         "passaporte/<uuid:passaporte_id>/download-qr/",
         views.passaporte_download_qr,
