@@ -254,3 +254,68 @@ A Sprint 03 reúne as atividades planejadas para esta entrega, enquanto o backlo
 
 [Histórias de Usuário — Entrega 04](historias_entrega04.md)
 
+### Histórias implementadas no formato post-it
+
+<table>
+<tr>
+<th align="center">POST-IT 01 — Detector de Greenwashing</th>
+</tr>
+<tr><td><strong>História de usuário</strong></td></tr>
+<tr><td>
+Como gestor de uma pequena ou média empresa, quero analisar descrições de produtos e propagandas para identificar possíveis alegações ambientais sem comprovação, para melhorar a transparência da comunicação e evitar informações ambientais enganosas.
+</td></tr>
+<tr><td><strong>Critérios de aceitação</strong></td></tr>
+<tr><td>
+
+- O sistema disponibiliza um campo para inserir descrições de produtos ou propagandas.
+- O usuário pode solicitar a análise do texto.
+- O sistema identifica expressões ambientais que precisam de verificação.
+- O resultado apresenta as alegações identificadas, explicações e sugestões de melhoria.
+- O sistema informa quando a análise é concluída e direciona o usuário aos resultados.
+
+</td></tr>
+</table>
+
+<br>
+
+<table>
+<tr>
+<th align="center">POST-IT 02 — Passaporte Digital de Sustentabilidade</th>
+</tr>
+<tr><td><strong>História de usuário</strong></td></tr>
+<tr><td>
+Como gestor de um e-commerce, quero cadastrar produtos e gerar passaportes digitais com QR Codes, para disponibilizar informações sobre sustentabilidade aos consumidores de maneira acessível e transparente.
+</td></tr>
+<tr><td><strong>Critérios de aceitação</strong></td></tr>
+<tr><td>
+
+- O sistema permite cadastrar produtos no Passaporte Digital de Sustentabilidade.
+- O gestor pode informar dados de sustentabilidade associados aos produtos.
+- O sistema gera um QR Code para cada passaporte.
+- O consumidor pode acessar as informações do produto por meio de uma página pública.
+- O gestor pode visualizar os passaportes cadastrados.
+
+</td></tr>
+</table>
+
+<br>
+
+<table>
+<tr>
+<th align="center">POST-IT 03 — Exportação do Dashboard em PDF</th>
+</tr>
+<tr><td><strong>História de usuário</strong></td></tr>
+<tr><td>
+Como gestor de uma pequena ou média empresa, quero exportar as informações do dashboard em um arquivo PDF, para armazenar, consultar e compartilhar os indicadores da empresa de maneira organizada.
+</td></tr>
+<tr><td><strong>Critérios de aceitação</strong></td></tr>
+<tr><td>
+
+- O sistema disponibiliza uma opção para exportar as informações do dashboard em PDF.
+- O usuário pode solicitar a geração do documento.
+- O arquivo PDF apresenta os dados da empresa de forma organizada e legível.
+- O usuário pode baixar e armazenar o documento em seu dispositivo.
+
+</td></tr>
+</table>
+
