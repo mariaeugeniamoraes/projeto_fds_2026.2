@@ -1753,3 +1753,45 @@ def passaporte_download_qr(request, passaporte_id):
         response = HttpResponse(f.read(), content_type="image/png")
         response['Content-Disposition'] = f'attachment; filename="qrcode_{passaporte.nome_produto}.png"'
         return response
+
+    import os
+import qrcode
+from io import BytesIO
+from django.core.files.base import ContentFile
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from .models import PassaporteProduto
+
+# Função auxilar para gerar a imagem do QR Code
+def gerar_qr_code_passaporte(passaporte, request):
+    url_publica = request.build_absolute_uri(
+        reverse('passaporte_publico', kwargs={'passaporte_id': passaporte.id})
+    )
+    qr_img = qrcode.make(url_publica)
+    buffer = BytesIO()
+    qr_img.save(buffer, format='PNG')
+    filename = f"qr_{passaporte.id}.png"
+    passaporte.qr_code.save(filename, ContentFile(buffer.getvalue()), save=True)
+
+
+# View Pública (Acessível sem login via QR Code)
+def passaporte_publico(request, passaporte_id):
+    passaporte = get_object_or_404(PassaporteProduto, id=passaporte_id)
+    return render(request, 'core/passaporte_publico.html', {'passaporte': passaporte})
+
+
+# View de Download com fallback automático
+@login_required
+def passaporte_download_qr(request, passaporte_id):
+    passaporte = get_object_or_404(PassaporteProduto, id=passaporte_id)
+    
+    # Se o arquivo físico da imagem não existir no disco, gera na hora
+    if not passaporte.qr_code or not os.path.exists(passaporte.qr_code.path):
+        gerar_qr_code_passaporte(passaporte, request)
+
+    with open(passaporte.qr_code.path, 'rb') as f:
+        response = HttpResponse(f.read(), content_type="image/png")
+        response['Content-Disposition'] = f'attachment; filename="qrcode_{passaporte.nome_produto}.png"'
+        return response

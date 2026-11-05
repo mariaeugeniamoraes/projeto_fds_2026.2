@@ -1,0 +1,155 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Passaporte Digital - {{ passaporte.nome_produto }} - Ecomply{% endblock %}
+
+{% block content %}
+<style>
+    .public-passport-wrapper {
+        max-width: 780px;
+        margin: 40px auto 80px;
+        padding: 0 24px;
+    }
+
+    .passport-badge {
+        display: inline-flex;
+        align-items: center;
+        background: #E5DED2;
+        color: #0D1959;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 6px 14px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+    }
+
+    .passport-card {
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+        padding: 36px;
+        box-shadow: 0 6px 20px rgba(13, 25, 89, 0.04);
+    }
+
+    .company-tag {
+        display: inline-block;
+        background: #245B38;
+        color: #FFFFFF;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 12px;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+    }
+
+    .passport-title {
+        color: #0D1959;
+        font-size: 42px;
+        font-weight: 700;
+        margin: 0 0 12px;
+        line-height: 1.2;
+    }
+
+    .passport-description {
+        color: #4C6565;
+        font-size: 18px;
+        line-height: 1.5;
+        margin-bottom: 28px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #E5DED2;
+    }
+
+    .info-group {
+        margin-bottom: 24px;
+    }
+
+    .info-label {
+        display: block;
+        color: #0D1959 !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    .info-box {
+        display: block;
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid #E5DED2;
+        border-radius: 8px;
+        background-color: #FFFFFF;
+        color: #0D1959;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.5;
+        box-sizing: border-box;
+    }
+
+    .seal-container {
+        margin-top: 36px;
+        padding-top: 24px;
+        border-top: 1px solid #E5DED2;
+        text-align: center;
+    }
+
+    .seal-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #E5DED2;
+        color: #0D1959;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 8px 18px;
+        border-radius: 20px;
+    }
+</style>
+
+<div class="public-passport-wrapper">
+    <span class="passport-badge">
+        Passaporte Digital de Sustentabilidade
+    </span>
+
+    <div class="passport-card">
+        <span class="company-tag">{{ passaporte.empresa.nome }}</span>
+        <h1 class="passport-title">{{ passaporte.nome_produto }}</h1>
+
+        {% if passaporte.descricao %}
+            <p class="passport-description">{{ passaporte.descricao }}</p>
+        {% endif %}
+
+        <div class="info-group">
+            <span class="info-label">MATERIAIS E COMPOSIÇÃO:</span>
+            <div class="info-box">{{ passaporte.materiais }}</div>
+        </div>
+
+        <div class="info-group">
+            <span class="info-label">ORIGEM DOS MATERIAIS:</span>
+            <div class="info-box">{{ passaporte.origem_materiais }}</div>
+        </div>
+
+        <div class="info-group">
+            <span class="info-label">INFORMAÇÕES DA EMBALAGEM:</span>
+            <div class="info-box">{{ passaporte.embalagem }}</div>
+        </div>
+
+        <div class="info-group">
+            <span class="info-label">INSTRUÇÕES PARA DESCARTE SUSTENTÁVEL:</span>
+            <div class="info-box">{{ passaporte.instrucoes_descarte }}</div>
+        </div>
+
+        {% if passaporte.indicadores_ambientais %}
+            <div class="info-group">
+                <span class="info-label">INDICADORES AMBIENTAIS (OPCIONAL):</span>
+                <div class="info-box">{{ passaporte.indicadores_ambientais }}</div>
+            </div>
+        {% endif %}
+
+        <div class="seal-container">
+            <span class="seal-tag">✓ Verificado por Ecomply • Rastreabilidade Garantida</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
