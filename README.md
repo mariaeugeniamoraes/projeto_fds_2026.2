@@ -319,3 +319,9 @@ Como gestor de uma pequena ou média empresa, quero exportar as informações do
 </td></tr>
 </table>
 
+### Documentação para Contribuição
+
+O Ecomply disponibiliza um guia de contribuição com instruções para configurar o ambiente de desenvolvimento, executar o projeto, realizar testes e enviar melhorias.
+
+- [Guia de Contribuição — CONTRIBUTING.md](CONTRIBUTING.md)
+
