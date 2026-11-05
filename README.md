@@ -252,7 +252,5 @@ A Sprint 03 reúne as atividades planejadas para esta entrega, enquanto o backlo
 
 ## Entrega 04
 
-### Histórias de Usuário
-
-- [Histórias de Usuário — Ecomply (Entrega 04)](historias_entrega04.md)
+[Histórias de Usuário — Entrega 04](historias_entrega04.md)
 
