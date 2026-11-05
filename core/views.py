@@ -258,6 +258,9 @@ def minhas_empresas(request):
             empresa.usuario = request.user
             empresa.save()
 
+            # Mensagem de sucesso adicionada aqui:
+            messages.success(request, 'Empresa cadastrada com sucesso!')
+
             return redirect("minhas_empresas")
 
     else:
@@ -271,7 +274,6 @@ def minhas_empresas(request):
             "form": form,
         },
     )
-
 
 # ==========================================
 # DIAGNÓSTICO ESG

@@ -1671,6 +1671,15 @@
     ========================================== -->
 
     <main class="main-content">
+        {% if messages %}
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+        {% for message in messages %}
+            <div style="background-color: #d4edda; color: #155724; padding: 15px; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 10px; font-weight: bold;">
+                ✅ {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
         {% block content %}
         {% endblock %}
