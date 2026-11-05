@@ -1661,7 +1661,7 @@ def passaporte_criar(request):
 # PÁGINA PÚBLICA (Sem necessidade de login para o consumidor)
 def passaporte_publico(request, passaporte_id):
     passaporte = get_object_or_404(PassaporteProduto, id=passaporte_id)
-    return render(request, 'passaporte_publico.html', {
+    return render(request, 'core/passaporte_publico.html', {
         'passaporte': passaporte
     })
 from django.shortcuts import render, redirect, get_object_or_404
