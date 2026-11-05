@@ -1,0 +1,119 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Passaportes Digitais - Ecomply{% endblock %}
+
+{% block content %}
+<style>
+    .passaporte-container {
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+    }
+    .passaporte-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    .passaporte-header h2 {
+        color: #0D1959;
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0;
+    }
+    .btn-primary-ecomply {
+        background-color: #8C3E14;
+        color: #ffffff !important;
+        padding: 12px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: background 0.2s;
+    }
+    .btn-primary-ecomply:hover {
+        background-color: #73320F;
+    }
+    .grid-passaportes {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    .card-passaporte {
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 12px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .badge-empresa {
+        display: inline-block;
+        background: #E5DED2;
+        color: #0D1959;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        margin-bottom: 12px;
+    }
+    .card-passaporte h4 {
+        color: #0D1959;
+        font-size: 20px;
+        margin: 0 0 10px;
+    }
+    .card-passaporte p {
+        color: #4C6565;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    .empty-state {
+        background: #FFFCF7;
+        border: 1px dashed #E5DED2;
+        border-radius: 12px;
+        padding: 40px;
+        text-align: center;
+        color: #4C6565;
+    }
+</style>
+
+<div class="passaporte-container">
+    <div class="passaporte-header">
+        <div>
+            <h2>Passaportes Digitais</h2>
+            <p style="color: #4C6565; margin-top: 6px;">Gerencie a transparência e rastreabilidade dos produtos das suas empresas.</p>
+        </div>
+        {% if passaportes %}
+            <a href="{% url 'passaporte_selecionar_empresa' %}" class="btn-primary-ecomply">+ Cadastrar Novo Produto</a>
+        {% endif %}
+    </div>
+
+    {% if passaportes %}
+        <div class="grid-passaportes">
+            {% for item in passaportes %}
+                <div class="card-passaporte">
+                    <div>
+                        <span class="badge-empresa">{{ item.empresa.nome }}</span>
+                        <h4>{{ item.nome_produto }}</h4>
+                        <p><strong>Materiais:</strong> {{ item.materiais|truncatewords:10 }}</p>
+                    </div>
+                    <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="{% url 'passaporte_publico' item.id %}" target="_blank" class="btn-primary-ecomply" style="background: #0D1959; font-size: 12px; padding: 8px 14px;">Ver Página Pública ↗</a>
+                        <a href="{% url 'passaporte_download_qr' item.id %}" class="btn-primary-ecomply" style="background: #245B38; font-size: 12px; padding: 8px 14px;">Baixar QR Code</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h3 style="color: #0D1959; margin-bottom: 10px;">Nenhum passaporte cadastrado</h3>
+            <p>Selecione uma empresa e cadastre o primeiro produto para gerar seu QR Code de sustentabilidade.</p>
+            <br>
+            <a href="{% url 'passaporte_selecionar_empresa' %}" class="btn-primary-ecomply">+ Cadastrar Produto</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

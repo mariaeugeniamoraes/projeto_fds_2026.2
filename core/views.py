@@ -11,6 +11,13 @@ from django.views.decorators.http import require_POST
 from django.db import transaction
 from django.db.models import Avg, Count, Q, Sum
 from django.utils import timezone
+import os
+import qrcode
+from io import BytesIO
+from django.core.files.base import ContentFile
+from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse, Http404
+from django.urls import reverse
 
 from .forms import (
     FeedbackForm,
@@ -1602,3 +1609,147 @@ def admin_usuario(request, usuario_id):
             "empresas": empresas,
         },
     )
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from core.models import Empresa  # Altere 'core' se necessário
+from .models import PassaporteProduto
+
+@login_required
+def passaporte_lista(request):
+    # Puxa apenas as empresas do usuário logado
+    empresas_usuario = Empresa.objects.filter(usuario=request.user)
+    
+    # Puxa os passaportes cadastrados para essas empresas
+    passaportes = PassaporteProduto.objects.filter(empresa__in=empresas_usuario)
+    
+    return render(request, 'core/passaporte_lista.html', {
+        'passaportes': passaportes,
+        'empresas': empresas_usuario
+    })
+
+
+@login_required
+def passaporte_criar(request):
+    empresas_usuario = Empresa.objects.filter(usuario=request.user)
+
+    if request.method == 'POST':
+        empresa_id = request.POST.get('empresa')
+        empresa_selecionada = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
+
+        passaporte = PassaporteProduto(
+            empresa=empresa_selecionada,
+            nome_produto=request.POST.get('nome_produto'),
+            descricao=request.POST.get('descricao', ''),
+            materiais=request.POST.get('materiais'),
+            origem_materiais=request.POST.get('origem_materiais'),
+            embalagem=request.POST.get('embalagem'),
+            instrucoes_descarte=request.POST.get('instrucoes_descarte'),
+            indicadores_ambientais=request.POST.get('indicadores_ambientais', '')
+        )
+        # Salva o objeto para obter a ID e gera o QR Code
+        passaporte.save()
+        passaporte.gerar_qr_code(request)
+        passaporte.save()
+
+        return redirect('passaporte_lista')
+
+    return render(request, 'core/passaporte_form.html', {
+        'empresas': empresas_usuario
+    })
+
+
+# PÁGINA PÚBLICA (Sem necessidade de login para o consumidor)
+def passaporte_publico(request, passaporte_id):
+    passaporte = get_object_or_404(PassaporteProduto, id=passaporte_id)
+    return render(request, 'passaporte_publico.html', {
+        'passaporte': passaporte
+    })
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Empresa, PassaporteProduto
+
+@login_required
+def passaporte_lista(request):
+    empresas_usuario = Empresa.objects.filter(usuario=request.user)
+    passaportes = PassaporteProduto.objects.filter(empresa__in=empresas_usuario)
+    return render(request, 'core/passaporte_lista.html', {
+        'passaportes': passaportes,
+    })
+
+# TELA 1: Lista as empresas do usuário para ele escolher uma
+@login_required
+def passaporte_selecionar_empresa(request):
+    empresas = Empresa.objects.filter(usuario=request.user)
+    return render(request, 'core/passaporte_selecionar_empresa.html', {
+        'empresas': empresas
+    })
+
+# TELA 2: Formulário do produto (vinculado à empresa escolhida na Tela 1)
+@login_required
+def passaporte_criar(request, empresa_id):
+    empresa = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
+
+    if request.method == 'POST':
+        passaporte = PassaporteProduto(
+            empresa=empresa,
+            nome_produto=request.POST.get('nome_produto'),
+            descricao=request.POST.get('descricao', ''),
+            materiais=request.POST.get('materiais'),
+            origem_materiais=request.POST.get('origem_materiais'),
+            embalagem=request.POST.get('embalagem'),
+            instrucoes_descarte=request.POST.get('instrucoes_descarte'),
+            indicadores_ambientais=request.POST.get('indicadores_ambientais', '')
+        )
+        passaporte.save()
+        passaporte.gerar_qr_code(request)
+        passaporte.save()
+
+        return redirect('passaporte_lista')
+
+    return render(request, 'core/passaporte_form.html', {
+        'empresa': empresa
+    })
+
+def passaporte_publico(request, passaporte_id):
+    passaporte = get_object_or_404(PassaporteProduto, id=passaporte_id)
+    return render(request, 'core/passaporte_publico.html', {
+        'passaporte': passaporte
+    })
+from django.http import HttpResponse, Http404
+
+@login_required
+def passaporte_download_qr(request, passaporte_id):
+    passaporte = get_object_or_404(PassaporteProduto, id=passaporte_id)
+    if passaporte.qr_code and hasattr(passaporte.qr_code, 'path'):
+        try:
+            with open(passaporte.qr_code.path, 'rb') as f:
+                response = HttpResponse(f.read(), content_type="image/png")
+                response['Content-Disposition'] = f'attachment; filename="qrcode_{passaporte.nome_produto}.png"'
+                return response
+        except FileNotFoundError:
+            raise Http404("Ficheiro de QR Code não encontrado.")
+    return redirect('passaporte_lista')
+def gerar_qr_code_passaporte(passaporte, request):
+    """Gera e salva o arquivo de imagem do QR Code para o passaporte."""
+    url_publica = request.build_absolute_uri(
+        reverse('passaporte_publico', kwargs={'passaporte_id': passaporte.id})
+    )
+    qr_img = qrcode.make(url_publica)
+    buffer = BytesIO()
+    qr_img.save(buffer, format='PNG')
+    filename = f"qr_{passaporte.id}.png"
+    passaporte.qr_code.save(filename, ContentFile(buffer.getvalue()), save=True)
+
+@login_required
+def passaporte_download_qr(request, passaporte_id):
+    passaporte = get_object_or_404(PassaporteProduto, id=passaporte_id)
+    
+    # Se o QR Code não existir ou o arquivo não estiver fisicamente no disco, gera na hora
+    if not passaporte.qr_code or not os.path.exists(passaporte.qr_code.path):
+        gerar_qr_code_passaporte(passaporte, request)
+
+    # Serve a imagem para download direto em PNG
+    with open(passaporte.qr_code.path, 'rb') as f:
+        response = HttpResponse(f.read(), content_type="image/png")
+        response['Content-Disposition'] = f'attachment; filename="qrcode_{passaporte.nome_produto}.png"'
+        return response

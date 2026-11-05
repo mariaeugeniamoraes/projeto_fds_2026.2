@@ -1,6 +1,12 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
+from django.db import models
+from django.contrib.auth.models import User
+import qrcode
+from io import BytesIO
+from django.core.files import File
 
 
 class Empresa(models.Model):
@@ -290,3 +296,47 @@ class Fornecedor(models.Model):
 
     def __str__(self):
         return f"{self.nome} ({self.get_status_risco_display()})"
+    import uuid
+
+
+class PassaporteProduto(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
+    # Vinculo com a empresa do usuário
+    empresa = models.ForeignKey(
+        Empresa, 
+        on_delete=models.CASCADE, 
+        related_name="passaportes"
+    )
+    
+    # Informações do Produto
+    nome_produto = models.CharField(max_length=200, verbose_name="Nome do Produto")
+    descricao = models.TextField(blank=True, verbose_name="Descrição do Produto")
+    materiais = models.TextField(verbose_name="Materiais Utilizados")
+    origem_materiais = models.CharField(max_length=200, verbose_name="Origem dos Materiais")
+    embalagem = models.CharField(max_length=200, verbose_name="Informações da Embalagem")
+    instrucoes_descarte = models.TextField(verbose_name="Instruções de Descarte")
+    indicadores_ambientais = models.TextField(blank=True, verbose_name="Indicadores Ambientais")
+    
+    # QR Code gerado automaticamente
+    qr_code = models.ImageField(upload_to="qrcodes/", blank=True, null=True)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-data_criacao"]
+
+    def __str__(self):
+        return f"{self.nome_produto} - {self.empresa.nome}"
+
+    def gerar_qr_code(self, request):
+        # Monta o link público dinâmico (ex: http://127.0.0.1:8000/ferramentas/passaporte/publico/UUID/)
+        host = request.get_host()
+        protocolo = 'https' if request.is_secure() else 'http'
+        url_publica = f"{protocolo}://{host}/ferramentas/passaporte/publico/{self.id}/"
+
+        qr = qrcode.make(url_publica)
+        buffer = BytesIO()
+        qr.save(buffer, format='PNG')
+        
+        nome_arquivo = f"qr_{self.id}.png"
+        self.qr_code.save(nome_arquivo, File(buffer), save=False)

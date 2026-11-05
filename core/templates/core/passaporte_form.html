@@ -1,0 +1,209 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Novo Passaporte Digital - {{ empresa.nome }} - Ecomply{% endblock %}
+
+{% block content %}
+<style>
+    .form-wrapper {
+        max-width: 780px;
+        margin: 40px auto 80px;
+        padding: 0 24px;
+    }
+
+    /* BADGE DA EMPRESA (14px Semi-bold conforme Figma) */
+    .selected-empresa-badge {
+        display: inline-flex;
+        align-items: center;
+        background: #E5DED2;
+        color: #0D1959;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 6px 14px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+    }
+
+    /* TÍTULO PRINCIPAL (H1 - 42px Bold conforme Figma) */
+    .form-header h2 {
+        color: #0D1959;
+        font-size: 42px;
+        font-weight: 700;
+        margin: 0 0 10px;
+        line-height: 1.2;
+    }
+
+    /* SUBTÍTULO / TEXTO DE CORPO (18px Regular conforme Figma) */
+    .form-header p {
+        color: #4C6565;
+        font-size: 18px;
+        font-weight: 400;
+        margin: 0;
+    }
+
+    .form-card {
+        background: #FFFCF7;
+        border: 1px solid #E5DED2;
+        border-radius: 16px;
+        padding: 36px;
+        box-shadow: 0 6px 20px rgba(13, 25, 89, 0.04);
+        margin-top: 28px;
+    }
+
+    .form-group {
+        margin-bottom: 24px;
+    }
+
+    /* RÓTULOS DOS CAMPOS (CAIXA ALTA, BOLDFACE, COR MARINHO COM DOIS PONTOS) */
+    .form-group label {
+        display: block;
+        color: #0D1959 !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    /* PADRONIZAÇÃO RIGOROSA PARA TEXTOS DIGITADOS EM INPUT E TEXTAREA */
+    input[type="text"].form-control,
+    input.form-control, 
+    textarea.form-control {
+        display: block !important;
+        width: 100% !important;
+        padding: 14px 16px !important;
+        border: 1px solid #E5DED2 !important;
+        border-radius: 8px !important;
+        background-color: #FFFFFF !important;
+        color: #0D1959 !important;
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        font-family: inherit !important;
+        line-height: 1.5 !important;
+        box-sizing: border-box !important;
+        transition: border-color 0.2s;
+    }
+
+    input[type="text"].form-control,
+    input.form-control {
+        height: 48px !important;
+    }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 100px !important;
+    }
+
+    /* PLACEHOLDERS UNIFICADOS (EXEMPLOS EM MESMA FONTE E COR) */
+    input.form-control::placeholder, 
+    textarea.form-control::placeholder {
+        font-family: inherit !important;
+        color: #A0A5B5 !important;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        font-style: normal !important;
+        opacity: 1 !important;
+    }
+
+    input.form-control:focus, 
+    textarea.form-control:focus {
+        outline: none !important;
+        border-color: #8C3E14 !important;
+    }
+
+    /* BOTÃO PRINCIPAL (18px Semi-bold conforme Figma) */
+    .btn-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 16px 24px;
+        background: #8C3E14;
+        color: #ffffff !important;
+        border: none;
+        border-radius: 9px;
+        font-weight: 600;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 12px;
+    }
+
+    .btn-submit:hover {
+        background: #73320F;
+    }
+
+    .btn-cancel {
+        display: block;
+        text-align: center;
+        margin-top: 16px;
+        color: #4C6565;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .btn-cancel:hover {
+        color: #0D1959;
+    }
+</style>
+
+<div class="form-wrapper">
+
+    <span class="selected-empresa-badge">
+        Empresa Selecionada: {{ empresa.nome }}
+    </span>
+
+    <div class="form-header">
+        <h2>Cadastrar Passaporte do Produto</h2>
+        <p>Preencha as informações de sustentabilidade do produto para esta empresa.</p>
+    </div>
+
+    <div class="form-card">
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="nome_produto">NOME DO PRODUTO:</label>
+                <input type="text" name="nome_produto" id="nome_produto" class="form-control" placeholder="Ex: Camiseta Algodão Orgânico Eco" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">DESCRIÇÃO DO PRODUTO:</label>
+                <textarea name="descricao" id="descricao" class="form-control" placeholder="Breve apresentação do produto para o consumidor..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="materiais">MATERIAIS E COMPOSIÇÃO:</label>
+                <textarea name="materiais" id="materiais" class="form-control" placeholder="Ex: 80% Algodão Reciclado, 20% Poliéster PET..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="origem_materiais">ORIGEM DOS MATERIAIS:</label>
+                <input type="text" name="origem_materiais" id="origem_materiais" class="form-control" placeholder="Ex: Algodão colhido em cooperativas no Nordeste / Brasil" required>
+            </div>
+
+            <div class="form-group">
+                <label for="embalagem">INFORMAÇÕES DA EMBALAGEM:</label>
+                <input type="text" name="embalagem" id="embalagem" class="form-control" placeholder="Ex: Papelão 100% reciclável, tinta à base de água" required>
+            </div>
+
+            <div class="form-group">
+                <label for="instrucoes_descarte">INSTRUÇÕES PARA DESCARTE SUSTENTÁVEL:</label>
+                <textarea name="instrucoes_descarte" id="instrucoes_descarte" class="form-control" placeholder="Ex: Destinar a embalagem para coleta seletiva de papel..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="indicadores_ambientais">INDICADORES AMBIENTAIS (OPCIONAL):</label>
+                <textarea name="indicadores_ambientais" id="indicadores_ambientais" class="form-control" placeholder="Ex: Emissão de CO2 reduzida em 30%..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                + Cadastrar Passaporte
+            </button>
+
+            <a href="{% url 'passaporte_selecionar_empresa' %}" class="btn-cancel">← Voltar para seleção de empresa</a>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

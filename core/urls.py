@@ -1,6 +1,7 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from . import views
-
 
 urlpatterns = [
     # Página inicial
@@ -68,7 +69,34 @@ urlpatterns = [
         views.calculadora_embalagens,
         name="calculadora_embalagens",
     ),
-    
+
+    # Passaporte Digital de Sustentabilidade (FLUXO EM 2 ETAPAS)
+    path(
+        "passaporte/",
+        views.passaporte_lista,
+        name="passaporte_lista",
+    ),
+    path(
+        "passaporte/selecionar-empresa/",
+        views.passaporte_selecionar_empresa,
+        name="passaporte_selecionar_empresa",
+    ),
+    path(
+        "passaporte/novo/<int:empresa_id>/",
+        views.passaporte_criar,
+        name="passaporte_criar",
+    ),
+    path(
+        "passaporte/publico/<uuid:passaporte_id>/",
+        views.passaporte_publico,
+        name="passaporte_publico",
+    ),
+    path(
+        "passaporte/<uuid:passaporte_id>/download-qr/",
+        views.passaporte_download_qr,
+        name="passaporte_download_qr",
+    ),
+
     # Controle financeiro
     path(
         "empresas/<int:empresa_id>/financeiro/",
@@ -101,18 +129,53 @@ urlpatterns = [
         name="relatorio_empresa",
     ),
 
-    path('empresas/<int:empresa_id>/planos-de-acao/', views.listar_planos_acao, name='listar_planos_acao'),
-    path('empresas/<int:empresa_id>/planos-de-acao/adicionar/', views.adicionar_plano_acao, name='adicionar_plano_acao'),
-    path('empresas/<int:empresa_id>/planos-de-acao/<int:plano_id>/status/', views.alterar_status_plano, name='alterar_status_plano'),
-    path('empresas/<int:empresa_id>/planos-de-acao/<int:plano_id>/excluir/', views.excluir_plano_acao, name='excluir_plano_acao'),
+    path(
+        'empresas/<int:empresa_id>/planos-de-acao/',
+        views.listar_planos_acao,
+        name='listar_planos_acao'
+    ),
+    path(
+        'empresas/<int:empresa_id>/planos-de-acao/adicionar/',
+        views.adicionar_plano_acao,
+        name='adicionar_plano_acao'
+    ),
+    path(
+        'empresas/<int:empresa_id>/planos-de-acao/<int:plano_id>/status/',
+        views.alterar_status_plano,
+        name='alterar_status_plano'
+    ),
+    path(
+        'empresas/<int:empresa_id>/planos-de-acao/<int:plano_id>/excluir/',
+        views.excluir_plano_acao,
+        name='excluir_plano_acao'
+    ),
 
     # Central de Monitoramento de Fornecedores
-    path('empresas/<int:empresa_id>/fornecedores/', views.listar_fornecedores, name='listar_fornecedores'),
-    path('empresas/<int:empresa_id>/fornecedores/adicionar/', views.adicionar_fornecedor, name='adicionar_fornecedor'),
-    path('empresas/<int:empresa_id>/fornecedores/<int:fornecedor_id>/alerta/', views.alternar_alerta_fornecedor, name='alternar_alerta_fornecedor'),
-    path('empresas/<int:empresa_id>/fornecedores/<int:fornecedor_id>/excluir/', views.excluir_fornecedor, name='excluir_fornecedor'),
+    path(
+        'empresas/<int:empresa_id>/fornecedores/',
+        views.listar_fornecedores,
+        name='listar_fornecedores'
+    ),
+    path(
+        'empresas/<int:empresa_id>/fornecedores/adicionar/',
+        views.adicionar_fornecedor,
+        name='adicionar_fornecedor'
+    ),
+    path(
+        'empresas/<int:empresa_id>/fornecedores/<int:fornecedor_id>/alerta/',
+        views.alternar_alerta_fornecedor,
+        name='alternar_alerta_fornecedor'
+    ),
+    path(
+        'empresas/<int:empresa_id>/fornecedores/<int:fornecedor_id>/excluir/',
+        views.excluir_fornecedor,
+        name='excluir_fornecedor'
+    ),
 
     # Painel Admin (somente superusers)
     path("painel-admin/", views.painel_admin, name="painel_admin"),
     path("painel-admin/usuarios/<int:usuario_id>/", views.admin_usuario, name="admin_usuario"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

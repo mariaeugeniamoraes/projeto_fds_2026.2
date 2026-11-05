@@ -1,0 +1,106 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Selecionar Empresa - Ecomply{% endblock %}
+
+{% block content %}
+<style>
+    .select-container {
+        max-width: 800px;
+        margin: 40px auto 80px;
+        padding: 0 24px;
+    }
+    .select-header {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+    .select-header h2 {
+        color: #0D1959;
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    .select-header p {
+        color: #4C6565;
+        font-size: 15px;
+    }
+    .grid-empresas {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+    }
+    .card-empresa {
+        background: #FFFCF7;
+        border: 2px solid #E5DED2;
+        border-radius: 14px;
+        padding: 24px;
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .card-empresa:hover {
+        border-color: #8C3E14;
+        transform: translateY(-2px);
+    }
+    .card-empresa h3 {
+        color: #0D1959;
+        font-size: 20px;
+        margin: 0 0 6px;
+    }
+    .card-empresa p {
+        color: #4C6565;
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+    .btn-selecionar {
+        background-color: #0D1959;
+        color: #ffffff !important;
+        text-align: center;
+        padding: 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        transition: background 0.2s;
+    }
+    .card-empresa:hover .btn-selecionar {
+        background-color: #8C3E14;
+    }
+    .empty-empresas {
+        background: #FFFCF7;
+        border: 1px dashed #E5DED2;
+        border-radius: 14px;
+        padding: 40px;
+        text-align: center;
+    }
+</style>
+
+<div class="select-container">
+    <div class="select-header">
+        <h2>Selecione a Empresa</h2>
+        <p>Escolha qual das suas empresas cadastradas irá emitir este Passaporte Digital.</p>
+    </div>
+
+    {% if empresas %}
+        <div class="grid-empresas">
+            {% for emp in empresas %}
+                <div class="card-empresa">
+                    <div>
+                        <h3>{{ emp.nome }}</h3>
+                        <p>{% if emp.cnpj %}CNPJ: {{ emp.cnpj }}{% else %}Sem CNPJ cadastrado{% endif %}</p>
+                    </div>
+                    <a href="{% url 'passaporte_criar' emp.id %}" class="btn-selecionar">
+                        Cadastrar Produto para esta Empresa →
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-empresas">
+            <h3 style="color: #0D1959; margin-bottom: 10px;">Nenhuma empresa encontrada</h3>
+            <p style="color: #4C6565; margin-bottom: 20px;">Você precisa cadastrar uma empresa antes de emitir um passaporte.</p>
+            <a href="{% url 'minhas_empresas' %}" class="btn-selecionar" style="display: inline-block; padding: 12px 24px;">+ Cadastrar Empresa</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

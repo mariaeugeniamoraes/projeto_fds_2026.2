@@ -1,4 +1,3 @@
-
 {% extends 'core/base.html' %}
 
 {% block title %}
@@ -39,8 +38,13 @@ Ferramentas - Ecomply
         border: 1px solid #e2e8f0;
         border-radius: 12px;
         padding: 2rem;
+        margin-bottom: 1.5rem;
         transition: border-color 0.2s ease, transform 0.2s ease;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .ferramenta-card:last-child {
+        margin-bottom: 0;
     }
 
     .ferramenta-card:hover {
@@ -97,8 +101,6 @@ Ferramentas - Ecomply
        NOVO VISUAL - SOMENTE MODO CLARO
        ======================================== */
 
-    /* Fundo bege uniforme, sem bolinhas */
-
     body:not(.dark-theme):has(.ferramentas-wrapper) {
         background: #F7F2E9 !important;
         background-image: none !important;
@@ -110,8 +112,6 @@ Ferramentas - Ecomply
         background-image: none !important;
     }
 
-    /* Área principal */
-
     body:not(.dark-theme) .ferramentas-wrapper {
         max-width: 1050px;
         margin: 0 auto;
@@ -121,8 +121,6 @@ Ferramentas - Ecomply
         background: #F7F2E9 !important;
         background-image: none !important;
     }
-
-    /* Cabeçalho */
 
     body:not(.dark-theme) .ferramentas-header {
         margin-bottom: 35px;
@@ -147,11 +145,9 @@ Ferramentas - Ecomply
         opacity: 1;
     }
 
-    /* Cartão da ferramenta */
-
     body:not(.dark-theme) .ferramenta-card {
         max-width: 780px;
-        margin: 0 auto;
+        margin: 0 auto 24px;
         padding: 35px;
 
         background: #FFFCF7;
@@ -161,13 +157,15 @@ Ferramentas - Ecomply
         box-shadow: 0 6px 20px rgba(13, 25, 89, 0.04);
     }
 
+    body:not(.dark-theme) .ferramenta-card:last-child {
+        margin-bottom: 0;
+    }
+
     body:not(.dark-theme) .ferramenta-card:hover {
         border-color: #245B38;
         transform: translateY(-3px);
         box-shadow: 0 10px 25px rgba(13, 25, 89, 0.07);
     }
-
-    /* Título do cartão */
 
     body:not(.dark-theme) .ferramenta-card h3 {
         color: #0D1959;
@@ -177,16 +175,12 @@ Ferramentas - Ecomply
         margin: 0 0 16px;
     }
 
-    /* Descrição */
-
     body:not(.dark-theme) .ferramenta-card p {
         color: #4C6565;
         font-size: 15px;
         line-height: 1.8;
         margin: 0 0 26px;
     }
-
-    /* Botão laranja/marrom */
 
     body:not(.dark-theme) .ferramenta-card .btn-minimal {
         display: inline-flex;
@@ -214,8 +208,6 @@ Ferramentas - Ecomply
         border-color: #73320F;
     }
 
-    /* Responsividade */
-
     @media (max-width: 600px) {
         body:not(.dark-theme) .ferramentas-wrapper {
             padding: 40px 16px 60px;
@@ -242,41 +234,50 @@ Ferramentas - Ecomply
 <div class="ferramentas-wrapper">
 
     <!-- CABEÇALHO -->
-
     <div class="ferramentas-header">
-
         <h2>
             Ferramentas Sustentáveis
         </h2>
-
         <p>
             Soluções práticas para apoiar a gestão
             socioambiental da sua empresa.
         </p>
-
     </div>
 
     <!-- CALCULADORA DE EMBALAGENS -->
-
     <div class="ferramenta-card">
-
         <h3>
             Calculadora de Embalagens
         </h3>
-
         <p>
             Simule a substituição de materiais de embalagem
             convencionais por alternativas ecológicas e meça
             a economia financeira e o impacto ambiental.
         </p>
-
         <a
             href="{% url 'calculadora_embalagens' %}"
             class="btn-minimal"
         >
             Acessar Calculadora →
         </a>
+    </div>
 
+    <!-- PASSAPORTE DIGITAL DE SUSTENTABILIDADE -->
+    <div class="ferramenta-card">
+        <h3>
+            Passaporte Digital de Sustentabilidade
+        </h3>
+        <p>
+            Cadastre seus produtos, gere QR Codes exclusivos e compartilhe
+            dados transparentes sobre composição, origem dos materiais,
+            embalagem e orientações de descarte com seus consumidores.
+        </p>
+        <a
+            href="{% url 'passaporte_lista' %}"
+            class="btn-minimal"
+        >
+            Gerenciar Passaportes →
+        </a>
     </div>
 
 </div>
