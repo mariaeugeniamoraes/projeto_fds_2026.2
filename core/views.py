@@ -19,6 +19,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, Http404
 from django.urls import reverse
 from .services.greenwashing import analisar_greenwashing
+from django.contrib import messages
+from django.shortcuts import redirect
 
 from .forms import (
     FeedbackForm,
