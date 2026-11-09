@@ -325,3 +325,5 @@ O Ecomply disponibiliza um guia de contribuição com instruções para configur
 
 - [Guia de Contribuição — CONTRIBUTING.md](CONTRIBUTING.md)
 
+Adições feitas no site
+https://youtu.be/qdFe8cZMIQ0?is=3o9l8tjhrZPN1mVr
