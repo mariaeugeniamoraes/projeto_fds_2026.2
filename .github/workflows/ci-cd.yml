@@ -1,0 +1,52 @@
+
+name: Ecomply - CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    name: Testes Django e Selenium
+    runs-on: ubuntu-latest
+
+    env:
+      CI: "true"
+      SECRET_KEY: "chave-temporaria-apenas-para-testes"
+      DEBUG: "True"
+      ALLOWED_HOSTS: "localhost,127.0.0.1,testserver"
+
+    steps:
+      - name: Baixar codigo do repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Verificar Selenium
+        run: python -m pip show selenium
+
+      - name: Verificar configuracao Django
+        run: python manage.py check
+
+      - name: Preparar arquivos estaticos
+        run: python manage.py collectstatic --noinput
+
+      - name: Executar testes E2E Selenium
+        run: python manage.py test core.tests_e2e -v 2
