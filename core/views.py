@@ -246,27 +246,22 @@ def editar_perfil(request):
 # ==========================================
 
 @login_required
+@login_required
 def minhas_empresas(request):
-
-    empresas = Empresa.objects.filter(usuario=request.user)
-
     if request.method == "POST":
-
         form = EmpresaForm(request.POST)
-
         if form.is_valid():
-
             empresa = form.save(commit=False)
             empresa.usuario = request.user
             empresa.save()
 
-            # Mensagem de sucesso adicionada aqui:
             messages.success(request, 'Empresa cadastrada com sucesso!')
-
             return redirect("minhas_empresas")
-
     else:
         form = EmpresaForm()
+
+    # Busca as empresas atualizadas do utilizador logado
+    empresas = Empresa.objects.filter(usuario=request.user)
 
     return render(
         request,
@@ -276,7 +271,6 @@ def minhas_empresas(request):
             "form": form,
         },
     )
-
 # ==========================================
 # DIAGNÓSTICO ESG
 # ==========================================
@@ -1692,6 +1686,7 @@ def passaporte_selecionar_empresa(request):
 # TELA 2: Formulário do produto (vinculado à empresa escolhida na Tela 1)
 @login_required
 def passaporte_criar(request, empresa_id):
+    # 1. Garante que a empresa pertence ao utilizador logado
     empresa = get_object_or_404(Empresa, id=empresa_id, usuario=request.user)
 
     if request.method == 'POST':
@@ -1709,10 +1704,15 @@ def passaporte_criar(request, empresa_id):
         passaporte.gerar_qr_code(request)
         passaporte.save()
 
+        messages.success(request, 'Produto cadastrado com sucesso!')
         return redirect('passaporte_lista')
 
+    # 2. BUSCA NO BANCO: Resgata todos os produtos já cadastrados para esta empresa
+    passaportes = PassaporteProduto.objects.filter(empresa=empresa)
+
     return render(request, 'core/passaporte_form.html', {
-        'empresa': empresa
+        'empresa': empresa,
+        'passaportes': passaportes,  # <--- Agora os produtos cadastrados são enviados para o HTML!
     })
 
 def passaporte_publico(request, passaporte_id):
