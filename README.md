@@ -327,3 +327,6 @@ O Ecomply disponibiliza um guia de contribuição com instruções para configur
 
 Adições feitas no site
 https://youtu.be/qdFe8cZMIQ0?is=3o9l8tjhrZPN1mVr
+
+Realização de testes
+https://youtu.be/y0heLFMP43I?is=ohCbicjbfl-pSmdT
