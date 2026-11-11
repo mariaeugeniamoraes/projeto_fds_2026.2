@@ -319,6 +319,11 @@ Como gestor de uma pequena ou média empresa, quero exportar as informações do
 </td></tr>
 </table>
 
+### Backlog da Sprint 4
+
+![Backlog da Sprint 4 no Jira](Captura%20de%20tela%202026-11-10%20211222.png)
+
+
 ## Implementação das histórias
 https://youtu.be/qdFe8cZMIQ0?is=3o9l8tjhrZPN1mVr
 
