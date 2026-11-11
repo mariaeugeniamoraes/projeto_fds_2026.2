@@ -159,118 +159,7 @@
             color: #245B38 !important;
         }
 
-        /* ==========================================
-           MODO ESCURO - INTERRUPTOR
-        ========================================== */
-
-        .theme-toggle-container {
-            display: flex;
-            align-items: center;
-            user-select: none;
-        }
-
-        .theme-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 26px;
-        }
-
-        .theme-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            inset: 0;
-
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 243, 205, 0.4);
-            border-radius: 26px;
-
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        .slider::before {
-            position: absolute;
-            content: "☀";
-
-            width: 20px;
-            height: 20px;
-            left: 2px;
-            bottom: 2px;
-
-            background-color: #FFF3CD;
-            color: #0D1959;
-
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 13px;
-            transition: 0.3s ease;
-        }
-
-        .theme-switch input:checked + .slider {
-            background-color: #8C3E14;
-            border-color: #FFF3CD;
-        }
-
-        .theme-switch input:checked + .slider::before {
-            transform: translateX(24px);
-            content: "☾";
-            background-color: #FFFFFF;
-        }
-
-        /* Aviso "modo noturno em breve" */
-
-        .tema-aviso {
-            position: fixed;
-            top: 72px;
-            right: 20px;
-            z-index: 2000;
-
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            padding: 10px 16px;
-
-            background-color: #245B38;
-            color: #FFF3CD;
-            border: 1px solid rgba(255, 243, 205, 0.4);
-            border-radius: 10px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-
-            font-size: 0.95rem;
-
-            opacity: 0;
-            transform: translateY(-8px);
-            pointer-events: none;
-            transition: opacity 0.25s ease, transform 0.25s ease;
-        }
-
-        .tema-aviso.visivel {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .tema-aviso svg {
-            flex-shrink: 0;
-        }
-
-        @media (max-width: 480px) {
-            .tema-aviso {
-                left: 16px;
-                right: 16px;
-                justify-content: center;
-            }
-        }
+       
 
         /* ==========================================
            BARRA LATERAL
@@ -919,23 +808,6 @@
             }
         }
 
-        /* ==========================================
-           MODO ESCURO
-        ========================================== */
-
-        body.dark-theme {
-            background-color: #080E26 !important;
-            color: #F8FAFC;
-        }
-
-        body.dark-theme .topbar,
-        body.dark-theme .sidebar {
-            background-color: #0D1959 !important;
-        }
-
-        body.dark-theme main.main-content {
-            background: transparent;
-        }
 
         /* ==========================================
            AVISO DE PRIVACIDADE
@@ -1189,44 +1061,7 @@
                 </svg>
             </button>
 
-            <!-- MODO ESCURO -->
-
-            <div class="theme-toggle-container">
-
-                <label
-                    class="theme-switch"
-                    for="theme-toggle"
-                    aria-label="Alternar modo escuro"
-                >
-                    <input type="checkbox" id="theme-toggle">
-                    <span class="slider round"></span>
-                </label>
-
-            </div>
-
-            <div
-                id="tema-aviso"
-                class="tema-aviso"
-                role="status"
-                aria-live="polite"
-            >
-                <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                >
-                    <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
-                </svg>
-                <span>Modo noturno disponível em breve!</span>
-            </div>
-
-        </div>
+            
 
     </header>
 
@@ -2068,58 +1903,7 @@
         });
     </script>
 
-    <!-- ==========================================
-         JAVASCRIPT - MODO ESCURO
-    ========================================== -->
 
-    <script>
-        /*
-           Modo noturno temporariamente desativado.
-           O CSS do tema escuro continua no projeto; para reativar,
-           basta voltar a aplicar a classe "dark-theme" no body.
-        */
-
-        const themeToggle =
-            document.getElementById("theme-toggle");
-
-        const temaAviso =
-            document.getElementById("tema-aviso");
-
-        let temaAvisoTimer = null;
-
-        // Garante o tema claro para quem já tinha ativado o escuro
-        document.body.classList.remove("dark-theme");
-
-        try {
-            localStorage.removeItem("ecomply-theme");
-        } catch (e) {}
-
-        if (themeToggle) {
-
-            themeToggle.checked = false;
-
-            themeToggle.addEventListener(
-                "click",
-                function (event) {
-
-                    // Impede o interruptor de mudar de posição
-                    event.preventDefault();
-
-                    if (!temaAviso) {
-                        return;
-                    }
-
-                    temaAviso.classList.add("visivel");
-
-                    clearTimeout(temaAvisoTimer);
-
-                    temaAvisoTimer = setTimeout(function () {
-                        temaAviso.classList.remove("visivel");
-                    }, 2500);
-                }
-            );
-        }
-    </script>
 
     <!-- ==========================================
          JAVASCRIPT - AVISO DE PRIVACIDADE
