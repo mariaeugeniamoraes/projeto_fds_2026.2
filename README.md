@@ -330,6 +330,9 @@ https://youtu.be/qdFe8cZMIQ0?is=3o9l8tjhrZPN1mVr
 ## Vídeo da realização dos testes
 https://youtu.be/y0heLFMP43I?is=ohCbicjbfl-pSmdT
 
+## Atualizações do backend
+https://youtu.be/OHDYFwd7Dnw?is=oDETEbXuIKXAjCcw
+
 ### Documentação para Contribuição
 
 O Ecomply disponibiliza um guia de contribuição com instruções para configurar o ambiente de desenvolvimento, executar o projeto, realizar testes e enviar melhorias.
