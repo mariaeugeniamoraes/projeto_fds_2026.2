@@ -324,6 +324,12 @@ Como gestor de uma pequena ou média empresa, quero exportar as informações do
 ![Backlog da Sprint 4 no Jira](Captura%20de%20tela%202026-11-10%20211222.png)
 
 
+## 📊 Quadro Kanban — Sprint 4
+
+![Quadro Kanban da Sprint 4 no Jira](Captura%20de%20tela%202026-11-12%20195241.png)
+
+
+
 ## Implementação das histórias
 https://youtu.be/qdFe8cZMIQ0?is=3o9l8tjhrZPN1mVr
 
