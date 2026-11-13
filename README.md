@@ -339,7 +339,7 @@ https://youtu.be/y0heLFMP43I?is=ohCbicjbfl-pSmdT
 ## Atualizações do backend
 https://youtu.be/OHDYFwd7Dnw?is=oDETEbXuIKXAjCcw
 
-## Novas atualizações e upgrades
+## Processo de build 
 https://youtu.be/Mb1XXTvWcyE?is=6ScbN8-_rbxNOFoW
 
 ### Documentação para Contribuição
