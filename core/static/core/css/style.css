@@ -4632,3 +4632,8 @@ main .card:not(.membro-card) p,
     color: #4C6565 !important;
     line-height: 1.6 !important;
 }
+
+/* Controle financeiro: tira a margem que a regra "form button" coloca no Excluir */
+.financeiro-acoes .financeiro-form-excluir button {
+    margin: 0 !important;
+}
