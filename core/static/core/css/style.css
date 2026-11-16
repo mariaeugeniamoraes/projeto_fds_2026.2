@@ -4637,3 +4637,97 @@ main .card:not(.membro-card) p,
 .financeiro-acoes .financeiro-form-excluir button {
     margin: 0 !important;
 }
+
+/* Card do Detector de Greenwashing */
+
+.ferramenta-greenwashing {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 26px;
+    background: #FFFFFF;
+    border: 1px solid #E8E2D8;
+    border-radius: 16px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ferramenta-greenwashing:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.10);
+}
+
+.greenwashing-icone {
+    font-size: 32px;
+}
+
+.ferramenta-greenwashing h3 {
+    color: #0D1959;
+    font-size: 21px;
+    margin: 0;
+}
+
+.ferramenta-greenwashing p {
+    color: #555555;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin: 0;
+}
+
+.ferramenta-greenwashing span {
+    color: #245B38;
+    font-weight: 700;
+}
+
+
+/* Fontes e referências do Detector de Greenwashing */
+
+.greenwashing-fontes {
+    max-width: 900px;
+    margin: 35px auto;
+    padding: 28px;
+    background-color: #f5f9f5;
+    border: 1px solid #dce8df;
+    border-radius: 12px;
+}
+
+.greenwashing-fontes h2 {
+    color: #245b38;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.greenwashing-fontes p {
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+
+.greenwashing-fontes ul {
+    padding-left: 22px;
+}
+
+.greenwashing-fontes li {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.greenwashing-fontes a {
+    color: #245b38;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.greenwashing-fontes a:hover {
+    color: #163b25;
+}
+
+.greenwashing-aviso {
+    margin-top: 22px;
+    padding: 15px;
+    background: #fff8e5;
+    border-left: 4px solid #d9a441;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
