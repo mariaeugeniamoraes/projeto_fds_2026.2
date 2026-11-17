@@ -131,7 +131,11 @@ Entrar | Ecomply
 
     body:not(.dark-theme) .login-page .btn-toggle-senha {
         position: absolute;
+        top: 50%;
         right: 10px;
+        /* anula o "form button { margin-top: 24px !important }" do style.css */
+        margin: 0 !important;
+        transform: translateY(-50%);
         background: transparent;
         border: none;
         padding: 4px;
@@ -263,7 +267,7 @@ Entrar | Ecomply
         </h1>
 
         <p class="auth-subtitle">
-            Acesse sua conta para continuar no Ecomply.
+            Acesse sua conta para continuar no {% include "core/includes/marca_ecomply.html" %}.
         </p>
 
         <!-- MENSAGEM DE ERRO -->

@@ -451,7 +451,7 @@
 
             <div class="rel-marca">
                 <img src="{% static 'core/img/favicon.svg' %}" alt="">
-                Ecomply
+                {% include "core/includes/marca_ecomply.html" %}
             </div>
 
             <div class="rel-gerado">
@@ -816,7 +816,7 @@
         </section>
 
         <footer class="rel-rodape">
-            Ecomply · ESG de forma simples e acessível ·
+            {% include "core/includes/marca_ecomply.html" %} · ESG de forma simples e acessível ·
             Relatório gerado a partir dos dados cadastrados na plataforma.
         </footer>
 

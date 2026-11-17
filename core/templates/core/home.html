@@ -16,7 +16,7 @@ Início | Ecomply
 
         <span class="badge">Sustentabilidade & E-commerce</span>
 
-        <h1 class="hero-title">Bem-vindo ao Ecomply</h1>
+        <h1 class="hero-title">Bem-vindo ao {% include "core/includes/marca_ecomply.html" %}</h1>
 
         <p class="hero-subtitle">
             ESG de forma simples e acessível para pequenas e médias empresas
@@ -27,12 +27,12 @@ Início | Ecomply
             <div class="user-welcome-card">
                 <h2>Olá, <strong>{{ user.username }}</strong>!</h2>
                 <p>
-                    Explore o Ecomply e descubra como tornar sua empresa mais sustentável.
+                    Explore o {% include "core/includes/marca_ecomply.html" %} e descubra como tornar sua empresa mais sustentável.
                 </p>
             </div>
         {% else %}
             <p class="cta-text">
-                Crie sua conta para começar a utilizar o Ecomply.
+                Crie sua conta para começar a utilizar o {% include "core/includes/marca_ecomply.html" %}.
             </p>
 
             <div class="cta-buttons">
