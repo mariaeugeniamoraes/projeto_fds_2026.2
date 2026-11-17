@@ -1,0 +1,4 @@
+{# Ícone "Dislexia" (equipe de design). Cor herdada via currentColor. #}
+<svg class="icone" aria-hidden="true" focusable="false" viewBox="0 0 213 238" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 12.5C0 5.5965 5.5965 0 12.5 0H200C206.904 0 212.5 5.5965 212.5 12.5V50C212.5 56.9035 206.904 62.5 200 62.5H187.5C180.596 62.5 175 56.9035 175 50V37.5H125V200H150C156.904 200 162.5 205.596 162.5 212.5V225C162.5 231.904 156.904 237.5 150 237.5H62.5C55.5965 237.5 50 231.904 50 225V212.5C50 205.596 55.5965 200 62.5 200H87.5V37.5H37.5V50C37.5 56.9035 31.9035 62.5 25 62.5H12.5C5.5965 62.5 0 56.9035 0 50V12.5Z" fill="currentColor"/>
+</svg>

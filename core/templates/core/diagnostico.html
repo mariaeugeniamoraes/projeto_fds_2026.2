@@ -212,6 +212,12 @@ Diagnóstico ESG | Ecomply
         display: block;
     }
 
+    .diagnostico-page .mensagem-pergunta-erro .icone {
+        display: inline-block;
+        vertical-align: -2px;
+        margin-right: 4px;
+    }
+
     /* Evita que a barra superior esconda a pergunta */
 
     .diagnostico-page .diagnostico-pergunta {
@@ -591,7 +597,8 @@ Diagnóstico ESG | Ecomply
                                 class="mensagem-pergunta-erro"
                                 id="erro-pergunta-{{ pergunta.id }}"
                             >
-                                ⚠ Esta pergunta é obrigatória.
+                                {% include "core/icones/alerta.svg" %}
+                                Esta pergunta é obrigatória.
                                 Selecione uma resposta para continuar.
                             </p>
 

@@ -113,8 +113,20 @@
         }
 
         .rel-acoes button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
             background: #8C3E14;
             border-color: #8C3E14;
+        }
+
+        /* Esta página não herda o base.html: tamanho do ícone definido aqui */
+        .rel-acoes .icone {
+            display: block;
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
         }
 
         .rel-acoes small {
@@ -419,6 +431,7 @@
         </a>
 
         <button type="button" id="baixar-pdf">
+            {% include "core/icones/exportar.svg" %}
             Baixar PDF
         </button>
 

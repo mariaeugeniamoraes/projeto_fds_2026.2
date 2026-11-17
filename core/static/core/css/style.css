@@ -2780,17 +2780,22 @@ body:not(.dark-theme) .hero-card h2 {
     color: #14266A;
 }
 
-/* Ícone da página inicial — somente modo claro */
-body:not(.dark-theme) .hero-leaf-icon {
-    width: 42px;
-    height: 42px;
-    background-color: #245B38;
-    color: #FFFFFF;
-    border-radius: 50%;
+/* Símbolo da logomarca na página inicial (cor herdada via currentColor) */
+.hero-leaf-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 12px;
+}
+
+.hero-leaf-icon .icone {
+    width: 46px;
+    height: 46px;
+}
+
+/* Modo claro: verde-escuro da logomarca */
+body:not(.dark-theme) .hero-leaf-icon {
+    color: #273617;
 }
 
 /* HOME — cartão central, somente modo claro */

@@ -1,0 +1,4 @@
+{# Ícone "Início" (equipe de design). Cor herdada via currentColor. #}
+<svg class="icone" aria-hidden="true" focusable="false" viewBox="0 0 250 263" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M117.326 2.63312C121.84 -0.877706 128.16 -0.877706 132.674 2.63312L245.174 90.1331C248.219 92.5013 250 96.1426 250 100V243.75C250 254.105 241.605 262.5 231.25 262.5H162.5V162.5C162.5 155.596 156.904 150 150 150H100C93.0965 150 87.5 155.596 87.5 162.5V262.5H18.75C8.39462 262.5 0 254.105 0 243.75V100C0 96.1426 1.78087 92.5013 4.82575 90.1331L117.326 2.63312Z" fill="currentColor"/>
+</svg>

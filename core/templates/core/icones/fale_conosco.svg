@@ -1,0 +1,5 @@
+{# Ícone "Fale Conosco" (equipe de design). Cor herdada via currentColor. #}
+<svg class="icone" aria-hidden="true" focusable="false" viewBox="0 0 275 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.52188 15.0142C14.3746 5.90725 25.2697 0 37.5 0H237.5C249.73 0 260.625 5.90725 267.478 15.0141L137.5 109.544L7.52188 15.0142Z" fill="currentColor"/>
+<path d="M0 40.4562V187.5C0 208.154 16.8465 225 37.5 225H237.5C258.154 225 275 208.154 275 187.5V40.4561L152.204 129.762C143.438 136.137 131.562 136.137 122.796 129.762L0 40.4562Z" fill="currentColor"/>
+</svg>

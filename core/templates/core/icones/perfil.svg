@@ -1,0 +1,5 @@
+{# Ícone "Perfil" (equipe de design). Cor herdada via currentColor. #}
+<svg class="icone" aria-hidden="true" focusable="false" viewBox="0 0 250 275" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M125 0C87.0304 0 56.25 30.7804 56.25 68.75C56.25 106.72 87.0304 137.5 125 137.5C162.97 137.5 193.75 106.72 193.75 68.75C193.75 30.7804 162.97 0 125 0Z" fill="currentColor"/>
+<path d="M62.5 162.5C27.9823 162.5 0 190.482 0 225V262.5C0 269.404 5.5965 275 12.5 275H237.5C244.404 275 250 269.404 250 262.5V225C250 190.482 222.018 162.5 187.5 162.5H62.5Z" fill="currentColor"/>
+</svg>

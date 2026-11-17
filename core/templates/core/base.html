@@ -20,7 +20,7 @@
     <!-- CSS ORIGINAL DO ECOMPLY -->
     <link
         rel="stylesheet"
-        href="{% static 'core/css/style.css' %}?v=20261028-1"
+        href="{% static 'core/css/style.css' %}?v=20261117-1"
     >
 
     <style>
@@ -108,6 +108,43 @@
             color: #FFF3CD !important;
         }
 
+        .topbar-logo {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .topbar-logo-img {
+            display: block;
+            height: 24px;
+            width: auto;
+        }
+
+        /* ==========================================
+           ÍCONES DA EQUIPE DE DESIGN (core/icones/)
+           Herdam a cor do texto via currentColor
+        ========================================== */
+
+        .icone {
+            display: block;
+            width: 1em;
+            height: 1em;
+            flex-shrink: 0;
+        }
+
+        .sidebar .nav-icone {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .sidebar .nav-icone .icone {
+            width: 100%;
+            height: 100%;
+        }
+
         /* ==========================================
            MEU PERFIL E DISLEXIA
         ========================================== */
@@ -143,6 +180,8 @@
         .topbar-action svg {
             display: block;
             flex-shrink: 0;
+            width: 20px;
+            height: 20px;
         }
 
         .topbar-action:hover {
@@ -625,6 +664,8 @@
 
         .sidebar .sidebar-logout svg {
             flex-shrink: 0;
+            width: 19px;
+            height: 19px;
             color: #FFF3CD;
         }
 
@@ -943,6 +984,10 @@
                 font-size: 18px;
             }
 
+            .topbar-logo-img {
+                height: 20px;
+            }
+
             .topbar-action {
                 width: 34px;
                 height: 34px;
@@ -998,8 +1043,12 @@
                 <span id="toggle-icon">☰</span>
             </button>
 
-            <a href="{% url 'home' %}" class="topbar-logo">
-                <strong>Ecomply</strong>
+            <a href="{% url 'home' %}" class="topbar-logo" aria-label="Ecomply - página inicial">
+                <img
+                    src="{% static 'core/img/logo/ecomply-creme.svg' %}"
+                    alt="Ecomply"
+                    class="topbar-logo-img"
+                >
             </a>
 
         </div>
@@ -1016,20 +1065,7 @@
                     title="Meu Perfil"
                     aria-label="Meu Perfil"
                 >
-                    <svg
-                        width="21"
-                        height="21"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-                        <circle cx="12" cy="8" r="4"></circle>
-                        <path d="M4 21v-2a8 8 0 0 1 16 0v2"></path>
-                    </svg>
+                    {% include "core/icones/perfil.svg" %}
                 </a>
 
             {% endif %}
@@ -1044,21 +1080,7 @@
                 aria-label="Ativar modo dislexia"
                 aria-pressed="false"
             >
-                <svg
-                    width="21"
-                    height="21"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                >
-                    <circle cx="12" cy="12" r="9"></circle>
-                    <path d="M8 7h4a3 3 0 0 1 0 6H8V7z"></path>
-                    <path d="M8 13h5a3 3 0 0 1 0 6H8v-6z"></path>
-                </svg>
+                {% include "core/icones/dislexia.svg" %}
             </button>
 
             
@@ -1098,7 +1120,7 @@
                         href="{% url 'home' %}"
                         class="inicio-link"
                     >
-                        <span aria-hidden="true">⌂</span>
+                        <span class="nav-icone" aria-hidden="true">{% include "core/icones/inicio.svg" %}</span>
                         <span>Início</span>
                     </a>
 
@@ -1146,7 +1168,7 @@
                 href="{% url 'feedback' %}"
                 class="nav-item"
             >
-                <span aria-hidden="true">✉</span>
+                <span class="nav-icone" aria-hidden="true">{% include "core/icones/fale_conosco.svg" %}</span>
                 Fale Conosco
             </a>
 
@@ -1173,7 +1195,7 @@
                             href="{% url 'minhas_empresas' %}"
                             class="nav-item empresas-menu-link"
                         >
-                            <span aria-hidden="true">▣</span>
+                            <span class="nav-icone" aria-hidden="true">{% include "core/icones/minhas_empresas.svg" %}</span>
                             <span>Minhas empresas</span>
                         </a>
 
@@ -1304,7 +1326,7 @@
                         href="{% url 'listar_planos_acao' empresa_selecionada.id %}"
                         class="nav-item"
                     >
-                        <span aria-hidden="true">▤</span>
+                        <span class="nav-icone" aria-hidden="true">{% include "core/icones/planos_acao.svg" %}</span>
                         Planos de ação
                     </a>
 
@@ -1312,7 +1334,7 @@
                         href="{% url 'listar_fornecedores' empresa_selecionada.id %}"
                         class="nav-item"
                     >
-                        <span aria-hidden="true">▧</span>
+                        <span class="nav-icone" aria-hidden="true">{% include "core/icones/monitoramento.svg" %}</span>
                         Monitoramento
                     </a>
 
@@ -1327,7 +1349,7 @@
                     class="nav-item"
                     data-subsecoes="^/calculadora-embalagens/"
                 >
-                    <span aria-hidden="true">⚙</span>
+                    <span class="nav-icone" aria-hidden="true">{% include "core/icones/ferramentas.svg" %}</span>
                     Ferramentas
                 </a>
 
@@ -1339,7 +1361,7 @@
                     href="{% url 'dashboard' %}"
                     class="nav-item"
                 >
-                    <span aria-hidden="true">▦</span>
+                    <span class="nav-icone" aria-hidden="true">{% include "core/icones/dashboard.svg" %}</span>
                     Dashboard
                 </a>
 
@@ -1359,7 +1381,7 @@
                         href="{% url 'painel_admin' %}"
                         class="nav-item"
                     >
-                        <span aria-hidden="true">◈</span>
+                        <span class="nav-icone" aria-hidden="true">{% include "core/icones/painel_admin.svg" %}</span>
                         Painel Admin
                     </a>
 
@@ -1375,30 +1397,7 @@
                     aria-label="Sair da conta"
                 >
 
-                    <svg
-                        width="21"
-                        height="21"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-                        <path
-                            d="M10 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2Z"
-                        ></path>
-
-                        <path d="M10 5 4 7v12l6 2"></path>
-
-                        <circle
-                            cx="7.5"
-                            cy="13"
-                            r="0.8"
-                            fill="currentColor"
-                        ></circle>
-                    </svg>
+                    {% include "core/icones/logout.svg" %}
 
                     <span>Sair da conta</span>
 
@@ -1424,7 +1423,7 @@
                         class="nav-bloqueado"
                         title="Entre na sua conta para desbloquear"
                     >
-                        <span aria-hidden="true">▣</span>
+                        <span class="nav-icone" aria-hidden="true">{% include "core/icones/minhas_empresas.svg" %}</span>
                         <span>Minhas empresas</span>
                         <span class="sr-only">(bloqueado, requer login)</span>
                     </a>
@@ -1434,7 +1433,7 @@
                         class="nav-bloqueado"
                         title="Entre na sua conta para desbloquear"
                     >
-                        <span aria-hidden="true">▤</span>
+                        <span class="nav-icone" aria-hidden="true">{% include "core/icones/planos_acao.svg" %}</span>
                         <span>Planos de ação</span>
                         <span class="sr-only">(bloqueado, requer login)</span>
                     </a>
@@ -1444,7 +1443,7 @@
                         class="nav-bloqueado"
                         title="Entre na sua conta para desbloquear"
                     >
-                        <span aria-hidden="true">▧</span>
+                        <span class="nav-icone" aria-hidden="true">{% include "core/icones/monitoramento.svg" %}</span>
                         <span>Monitoramento</span>
                         <span class="sr-only">(bloqueado, requer login)</span>
                     </a>
@@ -1454,7 +1453,7 @@
                         class="nav-bloqueado"
                         title="Entre na sua conta para desbloquear"
                     >
-                        <span aria-hidden="true">⚙</span>
+                        <span class="nav-icone" aria-hidden="true">{% include "core/icones/ferramentas.svg" %}</span>
                         <span>Ferramentas</span>
                         <span class="sr-only">(bloqueado, requer login)</span>
                     </a>
@@ -1464,7 +1463,7 @@
                         class="nav-bloqueado"
                         title="Entre na sua conta para desbloquear"
                     >
-                        <span aria-hidden="true">▦</span>
+                        <span class="nav-icone" aria-hidden="true">{% include "core/icones/dashboard.svg" %}</span>
                         <span>Dashboard</span>
                         <span class="sr-only">(bloqueado, requer login)</span>
                     </a>
